@@ -2,8 +2,8 @@
 """Render data/deals.json -> static site in site/. Usage: SITE_URL=https://... python3 scripts/build.py"""
 import json, os, html, re, datetime
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__))); OUT=f"{ROOT}/site"
-BASE=os.environ.get("SITE_URL","https://scentdealsdaily.com").rstrip("/")
-PREFIX=os.environ.get("PATH_PREFIX","")  # e.g. /scentdealsdaily for GitHub project pages
+BASE=os.environ.get("SITE_URL","https://aministan.github.io").rstrip("/")
+PREFIX=os.environ.get("PATH_PREFIX","/scentdealsdaily")  # e.g. /scentdealsdaily for GitHub project pages
 NEWSLETTER_ENDPOINT=os.environ.get("NEWSLETTER_ENDPOINT","#newsletter-placeholder")
 NAME="ScentDealsDaily"
 D=json.load(open(f"{ROOT}/data/deals.json"))
@@ -46,7 +46,7 @@ def card(d):
     return f"""<article class="card"><img loading="lazy" src="{e(d['image'] or '')}" alt="{e(d['brand']+' '+d['name'])}" width="400" height="400">
 <div><span class="badge">-{d['pct_off']}%</span></div><div class="brand">{e(d['brand'])}</div><div class="nm"><a href="{PREFIX}/fragrance/{slug(d['brand']+' '+d['name'])}/">{e(d['name'])}</a> · {e(d['size'])}</div>
 <div><span class="price">${d['price']:.2f}</span><span class="was">${d['was']:.2f}</span></div>
-<div class="meta">at {e(d['retailer'])} · checked {upd_h} · "was" = retailer's listed compare-at price</div>
+<div class="meta">at {e(d['retailer'])} · checked {upd_h} · {('crossed-out = price at '+e(d['was_label'])) if d.get('was_label') else '"was" = retailer\'s listed compare-at price'}</div>
 <a class="btn" rel="nofollow sponsored noopener" target="_blank" href="{e(d['url'])}">Buy at {e(d['retailer'])}</a></article>"""
 def itemlist(ds,name):
     return {"@context":"https://schema.org","@type":"ItemList","name":name,"itemListElement":[{"@type":"ListItem","position":i+1,"item":{
@@ -106,6 +106,10 @@ json.dump(D,open(f"{OUT}/deals.json","w"))
 open(f"{OUT}/.nojekyll","w").write("")
 print(len(PAGES),"pages ->",OUT)
 
+def comprows(d):
+    cs=d.get('comps') or [{"retailer":d['retailer'],"price":d['price'],"url":d['url'],"checked":upd_h}]
+    cs=sorted(cs,key=lambda c:c['price'])
+    return "".join(f"<tr><td><a rel='nofollow sponsored noopener' target=_blank href='{e(c['url'])}'>{e(c['retailer'])}</a>{' <span class=badge>lowest</span>' if i==0 else ''}</td><td>{e(d.get('size') or '')}</td><td><b>${c['price']:.2f}</b></td><td class=meta>{e(c['checked'] if 'T' not in str(c['checked']) else upd_h)}</td></tr>" for i,c in enumerate(cs))
 # ---------- SEO landing pages: one per fragrance deal + one per dupe pair ----------
 import hashlib
 def faqld(qs): return {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":a}} for q,a in qs]}
@@ -119,13 +123,13 @@ for d in deals:
     full=f"{d['brand']} {d['name']}"; s=slug(full); KW+= [f"{full.lower()} cheapest price",f"{full.lower()} sale",f"{full.lower()} {d['size'].lower()} deal"]
     gl={"men":"men's cologne","women":"women's perfume","unisex":"unisex fragrance"}[d['gender']]
     others=[x for x in deals if x['gender']==d['gender'] and x['id']!=d['id']][:4]
-    qs=[(f"What is the cheapest price for {full} right now?",f"As of {upd_h}, the lowest price we verified is ${d['price']:.2f} for {d['size']} at {d['retailer']}, {d['pct_off']}% below its listed ${d['was']:.2f}."),
-        (f"Is {full} on sale?",f"Yes. {d['retailer']} lists it at ${d['price']:.2f} (compare-at ${d['was']:.2f}). We re-check daily and remove it when the deal ends."),
+    qs=[(f"What is the cheapest price for {full} right now?",f"As of {upd_h}, the lowest price we verified is ${d['price']:.2f} for {d['size']} at {d['retailer']}, {d['pct_off']}% below {('the $%.2f at %s' % (d['was'],d['was_label'])) if d.get('was_label') else ('its listed $%.2f' % d['was'])}."),
+        (f"Is {full} on sale?",f"{d['retailer']} has it at ${d['price']:.2f} versus ${d['was']:.2f} {('at '+d['was_label']) if d.get('was_label') else 'listed compare-at'}. We re-check daily and remove it when the deal ends."),
         (f"Is the {d['retailer']} {full} authentic?",f"{d['retailer']} is a long-established US fragrance chain selling genuine designer brands. We exclude marketplace sellers and tester listings."),
         (f"How much do I save per ounce?",f"At ${d['price']:.2f} for {d['size']}, you save ${d['was']-d['price']:.2f} versus the listed price.")]
     body=(f"<h1>{e(full)} {e(d['size'])}: cheapest price today</h1><p class='sub'>Lowest verified price: <b class='price'>${d['price']:.2f}</b> <span class='was'>${d['was']:.2f}</span> <span class='badge'>-{d['pct_off']}%</span> at {e(d['retailer'])} · checked {upd_h}</p>"
       +buy(d['url'],d['retailer'])
-      +f"<div class='box' style='display:flex;gap:16px;flex-wrap:wrap'><img src='{e(d['image'] or '')}' alt='{e(full)}' width=220 height=220 style='object-fit:contain'><div style='flex:1;min-width:220px'><h2 style='margin-top:0'>Price comparison</h2><table><thead><tr><th>Retailer</th><th>Size</th><th>Price</th><th>Checked</th></tr></thead><tbody><tr><td>{e(d['retailer'])}</td><td>{e(d['size'])}</td><td><b>${d['price']:.2f}</b></td><td>{upd_h}</td></tr></tbody></table><p class=meta>More retailers are added as we verify them. We never list unverified prices.</p></div></div>"
+      +f"<div class='box' style='display:flex;gap:16px;flex-wrap:wrap'><img src='{e(d['image'] or '')}' alt='{e(full)}' width=220 height=220 style='object-fit:contain'><div style='flex:1;min-width:220px'><h2 style='margin-top:0'>Price comparison</h2><table><thead><tr><th>Retailer</th><th>Size</th><th>Price</th><th>Checked</th></tr></thead><tbody>{comprows(d)}</tbody></table><p class=meta>More retailers are added as we verify them. We never list unverified prices.</p></div></div>"
       +f"<p>{e(full)} is one of today's best {gl} deals: {d['pct_off']}% off the listed price, a {d['type'].lower() or 'fragrance'} from {e(d['brand'])} (<a href='{PREFIX}/brands/{slug(d['brand'])}/'>all {e(d['brand'])} deals</a>).</p>"
       +faqhtml(qs)+"<h2>Similar deals today</h2><div class='grid'>"+"".join(card(x) for x in others)+"</div>"+signup)
     page(f"fragrance/{s}/index.html",f"{full} {d['size']} Cheapest Price ${d['price']:.2f} ({d['pct_off']}% Off) | Sale {upd:%b %Y}",
@@ -142,7 +146,7 @@ for d in D["dupes"]:
     body=(f"<h1>Best {e(o)} dupe: {e(d['dupe'])}</h1><p class='sub'>{e(d['notes'])} · {('<b class=price>$%.2f</b> today at %s' % (d['price'],e(d['retailer']))) if d['price'] else 'price not verified yet'}</p>"
       +(buy(d['url'],d['retailer']) if d['price'] else "")
       +f"<div class='box'><h2 style='margin-top:0'>{e(o)} vs {e(d['dupe'])}</h2><table><thead><tr><th></th><th>{e(o)}</th><th>{e(d['dupe'])}</th></tr></thead><tbody><tr><td>Price</td><td>{e(d.get('original_price') or 'varies')}</td><td>{('$%.2f (%s)' % (d['price'],e(d['size']))) if d['price'] else '—'}</td></tr><tr><td>Profile</td><td colspan=2>{e(d['notes'])}</td></tr><tr><td>Sources</td><td colspan=2>{' '.join(f'<a href={e(x)} rel=noopener target=_blank>[{i+1}]</a>' for i,x in enumerate(d['sources']))}</td></tr></tbody></table></div>"
-      +faqhtml(qs)+"<h2>More dupes</h2><div class='chips'>"+"".join(f"<a href='{PREFIX}/dupe/{slug(x['original']+' dupe '+x['dupe'])}/'>{e(x['original'])} → {e(x['dupe'])}</a>" for x in rel)+f"</div><p><a href='{PREFIX}/dupes/'>All dupes</a></p>"+signup)
+      +((f"<div class='box'><h2 style='margin-top:0'>Where to buy {e(d['dupe'])} cheapest</h2><table><thead><tr><th>Retailer</th><th>Size</th><th>Price</th><th>Checked</th></tr></thead><tbody>{comprows(d)}</tbody></table></div>") if d.get('comps') else "")+faqhtml(qs)+"<h2>More dupes</h2><div class='chips'>"+"".join(f"<a href='{PREFIX}/dupe/{slug(x['original']+' dupe '+x['dupe'])}/'>{e(x['original'])} → {e(x['dupe'])}</a>" for x in rel)+f"</div><p><a href='{PREFIX}/dupes/'>All dupes</a></p>"+signup)
     lds=[faqld(qs)]+([prod_ld(d['dupe'],d['dupe'].split()[0],d.get('image'),d['price'],d['url'],d['retailer'])] if d['price'] else [])
     page(f"dupe/{s}/index.html",f"Best {o} Dupe {upd.year}: {d['dupe']}"+(f" ${d['price']:.2f}" if d['price'] else ""),
       f"{d['dupe']} vs {o}: how close it is, today's cheapest price, and where to buy authentic.",body,lds)

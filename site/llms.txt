@@ -1,11 +1,12 @@
 # ScentDealsDaily
-> Daily-checked discounts on authentic designer fragrances at reputable retailers, plus a cited dupes directory. Last updated 2026-10-15T19:29:27Z.
+> Daily-checked discounts on authentic designer fragrances at reputable retailers, plus a cited dupes directory. Last updated 2026-10-15T19:36:13Z.
 
 ## Today's deals (price USD, size, retailer, % off listed compare-at)
 - Calvin Klein Free Cologne 3.4 oz.: $19.95 (was $89.00, -78%) at Perfumania: https://www.perfumania.com/products/calvin-klein-free-mens-eau-de-toilette-spray?variant=31838813094021
 - Burberry Touch Perfume 1.7 oz.: $29.99 (was $105.00, -71%) at Perfumania: https://www.perfumania.com/products/burberry-touch-women-eau-de-parfum-spray?variant=31839010521221
 - Calvin Klein Eternity Air Perfume 3.4 oz.: $29.95 (was $96.00, -69%) at Perfumania: https://www.perfumania.com/products/eternity-air-eau-de-parfum-spray-for-women-by-calvin-klein?variant=31839468880005
 - Calvin Klein Defy Spray Cologne 3.4 oz.: $39.99 (was $117.00, -66%) at Perfumania: https://www.perfumania.com/products/calvin-klein-defy-eau-de-toilette-for-men?variant=40648924201093
+- Calvin Klein CK Everyone Unisex Fragrance 3.3  oz.: $29.95 (was $84.00, -64%) at Perfumania: https://www.perfumania.com/products/ck-everyone-unisex-fragrance?variant=34805521416325
 - Burberry Weekend Cologne 1.7 oz.: $31.99 (was $85.00, -62%) at Perfumania: https://www.perfumania.com/products/burberry-weekend-mens-eau-de-toilette-spray?variant=31838681596037
 - Burberry London Perfume 1.0 oz.: $29.95 (was $79.00, -62%) at Perfumania: https://www.perfumania.com/products/burberry-london-perfume-eau-de-parfum-for-women?variant=31839014813829
 - Calvin Klein Beauty Perfume 3.4 oz.: $34.95 (was $91.00, -62%) at Perfumania: https://www.perfumania.com/products/calvin-klein-beauty-perfume-eau-de-parfum-for-women?variant=31838982307973
@@ -23,6 +24,22 @@
 - Azzaro Wanted Cologne 3.4 oz.: $97.95 (was $135.00, -27%) at Perfumania: https://www.perfumania.com/products/azzaro-wanted-by-night-cologne-eau-de-parfum-for-men?variant=34639720480901
 - Burberry Hero Cologne 3.4 oz.: $99.95 (was $137.00, -27%) at Perfumania: https://www.perfumania.com/products/burberry-hero-cologne-eau-de-toilette-for-men?variant=40725795930245
 - Paco Rabanne Olympea Perfume 1.7 oz.: $59.95 (was $82.00, -27%) at Perfumania: https://www.perfumania.com/products/olympea-eau-de-parfum-spray-for-women-by-paco-rabanne?variant=31839144083589
+- Coach Coach Cologne 2.0 oz.: $68.95 (was $94.00, -27%) at Perfumania: https://www.perfumania.com/products/coach-for-men-eau-de-toilette?variant=31839425462405
+- Azzaro The Most Wanted Parfum Cologne 1.7 oz.: $88.95 (was $120.00, -26%) at Perfumania: https://www.perfumania.com/products/the-most-wanted-parfum-cologne?variant=41375343902853
+- Calvin Klein Eternity Perfume 3.4 oz.: $90.95 (was $123.00, -26%) at Perfumania: https://www.perfumania.com/products/calvin-klein-eternity-womens-eau-de-parfum-spray?variant=31838799134853
+- Clinique Happy Perfume 1.0 oz.: $49.95 (was $67.00, -25%) at Perfumania: https://www.perfumania.com/products/clinique-happy-women-eau-de-parfum-spray?variant=31839000658053
+- Versace Eros Cologne 1.7 oz.: $78.95 (was $105.00, -25%) at Perfumania: https://www.perfumania.com/products/versace-eros-cologne-eau-de-toilette-for-men?variant=31838888165509
+- Versace Eros Flame Cologne 1.7 oz.: $89.95 (was $119.00, -24%) at Perfumania: https://www.perfumania.com/products/versace-eros-flame-eau-de-parfum-for-men?variant=34660506534021
+- Versace Bright Crystal Absolu Perfume 3.0 oz.: $123.95 (was $158.00, -22%) at Perfumania: https://www.perfumania.com/products/bright-crystal-absolu-by-versace-for-women-eau-de-parfum-spray?variant=31839794167941
+- Versace Dylan Blue Pour Femme Perfume 3.4 oz.: $123.95 (was $158.00, -22%) at Perfumania: https://www.perfumania.com/products/dylan-blue-eau-de-parfum-spray-for-women-by-versace?variant=31839414681733
+- Valentino Uomo Born In Roma Intense Cologne 3.4 oz.: $132.95 (was $165.00, -19%) at Perfumania: https://www.perfumania.com/products/uomo-intense-by-valentino-for-men-eau-de-parfum-spray?variant=40659425230981
+- Jean Paul Gaultier Le Beau Cologne 4.2 oz.: $114.95 (was $138.00, -17%) at Perfumania: https://www.perfumania.com/products/le-beau-eau-de-toilette-spray-for-men-by-jean-paul-gaultier?variant=40576850690181
+- Valentino Donna Born In Roma Perfume 1.7 oz.: $120.95 (was $145.00, -17%) at Perfumania: https://www.perfumania.com/products/valentino-donna-born-in-roma-perfume-eau-de-parfum-for-women?variant=40661522841733
+- Giorgio Armani Acqua Di Gio Cologne 3.4 oz.: $108.95 (was $130.00, -16%) at Perfumania: https://www.perfumania.com/products/giorgio-armani-acqua-di-gio-eau-de-toilette-cologne-for-men?variant=31838641258629
+- Billie Eilish Eilish Perfume 3.4 oz.: $68.95 (was $82.00, -16%) at Perfumania: https://www.perfumania.com/products/billie-eilish-perfume-eau-de-parfum-for-women?variant=40211488931973
+- Billie Eilish Eilish No.2 Perfume 3.4 oz.: $68.95 (was $82.00, -16%) at Perfumania: https://www.perfumania.com/products/billie-eilish-no-2-eau-de-parfum-perfume-for-women?variant=40713255452805
+- Lancôme La Vie Est Belle Perfume 1.0 oz.: $79.95 (was $95.00, -16%) at Perfumania: https://www.perfumania.com/products/lancome-la-vie-est-belle-perfume-eau-de-parfum-for-women?variant=31838977687685
+- Valentino Uomo Born In Roma Cologne 1.7 oz.: $91.95 (was $110.00, -16%) at Perfumania: https://www.perfumania.com/products/valentino-uomo-born-in-roma-cologne-eau-de-toilette-for-men?variant=40908118196357
 
 ## Dupes (designer original -> alternative)
 - Creed Aventus -> Armaf Club de Nuit Intense Man: $39.99 3.4 oz. at Perfumania https://www.perfumania.com/products/club-de-nuit-intense-eau-de-toilette-spray-for-men?variant=40543196479621 (sources: https://dupenote.com/articles/best-fragrance-dupes, https://perfumania.com/blogs/articles/top-6-luxury-fragrance-dupes-in-2026)
@@ -42,44 +59,61 @@
 - YSL La Nuit de L'Homme Bleu Électrique -> Lattafa Al Nashama Caprice (sources: https://scentfile.com/clone-list.csv, https://altscent.app/clone-list/)
 
 ## Pages
-- Deals: https://scentdealsdaily.com/
-- Dupes: https://scentdealsdaily.com/dupes/
-- Raw data (JSON): https://scentdealsdaily.com/deals.json
+- Deals: https://aministan.github.io/scentdealsdaily/
+- Dupes: https://aministan.github.io/scentdealsdaily/dupes/
+- Raw data (JSON): https://aministan.github.io/scentdealsdaily/deals.json
 
 ## Per-product & per-dupe pages
-https://scentdealsdaily.com/fragrance/calvin-klein-free-cologne/
-https://scentdealsdaily.com/fragrance/burberry-touch-perfume/
-https://scentdealsdaily.com/fragrance/calvin-klein-eternity-air-perfume/
-https://scentdealsdaily.com/fragrance/calvin-klein-defy-spray-cologne/
-https://scentdealsdaily.com/fragrance/burberry-weekend-cologne/
-https://scentdealsdaily.com/fragrance/burberry-london-perfume/
-https://scentdealsdaily.com/fragrance/calvin-klein-beauty-perfume/
-https://scentdealsdaily.com/fragrance/hugo-boss-woman-perfume/
-https://scentdealsdaily.com/fragrance/azzaro-azzaro-cologne/
-https://scentdealsdaily.com/fragrance/hugo-boss-boss-bottled-unlimited-cologne/
-https://scentdealsdaily.com/fragrance/xerjoff-casamorati-mefisto-cologne/
-https://scentdealsdaily.com/fragrance/hermes-h24-eau-de-toilette/
-https://scentdealsdaily.com/fragrance/bvlgari-bvlgari-man-wood-neroli-cologne/
-https://scentdealsdaily.com/fragrance/azzaro-chrome-legend-cologne/
-https://scentdealsdaily.com/fragrance/tom-ford-cafe-rose-perfume/
-https://scentdealsdaily.com/fragrance/versace-versace-pour-homme-cologne/
-https://scentdealsdaily.com/fragrance/lancome-poeme-perfume/
-https://scentdealsdaily.com/fragrance/hugo-boss-bottled-no-6-cologne/
-https://scentdealsdaily.com/fragrance/azzaro-wanted-cologne/
-https://scentdealsdaily.com/fragrance/burberry-hero-cologne/
-https://scentdealsdaily.com/fragrance/paco-rabanne-olympea-perfume/
-https://scentdealsdaily.com/dupe/creed-aventus-dupe-armaf-club-de-nuit-intense-man/
-https://scentdealsdaily.com/dupe/kilian-angels-share-dupe-lattafa-khamrah/
-https://scentdealsdaily.com/dupe/kilian-angels-share-coffee-twist-dupe-lattafa-khamrah-qahwa/
-https://scentdealsdaily.com/dupe/mfk-baccarat-rouge-540-dupe-ariana-grande-cloud/
-https://scentdealsdaily.com/dupe/mfk-baccarat-rouge-540-dupe-al-haramain-amber-oud-rouge/
-https://scentdealsdaily.com/dupe/mfk-baccarat-rouge-540-extrait-dupe-armaf-club-de-nuit-untold/
-https://scentdealsdaily.com/dupe/dior-sauvage-elixir-dupe-lattafa-asad/
-https://scentdealsdaily.com/dupe/creed-silver-mountain-water-dupe-armaf-club-de-nuit-sillage/
-https://scentdealsdaily.com/dupe/jean-paul-gaultier-ultra-male-dupe-afnan-9pm/
-https://scentdealsdaily.com/dupe/creed-mill-sime-imp-rial-dupe-armaf-club-de-nuit-milestone/
-https://scentdealsdaily.com/dupe/ysl-y-eau-de-parfum-dupe-lattafa-fakhar-black/
-https://scentdealsdaily.com/dupe/mugler-angel-nova-dupe-lattafa-mayar/
-https://scentdealsdaily.com/dupe/bleu-de-chanel-edp-dupe-armaf-club-de-nuit-iconic-blue-iconic/
-https://scentdealsdaily.com/dupe/chanel-coco-mademoiselle-dupe-armaf-club-de-nuit-woman/
-https://scentdealsdaily.com/dupe/ysl-la-nuit-de-l-homme-bleu-lectrique-dupe-lattafa-al-nashama-caprice/
+https://aministan.github.io/scentdealsdaily/fragrance/calvin-klein-free-cologne/
+https://aministan.github.io/scentdealsdaily/fragrance/burberry-touch-perfume/
+https://aministan.github.io/scentdealsdaily/fragrance/calvin-klein-eternity-air-perfume/
+https://aministan.github.io/scentdealsdaily/fragrance/calvin-klein-defy-spray-cologne/
+https://aministan.github.io/scentdealsdaily/fragrance/calvin-klein-ck-everyone-unisex-fragrance/
+https://aministan.github.io/scentdealsdaily/fragrance/burberry-weekend-cologne/
+https://aministan.github.io/scentdealsdaily/fragrance/burberry-london-perfume/
+https://aministan.github.io/scentdealsdaily/fragrance/calvin-klein-beauty-perfume/
+https://aministan.github.io/scentdealsdaily/fragrance/hugo-boss-woman-perfume/
+https://aministan.github.io/scentdealsdaily/fragrance/azzaro-azzaro-cologne/
+https://aministan.github.io/scentdealsdaily/fragrance/hugo-boss-boss-bottled-unlimited-cologne/
+https://aministan.github.io/scentdealsdaily/fragrance/xerjoff-casamorati-mefisto-cologne/
+https://aministan.github.io/scentdealsdaily/fragrance/hermes-h24-eau-de-toilette/
+https://aministan.github.io/scentdealsdaily/fragrance/bvlgari-bvlgari-man-wood-neroli-cologne/
+https://aministan.github.io/scentdealsdaily/fragrance/azzaro-chrome-legend-cologne/
+https://aministan.github.io/scentdealsdaily/fragrance/tom-ford-cafe-rose-perfume/
+https://aministan.github.io/scentdealsdaily/fragrance/versace-versace-pour-homme-cologne/
+https://aministan.github.io/scentdealsdaily/fragrance/lancome-poeme-perfume/
+https://aministan.github.io/scentdealsdaily/fragrance/hugo-boss-bottled-no-6-cologne/
+https://aministan.github.io/scentdealsdaily/fragrance/azzaro-wanted-cologne/
+https://aministan.github.io/scentdealsdaily/fragrance/burberry-hero-cologne/
+https://aministan.github.io/scentdealsdaily/fragrance/paco-rabanne-olympea-perfume/
+https://aministan.github.io/scentdealsdaily/fragrance/coach-coach-cologne/
+https://aministan.github.io/scentdealsdaily/fragrance/azzaro-the-most-wanted-parfum-cologne/
+https://aministan.github.io/scentdealsdaily/fragrance/calvin-klein-eternity-perfume/
+https://aministan.github.io/scentdealsdaily/fragrance/clinique-happy-perfume/
+https://aministan.github.io/scentdealsdaily/fragrance/versace-eros-cologne/
+https://aministan.github.io/scentdealsdaily/fragrance/versace-eros-flame-cologne/
+https://aministan.github.io/scentdealsdaily/fragrance/versace-bright-crystal-absolu-perfume/
+https://aministan.github.io/scentdealsdaily/fragrance/versace-dylan-blue-pour-femme-perfume/
+https://aministan.github.io/scentdealsdaily/fragrance/valentino-uomo-born-in-roma-intense-cologne/
+https://aministan.github.io/scentdealsdaily/fragrance/jean-paul-gaultier-le-beau-cologne/
+https://aministan.github.io/scentdealsdaily/fragrance/valentino-donna-born-in-roma-perfume/
+https://aministan.github.io/scentdealsdaily/fragrance/giorgio-armani-acqua-di-gio-cologne/
+https://aministan.github.io/scentdealsdaily/fragrance/billie-eilish-eilish-perfume/
+https://aministan.github.io/scentdealsdaily/fragrance/billie-eilish-eilish-no-2-perfume/
+https://aministan.github.io/scentdealsdaily/fragrance/lanc-me-la-vie-est-belle-perfume/
+https://aministan.github.io/scentdealsdaily/fragrance/valentino-uomo-born-in-roma-cologne/
+https://aministan.github.io/scentdealsdaily/dupe/creed-aventus-dupe-armaf-club-de-nuit-intense-man/
+https://aministan.github.io/scentdealsdaily/dupe/kilian-angels-share-dupe-lattafa-khamrah/
+https://aministan.github.io/scentdealsdaily/dupe/kilian-angels-share-coffee-twist-dupe-lattafa-khamrah-qahwa/
+https://aministan.github.io/scentdealsdaily/dupe/mfk-baccarat-rouge-540-dupe-ariana-grande-cloud/
+https://aministan.github.io/scentdealsdaily/dupe/mfk-baccarat-rouge-540-dupe-al-haramain-amber-oud-rouge/
+https://aministan.github.io/scentdealsdaily/dupe/mfk-baccarat-rouge-540-extrait-dupe-armaf-club-de-nuit-untold/
+https://aministan.github.io/scentdealsdaily/dupe/dior-sauvage-elixir-dupe-lattafa-asad/
+https://aministan.github.io/scentdealsdaily/dupe/creed-silver-mountain-water-dupe-armaf-club-de-nuit-sillage/
+https://aministan.github.io/scentdealsdaily/dupe/jean-paul-gaultier-ultra-male-dupe-afnan-9pm/
+https://aministan.github.io/scentdealsdaily/dupe/creed-mill-sime-imp-rial-dupe-armaf-club-de-nuit-milestone/
+https://aministan.github.io/scentdealsdaily/dupe/ysl-y-eau-de-parfum-dupe-lattafa-fakhar-black/
+https://aministan.github.io/scentdealsdaily/dupe/mugler-angel-nova-dupe-lattafa-mayar/
+https://aministan.github.io/scentdealsdaily/dupe/bleu-de-chanel-edp-dupe-armaf-club-de-nuit-iconic-blue-iconic/
+https://aministan.github.io/scentdealsdaily/dupe/chanel-coco-mademoiselle-dupe-armaf-club-de-nuit-woman/
+https://aministan.github.io/scentdealsdaily/dupe/ysl-la-nuit-de-l-homme-bleu-lectrique-dupe-lattafa-al-nashama-caprice/

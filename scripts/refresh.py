@@ -48,6 +48,22 @@ def main():
           "gender":gender(p),"price":round(pr,2),"was":round(c,2),"pct_off":round(pct*100),
           "retailer":"Perfumania","url":f"{STORE}/products/{h}?variant={v['id']}",
           "image":(p.get("image") or {}).get("src"),"checked":now,"in_stock":True})
+    # price-comparison deals: Perfumania >=15% below another authorized retailer (Muse.ai sources; eBay/marketplace excluded upstream)
+    import re
+    for cd in cfg.get("compare_deals",[]):
+        h=cd["handle"]
+        if any(x["id"]==h for x in deals): continue
+        p=get(h); time.sleep(0.5)
+        if not p: dropped.append(h); continue
+        a=avail(h)
+        vs=[v for v in p["variants"] if a.get(v["id"]) and "tester" not in v["title"].lower() and re.match(r"\s*"+re.escape(cd["size"])+r"\b",v["title"])]
+        if not vs: dropped.append(h); continue
+        v=vs[0]; pr=float(v["price"]); ref=max(cd["comps"],key=lambda c:c["price"])
+        if pr>ref["price"]*0.85: dropped.append(h+" (<15% below "+ref["retailer"]+")"); continue
+        comps=[{"retailer":"Perfumania","price":pr,"url":f"{STORE}/products/{h}?variant={v['id']}","checked":now}]+cd["comps"]
+        deals.append({"id":h,"brand":p["vendor"],"name":p["title"],"size":v["title"].strip(),"type":p.get("product_type",""),
+          "gender":gender(p),"price":round(pr,2),"was":ref["price"],"was_label":ref["retailer"],"pct_off":round((1-pr/ref["price"])*100),
+          "retailer":"Perfumania","url":comps[0]["url"],"image":(p.get("image") or {}).get("src"),"checked":now,"in_stock":True,"comps":comps})
     deals.sort(key=lambda d:-d["pct_off"])
     dupes=[]
     for d in cfg["dupes"]:
@@ -62,6 +78,7 @@ def main():
                     _,v,pr,c=b
                     d.update(price=round(pr,2),was=round(c,2) if c>pr else None,size=v["title"].strip(),retailer="Perfumania",
                              url=f"{STORE}/products/{d['handle']}?variant={v['id']}",image=(p.get("image") or {}).get("src"),checked=now)
+        if d.get("comps") and d["price"]: d["comps"]=[{"retailer":"Perfumania","price":d["price"],"url":d["url"],"checked":now}]+d["comps"]
         dupes.append(d)
     json.dump({"updated":now,"deals":deals,"dupes":dupes,"dropped":dropped},open(f"{ROOT}/data/deals.json","w"),indent=1)
     print(f"{len(deals)} live deals, {len(dropped)} dropped {dropped}, {sum(1 for d in dupes if d['price'])}/{len(dupes)} dupes priced")

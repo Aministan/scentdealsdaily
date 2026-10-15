@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-15T19:29:27Z",
+ "updated": "2026-10-15T19:36:13Z",
  "deals": [
   {
    "id": "calvin-klein-free-mens-eau-de-toilette-spray",
@@ -14,7 +14,7 @@
    "retailer": "Perfumania",
    "url": "https://www.perfumania.com/products/calvin-klein-free-mens-eau-de-toilette-spray?variant=31838813094021",
    "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/products/Calvin-Klein-Free-Mens-Eau-de-Toilette-Spray-3.4-Best-Price-Fragrance-Parfume-FragranceOutlet.com-Details.jpg?v=1598976005",
-   "checked": "2026-10-15T19:29:27Z",
+   "checked": "2026-10-15T19:36:13Z",
    "in_stock": true
   },
   {
@@ -30,7 +30,7 @@
    "retailer": "Perfumania",
    "url": "https://www.perfumania.com/products/burberry-touch-women-eau-de-parfum-spray?variant=31839010521221",
    "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/products/Burberry-Touch-Women-Eau-de-Parfume-Spray-3.4-Best-Price-Fragrance-Parfume-FragranceOutlet.com-Main.jpg?v=1739288618",
-   "checked": "2026-10-15T19:29:27Z",
+   "checked": "2026-10-15T19:36:13Z",
    "in_stock": true
   },
   {
@@ -46,7 +46,7 @@
    "retailer": "Perfumania",
    "url": "https://www.perfumania.com/products/eternity-air-eau-de-parfum-spray-for-women-by-calvin-klein?variant=31839468880005",
    "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/products/Klein-Eternity-Air-Women-Eau-de-Parfum-1.7-Best-Price-Fragrance-Parfume-FragranceOutlet.com-DETAILS.jpg?v=1579127760",
-   "checked": "2026-10-15T19:29:27Z",
+   "checked": "2026-10-15T19:36:13Z",
    "in_stock": true
   },
   {
@@ -62,8 +62,39 @@
    "retailer": "Perfumania",
    "url": "https://www.perfumania.com/products/calvin-klein-defy-eau-de-toilette-for-men?variant=40648924201093",
    "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/files/defy.webp?v=1712845383",
-   "checked": "2026-10-15T19:29:27Z",
+   "checked": "2026-10-15T19:36:13Z",
    "in_stock": true
+  },
+  {
+   "id": "ck-everyone-unisex-fragrance",
+   "brand": "Calvin Klein",
+   "name": "CK Everyone Unisex Fragrance",
+   "size": "3.3  oz.",
+   "type": "Eau de Toilette",
+   "gender": "unisex",
+   "price": 29.95,
+   "was": 84.0,
+   "was_label": "Ulta",
+   "pct_off": 64,
+   "retailer": "Perfumania",
+   "url": "https://www.perfumania.com/products/ck-everyone-unisex-fragrance?variant=34805521416325",
+   "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/files/I0112875largest.jpg?v=1788291643",
+   "checked": "2026-10-15T19:36:13Z",
+   "in_stock": true,
+   "comps": [
+    {
+     "retailer": "Perfumania",
+     "price": 29.95,
+     "url": "https://www.perfumania.com/products/ck-everyone-unisex-fragrance?variant=34805521416325",
+     "checked": "2026-10-15T19:36:13Z"
+    },
+    {
+     "retailer": "Ulta",
+     "price": 84.0,
+     "url": "https://www.ulta.com/p/ck-everyone-eau-de-toilette-pimprod2016486?sku=2568120",
+     "checked": "2026-10-15 14:48 ET (via Muse.ai)"
+    }
+   ]
   },
   {
    "id": "burberry-weekend-mens-eau-de-toilette-spray",
@@ -78,7 +109,7 @@
    "retailer": "Perfumania",
    "url": "https://www.perfumania.com/products/burberry-weekend-mens-eau-de-toilette-spray?variant=31838681596037",
    "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/files/Burberry_Weekend_34.jpg?v=1752241358",
-   "checked": "2026-10-15T19:29:27Z",
+   "checked": "2026-10-15T19:36:13Z",
    "in_stock": true
   },
   {
@@ -94,7 +125,7 @@
    "retailer": "Perfumania",
    "url": "https://www.perfumania.com/products/burberry-london-perfume-eau-de-parfum-for-women?variant=31839014813829",
    "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/products/Burberry-London-Women-Eau-de-Parfume-Spray-3.4-Best-Price-Fragrance-Parfume-FragranceOutlet.com-Details.jpg?v=1579724690",
-   "checked": "2026-10-15T19:29:27Z",
+   "checked": "2026-10-15T19:36:13Z",
    "in_stock": true
   },
   {
@@ -110,7 +141,7 @@
    "retailer": "Perfumania",
    "url": "https://www.perfumania.com/products/calvin-klein-beauty-perfume-eau-de-parfum-for-women?variant=31838982307973",
    "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/products/Calvin-Klein-Beauty-Womens-Eau-de-Parfume-Spray-3.4-Best-Price-Fragrance-Parfume-FragranceOutlet.com-Main.jpg?v=1766075051",
-   "checked": "2026-10-15T19:29:27Z",
+   "checked": "2026-10-15T19:36:13Z",
    "in_stock": true
   },
   {
@@ -126,7 +157,7 @@
    "retailer": "Perfumania",
    "url": "https://www.perfumania.com/products/woman-eau-de-parfum-spray-for-women-by-hugo-boss?variant=31839384797317",
    "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/products/Hugo-Boss-Hugo-Boss-Woman-Women-Eau-de-Parfum-Spray-Best-Price-Fragrance-Parfume-FragranceOutlet.com-Details.jpg?v=1580142369",
-   "checked": "2026-10-15T19:29:27Z",
+   "checked": "2026-10-15T19:36:13Z",
    "in_stock": true
   },
   {
@@ -142,7 +173,7 @@
    "retailer": "Perfumania",
    "url": "https://www.perfumania.com/products/azzaro-azzaro-mens-eau-de-toilette-spray?variant=31838648238213",
    "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/products/Azzaro-Azzaro-Mens-Eau-de-Toilette-EDT-S-1.0-oz.-Best-Price-Fragrance-Parfume-FragranceOutlet.com-Details.jpg?v=1580828249",
-   "checked": "2026-10-15T19:29:27Z",
+   "checked": "2026-10-15T19:36:13Z",
    "in_stock": true
   },
   {
@@ -158,7 +189,7 @@
    "retailer": "Perfumania",
    "url": "https://www.perfumania.com/products/boss-bottled-unlimited-by-hugo-boss-for-men-eau-de-toilette-spray?variant=31839552143493",
    "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/products/M-4797larger.jpg?v=1579128581",
-   "checked": "2026-10-15T19:29:27Z",
+   "checked": "2026-10-15T19:36:13Z",
    "in_stock": true
   },
   {
@@ -174,7 +205,7 @@
    "retailer": "Perfumania",
    "url": "https://www.perfumania.com/products/casamorati-mefisto-cologne?variant=41547243225221",
    "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/files/Casamorati_Mefisto_EDP_34.png?v=1773341165",
-   "checked": "2026-10-15T19:29:27Z",
+   "checked": "2026-10-15T19:36:13Z",
    "in_stock": true
   },
   {
@@ -190,7 +221,7 @@
    "retailer": "Perfumania",
    "url": "https://www.perfumania.com/products/h24-eau-de-toilette?variant=41173414412421",
    "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/files/h24_3_4_edt.png?v=1743426983",
-   "checked": "2026-10-15T19:29:27Z",
+   "checked": "2026-10-15T19:36:13Z",
    "in_stock": true
   },
   {
@@ -206,7 +237,7 @@
    "retailer": "Perfumania",
    "url": "https://www.perfumania.com/products/bvlgari-man-wood-neroli-cologne-eau-de-parfum?variant=39455100633221",
    "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/products/I0111525larger.jpg?v=1625603142",
-   "checked": "2026-10-15T19:29:27Z",
+   "checked": "2026-10-15T19:36:13Z",
    "in_stock": true
   },
   {
@@ -222,7 +253,7 @@
    "retailer": "Perfumania",
    "url": "https://www.perfumania.com/products/azzaro-chrome-legend-mens-eau-de-toilette-spray?variant=31838651187333",
    "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/files/azzaro_chrome_legend_B.jpg?v=1789756241",
-   "checked": "2026-10-15T19:29:27Z",
+   "checked": "2026-10-15T19:36:13Z",
    "in_stock": true
   },
   {
@@ -238,7 +269,7 @@
    "retailer": "Perfumania",
    "url": "https://www.perfumania.com/products/cafe-rose-eau-de-parfum-spray-for-women-by-tom-ford?variant=31839362711685",
    "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/files/tom_forc_cafe_rose.jpg?v=1695412134",
-   "checked": "2026-10-15T19:29:27Z",
+   "checked": "2026-10-15T19:36:13Z",
    "in_stock": true
   },
   {
@@ -254,7 +285,7 @@
    "retailer": "Perfumania",
    "url": "https://www.perfumania.com/products/versace-pour-homme-cologne-mens-eau-de-toilette?variant=31838887182469",
    "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/products/Versace-Pour-Homme-Mens-Eau-de-Toilette-Spray-3.4-Best-Price-Fragrance-Parfume-FragranceOutlet.com-Details.jpg?v=1773155406",
-   "checked": "2026-10-15T19:29:27Z",
+   "checked": "2026-10-15T19:36:13Z",
    "in_stock": true
   },
   {
@@ -270,7 +301,7 @@
    "retailer": "Perfumania",
    "url": "https://www.perfumania.com/products/lancome-poeme-perfume-for-women-eau-de-parfum-spray?variant=31838974476421",
    "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/products/Lancome-Poeme-Womens-Eau-de-Parfume-Spray-3.4-Best-Price-Fragrance-Parfume-FragranceOutlet.com-Details.jpg?v=1626193664",
-   "checked": "2026-10-15T19:29:27Z",
+   "checked": "2026-10-15T19:36:13Z",
    "in_stock": true
   },
   {
@@ -286,7 +317,7 @@
    "retailer": "Perfumania",
    "url": "https://www.perfumania.com/products/bottled-no-6-cologne-for-men?variant=40886186803333",
    "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/files/28319549_fpx.webp?v=1724940793",
-   "checked": "2026-10-15T19:29:27Z",
+   "checked": "2026-10-15T19:36:13Z",
    "in_stock": true
   },
   {
@@ -302,7 +333,7 @@
    "retailer": "Perfumania",
    "url": "https://www.perfumania.com/products/azzaro-wanted-by-night-cologne-eau-de-parfum-for-men?variant=34639720480901",
    "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/products/I0092692larger.jpg?v=1602084727",
-   "checked": "2026-10-15T19:29:27Z",
+   "checked": "2026-10-15T19:36:13Z",
    "in_stock": true
   },
   {
@@ -318,7 +349,7 @@
    "retailer": "Perfumania",
    "url": "https://www.perfumania.com/products/burberry-hero-cologne-eau-de-toilette-for-men?variant=40725795930245",
    "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/files/Burberry_Hero_M_33.jpg?v=1773840236",
-   "checked": "2026-10-15T19:29:27Z",
+   "checked": "2026-10-15T19:36:13Z",
    "in_stock": true
   },
   {
@@ -334,8 +365,504 @@
    "retailer": "Perfumania",
    "url": "https://www.perfumania.com/products/olympea-eau-de-parfum-spray-for-women-by-paco-rabanne?variant=31839144083589",
    "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/products/Paco-Rabanne-Olympea-Women-Eau-de-Toilette-Spray-EDT-Spray-1.7-Best-Price-Fragrance-Parfume-FragranceOutlet.com-DETAILS.jpg?v=1598988029",
-   "checked": "2026-10-15T19:29:27Z",
+   "checked": "2026-10-15T19:36:13Z",
    "in_stock": true
+  },
+  {
+   "id": "coach-for-men-eau-de-toilette",
+   "brand": "Coach",
+   "name": "Coach Cologne",
+   "size": "2.0 oz.",
+   "type": "Eau de Toilette",
+   "gender": "men",
+   "price": 68.95,
+   "was": 94.0,
+   "was_label": "Ulta",
+   "pct_off": 27,
+   "retailer": "Perfumania",
+   "url": "https://www.perfumania.com/products/coach-for-men-eau-de-toilette?variant=31839425462405",
+   "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/files/Coach_NewYork_m_EDT_33_b.png?v=1779384569",
+   "checked": "2026-10-15T19:36:13Z",
+   "in_stock": true,
+   "comps": [
+    {
+     "retailer": "Perfumania",
+     "price": 68.95,
+     "url": "https://www.perfumania.com/products/coach-for-men-eau-de-toilette?variant=31839425462405",
+     "checked": "2026-10-15T19:36:13Z"
+    },
+    {
+     "retailer": "Ulta",
+     "price": 94.0,
+     "url": "https://www.ulta.com/p/men-eau-de-toilette-xlsImpprod16841001?sku=2515334",
+     "checked": "2026-10-15 14:48 ET (via Muse.ai)"
+    }
+   ]
+  },
+  {
+   "id": "the-most-wanted-parfum-cologne",
+   "brand": "Azzaro",
+   "name": "The Most Wanted Parfum Cologne",
+   "size": "1.7 oz.",
+   "type": "Parfum",
+   "gender": "men",
+   "price": 88.95,
+   "was": 120.0,
+   "was_label": "Ulta",
+   "pct_off": 26,
+   "retailer": "Perfumania",
+   "url": "https://www.perfumania.com/products/the-most-wanted-parfum-cologne?variant=41375343902853",
+   "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/files/Azzaro_themostwanted_34.jpg?v=1759754999",
+   "checked": "2026-10-15T19:36:13Z",
+   "in_stock": true,
+   "comps": [
+    {
+     "retailer": "Perfumania",
+     "price": 88.95,
+     "url": "https://www.perfumania.com/products/the-most-wanted-parfum-cologne?variant=41375343902853",
+     "checked": "2026-10-15T19:36:13Z"
+    },
+    {
+     "retailer": "Ulta",
+     "price": 120.0,
+     "url": "https://www.ulta.com/p/most-wanted-parfum-pimprod2032753?sku=2595944",
+     "checked": "2026-10-15 14:48 ET (via Muse.ai)"
+    }
+   ]
+  },
+  {
+   "id": "calvin-klein-eternity-womens-eau-de-parfum-spray",
+   "brand": "Calvin Klein",
+   "name": "Eternity Perfume",
+   "size": "3.4 oz.",
+   "type": "Eau de Parfum",
+   "gender": "women",
+   "price": 90.95,
+   "was": 123.0,
+   "was_label": "Ulta",
+   "pct_off": 26,
+   "retailer": "Perfumania",
+   "url": "https://www.perfumania.com/products/calvin-klein-eternity-womens-eau-de-parfum-spray?variant=31838799134853",
+   "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/products/Calvin-Klein-Eternity-Womens-Eau-de-Parfume-Spray-3.4-Best-Price-Fragrance-Parfume-FragranceOutlet.com-Main.jpg?v=1669904768",
+   "checked": "2026-10-15T19:36:13Z",
+   "in_stock": true,
+   "comps": [
+    {
+     "retailer": "Perfumania",
+     "price": 90.95,
+     "url": "https://www.perfumania.com/products/calvin-klein-eternity-womens-eau-de-parfum-spray?variant=31838799134853",
+     "checked": "2026-10-15T19:36:13Z"
+    },
+    {
+     "retailer": "Ulta",
+     "price": 123.0,
+     "url": "https://www.ulta.com/p/eternity-eau-de-parfum-2505?sku=2011350",
+     "checked": "2026-10-15 14:48 ET (via Muse.ai)"
+    }
+   ]
+  },
+  {
+   "id": "clinique-happy-women-eau-de-parfum-spray",
+   "brand": "Clinique",
+   "name": "Happy Perfume",
+   "size": "1.0 oz.",
+   "type": "Eau de Parfum",
+   "gender": "women",
+   "price": 49.95,
+   "was": 67.0,
+   "was_label": "Ulta",
+   "pct_off": 25,
+   "retailer": "Perfumania",
+   "url": "https://www.perfumania.com/products/clinique-happy-women-eau-de-parfum-spray?variant=31839000658053",
+   "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/products/Clinique-Happy-Women-Eau-de-Parfume-Spray-3.4-Best-Price-Fragrance-Parfume-Details.jpg?v=1579125130",
+   "checked": "2026-10-15T19:36:13Z",
+   "in_stock": true,
+   "comps": [
+    {
+     "retailer": "Perfumania",
+     "price": 49.95,
+     "url": "https://www.perfumania.com/products/clinique-happy-women-eau-de-parfum-spray?variant=31839000658053",
+     "checked": "2026-10-15T19:36:13Z"
+    },
+    {
+     "retailer": "Ulta",
+     "price": 67.0,
+     "url": "https://www.ulta.com/p/clinique-happy-eau-de-parfum-spray-VP11390?sku=2135390",
+     "checked": "2026-10-15 14:48 ET (via Muse.ai)"
+    }
+   ]
+  },
+  {
+   "id": "versace-eros-cologne-eau-de-toilette-for-men",
+   "brand": "Versace",
+   "name": "Eros Cologne",
+   "size": "1.7 oz.",
+   "type": "Eau de Toilette",
+   "gender": "men",
+   "price": 78.95,
+   "was": 105.0,
+   "was_label": "Ulta",
+   "pct_off": 25,
+   "retailer": "Perfumania",
+   "url": "https://www.perfumania.com/products/versace-eros-cologne-eau-de-toilette-for-men?variant=31838888165509",
+   "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/files/Versace_Eros_B.jpg?v=1789737855",
+   "checked": "2026-10-15T19:36:13Z",
+   "in_stock": true,
+   "comps": [
+    {
+     "retailer": "Perfumania",
+     "price": 78.95,
+     "url": "https://www.perfumania.com/products/versace-eros-cologne-eau-de-toilette-for-men?variant=31838888165509",
+     "checked": "2026-10-15T19:36:13Z"
+    },
+    {
+     "retailer": "Ulta",
+     "price": 105.0,
+     "url": "https://www.ulta.com/p/eros-eau-de-toilette-xlsImpprod5800032?sku=2265447",
+     "checked": "2026-10-15 14:48 ET (via Muse.ai)"
+    }
+   ]
+  },
+  {
+   "id": "versace-eros-flame-eau-de-parfum-for-men",
+   "brand": "Versace",
+   "name": "Eros Flame Cologne",
+   "size": "1.7 oz.",
+   "type": "Eau de Parfum",
+   "gender": "men",
+   "price": 89.95,
+   "was": 119.0,
+   "was_label": "Ulta",
+   "pct_off": 24,
+   "retailer": "Perfumania",
+   "url": "https://www.perfumania.com/products/versace-eros-flame-eau-de-parfum-for-men?variant=34660506534021",
+   "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/files/Versace_ErosFlame_EDP_34_M_B.png?v=1782231996",
+   "checked": "2026-10-15T19:36:13Z",
+   "in_stock": true,
+   "comps": [
+    {
+     "retailer": "Perfumania",
+     "price": 89.95,
+     "url": "https://www.perfumania.com/products/versace-eros-flame-eau-de-parfum-for-men?variant=34660506534021",
+     "checked": "2026-10-15T19:36:13Z"
+    },
+    {
+     "retailer": "Ulta",
+     "price": 119.0,
+     "url": "https://www.ulta.com/p/eros-flame-eau-de-parfum-pimprod2004721?sku=2543417",
+     "checked": "2026-10-15 14:48 ET (via Muse.ai)"
+    }
+   ]
+  },
+  {
+   "id": "bright-crystal-absolu-by-versace-for-women-eau-de-parfum-spray",
+   "brand": "Versace",
+   "name": "Bright Crystal Absolu Perfume",
+   "size": "3.0 oz.",
+   "type": "Eau de Parfum",
+   "gender": "women",
+   "price": 123.95,
+   "was": 158.0,
+   "was_label": "Ulta",
+   "pct_off": 22,
+   "retailer": "Perfumania",
+   "url": "https://www.perfumania.com/products/bright-crystal-absolu-by-versace-for-women-eau-de-parfum-spray?variant=31839794167941",
+   "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/products/W-7822larger.jpg?v=1579130272",
+   "checked": "2026-10-15T19:36:13Z",
+   "in_stock": true,
+   "comps": [
+    {
+     "retailer": "Perfumania",
+     "price": 123.95,
+     "url": "https://www.perfumania.com/products/bright-crystal-absolu-by-versace-for-women-eau-de-parfum-spray?variant=31839794167941",
+     "checked": "2026-10-15T19:36:13Z"
+    },
+    {
+     "retailer": "Ulta",
+     "price": 158.0,
+     "url": "https://www.ulta.com/p/bright-crystal-absolu-eau-de-parfum-xlsImpprod6440485?sku=2273060",
+     "checked": "2026-10-15 14:48 ET (via Muse.ai)"
+    }
+   ]
+  },
+  {
+   "id": "dylan-blue-eau-de-parfum-spray-for-women-by-versace",
+   "brand": "Versace",
+   "name": "Dylan Blue Pour Femme Perfume",
+   "size": "3.4 oz.",
+   "type": "Eau De Parfum",
+   "gender": "women",
+   "price": 123.95,
+   "was": 158.0,
+   "was_label": "Ulta",
+   "pct_off": 22,
+   "retailer": "Perfumania",
+   "url": "https://www.perfumania.com/products/dylan-blue-eau-de-parfum-spray-for-women-by-versace?variant=31839414681733",
+   "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/products/Versace-Dylan-Blue-Women-Eau-de-Parfum-Spray-3.4-Best-Price-Fragrance-Parfume-FragranceOutlet.com-MAIN.jpg?v=1738954436",
+   "checked": "2026-10-15T19:36:13Z",
+   "in_stock": true,
+   "comps": [
+    {
+     "retailer": "Perfumania",
+     "price": 123.95,
+     "url": "https://www.perfumania.com/products/dylan-blue-eau-de-parfum-spray-for-women-by-versace?variant=31839414681733",
+     "checked": "2026-10-15T19:36:13Z"
+    },
+    {
+     "retailer": "Ulta",
+     "price": 158.0,
+     "url": "https://www.ulta.com/p/dylan-blue-pour-femme-eau-de-parfum-xlsImpprod18381083?sku=2528228",
+     "checked": "2026-10-15 14:48 ET (via Muse.ai)"
+    }
+   ]
+  },
+  {
+   "id": "uomo-intense-by-valentino-for-men-eau-de-parfum-spray",
+   "brand": "Valentino",
+   "name": "Uomo Born In Roma Intense Cologne",
+   "size": "3.4 oz.",
+   "type": "Eau De Parfum",
+   "gender": "men",
+   "price": 132.95,
+   "was": 165.0,
+   "was_label": "Ulta",
+   "pct_off": 19,
+   "retailer": "Perfumania",
+   "url": "https://www.perfumania.com/products/uomo-intense-by-valentino-for-men-eau-de-parfum-spray?variant=40659425230981",
+   "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/files/Valentino_Uomo_Born_In_Roma_Intense_EDP_34.png?v=1780059028",
+   "checked": "2026-10-15T19:36:13Z",
+   "in_stock": true,
+   "comps": [
+    {
+     "retailer": "Perfumania",
+     "price": 132.95,
+     "url": "https://www.perfumania.com/products/uomo-intense-by-valentino-for-men-eau-de-parfum-spray?variant=40659425230981",
+     "checked": "2026-10-15T19:36:13Z"
+    },
+    {
+     "retailer": "Ulta",
+     "price": 165.0,
+     "url": "https://www.ulta.com/p/uomo-born-in-roma-intense-eau-de-parfum-with-vanilla-pimprod2037333?sku=2607782",
+     "checked": "2026-10-15 14:48 ET (via Muse.ai)"
+    }
+   ]
+  },
+  {
+   "id": "le-beau-eau-de-toilette-spray-for-men-by-jean-paul-gaultier",
+   "brand": "Jean Paul Gaultier",
+   "name": "Le Beau Cologne",
+   "size": "4.2 oz.",
+   "type": "Eau de Toilette",
+   "gender": "men",
+   "price": 114.95,
+   "was": 138.0,
+   "was_label": "Ulta",
+   "pct_off": 17,
+   "retailer": "Perfumania",
+   "url": "https://www.perfumania.com/products/le-beau-eau-de-toilette-spray-for-men-by-jean-paul-gaultier?variant=40576850690181",
+   "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/files/JPG_Le_BEU_Edp1.jpg?v=1768404937",
+   "checked": "2026-10-15T19:36:13Z",
+   "in_stock": true,
+   "comps": [
+    {
+     "retailer": "Perfumania",
+     "price": 114.95,
+     "url": "https://www.perfumania.com/products/le-beau-eau-de-toilette-spray-for-men-by-jean-paul-gaultier?variant=40576850690181",
+     "checked": "2026-10-15T19:36:13Z"
+    },
+    {
+     "retailer": "Ulta",
+     "price": 138.0,
+     "url": "https://www.ulta.com/p/le-beau-eau-de-toilette-pimprod2045710?sku=2628301",
+     "checked": "2026-10-15 14:48 ET (via Muse.ai)"
+    }
+   ]
+  },
+  {
+   "id": "valentino-donna-born-in-roma-perfume-eau-de-parfum-for-women",
+   "brand": "Valentino",
+   "name": "Donna Born In Roma Perfume",
+   "size": "1.7 oz.",
+   "type": "Eau de Parfum",
+   "gender": "women",
+   "price": 120.95,
+   "was": 145.0,
+   "was_label": "Ulta",
+   "pct_off": 17,
+   "retailer": "Perfumania",
+   "url": "https://www.perfumania.com/products/valentino-donna-born-in-roma-perfume-eau-de-parfum-for-women?variant=40661522841733",
+   "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/files/Valentino_DonnaBorninRoma_EDP_34_W_B.png?v=1782228287",
+   "checked": "2026-10-15T19:36:13Z",
+   "in_stock": true,
+   "comps": [
+    {
+     "retailer": "Perfumania",
+     "price": 120.95,
+     "url": "https://www.perfumania.com/products/valentino-donna-born-in-roma-perfume-eau-de-parfum-for-women?variant=40661522841733",
+     "checked": "2026-10-15T19:36:13Z"
+    },
+    {
+     "retailer": "Ulta",
+     "price": 145.0,
+     "url": "https://www.ulta.com/p/donna-born-in-roma-eau-de-parfum-with-bourbon-vanilla-jasmine-pimprod2016295?sku=2568846",
+     "checked": "2026-10-15 14:48 ET (via Muse.ai)"
+    }
+   ]
+  },
+  {
+   "id": "giorgio-armani-acqua-di-gio-eau-de-toilette-cologne-for-men",
+   "brand": "Giorgio Armani",
+   "name": "Acqua Di Gio Cologne",
+   "size": "3.4 oz.",
+   "type": "Eau de Toilette",
+   "gender": "men",
+   "price": 108.95,
+   "was": 130.0,
+   "was_label": "Ulta",
+   "pct_off": 16,
+   "retailer": "Perfumania",
+   "url": "https://www.perfumania.com/products/giorgio-armani-acqua-di-gio-eau-de-toilette-cologne-for-men?variant=31838641258629",
+   "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/files/Armani_ADG_33_B.png?v=1781101615",
+   "checked": "2026-10-15T19:36:13Z",
+   "in_stock": true,
+   "comps": [
+    {
+     "retailer": "Perfumania",
+     "price": 108.95,
+     "url": "https://www.perfumania.com/products/giorgio-armani-acqua-di-gio-eau-de-toilette-cologne-for-men?variant=31838641258629",
+     "checked": "2026-10-15T19:36:13Z"
+    },
+    {
+     "retailer": "Ulta",
+     "price": 130.0,
+     "url": "https://www.ulta.com/p/acqua-di-gio-eau-de-toilette-fs356346?sku=2023509",
+     "checked": "2026-10-15 14:48 ET (via Muse.ai)"
+    }
+   ]
+  },
+  {
+   "id": "billie-eilish-perfume-eau-de-parfum-for-women",
+   "brand": "Billie Eilish",
+   "name": "Eilish Perfume",
+   "size": "3.4 oz.",
+   "type": "Eau De Parfum Spray",
+   "gender": "women",
+   "price": 68.95,
+   "was": 82.0,
+   "was_label": "Ulta",
+   "pct_off": 16,
+   "retailer": "Perfumania",
+   "url": "https://www.perfumania.com/products/billie-eilish-perfume-eau-de-parfum-for-women?variant=40211488931973",
+   "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/files/eilish.jpg?v=1715349204",
+   "checked": "2026-10-15T19:36:13Z",
+   "in_stock": true,
+   "comps": [
+    {
+     "retailer": "Perfumania",
+     "price": 68.95,
+     "url": "https://www.perfumania.com/products/billie-eilish-perfume-eau-de-parfum-for-women?variant=40211488931973",
+     "checked": "2026-10-15T19:36:13Z"
+    },
+    {
+     "retailer": "Ulta",
+     "price": 82.0,
+     "url": "https://www.ulta.com/p/eilish-eau-de-parfum-with-vanilla-musk-pimprod2030620?sku=2594570",
+     "checked": "2026-10-15 14:48 ET (via Muse.ai)"
+    }
+   ]
+  },
+  {
+   "id": "billie-eilish-no-2-eau-de-parfum-perfume-for-women",
+   "brand": "Billie Eilish",
+   "name": "Eilish No.2 Perfume",
+   "size": "3.4 oz.",
+   "type": "Eau de Parfum",
+   "gender": "women",
+   "price": 68.95,
+   "was": 82.0,
+   "was_label": "Ulta",
+   "pct_off": 16,
+   "retailer": "Perfumania",
+   "url": "https://www.perfumania.com/products/billie-eilish-no-2-eau-de-parfum-perfume-for-women?variant=40713255452805",
+   "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/files/billie.webp?v=1773148091",
+   "checked": "2026-10-15T19:36:13Z",
+   "in_stock": true,
+   "comps": [
+    {
+     "retailer": "Perfumania",
+     "price": 68.95,
+     "url": "https://www.perfumania.com/products/billie-eilish-no-2-eau-de-parfum-perfume-for-women?variant=40713255452805",
+     "checked": "2026-10-15T19:36:13Z"
+    },
+    {
+     "retailer": "Ulta",
+     "price": 82.0,
+     "url": "https://www.ulta.com/p/eilish-no-2-eau-de-parfum-pimprod2037339?sku=2605521",
+     "checked": "2026-10-15 14:48 ET (via Muse.ai)"
+    }
+   ]
+  },
+  {
+   "id": "lancome-la-vie-est-belle-perfume-eau-de-parfum-for-women",
+   "brand": "Lanc\u00f4me",
+   "name": "La Vie Est Belle Perfume",
+   "size": "1.0 oz.",
+   "type": "Eau de Parfum",
+   "gender": "women",
+   "price": 79.95,
+   "was": 95.0,
+   "was_label": "Ulta",
+   "pct_off": 16,
+   "retailer": "Perfumania",
+   "url": "https://www.perfumania.com/products/lancome-la-vie-est-belle-perfume-eau-de-parfum-for-women?variant=31838977687685",
+   "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/products/Lancome-La-Vie-Est-Belle-Womens-Eau-de-Parfume-Spray-3.4-Best-Price-Fragrance-Parfume-FragranceOutlet.com-Details.jpg?v=1773156887",
+   "checked": "2026-10-15T19:36:13Z",
+   "in_stock": true,
+   "comps": [
+    {
+     "retailer": "Perfumania",
+     "price": 79.95,
+     "url": "https://www.perfumania.com/products/lancome-la-vie-est-belle-perfume-eau-de-parfum-for-women?variant=31838977687685",
+     "checked": "2026-10-15T19:36:13Z"
+    },
+    {
+     "retailer": "Ulta",
+     "price": 95.0,
+     "url": "https://www.ulta.com/p/la-vie-est-belle-eau-de-parfum-with-vanilla-bean-iris-xlsImpprod4570079?sku=2250011",
+     "checked": "2026-10-15 14:48 ET (via Muse.ai)"
+    }
+   ]
+  },
+  {
+   "id": "valentino-uomo-born-in-roma-cologne-eau-de-toilette-for-men",
+   "brand": "Valentino",
+   "name": "Uomo Born In Roma Cologne",
+   "size": "1.7 oz.",
+   "type": "Eau de Toilette",
+   "gender": "men",
+   "price": 91.95,
+   "was": 110.0,
+   "was_label": "Ulta",
+   "pct_off": 16,
+   "retailer": "Perfumania",
+   "url": "https://www.perfumania.com/products/valentino-uomo-born-in-roma-cologne-eau-de-toilette-for-men?variant=40908118196357",
+   "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/files/Valentino_Uomo_BornInRoma_EDT_34_M_B.png?v=1782228732",
+   "checked": "2026-10-15T19:36:13Z",
+   "in_stock": true,
+   "comps": [
+    {
+     "retailer": "Perfumania",
+     "price": 91.95,
+     "url": "https://www.perfumania.com/products/valentino-uomo-born-in-roma-cologne-eau-de-toilette-for-men?variant=40908118196357",
+     "checked": "2026-10-15T19:36:13Z"
+    },
+    {
+     "retailer": "Ulta",
+     "price": 110.0,
+     "url": "https://www.ulta.com/p/uomo-born-in-roma-eau-de-toilette-pimprod2016297?sku=2568844",
+     "checked": "2026-10-15 14:48 ET (via Muse.ai)"
+    }
+   ]
   }
  ],
  "dupes": [
@@ -351,7 +878,7 @@
    ],
    "price": 39.99,
    "url": "https://www.perfumania.com/products/club-de-nuit-intense-eau-de-toilette-spray-for-men?variant=40543196479621",
-   "checked": "2026-10-15T19:29:27Z",
+   "checked": "2026-10-15T19:36:13Z",
    "was": 50.0,
    "size": "3.4 oz.",
    "retailer": "Perfumania",
@@ -367,7 +894,7 @@
    ],
    "price": 39.99,
    "url": "https://www.perfumania.com/products/lattafa-khamrah-eau-de-parfum-unisex-fragrance?variant=41095864090757",
-   "checked": "2026-10-15T19:29:27Z",
+   "checked": "2026-10-15T19:36:13Z",
    "was": 50.0,
    "size": "3.4 oz.",
    "retailer": "Perfumania",
@@ -383,7 +910,7 @@
    ],
    "price": 39.99,
    "url": "https://www.perfumania.com/products/lattafa-khamrah-qahwa-eau-de-parfum-unisex-fragrance?variant=41290081206405",
-   "checked": "2026-10-15T19:29:27Z",
+   "checked": "2026-10-15T19:36:13Z",
    "was": 50.0,
    "size": "3.4 oz.",
    "retailer": "Perfumania",
@@ -398,9 +925,23 @@
    "sources": [
     "https://perfumania.com/blogs/articles/top-6-luxury-fragrance-dupes-in-2026"
    ],
+   "comps": [
+    {
+     "retailer": "Perfumania",
+     "price": 59.95,
+     "url": "https://www.perfumania.com/products/ariana-grande-cloud-perfume-eau-de-parfum-for-women?variant=34639720513669",
+     "checked": "2026-10-15T19:36:13Z"
+    },
+    {
+     "retailer": "Ulta",
+     "price": 75.0,
+     "url": "https://www.ulta.com/p/cloud-eau-de-parfum-spray-pimprod2000100?sku=2536254",
+     "checked": "2026-10-15 14:48 ET (via Muse.ai)"
+    }
+   ],
    "price": 59.95,
    "url": "https://www.perfumania.com/products/ariana-grande-cloud-perfume-eau-de-parfum-for-women?variant=34639720513669",
-   "checked": "2026-10-15T19:29:27Z",
+   "checked": "2026-10-15T19:36:13Z",
    "was": 72.0,
    "size": "3.4 oz.",
    "retailer": "Perfumania",
@@ -418,7 +959,7 @@
    ],
    "price": 49.95,
    "url": "https://www.perfumania.com/products/amber-oud-rouge-by-al-haramain-for-men-edp-spray?variant=39574049128581",
-   "checked": "2026-10-15T19:29:27Z",
+   "checked": "2026-10-15T19:36:13Z",
    "was": 70.0,
    "size": "2.0 oz.",
    "retailer": "Perfumania",
@@ -434,7 +975,7 @@
    ],
    "price": 42.95,
    "url": "https://www.perfumania.com/products/club-de-nuit-untold-unisex-fragrance?variant=41264895918213",
-   "checked": "2026-10-15T19:29:27Z",
+   "checked": "2026-10-15T19:36:13Z",
    "was": 70.0,
    "size": "3.6 oz",
    "retailer": "Perfumania",
@@ -450,7 +991,7 @@
    ],
    "price": 39.99,
    "url": "https://www.perfumania.com/products/lattafa-asad-cologne-eau-de-parfum-for-men?variant=41094013976709",
-   "checked": "2026-10-15T19:29:27Z",
+   "checked": "2026-10-15T19:36:13Z",
    "was": 50.0,
    "size": "3.4 oz.",
    "retailer": "Perfumania",
@@ -467,7 +1008,7 @@
    ],
    "price": 34.95,
    "url": "https://www.perfumania.com/products/club-de-nuit-sillage-unisex-fragrance?variant=41266471370885",
-   "checked": "2026-10-15T19:29:27Z",
+   "checked": "2026-10-15T19:36:13Z",
    "was": 50.0,
    "size": "3.6 oz.",
    "retailer": "Perfumania",
@@ -483,7 +1024,7 @@
    ],
    "price": 39.99,
    "url": "https://www.perfumania.com/products/9pm-cologne?variant=41284110418053",
-   "checked": "2026-10-15T19:29:27Z",
+   "checked": "2026-10-15T19:36:13Z",
    "was": 50.0,
    "size": "3.4 oz.",
    "retailer": "Perfumania",
@@ -501,7 +1042,7 @@
    ],
    "price": 41.95,
    "url": "https://www.perfumania.com/products/club-de-nuit-milestone-by-armaf-for-unisex-edp-spray?variant=39530812178565",
-   "checked": "2026-10-15T19:29:27Z",
+   "checked": "2026-10-15T19:36:13Z",
    "was": 85.0,
    "size": "3.6 oz.",
    "retailer": "Perfumania",
@@ -517,7 +1058,7 @@
    ],
    "price": 39.99,
    "url": "https://www.perfumania.com/products/fakhar-eau-de-parfum-1?variant=41052514484357",
-   "checked": "2026-10-15T19:29:27Z",
+   "checked": "2026-10-15T19:36:13Z",
    "was": 49.99,
    "size": "3.4 oz.",
    "retailer": "Perfumania",
@@ -533,7 +1074,7 @@
    ],
    "price": 39.99,
    "url": "https://www.perfumania.com/products/mayar-eau-de-parfum?variant=41052518940805",
-   "checked": "2026-10-15T19:29:27Z",
+   "checked": "2026-10-15T19:36:13Z",
    "was": 50.0,
    "size": "3.4 oz.",
    "retailer": "Perfumania",
@@ -578,5 +1119,11 @@
    "checked": null
   }
  ],
- "dropped": []
+ "dropped": [
+  "ariana-grande-sweet-like-candy-perfume-eau-de-parfum",
+  "legend-spirit-eau-de-toilette-spray-for-men-by-montblanc",
+  "ralph-lauren-romance-perfume-for-women-eau-de-parfum",
+  "gucci-bloom-eau-de-parfum-spray-for-women-by-gucci (<15% below Ulta)",
+  "lancome-idole-perfume-for-women-eau-de-parfum (<15% below Ulta)"
+ ]
 }
