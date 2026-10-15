@@ -55,6 +55,7 @@ def page(path,title,desc,body,jsonld=None):
     ld="".join(f'<script type="application/ld+json">{json.dumps(j,ensure_ascii=False)}</script>' for j in (jsonld or []))
     p=PREFIX
     doc=f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="google-site-verification" content="GASeKy1uEWpsrSn1II701znBYlw6mBhAwvimW0Yi8Io" />
 <title>{e(title)}</title><meta name="description" content="{e(desc)}"><link rel="canonical" href="{url}">
 <meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{url}"><meta property="og:type" content="website">
 <meta name="twitter:card" content="summary"><link rel="stylesheet" href="{p}/style.css">{ld}</head><body>
@@ -62,7 +63,8 @@ def page(path,title,desc,body,jsonld=None):
 <main>{body}</main><footer><p>We may earn a commission when you buy through our links, at no extra cost to you.</p>
 <p><b>Affiliate disclosure:</b> some links may earn us a commission at no cost to you. <a href="{p}/disclosure/">Details</a>.
 We list only authorized or long-established retailers, never gray-market marketplaces. Prices change fast; each deal shows when we last checked it. Not affiliated with any brand.</p>
-<p>© {upd.year} {NAME} · <a href="{p}/llms.txt">llms.txt</a> · <a href="{p}/sitemap.xml">sitemap</a></p></footer></body></html>"""
+<p>© {upd.year} {NAME} · <a href="{p}/llms.txt">llms.txt</a> · <a href="{p}/sitemap.xml">sitemap</a></p>
+<p><img src="https://hits.sh/aministan.github.io/scentdealsdaily.svg?label=visitors" alt="visitor count" loading="lazy" height="20"></p></footer></body></html>"""
     fp=f"{OUT}/{path}"; os.makedirs(os.path.dirname(fp),exist_ok=True); open(fp,"w").write(doc); PAGES.append(url)
 PAGES=[]
 def card(d):
