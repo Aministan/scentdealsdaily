@@ -1,1 +1,8 @@
-# scentdealsdaily
+# ScentDealsDaily (v1)
+Authentic designer fragrance deals + dupes directory. Static site, $0 hosting.
+- `data/config.json` – which products to track (Perfumania handles) + curated dupe pairs w/ sources
+- `scripts/refresh.py` – re-checks price/compare-at/stock via Perfumania's public Shopify JSON, drops dead/<15%-off deals → `data/deals.json`
+- `scripts/build.py` – renders `site/` (homepage, /dupes, /men, /women, /unisex, /brands/*, /sponsor, /disclosure, sitemap.xml, robots.txt, llms.txt, deals.json, JSON-LD ItemList/Product/FAQ)
+- `.github/workflows/daily.yml` – daily refresh + GitHub Pages deploy
+Local: `python3 scripts/refresh.py && python3 scripts/build.py && (cd site && python3 -m http.server)`
+Env: SITE_URL, PATH_PREFIX, NEWSLETTER_ENDPOINT (e.g. a free Buttondown/Beehiiv/Formspree form URL).

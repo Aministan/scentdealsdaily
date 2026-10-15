@@ -1,0 +1,31 @@
+name: daily-refresh
+on:
+  schedule: [{cron: "17 11 * * *"}]   # ~7:17 AM ET daily
+  workflow_dispatch: {}
+  push: {branches: [main]}
+permissions: {contents: write, pages: write, id-token: write}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: python3 scripts/refresh.py
+      - run: python3 scripts/build.py
+        env:
+          SITE_URL: ${{ vars.SITE_URL || format('https://{0}.github.io', github.repository_owner) }}
+          PATH_PREFIX: ${{ vars.PATH_PREFIX || format('/{0}', github.event.repository.name) }}
+      - run: python3 scripts/indexnow.py || true
+        env:
+          PATH_PREFIX: ${{ vars.PATH_PREFIX || format('/{0}', github.event.repository.name) }}
+      - run: |
+          git config user.name "scentdeals-bot"; git config user.email "actions@users.noreply.github.com"
+          git add data/deals.json && git commit -m "daily refresh" || true; git push || true
+      - uses: actions/upload-pages-artifact@v3
+        with: {path: site}
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: {name: github-pages}
+    steps: [{uses: actions/deploy-pages@v4}]
