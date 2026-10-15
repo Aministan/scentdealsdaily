@@ -45,3 +45,41 @@
 - Deals: https://scentdealsdaily.com/
 - Dupes: https://scentdealsdaily.com/dupes/
 - Raw data (JSON): https://scentdealsdaily.com/deals.json
+
+## Per-product & per-dupe pages
+https://scentdealsdaily.com/fragrance/calvin-klein-free-cologne/
+https://scentdealsdaily.com/fragrance/burberry-touch-perfume/
+https://scentdealsdaily.com/fragrance/calvin-klein-eternity-air-perfume/
+https://scentdealsdaily.com/fragrance/calvin-klein-defy-spray-cologne/
+https://scentdealsdaily.com/fragrance/burberry-weekend-cologne/
+https://scentdealsdaily.com/fragrance/burberry-london-perfume/
+https://scentdealsdaily.com/fragrance/calvin-klein-beauty-perfume/
+https://scentdealsdaily.com/fragrance/hugo-boss-woman-perfume/
+https://scentdealsdaily.com/fragrance/azzaro-azzaro-cologne/
+https://scentdealsdaily.com/fragrance/hugo-boss-boss-bottled-unlimited-cologne/
+https://scentdealsdaily.com/fragrance/xerjoff-casamorati-mefisto-cologne/
+https://scentdealsdaily.com/fragrance/hermes-h24-eau-de-toilette/
+https://scentdealsdaily.com/fragrance/bvlgari-bvlgari-man-wood-neroli-cologne/
+https://scentdealsdaily.com/fragrance/azzaro-chrome-legend-cologne/
+https://scentdealsdaily.com/fragrance/tom-ford-cafe-rose-perfume/
+https://scentdealsdaily.com/fragrance/versace-versace-pour-homme-cologne/
+https://scentdealsdaily.com/fragrance/lancome-poeme-perfume/
+https://scentdealsdaily.com/fragrance/hugo-boss-bottled-no-6-cologne/
+https://scentdealsdaily.com/fragrance/azzaro-wanted-cologne/
+https://scentdealsdaily.com/fragrance/burberry-hero-cologne/
+https://scentdealsdaily.com/fragrance/paco-rabanne-olympea-perfume/
+https://scentdealsdaily.com/dupe/creed-aventus-dupe-armaf-club-de-nuit-intense-man/
+https://scentdealsdaily.com/dupe/kilian-angels-share-dupe-lattafa-khamrah/
+https://scentdealsdaily.com/dupe/kilian-angels-share-coffee-twist-dupe-lattafa-khamrah-qahwa/
+https://scentdealsdaily.com/dupe/mfk-baccarat-rouge-540-dupe-ariana-grande-cloud/
+https://scentdealsdaily.com/dupe/mfk-baccarat-rouge-540-dupe-al-haramain-amber-oud-rouge/
+https://scentdealsdaily.com/dupe/mfk-baccarat-rouge-540-extrait-dupe-armaf-club-de-nuit-untold/
+https://scentdealsdaily.com/dupe/dior-sauvage-elixir-dupe-lattafa-asad/
+https://scentdealsdaily.com/dupe/creed-silver-mountain-water-dupe-armaf-club-de-nuit-sillage/
+https://scentdealsdaily.com/dupe/jean-paul-gaultier-ultra-male-dupe-afnan-9pm/
+https://scentdealsdaily.com/dupe/creed-mill-sime-imp-rial-dupe-armaf-club-de-nuit-milestone/
+https://scentdealsdaily.com/dupe/ysl-y-eau-de-parfum-dupe-lattafa-fakhar-black/
+https://scentdealsdaily.com/dupe/mugler-angel-nova-dupe-lattafa-mayar/
+https://scentdealsdaily.com/dupe/bleu-de-chanel-edp-dupe-armaf-club-de-nuit-iconic-blue-iconic/
+https://scentdealsdaily.com/dupe/chanel-coco-mademoiselle-dupe-armaf-club-de-nuit-woman/
+https://scentdealsdaily.com/dupe/ysl-la-nuit-de-l-homme-bleu-lectrique-dupe-lattafa-al-nashama-caprice/
