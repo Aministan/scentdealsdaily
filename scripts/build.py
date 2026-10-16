@@ -16,24 +16,35 @@ NAME="ScentDealsDaily"
 D=json.load(open(f"{ROOT}/data/deals.json"))
 CFG=json.load(open(f"{ROOT}/data/config.json"))
 e=html.escape
-CJ="https://www.tkqlhce.com/click-101905413-15733833"
+CJ_PM="https://www.tkqlhce.com/click-101905413-15733833"
+CJ_FS="https://www.anrdoezrs.net/click-101905413-16941523"
+def _host(url):
+    return (urllib.parse.urlparse(url).hostname or "").lower()
 def is_perfumania(url):
     if not isinstance(url,str) or not url: return False
     if "tkqlhce.com/click-101905413-15733833" in url: return True
-    host=(urllib.parse.urlparse(url).hostname or "").lower()
-    return host=="perfumania.com" or host.endswith(".perfumania.com")
+    h=_host(url)
+    return h=="perfumania.com" or h.endswith(".perfumania.com")
+def is_fragranceshop(url):
+    if not isinstance(url,str) or not url: return False
+    if "anrdoezrs.net/click-101905413-16941523" in url: return True
+    h=_host(url)
+    return h=="fragranceshop.com" or h.endswith(".fragranceshop.com")
+def is_affiliate(url):
+    return is_perfumania(url) or is_fragranceshop(url)
 def affiliate_url(url):
-    """CJ deep link for Perfumania. Other retailers stay as-is. Bare homepage has no url= param."""
+    """CJ deep link for Perfumania and FragranceShop. Other retailers stay as-is."""
     if not isinstance(url,str) or not url: return url
-    if "tkqlhce.com/click-101905413-15733833" in url: return url
-    if not is_perfumania(url): return url
+    if "tkqlhce.com/click-101905413-15733833" in url or "anrdoezrs.net/click-101905413-16941523" in url: return url
+    cj = CJ_PM if is_perfumania(url) else CJ_FS if is_fragranceshop(url) else None
+    if not cj: return url
     p=urllib.parse.urlparse(url)
-    if (p.path or "") in ("","/") and not p.query and not p.fragment: return CJ
-    return CJ+"?url="+urllib.parse.quote(url,safe="")
+    if (p.path or "") in ("","/") and not p.query and not p.fragment: return cj
+    return cj+"?url="+urllib.parse.quote(url,safe="")
 def ext_a(url, inner, cls="", style=""):
     href=e(affiliate_url(url))
     extra=(f' class="{cls}"' if cls else "")+(f" style='{style}'" if style else "")
-    if is_perfumania(url):
+    if is_affiliate(url):
         return f'<a{extra} rel="sponsored nofollow noopener" target="_blank" href="{href}">{inner}</a>'
     return f"<a{extra} rel='nofollow sponsored noopener' target=_blank href='{href}'>{inner}</a>"
 def slug(s): return re.sub(r"[^a-z0-9]+","-",s.lower()).strip("-")
@@ -56,7 +67,7 @@ main{max-width:1100px;margin:0 auto;padding:16px}h1{font-size:26px;line-height:1
 .card{background:#fff;border:1px solid #ece7e1;border-radius:14px;padding:12px;display:flex;flex-direction:column}
 .card img{width:100%;aspect-ratio:1;object-fit:contain;background:#fff}.badge{display:inline-block;background:#c0392b;color:#fff;border-radius:6px;padding:1px 7px;font-size:13px;font-weight:700}
 .brand{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:#7a7480;margin-top:6px}.nm{font-weight:650;margin:2px 0}
-.price{font-size:22px;font-weight:800}.was{color:#8d8791;text-decoration:line-through;margin-left:6px}.meta{font-size:12px;color:#7a7480}
+.price{font-size:22px;font-weight:800}.was{color:#8d8791;text-decoration:line-through;margin-left:6px}.meta{font-size:12px;color:#7a7480}.also{font-size:12px;color:#7a7480;margin:6px 0 8px}
 .btn{display:block;text-align:center;background:#6b2d5c;color:#fff;border-radius:10px;padding:10px;margin-top:auto;text-decoration:none;font-weight:650}
 .box{background:#fff;border:1px solid #ece7e1;border-radius:14px;padding:16px;margin:18px 0}
 form{display:flex;gap:8px;flex-wrap:wrap}input[type=email]{flex:1;min-width:200px;padding:11px;border:1px solid #ccc;border-radius:10px;font-size:16px}
@@ -75,18 +86,23 @@ def page(path,title,desc,body,jsonld=None):
 <meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{url}"><meta property="og:type" content="website">
 <meta name="twitter:card" content="summary"><link rel="stylesheet" href="{p}/style.css">{ld}</head><body>
 <header><a class="logo" href="{p}/">Scent<span>Deals</span>Daily</a><nav><a href="{p}/">Today's deals</a><a href="{p}/dupes/">Dupes</a><a href="{p}/men/">Men</a><a href="{p}/women/">Women</a><a href="{p}/brands/">Brands</a><a href="{p}/sponsor/">Sponsor</a></nav></header>
-<main>{body}</main><footer><p>We may earn a commission when you buy through our links, at no extra cost to you.</p>
+<main>{body}</main><footer><p>We may earn a commission when you buy through our links, at no extra cost to you. Affiliate links go to Perfumania and FragranceShop.</p>
 <p><b>Affiliate disclosure:</b> some links may earn us a commission at no cost to you. <a href="{p}/disclosure/">Details</a>.
 We list only authorized or long-established retailers, never gray-market marketplaces. Prices change fast; each deal shows when we last checked it. Not affiliated with any brand.</p>
 <p>© {upd.year} {NAME} · <a href="{p}/llms.txt">llms.txt</a> · <a href="{p}/sitemap.xml">sitemap</a></p>
 <p><img src="https://hits.sh/aministan.github.io/scentdealsdaily.svg?label=visitors" alt="visitor count" loading="lazy" height="20"></p></footer></body></html>"""
     fp=f"{OUT}/{path}"; os.makedirs(os.path.dirname(fp),exist_ok=True); open(fp,"w").write(doc); PAGES.append(url)
 PAGES=[]
+def also_line(d):
+    a=d.get("also")
+    if not a or a.get("price") is None or not a.get("url"): return ""
+    return f"<div class='also'>also at {ext_a(a['url'], e(a['retailer']))} · ${a['price']:.2f}</div>"
 def card(d):
     return f"""<article class="card"><img loading="lazy" src="{e(d['image'] or '')}" alt="{e(fullname(d))}" width="400" height="400">
 <div><span class="badge">-{d['pct_off']}%</span></div><div class="brand">{e(d['brand'])}</div><div class="nm"><a href="{PREFIX}/fragrance/{slug(d['brand']+' '+d['name'])}/">{e(d['name'])}</a> · {e(d['size'])}</div>
 <div><span class="price">${d['price']:.2f}</span><span class="was">${d['was']:.2f}</span></div>
 <div class="meta">at {e(d['retailer'])} · checked {upd_h} · {('crossed-out = price at '+e(d['was_label'])) if d.get('was_label') else '"was" = retailer\'s listed compare-at price'}</div>
+{also_line(d)}
 {ext_a(d['url'], f"Buy at {e(d['retailer'])}", cls="btn")}</article>"""
 def itemlist(ds,name):
     return {"@context":"https://schema.org","@type":"ItemList","name":name,"itemListElement":[{"@type":"ListItem","position":i+1,"item":{
@@ -120,9 +136,9 @@ page("index.html",f"Today's Best Designer Fragrance Deals ({upd:%b %-d}) | {NAME
 # dupes
 rows="".join(f"""<tr><td><b>{e(d['original'])}</b>{('<div class=meta>'+e(d['original_price'])+'</div>') if d.get('original_price') else ''}</td>
 <td><b><a href='{PREFIX}/dupe/{slug(d["original"]+" dupe "+d["dupe"])}/'>{e(d['dupe'])}</a></b><div class=meta>{e(d['notes'])}</div></td>
-<td>{(f"<b>${d['price']:.2f}</b> ({e(d['size'])}) {ext_a(d['url'], 'Perfumania')}<div class=meta>checked {upd_h}</div>") if d['price'] else "<span class=meta>Not tracked yet — price check coming</span>"}</td>
+<td>{(f"<b>${d['price']:.2f}</b> ({e(d['size'])}) {ext_a(d['url'], e(d.get('retailer') or 'Retailer'))}<div class=meta>checked {upd_h}</div>") if d['price'] else "<span class=meta>Not tracked yet — price check coming</span>"}</td>
 <td class=meta>{' '.join((f'<a href="{e(affiliate_url(s))}" rel="sponsored nofollow noopener" target="_blank">[{i+1}]</a>' if is_perfumania(s) else f"<a href='{e(s)}' rel=noopener target=_blank>[{i+1}]</a>") for i,s in enumerate(d['sources']))}</td></tr>""" for d in D["dupes"])
-faq={"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":f"What is the best dupe for {d['original']}?","acceptedAnswer":{"@type":"Answer","text":f"{d['dupe']} is a widely cited alternative to {d['original']} ({d['notes']})."+(f" It was ${d['price']:.2f} for {d['size']} at Perfumania as of {upd:%Y-%m-%d}." if d['price'] else "")}} for d in D["dupes"]]}
+faq={"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":f"What is the best dupe for {d['original']}?","acceptedAnswer":{"@type":"Answer","text":f"{d['dupe']} is a widely cited alternative to {d['original']} ({d['notes']})."+(f" It was ${d['price']:.2f} for {d['size']} at {d.get('retailer') or 'the retailer'} as of {upd:%Y-%m-%d}." if d['price'] else "")}} for d in D["dupes"]]}
 page("dupes/index.html",f"Best Designer Fragrance Dupes {upd.year}: {len(D['dupes'])} Clones With Live Prices | {NAME}",
  "Creed Aventus, Baccarat Rouge 540, Angels' Share, Sauvage Elixir and more: the most-cited affordable dupes, with today's prices and sources.",
  f"<h1>Designer fragrance dupes directory</h1><p class='sub'>Popular designer → affordable alternative pairs, cited from fragrance community rankings. Dupes are legally sold originals \"inspired by\" a scent — not counterfeits.</p>"+(("<p class='chips'>Compare guides: "+"".join(f"<a href='{PREFIX}/dupes/{h['slug']}/'>{e(h['title'])}</a>" for h in HUBS)+"</p>") if HUBS else "")+f"<table><thead><tr><th>Designer original</th><th>Dupe</th><th>Today's price</th><th>Sources</th></tr></thead><tbody>{rows}</tbody></table>{signup}",[faq])
@@ -152,7 +168,7 @@ page("sponsor/index.html",f"Sponsor {NAME} / Feature Your Brand","Reach fragranc
 <p>Contact: <a href="mailto:hello@scentdealsdaily.com">hello@scentdealsdaily.com</a> (pricing on request).</p></div>""")
 page("disclosure/index.html",f"Affiliate Disclosure | {NAME}","How ScentDealsDaily earns money: retailer affiliate commissions at no extra cost to you and clearly labeled sponsored spots. Deals are always ranked by % off.",
  """<h1>Affiliate disclosure</h1><div class='box'><p>We may earn a commission when you buy through our links, at no extra cost to you.</p>
-<p>Some links on this site are affiliate links. If you buy through them, we may earn a commission at no extra cost to you. This never changes which deals we list or how they're ranked (by % off).</p>
+<p>Some links on this site are affiliate links, including links to Perfumania and FragranceShop. If you buy through them, we may earn a commission at no extra cost to you. This never changes which deals we list or how they're ranked (by % off). When the same sealed bottle is in stock at both stores, the buy button goes to the lower price we checked, and the other store is noted beside it.</p>
 <p>As an Amazon Associate we may earn from qualifying purchases (once enrolled). Sponsored placements are always labeled "Sponsored".</p>
 <p>"Was" prices are the retailer's own listed compare-at / retail price at the time we checked. Prices and stock change; always confirm at checkout.</p></div>""")
 open(f"{OUT}/style.css","w").write(CSS)
@@ -188,7 +204,7 @@ for d in deals:
         (f"How much does {full} cost per ounce?",(f"At ${d['price']:.2f} for {d['size']} it works out to ${per_oz(d):.2f} per ounce, and you save ${d['was']-d['price']:.2f} versus the ${d['was']:.2f} listed price." if per_oz(d) else f"At ${d['price']:.2f} you save ${d['was']-d['price']:.2f} versus the ${d['was']:.2f} listed price."))]
     ru=next((r for r in ROUNDUPS if d in r['items']),None)
     body=(f"<h1>{e(full)} {e(d['size'])}: cheapest price today</h1><p class='sub'>Lowest verified price: <b class='price'>${d['price']:.2f}</b> <span class='was'>${d['was']:.2f}</span> <span class='badge'>-{d['pct_off']}%</span> at {e(d['retailer'])} · checked {upd_h}</p>"
-      +buy(d['url'],d['retailer'])
+      +buy(d['url'],d['retailer'])+also_line(d)
       +f"<div class='box' style='display:flex;gap:16px;flex-wrap:wrap'><img src='{e(d['image'] or '')}' alt='{e(full)}' width=220 height=220 style='object-fit:contain'><div style='flex:1;min-width:220px'><h2 style='margin-top:0'>Price comparison</h2><table><thead><tr><th>Retailer</th><th>Size</th><th>Price</th><th>Checked</th></tr></thead><tbody>{comprows(d)}</tbody></table><p class=meta>More retailers are added as we verify them. We never list unverified prices.</p></div></div>"
       +f"<p>{e(full)} is one of today's best {gl} deals: {d['pct_off']}% off the listed price, a {d['type'].lower() or 'fragrance'} from {e(d['brand'])} (<a href='{PREFIX}/brands/{slug(d['brand'])}/'>all {e(d['brand'])} deals</a>{(", <a href='"+PREFIX+"/best/"+ru['slug']+"/'>"+e(ru['title'].lower().replace('best ','more '))+"</a>") if ru else ''}).</p>"
       +faqhtml(qs)+"<h2>Similar deals today</h2><div class='grid'>"+"".join(card(x) for x in others)+"</div>"+signup)
@@ -205,7 +221,7 @@ for d in D["dupes"]:
     rel=[x for x in D['dupes'] if x is not d][:5]
     hb=hub_of(d); hublink=(f"<a href='{PREFIX}/dupes/{hb['slug']}/'>Compare every {e(hb['topic'])} dupe side by side</a> · ") if hb else ""
     body=(f"<h1>Best {e(o)} dupe: {e(d['dupe'])}</h1><p class='sub'>{e(d['notes'])} · {('<b class=price>$%.2f</b> today at %s' % (d['price'],e(d['retailer']))) if d['price'] else 'price not verified yet'}</p>"
-      +(buy(d['url'],d['retailer']) if d['price'] else "")
+      +((buy(d['url'],d['retailer'])+also_line(d)) if d['price'] else "")
       +f"<div class='box'><h2 style='margin-top:0'>{e(o)} vs {e(d['dupe'])}</h2><table><thead><tr><th></th><th>{e(o)}</th><th>{e(d['dupe'])}</th></tr></thead><tbody><tr><td>Price</td><td>{e(d.get('original_price') or 'varies')}</td><td>{('$%.2f (%s)' % (d['price'],e(d['size']))) if d['price'] else '—'}</td></tr><tr><td>Profile</td><td colspan=2>{e(d['notes'])}</td></tr><tr><td>Sources</td><td colspan=2>{' '.join((f'<a href="{e(affiliate_url(x))}" rel="sponsored nofollow noopener" target="_blank">[{i+1}]</a>' if is_perfumania(x) else f'<a href={e(x)} rel=noopener target=_blank>[{i+1}]</a>') for i,x in enumerate(d['sources']))}</td></tr></tbody></table></div>"
       +((f"<div class='box'><h2 style='margin-top:0'>Where to buy {e(d['dupe'])} cheapest</h2><table><thead><tr><th>Retailer</th><th>Size</th><th>Price</th><th>Checked</th></tr></thead><tbody>{comprows(d)}</tbody></table></div>") if d.get('comps') else "")+faqhtml(qs)+"<h2>More dupes</h2><div class='chips'>"+"".join(f"<a href='{PREFIX}/dupe/{slug(x['original']+' dupe '+x['dupe'])}/'>{e(x['original'])} → {e(x['dupe'])}</a>" for x in rel)+"</div><p>"+hublink+f"<a href='{PREFIX}/dupes/'>All dupes</a></p>"+signup)
     lds=[faqld(qs)]+([prod_ld(d['dupe'],d['dupe'].split()[0],d.get('image'),d['price'],d['url'],d['retailer'])] if d['price'] else [])
@@ -232,7 +248,7 @@ for r in ROUNDUPS:
     qs=[(f"What is the cheapest {N} deal under $50 today?",f"As of {upd_h}, the lowest verified price is {fullname(cheap)} {cheap['size']} at ${cheap['price']:.2f} from {cheap['retailer']} ({cheap['pct_off']}% off ${cheap['was']:.2f})."),
         (f"Which {N} under $50 is the best value per ounce?",f"{fullname(val)} at ${per_oz(val):.2f} per ounce (${val['price']:.2f} for {val['size']})." if per_oz(val) else f"{fullname(val)} at ${val['price']:.2f}."),
         (f"Which {N} under $50 has the biggest discount?",f"{fullname(big)}: {big['pct_off']}% off, ${big['price']:.2f} versus ${big['was']:.2f} {('at '+big['was_label']) if big.get('was_label') else 'listed compare-at'}."),
-        (f"Are these {N} deals authentic?","Yes. We only list authorized, long-established retailers (currently Perfumania, a US fragrance chain selling genuine designer brands) and exclude marketplace sellers and tester bottles."),
+        (f"Are these {N} deals authentic?","Yes. We only list authorized, long-established retailers (Perfumania and FragranceShop, both US fragrance shops selling genuine designer brands) and exclude marketplace sellers, testers and unboxed bottles."),
         ("How often are these prices updated?",f"Every day. Each price, compare-at price and stock status is re-checked from the retailer's live product data; anything under $50 that drops below 15% off or sells out is removed automatically. Last check: {upd_h}.")]
     body=(f"<h1>{e(r['title'])} ({upd:%b %-d, %Y})</h1><p class='sub'>{n} authentic {r['who']} fragrances under $50, each at least 15% below its listed price · checked {upd_h}</p>"
       +"<div class='box'><h2 style='margin-top:0'>Quick picks</h2><ul>"+picks(cheap,val,big)+"</ul>"

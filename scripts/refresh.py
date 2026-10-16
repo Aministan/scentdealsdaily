@@ -76,6 +76,10 @@ def main():
         deals.append({"id":h,"brand":p["vendor"],"name":p["title"],"size":v["title"].strip(),"type":p.get("product_type",""),
           "gender":gender(p),"price":round(pr,2),"was":ref["price"],"was_label":ref["retailer"],"pct_off":round((1-pr/ref["price"])*100),
           "retailer":"Perfumania","url":comps[0]["url"],"image":(p.get("image") or {}).get("src"),"checked":now,"in_stock":True,"comps":comps})
+    # FragranceShop is a second CJ retailer. A miss leaves the deal Perfumania-only.
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    from fragranceshop import attach as attach_fragranceshop
+    attach_fragranceshop(deals)
     deals.sort(key=lambda d:-d["pct_off"])
     dupes=[]
     for d in cfg["dupes"]:
@@ -92,6 +96,7 @@ def main():
                              url=f"{STORE}/products/{d['handle']}?variant={v['id']}",image=(p.get("image") or {}).get("src"),checked=now)
         if d.get("comps") and d["price"]: d["comps"]=[{"retailer":"Perfumania","price":d["price"],"url":d["url"],"checked":now}]+d["comps"]
         dupes.append(d)
+    attach_fragranceshop([], dupes)
     out=f"{ROOT}/data/deals.json"
     # Degraded-run guard: if many fetches still failed after retries (rate limit / outage), don't publish a
     # half-empty site. Keep the last fully verified file (its own 'updated' time stays visible) unless it's >48h old.
@@ -102,6 +107,27 @@ def main():
         if age is not None and age<datetime.timedelta(hours=48):
             print(f"DEGRADED refresh: {FAIL['transient']}/{FAIL['total']} fetches failed; keeping previous deals.json from {prev['updated']}",file=sys.stderr)
             return
+    # A FragranceShop outage should not wipe prices we already checked today.
+    import fragranceshop as _fs
+    st=_fs.STATS
+    if st["total"] and st["transient"]/st["total"]>0.5 and os.path.exists(out):
+        try:
+            prev=json.load(open(out))
+            age=datetime.datetime.now(datetime.timezone.utc)-datetime.datetime.strptime(prev["updated"],"%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=datetime.timezone.utc)
+        except Exception:
+            prev, age=None, None
+        if prev and age is not None and age<datetime.timedelta(hours=48):
+            def _restore(rows, olds, key):
+                old={x.get(key):x for x in olds}
+                for row in rows:
+                    src=old.get(row.get(key))
+                    if not src or not src.get("fs") or row.get("fs"): continue
+                    if (src.get("size") or "").strip()!= (row.get("size") or "").strip(): continue
+                    _fs._apply(row, {"retailer":"FragranceShop","price":src["fs"]["price"],"was":src["fs"].get("was"),"url":src["fs"]["url"],"matched":src["fs"].get("name"),"variation":src["fs"].get("variation")})
+            _restore(deals, prev.get("deals") or [], "id")
+            _restore(dupes, prev.get("dupes") or [], "dupe")
+            print(f"fragranceshop fetch degraded ({st['transient']}/{st['total']}); kept same-day FragranceShop prices", file=sys.stderr)
+    deals.sort(key=lambda d:-d["pct_off"])
     json.dump({"updated":now,"deals":deals,"dupes":dupes,"dropped":dropped},open(out,"w"),indent=1)
     print(f"{len(deals)} live deals, {len(dropped)} dropped {dropped}, {sum(1 for d in dupes if d['price'])}/{len(dupes)} dupes priced, {FAIL['transient']}/{FAIL['total']} fetch failures")
 if __name__=="__main__": main()
