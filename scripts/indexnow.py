@@ -1,10 +1,18 @@
 #!/usr/bin/env python3
-"""Ping IndexNow (Bing/Yandex/Seznam; Google ignores it) with every sitemap URL. Run after deploy: SITE_URL=... python3 scripts/indexnow.py"""
-import os,re,json,hashlib,urllib.request
+"""Ping IndexNow with sitemap URLs (or URLs passed as args). Run after deploy: PATH_PREFIX=/scentdealsdaily python3 scripts/indexnow.py [url ...]
+Bing/api.indexnow.org currently answer 403 UserForbiddedToAccessSite for aministan.github.io (they want ownership of the bare
+github.io host, which a project page can't prove), so we also ping Yandex directly, which accepts the path-scoped key. Never fails the build."""
+import os,re,sys,json,hashlib,urllib.request,urllib.error
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 KEY=hashlib.md5(b"scentdealsdaily-indexnow").hexdigest()
-urls=re.findall(r"<loc>([^<]+)</loc>",open(f"{ROOT}/site/sitemap.xml").read())
+urls=sys.argv[1:] or re.findall(r"<loc>([^<]+)</loc>",open(f"{ROOT}/site/sitemap.xml").read())
 host=urls[0].split("/")[2]; pre=os.environ.get("PATH_PREFIX","")
 body=json.dumps({"host":host,"key":KEY,"keyLocation":f"https://{host}{pre}/{KEY}.txt","urlList":urls}).encode()
-r=urllib.request.urlopen(urllib.request.Request("https://api.indexnow.org/indexnow",data=body,headers={"Content-Type":"application/json"}))
-print(r.status,len(urls),"urls")
+for ep in ["https://api.indexnow.org/indexnow","https://yandex.com/indexnow"]:
+    try:
+        r=urllib.request.urlopen(urllib.request.Request(ep,data=body,headers={"Content-Type":"application/json; charset=utf-8"}),timeout=30)
+        print(ep,r.status,len(urls),"urls")
+    except urllib.error.HTTPError as e:
+        print(ep,e.code,e.read()[:200].decode("utf-8","replace"))
+    except Exception as e:
+        print(ep,"error",e)

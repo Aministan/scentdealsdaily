@@ -2,16 +2,30 @@
 """Re-check every deal/dupe price + stock at the retailer, drop dead ones, write data/deals.json.
 Source: Perfumania public Shopify product JSON (https://www.perfumania.com/products/<handle>.json).
 Free, no API key. Run daily (cron / GitHub Actions)."""
-import json, time, urllib.request, datetime, os, sys
+import json, time, urllib.request, urllib.error, datetime, os, sys
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 UA="Mozilla/5.0 (compatible; ScentDealsDailyBot/1.0; +https://scentdealsdaily.com)"
 STORE="https://www.perfumania.com"
+PAUSE=float(os.environ.get("REFRESH_PAUSE","1.2"))  # seconds between products; keeps us under Perfumania's rate limit
+FAIL={"transient":0,"total":0}
+def fetch(url, tries=6):
+    """GET JSON with backoff. Perfumania rate-limits bursts (HTTP 429) from CI runners, so retry
+    with Retry-After / exponential backoff instead of silently dropping live deals."""
+    FAIL["total"]+=1
+    for i in range(tries):
+        try:
+            with urllib.request.urlopen(urllib.request.Request(url,headers={"User-Agent":UA}),timeout=20) as r: return json.load(r)
+        except urllib.error.HTTPError as e:
+            if e.code==404: print("  ! 404",url,file=sys.stderr); return None
+            if e.code in (429,500,502,503,504) and i<tries-1:
+                ra=e.headers.get("Retry-After"); w=float(ra) if ra and ra.replace(".","",1).isdigit() else min(60,4*2**i)
+                print(f"  ~ {e.code} {url.rsplit('/',1)[-1]} retry in {w:.0f}s",file=sys.stderr); time.sleep(w); continue
+            print("  !",url,e,file=sys.stderr); FAIL["transient"]+=1; return None
+        except Exception as e:
+            if i<tries-1: time.sleep(min(60,4*2**i)); continue
+            print("  !",url,e,file=sys.stderr); FAIL["transient"]+=1; return None
 def get(handle):
-    req=urllib.request.Request(f"{STORE}/products/{handle}.json",headers={"User-Agent":UA})
-    try:
-        with urllib.request.urlopen(req,timeout=20) as r: return json.load(r)["product"]
-    except Exception as e:
-        print("  !",handle,e,file=sys.stderr); return None
+    d=fetch(f"{STORE}/products/{handle}.json"); return d["product"] if d else None
 def best_variant(p, require_discount=True):
     vs=[v for v in p["variants"] if v.get("available",True) is not False and "tester" not in (v["title"]+p["title"]).lower()]
     out=[]
@@ -21,7 +35,7 @@ def best_variant(p, require_discount=True):
         out.append((1-pr/c if c>pr else 0, v, pr, c))
     return max(out,key=lambda x:x[0]) if out else None
 def gender(p):
-    t=(p["title"]+" "+" ".join(p.get("tags",[]) if isinstance(p.get("tags"),list) else [p.get("tags","")])).lower()
+    t=(p["title"]+" "+p.get("handle","").replace("-"," ")+" "+" ".join(p.get("tags",[]) if isinstance(p.get("tags"),list) else [p.get("tags","")])).lower()  # handle catches e.g. "ck-one-...-unisex-fragrance" tagged GENDER_Women
     if "unisex" in t: return "unisex"
     if "cologne" in t or " men" in t or "for men" in t: return "men"
     if "perfume" in t or "women" in t: return "women"
@@ -31,13 +45,11 @@ def main():
     now=datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     # stock status needs storefront availability; products/<h>.json omits 'available', so use .js endpoint
     def avail(handle):
-        req=urllib.request.Request(f"{STORE}/products/{handle}.js",headers={"User-Agent":UA})
-        try:
-            with urllib.request.urlopen(req,timeout=20) as r: return {v["id"]:v["available"] for v in json.load(r)["variants"]}
-        except Exception: return {}
+        d=fetch(f"{STORE}/products/{handle}.js")
+        return {v["id"]:v["available"] for v in d["variants"]} if d else {}
     deals=[]; dropped=[]
     for h in cfg["deals"]:
-        p=get(h); time.sleep(0.5)
+        p=get(h); time.sleep(PAUSE)
         if not p: dropped.append(h); continue
         a=avail(h)
         for v in p["variants"]: v["available"]=a.get(v["id"],False)
@@ -53,7 +65,7 @@ def main():
     for cd in cfg.get("compare_deals",[]):
         h=cd["handle"]
         if any(x["id"]==h for x in deals): continue
-        p=get(h); time.sleep(0.5)
+        p=get(h); time.sleep(PAUSE)
         if not p: dropped.append(h); continue
         a=avail(h)
         vs=[v for v in p["variants"] if a.get(v["id"]) and "tester" not in v["title"].lower() and re.match(r"\s*"+re.escape(cd["size"])+r"\b",v["title"])]
@@ -69,7 +81,7 @@ def main():
     for d in cfg["dupes"]:
         d=dict(d); d["price"]=None; d["url"]=None; d["checked"]=None
         if d.get("handle"):
-            p=get(d["handle"]); time.sleep(0.5)
+            p=get(d["handle"]); time.sleep(PAUSE)
             if p:
                 a=avail(d["handle"])
                 for v in p["variants"]: v["available"]=a.get(v["id"],False)
@@ -80,6 +92,16 @@ def main():
                              url=f"{STORE}/products/{d['handle']}?variant={v['id']}",image=(p.get("image") or {}).get("src"),checked=now)
         if d.get("comps") and d["price"]: d["comps"]=[{"retailer":"Perfumania","price":d["price"],"url":d["url"],"checked":now}]+d["comps"]
         dupes.append(d)
-    json.dump({"updated":now,"deals":deals,"dupes":dupes,"dropped":dropped},open(f"{ROOT}/data/deals.json","w"),indent=1)
-    print(f"{len(deals)} live deals, {len(dropped)} dropped {dropped}, {sum(1 for d in dupes if d['price'])}/{len(dupes)} dupes priced")
+    out=f"{ROOT}/data/deals.json"
+    # Degraded-run guard: if many fetches still failed after retries (rate limit / outage), don't publish a
+    # half-empty site. Keep the last fully verified file (its own 'updated' time stays visible) unless it's >48h old.
+    if FAIL["total"] and FAIL["transient"]/FAIL["total"]>0.2 and os.path.exists(out):
+        try:
+            prev=json.load(open(out)); age=datetime.datetime.now(datetime.timezone.utc)-datetime.datetime.strptime(prev["updated"],"%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=datetime.timezone.utc)
+        except Exception: age=None
+        if age is not None and age<datetime.timedelta(hours=48):
+            print(f"DEGRADED refresh: {FAIL['transient']}/{FAIL['total']} fetches failed; keeping previous deals.json from {prev['updated']}",file=sys.stderr)
+            return
+    json.dump({"updated":now,"deals":deals,"dupes":dupes,"dropped":dropped},open(out,"w"),indent=1)
+    print(f"{len(deals)} live deals, {len(dropped)} dropped {dropped}, {sum(1 for d in dupes if d['price'])}/{len(dupes)} dupes priced, {FAIL['transient']}/{FAIL['total']} fetch failures")
 if __name__=="__main__": main()

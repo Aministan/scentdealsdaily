@@ -20,7 +20,11 @@
   "azzaro-wanted-by-night-cologne-eau-de-parfum-for-men",
   "burberry-hero-cologne-eau-de-toilette-for-men",
   "olympea-eau-de-parfum-spray-for-women-by-paco-rabanne",
-  "casamorati-mefisto-cologne"
+  "casamorati-mefisto-cologne",
+  "elizabeth-arden-green-tea-scent-women-eau-de-parfum-spray",
+  "calvin-klein-ck-one-eau-de-toilette-unisex-fragrance",
+  "peace-love-juicy-couture-by-juicy-couture-for-women-edp-spray",
+  "hugo-boss-in-motion-mens-eau-de-toilette-spray"
  ],
  "dupes": [
   {
@@ -119,7 +123,7 @@
    ]
   },
   {
-   "original": "Creed Mill\u00e9sime Imp\u00e9rial",
+   "original": "Creed Millésime Impérial",
    "original_price": "$490 (per scentfile clone list)",
    "dupe": "Armaf Club de Nuit Milestone",
    "handle": "club-de-nuit-milestone-by-armaf-for-unisex-edp-spray",
@@ -167,10 +171,10 @@
    ]
   },
   {
-   "original": "YSL La Nuit de L'Homme Bleu \u00c9lectrique",
+   "original": "YSL La Nuit de L'Homme Bleu Électrique",
    "dupe": "Lattafa Al Nashama Caprice",
    "handle": null,
-   "notes": "Listed $20\u2013$30 range by scentfile",
+   "notes": "Listed $20–$30 range by scentfile",
    "sources": [
     "https://scentfile.com/clone-list.csv",
     "https://altscent.app/clone-list/"
@@ -441,6 +445,44 @@
      "checked": "2026-10-15 14:48 ET (via Muse.ai)"
     }
    ]
+  },
+  {
+   "handle": "stronger-with-you-intensely-cologne-for-men",
+   "size": "1.7",
+   "comps": [
+    {
+     "retailer": "Ulta",
+     "price": 105.0,
+     "url": "https://www.ulta.com/p/emporio-armani-stronger-with-you-intensely-eau-de-parfum-pimprod2045709?sku=2628034",
+     "checked": "2026-10-16 11:50 ET (Muse.ai find, re-verified live)"
+    }
+   ]
+  }
+ ],
+ "hubs": [
+  {
+   "slug": "creed-dupes",
+   "title": "Best Creed Dupes",
+   "match": [
+    "Creed "
+   ],
+   "intro": "Creed Aventus, Silver Mountain Water and Millésime Impérial each have a well-known Armaf Club de Nuit alternative on the community clone lists we cite. Here they are side by side, with prices we verified today."
+  },
+  {
+   "slug": "baccarat-rouge-540-dupes",
+   "title": "Best Baccarat Rouge 540 Dupes",
+   "match": [
+    "Baccarat Rouge 540"
+   ],
+   "intro": "Maison Francis Kurkdjian's Baccarat Rouge 540 (and its Extrait) shows up on nearly every clone list we cite. These three alternatives range from the softer, sweeter Ariana Grande Cloud to Al Haramain's closer saffron-amber take."
+  },
+  {
+   "slug": "kilian-angels-share-dupes",
+   "title": "Best Kilian Angels' Share Dupes",
+   "match": [
+    "Angels' Share"
+   ],
+   "intro": "Kilian's boozy cinnamon-vanilla Angels' Share has two widely cited Lattafa alternatives: the original Khamrah and the coffee-forward Khamrah Qahwa."
   }
  ]
 }
