@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
 """Render data/deals.json -> static site in site/. Usage: SITE_URL=https://... python3 scripts/build.py"""
-import json, os, html, re, datetime, urllib.parse, shutil
+import json, os, html, re, datetime, urllib.parse, shutil, tempfile
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__))); OUT=f"{ROOT}/site"
+# site/ is wiped and regenerated; keep promo videos in site/media through that rebuild.
+_media=f"{OUT}/media"; _keep=None
+if os.path.isdir(_media):
+    _keep=tempfile.mkdtemp(); shutil.copytree(_media, f"{_keep}/media")
 if os.path.isdir(OUT): shutil.rmtree(OUT)
 os.makedirs(OUT, exist_ok=True)
 BASE=os.environ.get("SITE_URL","https://aministan.github.io").rstrip("/")
@@ -273,4 +277,6 @@ KEY=hashlib.md5(b"scentdealsdaily-indexnow").hexdigest(); open(f"{OUT}/{KEY}.txt
 open(f"{ROOT}/docs/keywords.txt","w").write("\n".join(KW)+"\n")
 with open(f"{OUT}/llms.txt","a") as f: f.write("\n## Per-product & per-dupe pages\n"+"\n".join(u for u in PAGES if "/fragrance/" in u or "/dupe/" in u)+"\n")
 with open(f"{OUT}/llms.txt","a") as f: f.write("\n## Buying guides & dupe comparisons\n"+"\n".join(u for u in PAGES if "/best/" in u or any(f"/dupes/{h['slug']}/" in u for h in HUBS))+"\n")
+if _keep:
+    shutil.copytree(f"{_keep}/media", f"{OUT}/media"); shutil.rmtree(_keep)
 print(len(PAGES),"pages total;",len(KW),"keywords")
