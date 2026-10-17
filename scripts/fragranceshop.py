@@ -612,6 +612,16 @@ def _apply(d, offer):
         if primary["retailer"] == RETAILER:
             d.pop("was_label", None)
         d["pct_off"] = round((1 - float(d["price"]) / float(d["was"])) * 100)
+    # If the store's own compare-at is under 15% off, fall back to the highest price another authorized,
+    # non-affiliate retailer charges for the same bottle (e.g. Ulta via Muse.ai), labeled as such.
+    # refresh.py drops anything still under 15%.
+    if (d.get("pct_off") or 0) < 15:
+        refs = [c for c in comps if c.get("price") and float(c["price"]) > d["price"]]
+        if refs:
+            ref = max(refs, key=lambda c: float(c["price"]))
+            pct = round((1 - d["price"] / float(ref["price"])) * 100)
+            if pct > (d.get("pct_off") or 0):
+                d["was"], d["was_label"], d["pct_off"] = round(float(ref["price"]), 2), ref["retailer"], pct
     if other and other.get("price") is not None:
         d["also"] = {
             "retailer": other["retailer"],

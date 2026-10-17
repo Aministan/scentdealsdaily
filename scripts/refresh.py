@@ -80,6 +80,9 @@ def main():
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     from fragranceshop import attach as attach_fragranceshop
     attach_fragranceshop(deals)
+    # only true 15%+ discounts get published, whichever store ends up selling it
+    for d in [d for d in deals if (d.get("pct_off") or 0)<15]:
+        deals.remove(d); dropped.append(d["id"]+f" (only {d.get('pct_off')}% off after store merge)")
     deals.sort(key=lambda d:-d["pct_off"])
     dupes=[]
     for d in cfg["dupes"]:
@@ -127,6 +130,7 @@ def main():
             _restore(deals, prev.get("deals") or [], "id")
             _restore(dupes, prev.get("dupes") or [], "dupe")
             print(f"fragranceshop fetch degraded ({st['transient']}/{st['total']}); kept same-day FragranceShop prices", file=sys.stderr)
+    deals=[d for d in deals if (d.get("pct_off") or 0)>=15]
     deals.sort(key=lambda d:-d["pct_off"])
     json.dump({"updated":now,"deals":deals,"dupes":dupes,"dropped":dropped},open(out,"w"),indent=1)
     print(f"{len(deals)} live deals, {len(dropped)} dropped {dropped}, {sum(1 for d in dupes if d['price'])}/{len(dupes)} dupes priced, {FAIL['transient']}/{FAIL['total']} fetch failures")
