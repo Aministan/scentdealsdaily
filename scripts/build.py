@@ -103,6 +103,7 @@ def page(path,title,desc,body,jsonld=None):
 <meta name="google-site-verification" content="GASeKy1uEWpsrSn1II701znBYlw6mBhAwvimW0Yi8Io" />
 <meta name="google-site-verification" content="AnNdRzKxRNra8nkj3gri7zC9kJYJ-aZehksWkrfImx4" />
 <meta name='impact-site-verification' value='6f939439-73de-427f-89fc-c18dc2f9f64d'>
+<meta name="p:domain_verify" content="7833fa67293af531c9de288142c68c3c"/>
 <title>{e(title)}</title><meta name="description" content="{e(desc)}"><link rel="canonical" href="{url}">
 <meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{url}"><meta property="og:type" content="website">
 <meta name="twitter:card" content="summary"><link rel="preconnect" href="https://cdn.shopify.com"><style>{CSS}</style>{ld}</head><body>
