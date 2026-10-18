@@ -12,6 +12,7 @@ os.makedirs(OUT, exist_ok=True)
 BASE=os.environ.get("SITE_URL","https://scentdealsdaily.com").rstrip("/")
 _b=urllib.parse.urlsplit(BASE); BASE=urllib.parse.urlunsplit((_b.scheme,_b.netloc.lower(),_b.path,"",""))  # CI passes "Aministan.github.io"; canonicals, sitemap and IndexNow need the lowercase host
 PREFIX=os.environ.get("PATH_PREFIX","")  # custom domain scentdealsdaily.com serves from the root (was /scentdealsdaily on aministan.github.io)
+FEED_HREF=f"{BASE}{PREFIX}/feed.xml"
 CUSTOM_DOMAIN=os.environ.get("CUSTOM_DOMAIN","scentdealsdaily.com")  # written to site/CNAME so every rebuild keeps the GitHub Pages custom domain
 NEWSLETTER_ENDPOINT=os.environ.get("NEWSLETTER_ENDPOINT","#newsletter-placeholder")
 NAME="ScentDealsDaily"
@@ -105,6 +106,7 @@ def page(path,title,desc,body,jsonld=None):
 <meta name='impact-site-verification' value='6f939439-73de-427f-89fc-c18dc2f9f64d'>
 <meta name="p:domain_verify" content="7833fa67293af531c9de288142c68c3c"/>
 <title>{e(title)}</title><meta name="description" content="{e(desc)}"><link rel="canonical" href="{url}">
+<link rel="alternate" type="application/rss+xml" title="ScentDealsDaily" href="{FEED_HREF}">
 <meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{url}"><meta property="og:type" content="website">
 <meta name="twitter:card" content="summary"><link rel="preconnect" href="https://cdn.shopify.com"><style>{CSS}</style>{ld}</head><body>
 <header><a class="logo" href="{p}/">Scent<span>Deals</span>Daily</a><nav><a href="{p}/">Today's deals</a><a href="{p}/dupes/">Dupes</a><a href="{p}/men/">Men</a><a href="{p}/women/">Women</a><a href="{p}/brands/">Brands</a><a href="{p}/sponsor/">Sponsor</a></nav></header>
@@ -114,7 +116,16 @@ We list only authorized or long-established retailers, never gray-market marketp
 <p>© {upd.year} {NAME} · <a href="{p}/llms.txt">llms.txt</a> · <a href="{p}/sitemap.xml">sitemap</a></p>
 <p><img src="https://hits.sh/aministan.github.io/scentdealsdaily.svg?label=visitors" alt="visitor count" loading="lazy" height="20"></p></footer></body></html>"""
     fp=f"{OUT}/{path}"; os.makedirs(os.path.dirname(fp),exist_ok=True); open(fp,"w").write(doc); PAGES.append(url)
+    k=feed_kind(path)
+    if k: FEED.append((k,title,url,desc))
 PAGES=[]
+FEED=[]  # (kind, title, url, plain meta description) for deal and comparison pages
+def feed_kind(path):
+    if path.startswith("fragrance/"): return "deal"
+    if path.startswith("vs/") or path.startswith("best/"): return "compare"
+    if path.startswith("dupes/") and path!="dupes/index.html": return "hub"
+    if path.startswith("dupe/"): return "dupe"
+    return None
 def also_line(d):
     a=d.get("also")
     if not a or a.get("price") is None or not a.get("url"): return ""
@@ -372,11 +383,50 @@ for v in VS:
       [prod_ld(f"{fa} {sz(A['size'])}",canon(A['brand']),A['image'],A['price'],A['url'],A['retailer']),prod_ld(f"{fb} {sz(B['size'])}",canon(B['brand']),B['image'],B['price'],B['url'],B['retailer']),faqld(qs)])
 # rewrite sitemap with new pages + keyword list + IndexNow key
 open(f"{OUT}/sitemap.xml","w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+"".join(f"<url><loc>{u}</loc><lastmod>{upd:%Y-%m-%d}</lastmod></url>" for u in PAGES)+"</urlset>\n")
+def rfc822(dt):
+    days=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]; mons=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+    return f"{days[dt.weekday()]}, {dt.day:02d} {mons[dt.month-1]} {dt.year} {dt:%H:%M:%S} +0000"
+def write_feed():
+    """RSS 2.0 for the latest deal and comparison pages. Descriptions are the pages' meta descriptions."""
+    import xml.etree.ElementTree as ET
+    groups={"deal":[],"compare":[],"hub":[],"dupe":[]}
+    for kind,title,url,desc in FEED: groups[kind].append((title,url,desc))
+    limit=20
+    deals,rest=groups["deal"],groups["compare"]+groups["hub"]+groups["dupe"]
+    # Homepage order (largest discount first). Leave room for comparison pages when the build has both.
+    n_deals=min(len(deals), limit if not rest else min(10, limit))
+    items=(deals[:n_deals]+rest)[:limit]
+    ET.register_namespace("atom","http://www.w3.org/2005/Atom")
+    rss=ET.Element("rss",{"version":"2.0"})
+    ch=ET.SubElement(rss,"channel")
+    def add(parent,tag,text,**attrs):
+        el=ET.SubElement(parent,tag,attrs) if attrs else ET.SubElement(parent,tag)
+        el.text=text
+        return el
+    add(ch,"title",NAME)
+    add(ch,"link",f"{BASE}{PREFIX}/")
+    add(ch,"description","Daily-checked deals and comparisons for authentic designer perfume and cologne.")
+    add(ch,"language","en-us")
+    add(ch,"lastBuildDate",rfc822(upd))
+    ET.SubElement(ch,"{http://www.w3.org/2005/Atom}link",{"href":FEED_HREF,"rel":"self","type":"application/rss+xml"})
+    published=rfc822(upd)
+    for title,url,desc in items:
+        it=ET.SubElement(ch,"item")
+        add(it,"title",title)
+        add(it,"link",url)
+        add(it,"guid",url,isPermaLink="true")
+        add(it,"pubDate",published)
+        add(it,"description",desc)
+    ET.indent(rss,space="  ")
+    xml=ET.tostring(rss,encoding="unicode")
+    open(f"{OUT}/feed.xml","w").write('<?xml version="1.0" encoding="UTF-8"?>\n'+xml)
+    return len(items)
+nfeed=write_feed()
 KEY=hashlib.md5(b"scentdealsdaily-indexnow").hexdigest(); open(f"{OUT}/{KEY}.txt","w").write(KEY)
 open(f"{ROOT}/docs/keywords.txt","w").write("\n".join(KW)+"\n")
 with open(f"{OUT}/llms.txt","a") as f: f.write("\n## Per-product & per-dupe pages\n"+"\n".join(u for u in PAGES if "/fragrance/" in u or "/dupe/" in u)+"\n")
 with open(f"{OUT}/llms.txt","a") as f: f.write("\n## Buying guides & dupe comparisons\n"+"\n".join(u for u in PAGES if "/best/" in u or "/vs/" in u or any(f"/dupes/{h['slug']}/" in u for h in HUBS))+"\n")
-print(len(PAGES),"pages total;",len(KW),"keywords")
+print(len(PAGES),"pages total;",len(KW),"keywords;",nfeed,"feed items")
 if _media_tmp:
     shutil.copytree(f"{_media_tmp}/media", f"{OUT}/media")
     shutil.rmtree(_media_tmp)
