@@ -100,3 +100,11 @@ Scent-family roundups are ID lists in config with a key-notes line per bottle. N
 **Deploy:** the box has no GitHub push login, so the patch was handed to a Cursor cloud agent to commit to main. The push triggers daily-refresh (refresh + build + IndexNow + Pages deploy). Verify next run, including whether CI's Yandex ping now returns 200/202.
 
 **Open:** Bing IndexNow still refuses github.io project pages (a custom domain would fix it). No affiliate click/sale data on the box. Impact (Ulta) is waiting on support ticket 898438. 3 dupes are still unpriced, and FragranceShop misses several dupes ("no size or concentration"). Vs and roundup pages disappear if a bottle stops being a deal (by design), which can briefly leave 404s in search results.
+
+## Oct 18, 2026: moved to custom domain scentdealsdaily.com
+
+**Change:** the site now builds for https://scentdealsdaily.com at the root path. build.py defaults to SITE_URL=https://scentdealsdaily.com and PATH_PREFIX="", and it writes site/CNAME (scentdealsdaily.com) on every rebuild. daily.yml passes those values explicitly. Canonicals, og:url, sitemap.xml, robots.txt, llms.txt, JSON-LD and internal links all use the new host with no /scentdealsdaily prefix. Affiliate links and the verification meta tags are unchanged. Local build: 98 sitemap URLs, the same set as before with only the host changed.
+
+**DNS:** Cloudflare, DNS-only. A @ points to 185.199.108-111.153 and CNAME www points to aministan.github.io. GitHub Pages custom domain: scentdealsdaily.com, with Enforce HTTPS on once the cert is issued.
+
+**Next:** resubmit https://scentdealsdaily.com/sitemap.xml in Google Search Console (new property) and Bing Webmaster. IndexNow to Bing should now work on the custom domain.

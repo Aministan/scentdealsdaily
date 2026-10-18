@@ -9,9 +9,10 @@ if os.path.isdir(f"{OUT}/media"):
     shutil.copytree(f"{OUT}/media", f"{_media_tmp}/media")
 if os.path.isdir(OUT): shutil.rmtree(OUT)
 os.makedirs(OUT, exist_ok=True)
-BASE=os.environ.get("SITE_URL","https://aministan.github.io").rstrip("/")
+BASE=os.environ.get("SITE_URL","https://scentdealsdaily.com").rstrip("/")
 _b=urllib.parse.urlsplit(BASE); BASE=urllib.parse.urlunsplit((_b.scheme,_b.netloc.lower(),_b.path,"",""))  # CI passes "Aministan.github.io"; canonicals, sitemap and IndexNow need the lowercase host
-PREFIX=os.environ.get("PATH_PREFIX","/scentdealsdaily")  # e.g. /scentdealsdaily for GitHub project pages
+PREFIX=os.environ.get("PATH_PREFIX","")  # custom domain scentdealsdaily.com serves from the root (was /scentdealsdaily on aministan.github.io)
+CUSTOM_DOMAIN=os.environ.get("CUSTOM_DOMAIN","scentdealsdaily.com")  # written to site/CNAME so every rebuild keeps the GitHub Pages custom domain
 NEWSLETTER_ENDPOINT=os.environ.get("NEWSLETTER_ENDPOINT","#newsletter-placeholder")
 NAME="ScentDealsDaily"
 D=json.load(open(f"{ROOT}/data/deals.json"))
@@ -204,6 +205,7 @@ page("disclosure/index.html",f"Affiliate Disclosure | {NAME}","How ScentDealsDai
 <p>As an Amazon Associate we may earn from qualifying purchases (once enrolled). Sponsored placements are always labeled "Sponsored".</p>
 <p>"Was" prices are the retailer's own listed compare-at / retail price at the time we checked. Prices and stock change; always confirm at checkout.</p></div>""")
 open(f"{OUT}/style.css","w").write(CSS)
+if CUSTOM_DOMAIN: open(f"{OUT}/CNAME","w").write(CUSTOM_DOMAIN+"\n")
 open(f"{OUT}/robots.txt","w").write(f"User-agent: *\nAllow: /\n\nSitemap: {BASE}{PREFIX}/sitemap.xml\n")
 open(f"{OUT}/sitemap.xml","w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+"".join(f"<url><loc>{u}</loc><lastmod>{upd:%Y-%m-%d}</lastmod></url>" for u in PAGES)+"</urlset>\n")
 llms=[f"# {NAME}",f"> Daily-checked discounts on authentic designer fragrances at reputable retailers, plus a cited dupes directory. Last updated {D['updated']}.","",
