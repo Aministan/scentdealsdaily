@@ -6,6 +6,7 @@ import os,re,sys,json,hashlib,urllib.request,urllib.error
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 KEY=hashlib.md5(b"scentdealsdaily-indexnow").hexdigest()
 urls=sys.argv[1:] or re.findall(r"<loc>([^<]+)</loc>",open(f"{ROOT}/site/sitemap.xml").read())
+urls=[re.sub(r"^(https?://[^/]+)",lambda m:m.group(1).lower(),u) for u in urls]  # Yandex answers 422 "Invalid key location" for a mixed-case host
 host=urls[0].split("/")[2]; pre=os.environ.get("PATH_PREFIX","")
 body=json.dumps({"host":host,"key":KEY,"keyLocation":f"https://{host}{pre}/{KEY}.txt","urlList":urls}).encode()
 for ep in ["https://api.indexnow.org/indexnow","https://yandex.com/indexnow"]:

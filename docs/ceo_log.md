@@ -73,3 +73,30 @@ Roundups reuse the ItemList(Product/Offer)+FAQPage template (now parameterized b
 **Deploy:** the box has no GitHub push login, so the patch was handed to a Cursor cloud agent to commit to main; the push triggers daily-refresh (refresh + build + IndexNow + Pages deploy). Verify next run.
 
 **Open:** FragranceShop's store API returns 403/401 to the box (works in CI). Bing IndexNow still refuses github.io project pages (custom domain would fix). No affiliate click/sale data on the box.
+
+## 2026-10-18 (Sun) — daily optimization pass (Grok Bot)
+
+**Refresh status:** site live (200). Today's scheduled daily-refresh (run 39136544946, started 10:33 AM ET, about 3h after the 7:17 AM cron because GitHub delayed it) passed build and deploy and committed afe9e6e "daily refresh" at 10:44 AM ET. Data is stamped 10:33 AM ET: 42 live deals (26 at FragranceShop, 16 at Perfumania), 12/15 dupes priced, 0/120 fetch failures, same 6 drops as yesterday. Yesterday's 5 pages (/best/fragrance-deals-under-30/, /best/luxury-fragrance-deals/, 3 /vs/ pages) all return 200 live. Yesterday's patch (a43847a) and the Impact verification tag (4cb48e5) are on main.
+
+**Muse.ai deals:** muse_deals.json hasn't changed since Oct 15 (56 rows, last commit b4d3e5b). Nothing new to merge, and no prices were invented. Rows stay skipped for the same reasons: eBay/marketplace sellers, the Walmart PerfumesAmerica flag, sets/minis our stores don't stock, and Nordstrom Rack prices that beat our affiliate stores. The Ulta comps are already wired.
+
+**New pages (5, data-driven via config `vs` + new config `roundups`, so they survive the rebuild)**
+- /best/fresh-citrus-cologne-deals/: 11 men's/unisex citrus, aquatic and green picks from $22.95 (Acqua di Gio, Versace Pour Homme, Burberry Weekend, Bvlgari Man Wood Neroli, CK One, CK Everyone, Chrome Legend, Mefisto, Born in Roma EDT, Coach, Defy).
+- /best/vanilla-sweet-fragrance-deals/: 11 vanilla/tonka/toffee/praline picks from $45.95 (La Vie Est Belle, Eilish, Donna Born in Roma, Olympea, Poême, Stronger With You Intensely, Born in Roma Intense, The Most Wanted Parfum, Le Beau, Eros, Eros Flame).
+- /vs/ck-eternity-vs-eternity-air/ ($29.95 vs $20.95, both 3.4 oz EDP)
+- /vs/acqua-di-gio-vs-versace-pour-homme/ ($66.95 for 3.4 oz vs $45.95 for 1.0 oz)
+- /vs/stronger-with-you-intensely-vs-born-in-roma-intense/ ($70.95 for 1.7 oz vs $118.95 for 3.4 oz)
+Scent-family roundups are ID lists in config with a key-notes line per bottle. Notes come from Perfumania's product descriptions; Versace Pour Homme's were cross-checked on Fragrantica because Perfumania's copy doesn't list them. Bottles that stop being live deals drop off automatically, and a roundup only renders with 3+ live picks. Each page has ItemList(Product/Offer) or 2× Product/Offer + FAQPage JSON-LD and 11–23 inbound internal links: homepage/gender chips, every member fragrance page (now links to *all* roundups that include it, not just the first), and the vs pages link to the roundups their bottles are in.
+
+**Titles/meta**
+- 88 of 93 titles were over 60 characters (Google truncates around there). A `fit()` helper now tries shorter templates until one fits, keeping the price and % hooks. Fragrance pages drop the "– Cheapest Price Oct 2026" tail ("Calvin Klein Free Cologne 3.4 oz Sale: $17.95 (74% Off)"). Brand, gender, hub and roundup pages drop "| ScentDealsDaily" when it doesn't fit. Roundups now read "… : N Picks From $X". Homepage is "Fragrance Deals Today: Up to 76% Off | ScentDealsDaily" with a lowest-price meta. Result: 96 of 98 under 60; the 2 left are long dupe names.
+- 11 descriptions were over 160 characters (vs pages, roundups, hubs, 2 dupes). Shorter fallbacks plus a word-boundary `clip()` bring all 98 into the 70–160 range.
+- **Canonical host bug:** CI passes SITE_URL=https://Aministan.github.io (capital A from repository_owner), so every canonical, og:url, sitemap `<loc>` and llms.txt URL was mixed-case. build.py now lowercases the host. indexnow.py lowercases URLs too, which is the likely cause of CI's Yandex 422 "Invalid key location" (the same key works from the box with the lowercase host).
+
+**Core Web Vitals:** the 2.3 KB stylesheet is now inlined in `<head>`, which removes the only render-blocking request. Added a preconnect to cdn.shopify.com (all product images). The fragrance-page hero image gets fetchpriority=high + decoding=async. Card images stay lazy and no new assets were added.
+
+**Checks (local build on today's data, CI env):** 98 pages, all JSON-LD parses, 0 broken internal links of 1,884, no duplicate titles or descriptions. sitemap.xml and llms.txt include all 5 new pages. Every Offer price on the new pages matches deals.json. Other $ figures on the site are derived: per-ounce prices and savings.
+
+**Deploy:** the box has no GitHub push login, so the patch was handed to a Cursor cloud agent to commit to main. The push triggers daily-refresh (refresh + build + IndexNow + Pages deploy). Verify next run, including whether CI's Yandex ping now returns 200/202.
+
+**Open:** Bing IndexNow still refuses github.io project pages (a custom domain would fix it). No affiliate click/sale data on the box. Impact (Ulta) is waiting on support ticket 898438. 3 dupes are still unpriced, and FragranceShop misses several dupes ("no size or concentration"). Vs and roundup pages disappear if a bottle stops being a deal (by design), which can briefly leave 404s in search results.

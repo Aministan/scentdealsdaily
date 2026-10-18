@@ -518,6 +518,171 @@
    "intro": "CK One (1994) is the original shareable unisex scent; CK Everyone (2020) is Calvin Klein's newer take on the same idea, built on orange oil and a blue tea accord. Both are unisex eau de toilettes and both are discounted today.",
    "difference": "CK One is a clean citrus and green tea scent with a soft musk base. CK Everyone is simpler and more modern: bright orange oil over a tea accord and cedarwood.",
    "pick": "Pick CK One for the classic clean, citrus-tea musk; pick CK Everyone for a brighter orange-and-tea take in a larger bottle."
+  },
+  {
+   "slug": "ck-eternity-vs-eternity-air",
+   "title": "CK Eternity vs Eternity Air",
+   "a": "calvin-klein-eternity-womens-eau-de-parfum-spray",
+   "b": "eternity-air-eau-de-parfum-spray-for-women-by-calvin-klein",
+   "a_notes": "Green notes, freesia, mandarin, sage; lily, carnation, marigold, rose; heliotrope, sandalwood, amber, musk",
+   "b_notes": "Ozonic notes, grapefruit, black currant; peony, pear, lily of the valley; musk, cedar, ambergris",
+   "intro": "Calvin Klein's Eternity (1988) is the classic green floral; Eternity Air (2018) is its lighter, airier flanker. Both are 3.4 oz eau de parfum bottles for women, and both are deeply discounted today.",
+   "difference": "Eternity is a full green floral: freesia, sage and citrus up top, a big lily, carnation and rose heart, and a soft, powdery heliotrope, sandalwood and amber base. Eternity Air is a fresh fruity floral built on ozonic notes, grapefruit and black currant over peony and pear, drying down to musk, cedar and ambergris, so it wears lighter and cleaner.",
+   "pick": "Pick Eternity for the classic, fuller floral that works day or evening; pick Eternity Air for a light, clean scent for daytime and warm weather."
+  },
+  {
+   "slug": "acqua-di-gio-vs-versace-pour-homme",
+   "title": "Acqua di Gio vs Versace Pour Homme",
+   "a": "giorgio-armani-acqua-di-gio-eau-de-toilette-cologne-for-men",
+   "b": "versace-pour-homme-cologne-mens-eau-de-toilette",
+   "a_notes": "Lime, lemon, bergamot, neroli; marine notes, rosemary, jasmine; white musk, cedar, patchouli",
+   "b_notes": "Lemon, bergamot, neroli; hyacinth, clary sage, geranium; tonka bean, musk, amber",
+   "intro": "Two of the best-known fresh designer colognes: Armani's Acqua di Gio (1996), the aquatic citrus benchmark, and Versace Pour Homme (2008), a brighter citrus-aromatic with a soft amber finish. Both are eau de toilettes and both are on sale today, in different bottle sizes, so check the per-ounce row.",
+   "difference": "Acqua di Gio is an aquatic: citrus and neroli over marine notes and rosemary, drying down to white musk, cedar and patchouli. Versace Pour Homme skips the sea notes for a lemon, bergamot and neroli opening, an herbal clary sage, geranium and hyacinth heart and a smoother tonka, musk and amber base.",
+   "pick": "Pick Acqua di Gio for the classic beachy, aquatic fresh scent; pick Versace Pour Homme for a cleaner citrus-herbal scent with a slightly sweeter dry-down."
+  },
+  {
+   "slug": "stronger-with-you-intensely-vs-born-in-roma-intense",
+   "title": "Stronger With You Intensely vs Born in Roma Intense",
+   "a": "stronger-with-you-intensely-cologne-for-men",
+   "b": "uomo-intense-by-valentino-for-men-eau-de-parfum-spray",
+   "a_notes": "Pink pepper, juniper, violet; toffee, cinnamon, lavender, sage; vanilla, amber, tonka bean, suede",
+   "b_notes": "Vanilla, lavender, vetiver",
+   "intro": "Two of the most popular sweet, vanilla-forward evening colognes. Emporio Armani's Stronger With You Intensely layers toffee and cinnamon over vanilla; Valentino's Uomo Born in Roma Intense keeps it to three notes: vanilla, lavender and vetiver. Both are eau de parfum and both are discounted today.",
+   "difference": "Stronger With You Intensely is the sweeter, spicier one: pink pepper and juniper open into toffee, cinnamon and lavender, then a vanilla, amber, tonka and suede base. Born in Roma Intense is simpler and drier: smoky vanilla, cool lavender and an earthy vetiver finish that keeps it from turning dessert-like.",
+   "pick": "Pick Stronger With You Intensely for a sweet, warm toffee-vanilla scent; pick Born in Roma Intense for a cleaner, less sugary vanilla-lavender scent."
+  }
+ ],
+ "roundups": [
+  {
+   "slug": "fresh-citrus-cologne-deals",
+   "title": "Best Fresh & Citrus Cologne Deals",
+   "noun": "fresh cologne",
+   "who": "men's and unisex",
+   "scope": "on sale",
+   "rule": "the bottle's published notes must lead with citrus, aquatic or green notes (no vanilla- or spice-led scents)",
+   "lead": "Clean citrus, aquatic and green colognes for warm days, the gym and the office, all authentic bottles discounted at authorized retailers today. Each pick lists its key notes so you can match the scent, not just the price.",
+   "items": [
+    {
+     "id": "giorgio-armani-acqua-di-gio-eau-de-toilette-cologne-for-men",
+     "notes": "Aquatic: lime, bergamot, neroli, marine notes, white musk"
+    },
+    {
+     "id": "versace-pour-homme-cologne-mens-eau-de-toilette",
+     "notes": "Citrus aromatic: lemon, bergamot, neroli, clary sage, amber"
+    },
+    {
+     "id": "burberry-weekend-mens-eau-de-toilette-spray",
+     "notes": "Citrus: lemon, grapefruit, mandarin, melon, honey-musk base"
+    },
+    {
+     "id": "bvlgari-man-wood-neroli-cologne-eau-de-parfum",
+     "notes": "Citrus woody: neroli, bergamot, orange blossom, cedar"
+    },
+    {
+     "id": "calvin-klein-ck-one-eau-de-toilette-unisex-fragrance",
+     "notes": "Citrus aromatic (unisex): lemon, bergamot, pineapple, green tea, musk"
+    },
+    {
+     "id": "ck-everyone-unisex-fragrance",
+     "notes": "Aquatic (unisex): orange oil, ginger, watery notes, tea, cedar"
+    },
+    {
+     "id": "azzaro-chrome-legend-mens-eau-de-toilette-spray",
+     "notes": "Green: green apple, tea, bitter orange, vetiver"
+    },
+    {
+     "id": "casamorati-mefisto-cologne",
+     "notes": "Citrus aromatic: grapefruit, bergamot, Amalfi lemon, lavender, iris"
+    },
+    {
+     "id": "valentino-uomo-born-in-roma-cologne-eau-de-toilette-for-men",
+     "notes": "Mineral fresh: salt accord, violet leaf, ginger, sage, vetiver"
+    },
+    {
+     "id": "coach-for-men-eau-de-toilette",
+     "notes": "Fresh fruity: pear, bergamot, kumquat, grapefruit, lavender"
+    },
+    {
+     "id": "calvin-klein-defy-eau-de-toilette-for-men",
+     "notes": "Fresh aromatic: bergamot, lavender, vetiver, amber"
+    }
+   ],
+   "faq": [
+    [
+     "What makes a cologne 'fresh'?",
+     "Fresh colognes lead with citrus (bergamot, lemon, grapefruit, neroli), aquatic or green notes (tea, mint, green apple) instead of vanilla, amber or heavy spice. They read clean and light, which is why they're the usual pick for warm weather, the gym and the office."
+    ],
+    [
+     "Eau de toilette or eau de parfum for a fresh scent?",
+     "Most fresh colognes are eau de toilettes, which are lighter and easier to wear in heat. An eau de parfum (like Bvlgari Man Wood Neroli or Xerjoff Casamorati Mefisto here) has more fragrance oil, so it usually lasts longer on skin."
+    ]
+   ]
+  },
+  {
+   "slug": "vanilla-sweet-fragrance-deals",
+   "title": "Best Vanilla & Sweet Fragrance Deals",
+   "noun": "vanilla fragrance",
+   "who": "men's and women's",
+   "scope": "on sale",
+   "rule": "vanilla, tonka, toffee, praline or coconut must be a key published note",
+   "lead": "Warm vanilla, toffee and praline scents for fall, winter and date nights: perfumes and colognes, all authentic and discounted at authorized retailers today. Each pick lists its key notes so you can tell a floral vanilla from a spicy one.",
+   "items": [
+    {
+     "id": "lancome-la-vie-est-belle-perfume-eau-de-parfum-for-women",
+     "notes": "Floral gourmand: pear, iris, praline, vanilla, tonka"
+    },
+    {
+     "id": "billie-eilish-perfume-eau-de-parfum-for-women",
+     "notes": "Vanilla gourmand: sugar, red berries, vanilla, cacao, tonka"
+    },
+    {
+     "id": "valentino-donna-born-in-roma-perfume-eau-de-parfum-for-women",
+     "notes": "Floral vanilla: black currant, jasmine, bourbon vanilla, cashmeran"
+    },
+    {
+     "id": "olympea-eau-de-parfum-spray-for-women-by-paco-rabanne",
+     "notes": "Salty vanilla: water jasmine, mandarin, vanilla, salt accord, sandalwood"
+    },
+    {
+     "id": "lancome-poeme-perfume-for-women-eau-de-parfum-spray",
+     "notes": "Floral oriental: mimosa, jasmine, vanilla, tuberose, tonka"
+    },
+    {
+     "id": "stronger-with-you-intensely-cologne-for-men",
+     "notes": "Toffee & spice: toffee, cinnamon, lavender, vanilla, tonka"
+    },
+    {
+     "id": "uomo-intense-by-valentino-for-men-eau-de-parfum-spray",
+     "notes": "Vanilla aromatic: vanilla, lavender, vetiver"
+    },
+    {
+     "id": "the-most-wanted-parfum-cologne",
+     "notes": "Spiced vanilla: ginger, woods, bourbon vanilla"
+    },
+    {
+     "id": "le-beau-eau-de-toilette-spray-for-men-by-jean-paul-gaultier",
+     "notes": "Coconut & tonka: bergamot, coconut, tonka bean"
+    },
+    {
+     "id": "versace-eros-cologne-eau-de-toilette-for-men",
+     "notes": "Sweet fresh: mint, green apple, tonka bean, ambroxan, vanilla"
+    },
+    {
+     "id": "versace-eros-flame-eau-de-parfum-for-men",
+     "notes": "Spicy sweet: lemon, black pepper, rose, tonka bean, vanilla"
+    }
+   ],
+   "faq": [
+    [
+     "Are vanilla fragrances good for fall and winter?",
+     "Yes. Vanilla, tonka, toffee and praline feel warm and hold up well in cold air, so sweet scents like these are the classic fall, winter and date-night picks. In summer heat they can feel heavy, so use a lighter hand."
+    ],
+    [
+     "What does gourmand mean in perfume?",
+     "A gourmand fragrance is built around edible-smelling notes such as vanilla, caramel, praline, toffee, cacao or coffee. Vanilla is the most common; pairing it with florals (La Vie Est Belle, Donna Born in Roma) or lavender and spice (Born in Roma Intense, Stronger With You Intensely) changes how sweet it reads."
+    ]
+   ]
   }
  ]
 }
