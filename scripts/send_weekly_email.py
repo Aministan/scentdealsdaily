@@ -32,7 +32,7 @@ def fullname(d):
     return f"{brand} {name}"
 
 def deal_page(d):
-    return f"{SITE}/fragrance/{slug(d['brand'] + ' ' + d['name'])}/"
+    return f"{SITE}/fragrance/{slug(d['brand'] + ' ' + d['name'])}/?utm_source=newsletter&utm_medium=email&utm_campaign=weekly"
 
 def money(n):
     return f"${n:,.2f}"
