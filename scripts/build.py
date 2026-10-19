@@ -225,11 +225,71 @@ def card(d,eager=False):
 <div class="meta">at {e(d['retailer'])} · checked {upd_h} · {('crossed-out = price at '+e(d['was_label'])) if d.get('was_label') else '"was" = retailer\'s listed compare-at price'}</div>
 {also_line(d)}
 {ext_a(d['url'], f"Buy at {e(d['retailer'])}", cls="btn", placement="grid")}</article>"""
+def conc_name(t):
+    """Concentration label from the stored type. Only the values we already record."""
+    low=(t or "").strip().lower()
+    if not low: return ""
+    if low=="parfum" or low.startswith("parfum "): return "Parfum"
+    if "parfum" in low: return "Eau de Parfum"
+    if "toilette" in low: return "Eau de Toilette"
+    return re.sub(r"\s+"," ",t.strip())
+def check_day(raw):
+    """Date of a price check. Unparseable notes fall back to the file's updated date."""
+    m=re.match(r"(\d{4}-\d{2}-\d{2})", str(raw or ""))
+    return m.group(1) if m else upd.strftime("%Y-%m-%d")
+PRICE_UNTIL=(upd+datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+def product_description(d):
+    """Description from brand, name, concentration, size, and gender. No claims we did not check."""
+    if d.get("brand") and d.get("name"):
+        short=re.sub(r" (Cologne|Perfume|Unisex Fragrance)$","",fullname(d)).strip()
+    else:
+        short=(d.get("dupe") or d.get("name") or "").strip()
+    conc=conc_name(d.get("type"))
+    size=sz(d.get("size") or "")
+    bits=[short]
+    if conc and conc.lower() not in short.lower(): bits.append(conc)
+    if size and size not in short: bits.append(size)
+    text=" ".join(b for b in bits if b)
+    if d.get("gender")=="men": text+=" for men"
+    elif d.get("gender")=="women": text+=" for women"
+    elif d.get("gender")=="unisex": text+=" for men and women"
+    return text+", compared across authorized retailers."
+def offer_rows(d):
+    rows=[c for c in (d.get("comps") or []) if isinstance(c.get("price"),(int,float)) and not isinstance(c.get("price"),bool) and c.get("url") and c.get("retailer")]
+    if rows: return rows
+    if isinstance(d.get("price"),(int,float)) and not isinstance(d.get("price"),bool) and d.get("url") and d.get("retailer"):
+        return [{"retailer":d["retailer"],"price":d["price"],"url":d["url"],"checked":d.get("checked")}]
+    return []
+def offer_node(c, d):
+    """One store's checked price. Shipping and returns stay off: we are not the seller and do not have that data."""
+    avail="https://schema.org/InStock" if d.get("in_stock") is not False else "https://schema.org/OutOfStock"
+    return {"@type":"Offer","price":f"{c['price']:.2f}","priceCurrency":"USD","availability":avail,
+            "url":affiliate_url(c["url"],"ld"),"seller":{"@type":"Organization","name":c["retailer"]},
+            "priceValidUntil":PRICE_UNTIL,"validFrom":check_day(c.get("checked") or d.get("checked"))}
+def aggregate_offer(d):
+    nodes=[offer_node(c,d) for c in offer_rows(d)]
+    if not nodes: return None
+    prices=[float(o["price"]) for o in nodes]
+    return {"@type":"AggregateOffer","lowPrice":f"{min(prices):.2f}","highPrice":f"{max(prices):.2f}",
+            "offerCount":len(nodes),"priceCurrency":"USD","offers":nodes}
+def prod_ld(d, name=None, brand=None):
+    if name is None:
+        name=(f"{fullname(d)} {d.get('size') or ''}".strip() if d.get("brand") and d.get("name") else (d.get("dupe") or d.get("name") or ""))
+    if brand is None:
+        brand=canon(d["brand"]) if d.get("brand") else (d.get("dupe") or "").split(" ")[0]
+    product={"@context":"https://schema.org","@type":"Product","name":name,"description":product_description(d)}
+    if brand: product["brand"]={"@type":"Brand","name":brand}
+    if d.get("image"): product["image"]=d["image"]
+    offers=aggregate_offer(d)
+    if offers: product["offers"]=offers
+    return product
 def itemlist(ds,name):
-    return {"@context":"https://schema.org","@type":"ItemList","name":name,"itemListElement":[{"@type":"ListItem","position":i+1,"item":{
-      "@type":"Product","name":f"{fullname(d)} {d['size']}","brand":{"@type":"Brand","name":canon(d['brand'])},"image":d['image'],
-      "offers":{"@type":"Offer","price":f"{d['price']:.2f}","priceCurrency":"USD","availability":"https://schema.org/InStock","url":affiliate_url(d['url'],"ld"),
-      "seller":{"@type":"Organization","name":d['retailer']},"priceValidUntil":(upd+datetime.timedelta(days=1)).strftime('%Y-%m-%d')}}} for i,d in enumerate(ds)]}
+    items=[]
+    for i,d in enumerate(ds):
+        item=prod_ld(d, name=f"{fullname(d)} {d['size']}", brand=canon(d["brand"]))
+        item.pop("@context",None)
+        items.append({"@type":"ListItem","position":i+1,"item":item})
+    return {"@context":"https://schema.org","@type":"ItemList","name":name,"itemListElement":items}
 deals=D["deals"]
 BYID={d['id']:d for d in deals}
 # ---- roundups (/best/...) and dupe hubs (/dupes/<hub>/): data-driven so they survive the daily rebuild ----
@@ -337,9 +397,6 @@ import hashlib
 def faqld(qs): return {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":a}} for q,a in qs]}
 def faqhtml(qs): return "<section class='box'><h2 style='margin-top:0'>FAQ</h2>"+"".join(f"<h3>{e(q)}</h3><p>{e(a)}</p>" for q,a in qs)+"</section>"
 def buy(url,ret): return ext_a(url, f"Buy at {e(ret)} →", cls="btn", style="max-width:340px", placement="cta")
-def prod_ld(name,brand,img,price,url,ret,was=None):
-    o={"@type":"Offer","price":f"{price:.2f}","priceCurrency":"USD","availability":"https://schema.org/InStock","url":affiliate_url(url,"ld"),"seller":{"@type":"Organization","name":ret},"priceValidUntil":(upd+datetime.timedelta(days=1)).strftime('%Y-%m-%d')}
-    return {"@context":"https://schema.org","@type":"Product","name":name,"brand":{"@type":"Brand","name":brand},"image":img,"offers":o}
 KW=[]
 for d in deals:
     full=fullname(d); s=slug(f"{d['brand']} {d['name']}"); use_sid("deal", s); KW+= [f"{full.lower()} cheapest price",f"{full.lower()} sale",f"{full.lower()} {d['size'].lower()} deal"]
@@ -360,7 +417,7 @@ for d in deals:
     short=re.sub(r" (Cologne|Perfume|Unisex Fragrance)$","",full); P=f"${d['price']:.2f}"; Z=sz(d['size'])
     page(f"fragrance/{s}/index.html",fit([f"{full} {Z} Sale: {P} ({d['pct_off']}% Off) – Cheapest Price {upd:%b %Y}",f"{full} {Z} Sale: {P} ({d['pct_off']}% Off)",f"{short} {Z} Sale: {P} ({d['pct_off']}% Off)",f"{short} {Z}: {P} ({d['pct_off']}% Off)",f"{short}: {P} ({d['pct_off']}% Off)",f"{short.replace(canon(d['brand'])+' ','',1).replace(d['brand']+' ','',1)} {Z}: {P} ({d['pct_off']}% Off)"]),
       f"{full} {sz(d['size'])} for ${d['price']:.2f} at {d['retailer']} ("+(f"${d['was']:.2f} at {d['was_label']}" if d.get('was_label') else f"was ${d['was']:.2f}")+f"). Authentic, sealed, price-checked {upd:%b %-d, %Y}.",body,
-      [prod_ld(f"{full} {d['size']}",d['brand'],d['image'],d['price'],d['url'],d['retailer']),faqld(qs)])
+      [prod_ld(d, name=f"{full} {d['size']}", brand=d['brand']),faqld(qs)])
 for d in D["dupes"]:
     s=slug(f"{d['original']} dupe {d['dupe']}"); use_sid("dupe", s); o=d['original']
     KW+=[f"{o.lower()} dupe",f"best cheap {o.lower()} dupe {upd.year}",f"{d['dupe'].lower()} vs {o.lower()}"]
@@ -374,7 +431,7 @@ for d in D["dupes"]:
       +((buy(d['url'],d['retailer'])+also_line(d)) if d['price'] else "")
       +f"<div class='box'><h2 style='margin-top:0'>{e(o)} vs {e(d['dupe'])}</h2><table><thead><tr><th></th><th>{e(o)}</th><th>{e(d['dupe'])}</th></tr></thead><tbody><tr><td>Price</td><td>{e(d.get('original_price') or 'varies')}</td><td>{('$%.2f (%s)' % (d['price'],e(d['size']))) if d['price'] else '—'}</td></tr><tr><td>Profile</td><td colspan=2>{e(d['notes'])}</td></tr><tr><td>Sources</td><td colspan=2>{' '.join((f'<a href="{e(affiliate_url(x, "src"))}" rel="sponsored nofollow noopener" target="_blank">[{i+1}]</a>' if is_perfumania(x) else f'<a href={e(x)} rel=noopener target=_blank>[{i+1}]</a>') for i,x in enumerate(d['sources']))}</td></tr></tbody></table></div>"
       +((f"<div class='box'><h2 style='margin-top:0'>Where to buy {e(d['dupe'])} cheapest</h2><table><thead><tr><th>Retailer</th><th>Size</th><th>Price</th><th>Checked</th></tr></thead><tbody>{comprows(d)}</tbody></table></div>") if d.get('comps') else "")+faqhtml(qs)+"<h2>More dupes</h2><div class='chips'>"+"".join(f"<a href='{PREFIX}/dupe/{slug(x['original']+' dupe '+x['dupe'])}/'>{e(x['original'])} → {e(x['dupe'])}</a>" for x in rel)+"</div><p>"+hublink+f"<a href='{PREFIX}/dupes/'>All dupes</a></p>")
-    lds=[faqld(qs)]+([prod_ld(d['dupe'],d['dupe'].split()[0],d.get('image'),d['price'],d['url'],d['retailer'])] if d['price'] else [])
+    lds=[faqld(qs)]+([prod_ld(d, name=d['dupe'], brand=d['dupe'].split()[0])] if d['price'] else [])
     PR=(f" ${d['price']:.2f}" if d['price'] else "")
     page(f"dupe/{s}/index.html",fit([f"Best {o} Dupe {upd.year}: {d['dupe']}{PR}",f"Best {o} Dupe: {d['dupe']}{PR}",f"{o} Dupe: {d['dupe']}{PR}",f"{o} Dupe: {d['dupe']}",f"{re.sub(r' [(].*?[)]','',o)} Dupe: {re.sub(r' [(].*?[)]','',d['dupe'])}"]),
       f"{d['dupe']} vs {o}: {d['notes'].split(';')[0].rstrip('.')}."+(f" ${d['price']:.2f} for {d['size']} at {d['retailer']} today." if d['price'] else "")+" Cited sources, authentic bottles only.",body,lds)
@@ -388,8 +445,8 @@ def picks(cheap,val,big):
         else: out.append(([lab],d,[extra]))
     return "".join(f"<li><b>{e(' + '.join(l).capitalize())}:</b> <a href='{PREFIX}/fragrance/{slug(d['brand']+' '+d['name'])}/'>{e(fullname(d))}</a> ({e(', '.join(x))})</li>" for l,d,x in out)
 # ---------- buying-guide roundups (/best/<slug>/) ----------
-def offer_item(name,brand,img,price,url,ret):
-    x=prod_ld(name,brand,img,price,url,ret); x.pop("@context",None); return x
+def offer_item(d, name, brand):
+    x=prod_ld(d, name=name, brand=brand); x.pop("@context",None); return x
 for r in ROUNDUPS:
     use_sid("best", r["slug"])
     ds=sorted(r["items"],key=lambda d:(per_oz(d) or 999,d['price'])); n=len(ds); N=r['noun']
@@ -410,7 +467,7 @@ for r in ROUNDUPS:
       +BREVO_FORM
       +f"<h2>All {n} picks</h2><div class='grid'>{''.join(card(d) for d in ds)}</div>"+faqhtml(qs)
       +"<p class='chips'>"+"".join(f"<a href='{PREFIX}/best/{x['slug']}/'>{e(x['title'])}</a>" for x in others)+f"<a href='{PREFIX}/men/'>All men's deals</a><a href='{PREFIX}/women/'>All women's deals</a><a href='{PREFIX}/dupes/'>Designer dupes</a></p>")
-    il={"@context":"https://schema.org","@type":"ItemList","name":r['title'],"numberOfItems":n,"itemListElement":[{"@type":"ListItem","position":i+1,"item":offer_item(f"{fullname(d)} {d['size']}",d['brand'],d['image'],d['price'],d['url'],d['retailer'])} for i,d in enumerate(ds)]}
+    il={"@context":"https://schema.org","@type":"ItemList","name":r['title'],"numberOfItems":n,"itemListElement":[{"@type":"ListItem","position":i+1,"item":offer_item(d, f"{fullname(d)} {d['size']}", d['brand'])} for i,d in enumerate(ds)]}
     CP=f"${cheap['price']:.2f}"
     page(f"best/{r['slug']}/index.html",fit([f"{r['title']} Today ({upd:%b %-d}): {n} Authentic Picks | {NAME}",f"{r['title']} Today: {n} Picks From {CP}",f"{r['title']}: {n} Picks From {CP}",f"{r['title']} ({upd:%b %Y})"]),
       fit([f"{n} authentic {r['who']} {N}s {SC}, all 15%+ off, from ${cheap['price']:.2f} ({fullname(cheap)}). Ranked by price per ounce, checked {upd:%b %-d, %Y}.",
@@ -444,7 +501,7 @@ for h in HUBS:
       +BREVO_FORM
       +"<p class='meta'>Profiles summarize the cited community clone lists; how close a dupe smells is subjective and dry-downs differ. Prices are shown only after we verify them live.</p>"
       +faqhtml(qs)+"<p class='chips'>"+"".join(f"<a href='{PREFIX}/dupes/{x['slug']}/'>{e(x['title'])}</a>" for x in HUBS if x is not h)+f"<a href='{PREFIX}/dupes/'>All dupes</a></p>")
-    il={"@context":"https://schema.org","@type":"ItemList","name":h['title'],"numberOfItems":len(pr),"itemListElement":[{"@type":"ListItem","position":i+1,"item":offer_item(x['dupe'],x['dupe'].split()[0],x.get('image'),x['price'],x['url'],x['retailer'])} for i,x in enumerate(pr)]}
+    il={"@context":"https://schema.org","@type":"ItemList","name":h['title'],"numberOfItems":len(pr),"itemListElement":[{"@type":"ListItem","position":i+1,"item":offer_item(x, x['dupe'], x['dupe'].split()[0])} for i,x in enumerate(pr)]}
     FR=(f" From ${cheapest['price']:.2f}" if cheapest else "")
     page(f"dupes/{h['slug']}/index.html",fit([f"{h['title']} {upd.year}: {len(ms)} Clones Compared{FR} | {NAME}",f"{h['title']} {upd.year}: {len(ms)} Clones Compared{FR}",f"{h['title']} {upd.year}: {len(ms)} Clones{FR}",f"{h['title']} {upd.year}"]),
       fit([f"{', '.join(x['dupe'] for x in ms)} compared: scent profiles, cited sources and verified prices"+(f" from ${cheapest['price']:.2f}" if cheapest else "")+".",
@@ -487,7 +544,7 @@ for v in VS:
     page(f"vs/{v['slug']}/index.html",fit([f"{T}: Which to Buy? Prices From {CP} ({upd:%b %Y}) | {NAME}",f"{T}: Which to Buy? From {CP}",f"{T}: Which Is Better? From {CP}",f"{T} Compared: From {CP}",f"{T}: Which to Buy?",f"{T} Compared"]),
       fit([f"{fa} (${A['price']:.2f}, {sz(A['size'])}) vs {fb} (${B['price']:.2f}, {sz(B['size'])}): price per ounce, concentration and key notes compared. Checked {upd:%b %-d, %Y}.",
            f"{T}: ${A['price']:.2f} ({sz(A['size'])}) vs ${B['price']:.2f} ({sz(B['size'])}) today. Price per ounce, concentration, key notes and which to buy. Checked {upd:%b %-d}."],160),body,
-      [prod_ld(f"{fa} {sz(A['size'])}",canon(A['brand']),A['image'],A['price'],A['url'],A['retailer']),prod_ld(f"{fb} {sz(B['size'])}",canon(B['brand']),B['image'],B['price'],B['url'],B['retailer']),faqld(qs)])
+      [prod_ld(A, name=f"{fa} {sz(A['size'])}", brand=canon(A['brand'])),prod_ld(B, name=f"{fb} {sz(B['size'])}", brand=canon(B['brand'])),faqld(qs)])
 # rewrite sitemap with new pages + keyword list + IndexNow key
 open(f"{OUT}/sitemap.xml","w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+"".join(f"<url><loc>{u}</loc><lastmod>{upd:%Y-%m-%d}</lastmod></url>" for u in PAGES)+"</urlset>\n")
 def rfc822(dt):
