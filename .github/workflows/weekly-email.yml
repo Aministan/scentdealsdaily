@@ -1,0 +1,29 @@
+name: weekly-email
+on:
+  schedule:
+    - cron: "0 13 * * 5"   # Fri 9:00 AM EDT
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Build the email preview and do not send
+        type: boolean
+        default: true
+permissions: {contents: read}
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - name: Send weekly email
+        env:
+          BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || 'false' }}
+        run: python3 scripts/send_weekly_email.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: weekly-email-preview
+          path: out/weekly-email-preview.html
+          if-no-files-found: ignore
