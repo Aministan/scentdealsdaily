@@ -202,7 +202,7 @@ def page(path,title,desc,body,jsonld=None,index=True):
 <main>{body}</main><footer>{NL_FOOT}<p>We may earn a commission when you buy through our links, at no extra cost to you. Affiliate links go to Perfumania and FragranceShop.</p>
 <p><b>Affiliate disclosure:</b> some links may earn us a commission at no cost to you. <a href="{p}/disclosure/">Details</a>.
 We list only authorized or long-established retailers, never gray-market marketplaces. Prices change fast; each deal shows when we last checked it. Not affiliated with any brand.</p>
-<p>© {upd.year} {NAME} · <a href="{p}/llms.txt">llms.txt</a> · <a href="{p}/sitemap.xml">sitemap</a></p>
+<p>© {upd.year} {NAME} · <a href="{p}/gifts/">Holiday gifts</a> · <a href="{p}/llms.txt">llms.txt</a> · <a href="{p}/sitemap.xml">sitemap</a></p>
 <p><img src="https://hits.sh/aministan.github.io/scentdealsdaily.svg?label=visitors" alt="visitor count" loading="lazy" height="20"></p></footer>{brevo_js}<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{{"token": "5bfd6f8b561c42e982e52bf2a553ff60"}}'></script><!-- End Cloudflare Web Analytics --></body></html>"""
     fp=f"{OUT}/{path}"; os.makedirs(os.path.dirname(fp),exist_ok=True); open(fp,"w").write(doc)
     if not index: return
@@ -323,7 +323,7 @@ page("index.html",fit([f"Perfume & Cologne Deals Today: Up to {max(d['pct_off'] 
  f"{len(deals)} verified deals on authentic designer perfume & cologne from ${min(d['price'] for d in deals):.2f}, up to {max(d['pct_off'] for d in deals)}% off at authorized retailers. Checked {upd:%b %-d}, plus the best dupes.",
  f"<h1>Today's best designer fragrance deals</h1><p class='sub'>{len(deals)} live deals on authentic bottles · last checked {upd_h} · sorted by % off</p>"
  +BREVO_FORM
- +f"<div class='grid'>{''.join(card(d,i<2) for i,d in enumerate(deals))}</div>{bestchips()}"
+ +f"<div class='grid'>{''.join(card(d,i<2) for i,d in enumerate(deals))}</div><p class='chips'><a href='{PREFIX}/gifts/'>Holiday fragrance gifts</a></p>{bestchips()}"
  +"<section class='box'><h2 style='margin-top:0'>Why trust these deals?</h2><p>We only list authorized or long-established retailers (no anonymous marketplace sellers), re-check every price and stock status daily, and drop expired deals automatically. Want the smell for less? See our <a href='"+PREFIX+"/dupes/'>dupes directory</a>.</p></section>",
  [itemlist(deals,"Today's designer fragrance deals"),{"@context":"https://schema.org","@type":"WebSite","name":NAME,"url":BASE+PREFIX+"/"}])
 # confirmation page for the Brevo double opt-in email; not for search
@@ -557,6 +557,74 @@ for v in VS:
            f"{T}: ${A['price']:.2f} ({sz(A['size'])}) vs ${B['price']:.2f} ({sz(B['size'])}) today. Price per ounce, concentration, key notes and which to buy. Checked {upd:%b %-d}.",
            f"{T}: ${A['price']:.2f} ({sz(A['size'])}) vs ${B['price']:.2f} ({sz(B['size'])}) today. Price per ounce, key notes and which to buy."],160),body,
       [prod_ld(A, name=f"{fa} {sz(A['size'])}", brand=canon(A['brand'])),prod_ld(B, name=f"{fb} {sz(B['size'])}", brand=canon(B['brand'])),faqld(qs)])
+# ---------- holiday gift guides (/gifts/...) ----------
+def gift_blob(d):
+    return " ".join(str(d.get(k) or "") for k in ("name","brand","type","size","retailer","url")).lower()
+def gift_ok(d):
+    """A checked bottle we can recommend. Testers, decants, and Amazon stay out."""
+    if d.get("in_stock") is False: return False
+    if isinstance(d.get("price"), bool) or not isinstance(d.get("price"), (int, float)): return False
+    if not d.get("url") or not d.get("retailer"): return False
+    blob=gift_blob(d)
+    if re.search(r"\b(tester|testers|decant|decants)\b", blob): return False
+    host=(urllib.parse.urlparse(d.get("url") or "").hostname or "").lower()
+    if "amazon" in blob or "amazon." in host or host.endswith("amazon.com"): return False
+    return True
+def is_gift_set(d):
+    blob=gift_blob(d)
+    return any(s in blob for s in ("gift set","gift-set","coffret","discovery set"))
+def gift_line(d):
+    """One plain line from concentration, size, and who it is for. No scent claims."""
+    who={"men":"for men","women":"for women","unisex":"for men and women"}.get(d.get("gender"),"")
+    bits=[b for b in (conc_name(d.get("type")), sz(d.get("size") or ""), who) if b]
+    return ", ".join(bits)+"." if bits else "Price checked at an authorized retailer."
+def gift_table(ds):
+    rows=[]
+    for d in ds:
+        href=f"{PREFIX}/fragrance/{slug(d['brand']+' '+d['name'])}/"
+        was=f" <span class=was>${d['was']:.2f}</span>" if isinstance(d.get("was"), (int, float)) and not isinstance(d.get("was"), bool) else ""
+        label=(f"<div class=meta>compare-at price at {e(d['was_label'])}</div>" if d.get("was_label") else "")
+        rows.append(f"<tr><td><a href='{href}'>{e(fullname(d))}</a><div class=meta>{e(gift_line(d))}</div>{label}</td><td><b>${d['price']:.2f}</b>{was}</td><td>{ext_a(d['url'], 'Buy at '+e(d['retailer']), placement='list')}</td></tr>")
+    return "<table><thead><tr><th>Fragrance</th><th>Price</th><th></th></tr></thead><tbody>"+"".join(rows)+"</tbody></table>"
+GIFT_LINKS=[("","Holiday gifts"),("for-him","For him"),("for-her","For her"),("under-50","Under $50"),("gift-sets","Gift sets")]
+def gift_nav():
+    return "<p class='chips'>"+"".join(f"<a href='{PREFIX}/gifts/{slug+'/' if slug else ''}'>{e(label)}</a>" for slug,label in GIFT_LINKS)+"</p>"
+GIFT_DISC="<p>Affiliate disclosure: some links on this page earn us a commission if you buy, at no extra cost to you. Prices are the ones we checked at authorized retailers.</p>"
+eligible=[d for d in deals if gift_ok(d)]
+by_off=sorted(eligible, key=lambda d:(-(d.get("pct_off") or 0), d["price"], d["id"]))
+gift_pages=[
+ ("gifts/index.html","","Holiday fragrance gifts","Fragrance gifts from checked deals",
+  "Single bottles on sale now, for November and December. Largest checked discount first.",
+  by_off[:12],"Holiday fragrance gifts"),
+ ("gifts/for-him/index.html","for-him","Fragrance gifts for him","Men's cologne gifts",
+  "Men's colognes from today's checked deals, largest discount first.",
+  [d for d in by_off if d["gender"]=="men"][:12],"Fragrance gifts for him"),
+ ("gifts/for-her/index.html","for-her","Fragrance gifts for her","Women's perfume gifts",
+  "Women's perfumes from today's checked deals, largest discount first.",
+  [d for d in by_off if d["gender"]=="women"][:12],"Fragrance gifts for her"),
+ ("gifts/under-50/index.html","under-50","Fragrance gifts under $50","Gifts under $50",
+  "The lowest prices we checked that are still under $50.",
+  sorted([d for d in eligible if d["price"]<50], key=lambda d:(d["price"], -(d.get("pct_off") or 0), d["id"]))[:12],"Fragrance gifts under $50"),
+ ("gifts/gift-sets/index.html","gift-sets","Fragrance gift sets","Checked fragrance gift sets",
+  "Boxed sets only. A deal is listed here when the product we checked is a gift set.",
+  [d for d in by_off if is_gift_set(d)][:12],"Fragrance gift sets"),
+]
+for path,sid_slug,title,short,intro,picks,list_name in gift_pages:
+    use_sid("gifts", sid_slug)
+    if picks:
+        lo=min(picks, key=lambda d:d["price"])
+        desc=f"{len(picks)} {short.lower()} from ${lo['price']:.2f} ({fullname(lo)}), at authorized retailers. Checked {upd:%b %-d}."
+        listing=gift_table(picks)+BREVO_FORM
+        ld=[itemlist(picks, list_name)]
+    else:
+        desc="No boxed fragrance gift set is in today's checked deals. Single bottles are on the other gift guides."
+        listing="<p>None of the deals we checked today are boxed gift sets, so this page has no prices to show. Single bottles that work as gifts are on the other guides.</p>"
+        ld=None
+    page(path, fit([f"{title} ({upd:%b %Y}) | {NAME}", f"{title} | {NAME}", title]),
+      desc,
+      f"<h1>{e(title)}</h1><p class='sub'>{e(intro)} Checked {upd_h}.</p>{gift_nav()}{GIFT_DISC}{listing}<p class='meta'>Each name links to that bottle's price comparison. We do not list testers, decants, or Amazon.</p>",
+      ld)
+    KW+=[title.lower(), f"fragrance {short.lower()}"]
 # rewrite sitemap with new pages + keyword list + IndexNow key
 open(f"{OUT}/sitemap.xml","w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+"".join(f"<url><loc>{u}</loc><lastmod>{upd:%Y-%m-%d}</lastmod></url>" for u in PAGES)+"</urlset>\n")
 def rfc822(dt):
@@ -601,7 +669,7 @@ nfeed=write_feed()
 KEY=hashlib.md5(b"scentdealsdaily-indexnow").hexdigest(); open(f"{OUT}/{KEY}.txt","w").write(KEY)
 open(f"{ROOT}/docs/keywords.txt","w").write("\n".join(KW)+"\n")
 with open(f"{OUT}/llms.txt","a") as f: f.write("\n## Per-product & per-dupe pages\n"+"\n".join(u for u in PAGES if "/fragrance/" in u or "/dupe/" in u)+"\n")
-with open(f"{OUT}/llms.txt","a") as f: f.write("\n## Buying guides & dupe comparisons\n"+"\n".join(u for u in PAGES if "/best/" in u or "/vs/" in u or any(f"/dupes/{h['slug']}/" in u for h in HUBS))+"\n")
+with open(f"{OUT}/llms.txt","a") as f: f.write("\n## Buying guides & dupe comparisons\n"+"\n".join(u for u in PAGES if "/best/" in u or "/vs/" in u or "/gifts/" in u or any(f"/dupes/{h['slug']}/" in u for h in HUBS))+"\n")
 print(len(PAGES),"pages total;",len(KW),"keywords;",nfeed,"feed items")
 if _media_tmp:
     shutil.copytree(f"{_media_tmp}/media", f"{OUT}/media")
