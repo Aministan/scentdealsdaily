@@ -179,7 +179,7 @@ BREVO_JS="""<script>
 <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>"""
 NL_FOOT=f'<p class="nl-foot"><a href="{BREVO_URL}">Weekly fragrance deals</a>, every Friday.</p>'
 TITLES=set()
-def page(path,title,desc,body,jsonld=None,index=True):
+def page(path,title,desc,body,jsonld=None,index=True,image=None):
     if title in TITLES: title=f"{title} ({path.split('/')[0].title()})"
     TITLES.add(title); desc=clip(desc)
     url=f"{BASE}{PREFIX}/{path}".replace("/index.html","/")
@@ -189,6 +189,12 @@ def page(path,title,desc,body,jsonld=None,index=True):
     brevo_head=BREVO_HEAD if has_form else ""
     brevo_js=BREVO_JS if has_form else ""
     robots="" if index else '<meta name="robots" content="noindex">'
+    if image:
+        img=image if image.startswith("http") else f"{BASE}{PREFIX}{image}"
+        social=(f'<meta property="og:image" content="{e(img)}"><meta property="og:image:width" content="1000"><meta property="og:image:height" content="1500">'
+                f'<meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="{e(img)}">')
+    else:
+        social='<meta name="twitter:card" content="summary">'
     doc=f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="google-site-verification" content="GASeKy1uEWpsrSn1II701znBYlw6mBhAwvimW0Yi8Io" />
 <meta name="google-site-verification" content="AnNdRzKxRNra8nkj3gri7zC9kJYJ-aZehksWkrfImx4" />
@@ -197,13 +203,13 @@ def page(path,title,desc,body,jsonld=None,index=True):
 {robots}<title>{e(title)}</title><meta name="description" content="{e(desc)}"><link rel="canonical" href="{url}">
 <link rel="alternate" type="application/rss+xml" title="ScentDealsDaily" href="{FEED_HREF}">
 <meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{url}"><meta property="og:type" content="website">
-<meta name="twitter:card" content="summary"><link rel="preconnect" href="https://cdn.shopify.com"><style>{CSS}</style>{brevo_head}{ld}</head><body>
+{social}<link rel="preconnect" href="https://cdn.shopify.com"><style>{CSS}</style>{brevo_head}{ld}</head><body>
 <header><a class="logo" href="{p}/">Scent<span>Deals</span>Daily</a><nav><a href="{p}/">Today's deals</a><a href="{p}/dupes/">Dupes</a><a href="{p}/men/">Men</a><a href="{p}/women/">Women</a><a href="{p}/brands/">Brands</a><a href="{p}/sponsor/">Sponsor</a></nav></header>
 <main>{body}</main><footer>{NL_FOOT}<p>We may earn a commission when you buy through our links, at no extra cost to you. Affiliate links go to Perfumania and FragranceShop.</p>
 <p><b>Affiliate disclosure:</b> some links may earn us a commission at no cost to you. <a href="{p}/disclosure/">Details</a>.
 We list only authorized or long-established retailers, never gray-market marketplaces. Prices change fast; each deal shows when we last checked it. Not affiliated with any brand.</p>
 <p>© {upd.year} {NAME} · <a href="{p}/gifts/">Holiday gifts</a> · <a href="{p}/llms.txt">llms.txt</a> · <a href="{p}/sitemap.xml">sitemap</a></p>
-<p><img src="https://hits.sh/aministan.github.io/scentdealsdaily.svg?label=visitors" alt="visitor count" loading="lazy" height="20"></p></footer>{brevo_js}<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{{"token": "5bfd6f8b561c42e982e52bf2a553ff60"}}'></script><!-- End Cloudflare Web Analytics --></body></html>"""
+<p><img src="https://hits.sh/scentdealsdaily.com.svg?label=visitors" alt="visitor count" loading="lazy" height="20"></p></footer>{brevo_js}<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{{"token": "5bfd6f8b561c42e982e52bf2a553ff60"}}'></script><!-- End Cloudflare Web Analytics --></body></html>"""
     fp=f"{OUT}/{path}"; os.makedirs(os.path.dirname(fp),exist_ok=True); open(fp,"w").write(doc)
     if not index: return
     PAGES.append(url)
@@ -595,21 +601,21 @@ by_off=sorted(eligible, key=lambda d:(-(d.get("pct_off") or 0), d["price"], d["i
 gift_pages=[
  ("gifts/index.html","","Holiday fragrance gifts","Fragrance gifts from checked deals",
   "Single bottles on sale now, for November and December. Largest checked discount first.",
-  by_off[:12],"Holiday fragrance gifts"),
+  by_off[:12],"Holiday fragrance gifts","/media/pins/holiday-fragrance-gifts.png"),
  ("gifts/for-him/index.html","for-him","Fragrance gifts for him","Men's cologne gifts",
   "Men's colognes from today's checked deals, largest discount first.",
-  [d for d in by_off if d["gender"]=="men"][:12],"Fragrance gifts for him"),
+  [d for d in by_off if d["gender"]=="men"][:12],"Fragrance gifts for him","/media/pins/cologne-gifts-for-him.png"),
  ("gifts/for-her/index.html","for-her","Fragrance gifts for her","Women's perfume gifts",
   "Women's perfumes from today's checked deals, largest discount first.",
-  [d for d in by_off if d["gender"]=="women"][:12],"Fragrance gifts for her"),
+  [d for d in by_off if d["gender"]=="women"][:12],"Fragrance gifts for her","/media/pins/perfume-gifts-for-her.png"),
  ("gifts/under-50/index.html","under-50","Fragrance gifts under $50","Gifts under $50",
   "The lowest prices we checked that are still under $50.",
-  sorted([d for d in eligible if d["price"]<50], key=lambda d:(d["price"], -(d.get("pct_off") or 0), d["id"]))[:12],"Fragrance gifts under $50"),
+  sorted([d for d in eligible if d["price"]<50], key=lambda d:(d["price"], -(d.get("pct_off") or 0), d["id"]))[:12],"Fragrance gifts under $50","/media/pins/fragrance-gifts-under-50.png"),
  ("gifts/gift-sets/index.html","gift-sets","Fragrance gift sets","Checked fragrance gift sets",
   "Boxed sets only. A deal is listed here when the product we checked is a gift set.",
-  [d for d in by_off if is_gift_set(d)][:12],"Fragrance gift sets"),
+  [d for d in by_off if is_gift_set(d)][:12],"Fragrance gift sets","/media/pins/fragrance-gift-sets.png"),
 ]
-for path,sid_slug,title,short,intro,picks,list_name in gift_pages:
+for path,sid_slug,title,short,intro,picks,list_name,image in gift_pages:
     use_sid("gifts", sid_slug)
     if picks:
         lo=min(picks, key=lambda d:d["price"])
@@ -623,7 +629,7 @@ for path,sid_slug,title,short,intro,picks,list_name in gift_pages:
     page(path, fit([f"{title} ({upd:%b %Y}) | {NAME}", f"{title} | {NAME}", title]),
       desc,
       f"<h1>{e(title)}</h1><p class='sub'>{e(intro)} Checked {upd_h}.</p>{gift_nav()}{GIFT_DISC}{listing}<p class='meta'>Each name links to that bottle's price comparison. We do not list testers, decants, or Amazon.</p>",
-      ld)
+      ld, image=image)
     KW+=[title.lower(), f"fragrance {short.lower()}"]
 # rewrite sitemap with new pages + keyword list + IndexNow key
 open(f"{OUT}/sitemap.xml","w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+"".join(f"<url><loc>{u}</loc><lastmod>{upd:%Y-%m-%d}</lastmod></url>" for u in PAGES)+"</urlset>\n")
