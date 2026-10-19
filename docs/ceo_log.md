@@ -108,3 +108,35 @@ Scent-family roundups are ID lists in config with a key-notes line per bottle. N
 **DNS:** Cloudflare, DNS-only. A @ points to 185.199.108-111.153 and CNAME www points to aministan.github.io. GitHub Pages custom domain: scentdealsdaily.com, with Enforce HTTPS on once the cert is issued.
 
 **Next:** resubmit https://scentdealsdaily.com/sitemap.xml in Google Search Console (new property) and Bing Webmaster. IndexNow to Bing should now work on the custom domain.
+
+## 2026-10-19 (Mon) — daily optimization pass (Grok Bot)
+
+**Refresh status:** site live on the custom domain. https://scentdealsdaily.com/ and every deep page checked return 200 (the 2 roundups and 3 vs pages from Oct 18, /best/fragrance-deals-under-30/, /subscribed/, sitemap.xml, llms.txt, feed.xml). The old aministan.github.io/scentdealsdaily/ address 301s to the new domain. Today's refresh came from the push-triggered daily-refresh run 39275271367 (commit c69bcfa, started 11:08 AM ET, build and deploy passed by 11:16 AM ET). The bot committed d0b8937 "daily refresh". Data is stamped 11:08 AM ET: 42 live deals (26 at FragranceShop), 12/15 dupes priced, 0/121 fetch failures, the same 6 drops. As of 11:53 AM ET today's 7:17 AM scheduled cron hadn't started yet (GitHub delays it; yesterday's started at 10:33 AM).
+
+**IndexNow fixed by the domain move:** in CI, api.indexnow.org (Bing) answered **200** for all 98 URLs, and so did Yandex (**200**). That's the first Bing success. Both the github.io 403 and the Yandex 422 are gone.
+
+**Muse.ai deals:** muse_deals.json is unchanged since Oct 15 (56 rows, last commit b4d3e5b). Nothing new to merge. No prices were invented and Amazon was skipped.
+
+**New pages (5, data-driven through config `roundups` and `vs`, so they survive the rebuild)**
+- /best/floral-perfume-deals/: 13 women's floral picks from $20.95 (Eternity, Eternity Air, CK Beauty, Boss Woman, Burberry London, Dylan Blue Pour Femme, Bright Crystal Absolu, Clinique Happy, Peace Love & Juicy Couture, Tom Ford Café Rose, Poême, Donna Born in Roma, La Vie Est Belle).
+- /best/long-lasting-cologne-deals/: 7 men's eau de parfum and parfum picks from $45.95 (Bvlgari Man Wood Neroli, The Most Wanted Parfum, Eros Flame, Mefisto, Stronger With You Intensely, Born in Roma Intense, Azzaro Wanted EDP).
+- /vs/billie-eilish-eilish-vs-eilish-no-2/ ($68.95 vs $34.95, both 3.4 oz EDP)
+- /vs/la-vie-est-belle-vs-donna-born-in-roma/ ($70.95 for 1.0 oz vs $94.95 for 1.7 oz)
+- /vs/eros-flame-vs-the-most-wanted-parfum/ ($45.95 vs $53.95, both 1.7 oz, EDP vs Parfum)
+Key notes come from Perfumania's product descriptions (fetched today). Two bottles were left out because their listing data conflicts: Burberry Touch's copy doesn't match its usual notes, and Bottled No. 6 is typed EDP but described as EDT. Each new page has ItemList(Product/AggregateOffer) or 2× Product + FAQPage JSON-LD and 15–27 inbound internal links.
+
+**Titles/meta**
+- Display names use the canonical brand and drop a doubled sub-brand: "Hugo Boss Boss Bottled Unlimited" -> "Hugo Boss Bottled Unlimited", "Lancome Poeme" -> "Lancôme Poeme", brand-page lists "Lancome Poeme Perfume" -> "Poeme Perfume". URLs are unchanged.
+- Fragrance titles drop a trailing "Spray" ("Calvin Klein Defy Spray 3.4 oz Sale" -> "Calvin Klein Defy 3.4 oz Sale").
+- The 2 dupe titles over 60 characters now fit, using the name without the house prefix ("MFK Baccarat Rouge 540 Extrait Dupe: Club de Nuit Untold"). **All 103 titles are now ≤60.**
+- `clip()` no longer leaves "..": it was producing "which to buy.." on long vs metas. Vs pages also get a shorter meta fallback.
+- Vs "which is stronger" FAQ: correct article ("a Parfum", not "an Parfum") and real concentration ranking (EDT < EDP < Parfum), so an EDP vs Parfum pair is described correctly.
+- Sponsor page: real title and meta ("Advertise on ScentDealsDaily: Featured Fragrance Deals"). The newsletter slot says "Friday deals email" instead of "daily email".
+
+**Checks (local build on today's data, CI env):** 104 HTML pages (103 indexable + noindex /subscribed/), all 184 JSON-LD blocks parse, 0 broken internal links of 2,144, 0 github.io links, no duplicate titles or descriptions, all metas 70–160 characters, every canonical and og:url on https://scentdealsdaily.com. Every Offer price on the 5 new pages matches that bottle's deals.json price and comps, and every Offer sitewide is a deals.json price. CNAME, both Google verification tags, the Pinterest and Impact tags, the Cloudflare beacon, CJ sids (best-/cmp- on the new pages), the Brevo form, /subscribed/ and feed.xml are all intact. weekly-email.yml and send_weekly_email.py weren't touched.
+
+**Search Console (Gmail, 4:07 AM ET today, before c69bcfa deployed):** non-critical Merchant listings warnings (validFrom, description, shippingDetails, hasMerchantReturnPolicy) and Product snippets warnings (aggregateRating, review). c69bcfa added validFrom and description. Shipping, returns and ratings stay off on purpose: we aren't the seller and have no review data. Revalidate in GSC after Google recrawls.
+
+**Deploy:** the box still has no GitHub push login, so the patch was handed to a Cursor cloud agent to commit directly to main. The push triggers daily-refresh (refresh + build + IndexNow + Pages).
+
+**Open:** no affiliate click or sale data is on the box. Awin approved ScentDealsDaily today (publisher 3128392); the next step is applying to fragrance advertisers. Impact (Ulta) ticket 898438 is still open. 3 dupes are still unpriced.
