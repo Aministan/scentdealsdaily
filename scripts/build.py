@@ -140,7 +140,7 @@ BREVO_JS="""<script>
 <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>"""
 NL_FOOT=f'<p class="nl-foot"><a href="{BREVO_URL}">Weekly fragrance deals</a>, every Friday.</p>'
 TITLES=set()
-def page(path,title,desc,body,jsonld=None):
+def page(path,title,desc,body,jsonld=None,index=True):
     if title in TITLES: title=f"{title} ({path.split('/')[0].title()})"
     TITLES.add(title); desc=clip(desc)
     url=f"{BASE}{PREFIX}/{path}".replace("/index.html","/")
@@ -149,12 +149,13 @@ def page(path,title,desc,body,jsonld=None):
     has_form='id="sib-form"' in body
     brevo_head=BREVO_HEAD if has_form else ""
     brevo_js=BREVO_JS if has_form else ""
+    robots="" if index else '<meta name="robots" content="noindex">'
     doc=f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="google-site-verification" content="GASeKy1uEWpsrSn1II701znBYlw6mBhAwvimW0Yi8Io" />
 <meta name="google-site-verification" content="AnNdRzKxRNra8nkj3gri7zC9kJYJ-aZehksWkrfImx4" />
 <meta name='impact-site-verification' value='6f939439-73de-427f-89fc-c18dc2f9f64d'>
 <meta name="p:domain_verify" content="7833fa67293af531c9de288142c68c3c"/>
-<title>{e(title)}</title><meta name="description" content="{e(desc)}"><link rel="canonical" href="{url}">
+{robots}<title>{e(title)}</title><meta name="description" content="{e(desc)}"><link rel="canonical" href="{url}">
 <link rel="alternate" type="application/rss+xml" title="ScentDealsDaily" href="{FEED_HREF}">
 <meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{url}"><meta property="og:type" content="website">
 <meta name="twitter:card" content="summary"><link rel="preconnect" href="https://cdn.shopify.com"><style>{CSS}</style>{brevo_head}{ld}</head><body>
@@ -164,7 +165,9 @@ def page(path,title,desc,body,jsonld=None):
 We list only authorized or long-established retailers, never gray-market marketplaces. Prices change fast; each deal shows when we last checked it. Not affiliated with any brand.</p>
 <p>© {upd.year} {NAME} · <a href="{p}/llms.txt">llms.txt</a> · <a href="{p}/sitemap.xml">sitemap</a></p>
 <p><img src="https://hits.sh/aministan.github.io/scentdealsdaily.svg?label=visitors" alt="visitor count" loading="lazy" height="20"></p></footer>{brevo_js}</body></html>"""
-    fp=f"{OUT}/{path}"; os.makedirs(os.path.dirname(fp),exist_ok=True); open(fp,"w").write(doc); PAGES.append(url)
+    fp=f"{OUT}/{path}"; os.makedirs(os.path.dirname(fp),exist_ok=True); open(fp,"w").write(doc)
+    if not index: return
+    PAGES.append(url)
     k=feed_kind(path)
     if k: FEED.append((k,title,url,desc))
 PAGES=[]
@@ -223,6 +226,16 @@ page("index.html",fit([f"Perfume & Cologne Deals Today: Up to {max(d['pct_off'] 
  +f"<div class='grid'>{''.join(card(d,i<2) for i,d in enumerate(deals))}</div>{bestchips()}"
  +"<section class='box'><h2 style='margin-top:0'>Why trust these deals?</h2><p>We only list authorized or long-established retailers (no anonymous marketplace sellers), re-check every price and stock status daily, and drop expired deals automatically. Want the smell for less? See our <a href='"+PREFIX+"/dupes/'>dupes directory</a>.</p></section>",
  [itemlist(deals,"Today's designer fragrance deals"),{"@context":"https://schema.org","@type":"WebSite","name":NAME,"url":BASE+PREFIX+"/"}])
+# confirmation page for the Brevo double opt-in email; not for search
+top=deals[:4]
+page("subscribed/index.html",f"You're subscribed | {NAME}",
+ "Thanks for confirming your ScentDealsDaily email. The Friday note lists fragrance discounts we checked.",
+ f"""<h1>You're subscribed</h1>
+<p>Thanks for confirming. Every Friday morning you'll get the week's biggest real fragrance discounts.</p>
+<p class="sub">Add <a href="mailto:deals@scentdealsdaily.com">deals@scentdealsdaily.com</a> to your contacts so the Friday email doesn't land in spam.</p>
+<p><a class="btn" href="{PREFIX}/" style="max-width:280px">Today's deals</a></p>
+<h2>A few of today's deals</h2><div class="grid">{''.join(card(d) for d in top)}</div>""",
+ index=False)
 # dupes
 rows="".join(f"""<tr><td><b>{e(d['original'])}</b>{('<div class=meta>'+e(d['original_price'])+'</div>') if d.get('original_price') else ''}</td>
 <td><b><a href='{PREFIX}/dupe/{slug(d["original"]+" dupe "+d["dupe"])}/'>{e(d['dupe'])}</a></b><div class=meta>{e(d['notes'])}</div></td>
