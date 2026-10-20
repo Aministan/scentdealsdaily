@@ -447,7 +447,8 @@ for d in D["dupes"]:
       +((f"<div class='box'><h2 style='margin-top:0'>Where to buy {e(d['dupe'])} cheapest</h2><table><thead><tr><th>Retailer</th><th>Size</th><th>Price</th><th>Checked</th></tr></thead><tbody>{comprows(d)}</tbody></table></div>") if d.get('comps') else "")+faqhtml(qs)+"<h2>More dupes</h2><div class='chips'>"+"".join(f"<a href='{PREFIX}/dupe/{slug(x['original']+' dupe '+x['dupe'])}/'>{e(x['original'])} → {e(x['dupe'])}</a>" for x in rel)+"</div><p>"+hublink+f"<a href='{PREFIX}/dupes/'>All dupes</a></p>")
     lds=[faqld(qs)]+([prod_ld(d, name=d['dupe'], brand=d['dupe'].split()[0])] if d['price'] else [])
     PR=(f" ${d['price']:.2f}" if d['price'] else "")
-    page(f"dupe/{s}/index.html",fit([f"Best {o} Dupe {upd.year}: {d['dupe']}{PR}",f"Best {o} Dupe: {d['dupe']}{PR}",f"{o} Dupe: {d['dupe']}{PR}",f"{o} Dupe: {d['dupe']}",f"{re.sub(r' [(].*?[)]','',o)} Dupe: {re.sub(r' [(].*?[)]','',d['dupe'])}",f"{o} Dupe: {nohouse(d['dupe'])}",f"{nohouse(o)} Dupe: {nohouse(d['dupe'])}"]),
+    bare=re.sub(r' [(].*?[)]','',o)
+    page(f"dupe/{s}/index.html",fit([f"Best {o} Dupe {upd.year}: {d['dupe']}{PR}",f"Best {o} Dupe: {d['dupe']}{PR}",f"{o} Dupe: {d['dupe']}{PR}",f"{bare} Dupe: {nohouse(d['dupe'])}{PR}" if d['price'] else "",f"{nohouse(o)} Dupe: {nohouse(d['dupe'])}{PR}" if d['price'] else "",f"{o} Dupe: {d['dupe']}",f"{bare} Dupe: {re.sub(r' [(].*?[)]','',d['dupe'])}",f"{o} Dupe: {nohouse(d['dupe'])}",f"{nohouse(o)} Dupe: {nohouse(d['dupe'])}"]),
       f"{d['dupe']} vs {o}: {d['notes'].split(';')[0].rstrip('.')}."+(f" ${d['price']:.2f} for {d['size']} at {d['retailer']} today." if d['price'] else "")+" Cited sources, authentic bottles only.",body,lds)
 def picks(cheap,val,big):
     """Quick-pick bullets; merges labels when one bottle wins several, so the list never repeats itself."""
@@ -558,7 +559,7 @@ for v in VS:
       +faqhtml(qs)+"<h2>Both deals</h2><div class='grid'>"+card(A)+card(B)+"</div>"
       +"<p class='chips'>"+"".join(f"<a href='{PREFIX}/best/{x['slug']}/'>{e(x['title'])}</a>" for x in ROUNDUPS if A in x['items'] or B in x['items'])+"".join(f"<a href='{PREFIX}/vs/{x['slug']}/'>{e(x['title'])}</a>" for x in VS if x is not v)+f"<a href='{PREFIX}/{A['gender']}/'>All {A['gender']}'s deals</a><a href='{PREFIX}/brands/{bslug(A['brand'])}/'>All {e(canon(A['brand']))} deals</a></p>")
     CP=f"${cheaper['price']:.2f}"
-    page(f"vs/{v['slug']}/index.html",fit([f"{T}: Which to Buy? Prices From {CP} ({upd:%b %Y}) | {NAME}",f"{T}: Which to Buy? From {CP}",f"{T}: Which Is Better? From {CP}",f"{T} Compared: From {CP}",f"{T}: Which to Buy?",f"{T} Compared"]),
+    page(f"vs/{v['slug']}/index.html",fit([f"{T}: Which to Buy? Prices From {CP} ({upd:%b %Y}) | {NAME}",f"{T}: Which to Buy? From {CP}",f"{T}: Which Is Better? From {CP}",f"{T} Compared: From {CP}",f"{T}: From {CP}",f"{T}: Which to Buy?",f"{T} Compared"]),
       fit([f"{fa} (${A['price']:.2f}, {sz(A['size'])}) vs {fb} (${B['price']:.2f}, {sz(B['size'])}): price per ounce, concentration and key notes compared. Checked {upd:%b %-d, %Y}.",
            f"{T}: ${A['price']:.2f} ({sz(A['size'])}) vs ${B['price']:.2f} ({sz(B['size'])}) today. Price per ounce, concentration, key notes and which to buy. Checked {upd:%b %-d}.",
            f"{T}: ${A['price']:.2f} ({sz(A['size'])}) vs ${B['price']:.2f} ({sz(B['size'])}) today. Price per ounce, key notes and which to buy."],160),body,
@@ -619,14 +620,18 @@ for path,sid_slug,title,short,intro,picks,list_name,image in gift_pages:
     use_sid("gifts", sid_slug)
     if picks:
         lo=min(picks, key=lambda d:d["price"])
-        desc=f"{len(picks)} {short.lower()} from ${lo['price']:.2f} ({fullname(lo)}), at authorized retailers. Checked {upd:%b %-d}."
+        hi=max(d.get("pct_off") or 0 for d in picks)
+        P=f"${lo['price']:.2f}"
+        desc=f"{len(picks)} {title.lower()} from {P} ({fullname(lo)}), up to {hi}% off at authorized retailers. Checked {upd:%b %-d, %Y}."
         listing=gift_table(picks)+BREVO_FORM
         ld=[itemlist(picks, list_name)]
+        titles=fit([f"{title}: From {P} ({upd:%b %Y}) | {NAME}", f"{title}: From {P} | {NAME}", f"{title}: From {P}", title])
     else:
-        desc="No boxed fragrance gift set is in today's checked deals. Single bottles are on the other gift guides."
+        desc="No boxed fragrance gift set is in today's checked deals. Single bottles on the other gift guides are the option until a set is in stock."
         listing="<p>None of the deals we checked today are boxed gift sets, so this page has no prices to show. Single bottles that work as gifts are on the other guides.</p>"
         ld=None
-    page(path, fit([f"{title} ({upd:%b %Y}) | {NAME}", f"{title} | {NAME}", title]),
+        titles=fit([f"{title} ({upd:%b %Y}) | {NAME}", f"{title} | {NAME}", title])
+    page(path, titles,
       desc,
       f"<h1>{e(title)}</h1><p class='sub'>{e(intro)} Checked {upd_h}.</p>{gift_nav()}{GIFT_DISC}{listing}<p class='meta'>Each name links to that bottle's price comparison. We do not list testers, decants, or Amazon.</p>",
       ld, image=image)
@@ -641,11 +646,9 @@ def write_feed():
     import xml.etree.ElementTree as ET
     groups={"deal":[],"compare":[],"hub":[],"dupe":[]}
     for kind,title,url,desc in FEED: groups[kind].append((title,url,desc))
-    limit=20
-    deals,rest=groups["deal"],groups["compare"]+groups["hub"]+groups["dupe"]
-    # Homepage order (largest discount first). Leave room for comparison pages when the build has both.
-    n_deals=min(len(deals), limit if not rest else min(10, limit))
-    items=(deals[:n_deals]+rest)[:limit]
+    # Every roundup and vs page, then dupe hubs, then the steepest deals.
+    # A fixed cap used to drop the newest guides once the compare list grew past it.
+    items=groups["compare"]+groups["hub"]+groups["deal"][:8]
     ET.register_namespace("atom","http://www.w3.org/2005/Atom")
     rss=ET.Element("rss",{"version":"2.0"})
     ch=ET.SubElement(rss,"channel")

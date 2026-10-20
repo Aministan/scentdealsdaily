@@ -140,3 +140,29 @@ Key notes come from Perfumania's product descriptions (fetched today). Two bottl
 **Deploy:** the box still has no GitHub push login, so the patch was handed to a Cursor cloud agent to commit directly to main. The push triggers daily-refresh (refresh + build + IndexNow + Pages).
 
 **Open:** no affiliate click or sale data is on the box. Awin approved ScentDealsDaily today (publisher 3128392); the next step is applying to fragrance advertisers. Impact (Ulta) ticket 898438 is still open. 3 dupes are still unpriced.
+
+## 2026-10-20 (Tue) — daily optimization pass
+
+**Refresh status:** site live on the custom domain. https://scentdealsdaily.com/ returns 200, and the old aministan.github.io/scentdealsdaily address 301s there. Today's push-triggered daily-refresh run 39428368704 (the Elizabeth Arden Green Tea media commit, started 13:12Z) passed build and deploy by 13:18Z. The bot committed cff2892 "daily refresh". Data is stamped 2026-10-20T13:12Z: 42 live deals (26 at FragranceShop, 16 at Perfumania), 12/15 dupes priced, 6 dropped.
+
+**Muse.ai deals:** muse_deals.json is unchanged since Oct 15 (last commit b4d3e5b). Nothing new to merge. No prices were invented and Amazon was skipped.
+
+**New pages (5, data-driven through config `roundups` and `vs`, so they survive the rebuild)**
+- /best/woody-amber-cologne-deals/: 6 men's woody and amber picks from $17.95 (CK Free $17.95, Boss In Motion $44.95, Bvlgari Man Wood Neroli $46.95, The Most Wanted Parfum $53.95, Coach for Men $68.95, Casamorati Mefisto $189.95).
+- /best/fresh-perfume-deals-under-50/: 4 women's citrus, tea and ozonic picks, all under $50 (Eternity Air $20.95, Boss Woman $25.95, Green Tea $31.95, Clinique Happy $49.95).
+- /vs/dylan-blue-vs-bright-crystal-absolu/ ($64.95 for 3.4 oz vs $69.95 for 3.0 oz, both EDP)
+- /vs/green-tea-vs-eternity-air/ ($31.95 vs $20.95, both 3.4 oz EDP)
+- /vs/boss-unlimited-vs-boss-in-motion/ ($31.95 for 3.3 oz vs $44.95 for 3.0 oz, both EDT)
+Boss Bottled Unlimited was also added to the existing fresh-citrus cologne roundup (now 12 picks from $22.95). Its published notes lead with mint and grapefruit. Key notes come from today's Perfumania product descriptions, checked against the brand or the published pyramid where the retailer copy is long. Four bottles were left out because the listing conflicts or names no notes: Azzaro Cologne's copy describes mate leaf and agarwood, not the lavender-anise-oakmoss Pour Homme pyramid; Wanted by Night's copy lists the original Wanted EDT notes (lemon, ginger, mint, apple, cardamom, tonka, amberwood), not Wanted by Night; Bottled No. 6 is still typed EDP and described as EDT; Burberry Hero's copy never names a note. Each new page has ItemList(Product/AggregateOffer) or 2× Product + FAQPage JSON-LD and 17–21 inbound internal links.
+
+**Titles/meta**
+- Gift guides now lead with the lowest checked price ("Holiday fragrance gifts: From $17.95 | ScentDealsDaily", and the same for him, her, and under $50). Metas name that bottle and the max % off. Gift sets stay empty: no boxed set is in today's deals, and the meta says so.
+- Four vs titles that had lost their price to fit 60 characters now keep a price: "Eros Flame vs Most Wanted Parfum: Which to Buy? From $45.95", "La Vie Est Belle vs Donna Born in Roma Compared: From $70.95", "Stronger With You vs Roma Intense: Which to Buy? From $70.95", "Born in Roma Uomo vs Intense: Which to Buy? From $91.95". Full bottle names stay in the table and the intro.
+- Priced dupe titles that had dropped the price to fit 60 characters now keep it ("Creed Millésime Impérial Dupe: Club de Nuit Milestone $27.95", "Silver Mountain Water Dupe: Club de Nuit Sillage $34.95", "Kilian Angels' Share Dupe: Khamrah Qahwa $25.95", "MFK Baccarat Rouge 540 Dupe: Amber Oud Rouge $38.95"). Unpriced dupes stay without a price. **All titles are ≤60.**
+- The feed used to keep only the first 10 comparison pages, so a new vs page never made the file. It now includes every roundup and vs page, then the dupe hubs, then the 8 steepest deals (33 items today).
+
+**Checks (local build on today's data, CI env):** 114 HTML pages (113 indexable + noindex /subscribed/), all 201 JSON-LD blocks parse, 0 broken internal links of 2,622, 0 github.io links, no duplicate titles or descriptions, all titles ≤60, all metas 70–160 characters, every canonical and og:url on https://scentdealsdaily.com. Every Offer price on the 5 new pages matches that bottle's deals.json price and comps, and every Offer sitewide is a deals.json price. sitemap.xml, llms.txt and feed.xml include the 5 new pages. CNAME, both Google verification tags, the Pinterest and Impact tags, the Cloudflare beacon, CJ sids (best-/cmp- on the new pages), the Brevo form, /subscribed/ and feed.xml are all intact. weekly-email.yml and send_weekly_email.py weren't touched. IndexNow is still the daily.yml step that runs on every push to main.
+
+**Deploy:** committed directly to main. The push triggers daily-refresh (refresh + build + IndexNow + Pages).
+
+**Open:** no affiliate click or sale data is in the repo. 3 dupes are still unpriced (Club de Nuit Iconic, Club de Nuit Woman, Al Nashama Caprice). No boxed gift set is in today's deals. Vs and roundup pages disappear if a bottle stops being a deal, which can briefly leave a 404 in search.
