@@ -617,6 +617,12 @@ def gift_table(ds):
 GIFT_LINKS=[("","Holiday gifts"),("for-him","For him"),("for-her","For her"),("under-50","Under $50"),("gift-sets","Gift sets")]+SEO_GIFTS
 def gift_nav():
     return "<p class='chips'>"+"".join(f"<a href='{PREFIX}/gifts/{slug+'/' if slug else ''}'>{e(label)}</a>" for slug,label in GIFT_LINKS)+"</p>"
+# Guides that list checked bottles. Empty pages point here instead of at each other.
+FILLED_GIFT_SLUGS={"","for-him","for-her","under-50","perfume-gifts-for-her-under-50","best-mens-cologne-under-40"}
+def check_back_note(sentence):
+    """Calm empty state. No table, no invented price, links only to guides that have bottles."""
+    links="".join(f"<a href='{PREFIX}/gifts/{slug+'/' if slug else ''}'>{e(label)}</a>" for slug,label in GIFT_LINKS if slug in FILLED_GIFT_SLUGS)
+    return f"<div class='box'><h2 style='margin-top:0'>Check back soon</h2><p>{e(sentence)}</p><p class='chips'>{links}</p></div>"
 GIFT_DISC="<p>Affiliate disclosure: some links on this page earn us a commission if you buy, at no extra cost to you. Prices are the ones we checked at authorized retailers.</p>"
 eligible=[d for d in deals if gift_ok(d)]
 by_off=sorted(eligible, key=lambda d:(-(d.get("pct_off") or 0), d["price"], d["id"]))
@@ -648,8 +654,8 @@ for path,sid_slug,title,short,intro,picks,list_name,image in gift_pages:
         ld=[itemlist(picks, list_name)]
         titles=fit([f"{title}: From {P} ({upd:%b %Y}) | {NAME}", f"{title}: From {P} | {NAME}", f"{title}: From {P}", title])
     else:
-        desc="No boxed fragrance gift set is in today's checked deals. Single bottles on the other gift guides are the option until a set is in stock."
-        listing="<p>None of the deals we checked today are boxed gift sets, so this page has no prices to show. Single bottles that work as gifts are on the other guides.</p>"
+        desc="Check back soon. No boxed fragrance gift set is in today's checked deals. Single bottles are on the other gift guides."
+        listing=check_back_note("No boxed fragrance gift set is in today's checked deals, so this page has no list. These guides have bottles we priced.")
         ld=None
         titles=fit([f"{title} ({upd:%b %Y}) | {NAME}", f"{title} | {NAME}", title])
     page(path, titles,
@@ -749,8 +755,8 @@ render_seo_gift("stocking-stuffer-minis","Stocking stuffer fragrance minis & tra
     ("Where should I look instead?",
      "Perfume gifts for her under $50 and men's cologne under $40 list single bottles we did price."),
   ]),
-  "<p>None of the deals we checked today are fragrance minis or travel sizes, so this page has no prices to show. Single bottles that work as gifts are on the other guides.</p>",
-  "Stocking stuffer fragrance minis and travel sizes: none of today's checked deals is a mini or a travel spray. Bottles of 1 oz and up stay on the other guides.",
+  check_back_note("No fragrance mini or travel size is in today's checked deals, so this page has no list. A 1 oz bottle stays on the other guides. These guides have bottles we priced."),
+  "Check back soon. No fragrance mini or travel size is in today's checked deals. Bottles of 1 oz and up are on the other gift guides.",
   "fragrance minis and travel sizes")
 render_seo_gift("holiday-gift-sets","Fragrance gift sets for the holidays",
   "A holiday set is listed only when the product we checked is a boxed set, coffret, or discovery set. A single bottle is not listed as a set.",
@@ -769,8 +775,8 @@ render_seo_gift("holiday-gift-sets","Fragrance gift sets for the holidays",
     ("What can I give instead?",
      "A single bottle from the other gift guides. Those prices are the ones we checked."),
   ]),
-  "<p>None of the deals we checked today are boxed fragrance gift sets, so this page has no prices to show. Single bottles that work as gifts are on the other guides.</p>",
-  "Fragrance gift sets for the holidays: none of today's checked deals is a boxed set, coffret, or discovery set. Single bottles are on the other gift guides.",
+  check_back_note("No fragrance gift set for the holidays is in today's checked deals, so this page has no list. These guides have bottles we priced."),
+  "Check back soon. No fragrance gift set for the holidays is in today's checked deals. Single bottles are on the other gift guides.",
   "fragrance gift sets")
 # rewrite sitemap with new pages + keyword list + IndexNow key
 open(f"{OUT}/sitemap.xml","w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+"".join(f"<url><loc>{u}</loc><lastmod>{upd:%Y-%m-%d}</lastmod></url>" for u in PAGES)+"</urlset>\n")
