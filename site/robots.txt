@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
+Disallow: /go/
+Disallow: /out/
+Disallow: /redirect/
+Disallow: /r/
 
-Sitemap: https://aministan.github.io/scentdealsdaily/sitemap.xml
+Sitemap: https://scentdealsdaily.com/sitemap.xml

@@ -3,6 +3,7 @@
 Source: Perfumania public Shopify product JSON (https://www.perfumania.com/products/<handle>.json).
 Free, no API key. Run daily (cron / GitHub Actions)."""
 import json, time, urllib.request, urllib.error, datetime, os, sys
+import links
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 UA="Mozilla/5.0 (compatible; ScentDealsDailyBot/1.0; +https://scentdealsdaily.com)"
 STORE="https://www.perfumania.com"
@@ -10,7 +11,13 @@ PAUSE=float(os.environ.get("REFRESH_PAUSE","1.2"))  # seconds between products; 
 FAIL={"transient":0,"total":0}
 def fetch(url, tries=6):
     """GET JSON with backoff. Perfumania rate-limits bursts (HTTP 429) from CI runners, so retry
-    with Retry-After / exponential backoff instead of silently dropping live deals."""
+    with Retry-After / exponential backoff instead of silently dropping live deals.
+    Tracking and internal redirect URLs are never requested; a plain retailer URL is used instead."""
+    safe=links.safe_request_url(url)
+    if not safe:
+        print("  ! refused affiliate tracking url (not requested)", file=sys.stderr)
+        return None
+    url=safe
     FAIL["total"]+=1
     for i in range(tries):
         try:

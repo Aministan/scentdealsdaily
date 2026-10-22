@@ -5,6 +5,7 @@ Reads data/deals.json (the same file scripts/build.py renders). Prices, names, a
 stores come only from that file. Deal links point at scentdealsdaily.com pages.
 """
 import argparse, html, json, os, re, sys, urllib.error, urllib.request
+import links
 from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -139,8 +140,12 @@ def dry_run_requested(args):
 
 def brevo(method, path, key, body=None):
     data = None if body is None else json.dumps(body).encode()
+    target = links.safe_request_url(API + path)
+    if not target:
+        print("refusing to request an affiliate tracking url", file=sys.stderr)
+        raise SystemExit(1)
     req = urllib.request.Request(
-        API + path,
+        target,
         data=data,
         method=method,
         headers={"api-key": key, "accept": "application/json", "content-type": "application/json"},

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Render data/deals.json -> static site in site/. Usage: SITE_URL=https://... python3 scripts/build.py"""
 import json, os, html, re, datetime, urllib.parse, shutil, tempfile
+import links
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__))); OUT=f"{ROOT}/site"
 # site/ is wiped and regenerated; keep promo videos in site/media across that rebuild.
 _media_tmp=None
@@ -82,8 +83,9 @@ def affiliate_url(url, placement="link"):
 def ext_a(url, inner, cls="", style="", placement="link"):
     href=e(affiliate_url(url, placement))
     extra=(f' class="{cls}"' if cls else "")+(f" style='{style}'" if style else "")
-    if is_affiliate(url):
-        return f'<a{extra} rel="sponsored nofollow noopener" target="_blank" href="{href}">{inner}</a>'
+    # Affiliate anchors are for a person clicking. No prefetch, prerender, or dns-prefetch.
+    if is_affiliate(url) or links.is_tracking_url(url):
+        return f'<a{extra} rel="nofollow sponsored noopener" target="_blank" href="{href}">{inner}</a>'
     return f"<a{extra} rel='nofollow sponsored noopener' target=_blank href='{href}'>{inner}</a>"
 def slug(s): return re.sub(r"[^a-z0-9]+","-",s.lower()).strip("-")
 import unicodedata
@@ -274,7 +276,7 @@ def offer_node(c, d):
     """One store's checked price. Shipping and returns stay off: we are not the seller and do not have that data."""
     avail="https://schema.org/InStock" if d.get("in_stock") is not False else "https://schema.org/OutOfStock"
     return {"@type":"Offer","price":f"{c['price']:.2f}","priceCurrency":"USD","availability":avail,
-            "url":affiliate_url(c["url"],"ld"),"seller":{"@type":"Organization","name":c["retailer"]},
+            "url":links.retailer_url(c["url"]) or c["url"],"seller":{"@type":"Organization","name":c["retailer"]},
             "priceValidUntil":PRICE_UNTIL,"validFrom":check_day(c.get("checked") or d.get("checked"))}
 def aggregate_offer(d):
     nodes=[offer_node(c,d) for c in offer_rows(d)]
@@ -348,7 +350,7 @@ use_sid("dupes")
 rows="".join(f"""<tr><td><b>{e(d['original'])}</b>{('<div class=meta>'+e(d['original_price'])+'</div>') if d.get('original_price') else ''}</td>
 <td><b><a href='{PREFIX}/dupe/{slug(d["original"]+" dupe "+d["dupe"])}/'>{e(d['dupe'])}</a></b><div class=meta>{e(d['notes'])}</div></td>
 <td>{(f"<b>${d['price']:.2f}</b> ({e(d['size'])}) {ext_a(d['url'], e(d.get('retailer') or 'Retailer'), placement='table')}<div class=meta>checked {upd_h}</div>") if d['price'] else "<span class=meta>Not tracked yet — price check coming</span>"}</td>
-<td class=meta>{' '.join((f'<a href="{e(affiliate_url(s, "src"))}" rel="sponsored nofollow noopener" target="_blank">[{i+1}]</a>' if is_perfumania(s) else f"<a href='{e(s)}' rel=noopener target=_blank>[{i+1}]</a>") for i,s in enumerate(d['sources']))}</td></tr>""" for d in D["dupes"])
+<td class=meta>{' '.join((f'<a href="{e(affiliate_url(s, "src"))}" rel="nofollow sponsored noopener" target="_blank">[{i+1}]</a>' if is_perfumania(s) else f"<a href='{e(s)}' rel=noopener target=_blank>[{i+1}]</a>") for i,s in enumerate(d['sources']))}</td></tr>""" for d in D["dupes"])
 faq={"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":f"What is the best dupe for {d['original']}?","acceptedAnswer":{"@type":"Answer","text":f"{d['dupe']} is a widely cited alternative to {d['original']} ({d['notes']})."+(f" It was ${d['price']:.2f} for {d['size']} at {d.get('retailer') or 'the retailer'} as of {upd:%Y-%m-%d}." if d['price'] else "")}} for d in D["dupes"]]}
 page("dupes/index.html",fit([f"Best Designer Fragrance Dupes {upd.year}: {len(D['dupes'])} Clones With Live Prices | {NAME}",f"Best Fragrance Dupes {upd.year}: {len(D['dupes'])} Clones With Live Prices"]),
  "Creed Aventus, Baccarat Rouge 540, Angels' Share, Sauvage Elixir and more: the most-cited affordable dupes, with today's prices and sources.",
@@ -388,11 +390,17 @@ page("disclosure/index.html",f"Affiliate Disclosure | {NAME}","How ScentDealsDai
 <p>"Was" prices are the retailer's own listed compare-at / retail price at the time we checked. Prices and stock change; always confirm at checkout.</p></div>""")
 open(f"{OUT}/style.css","w").write(CSS)
 if CUSTOM_DOMAIN: open(f"{OUT}/CNAME","w").write(CUSTOM_DOMAIN+"\n")
-open(f"{OUT}/robots.txt","w").write(f"User-agent: *\nAllow: /\n\nSitemap: {BASE}{PREFIX}/sitemap.xml\n")
+open(f"{OUT}/robots.txt","w").write(
+    "User-agent: *\nAllow: /\n"
+    "Disallow: /go/\nDisallow: /out/\nDisallow: /redirect/\nDisallow: /r/\n\n"
+    f"Sitemap: {BASE}{PREFIX}/sitemap.xml\n")
 open(f"{OUT}/sitemap.xml","w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+"".join(f"<url><loc>{u}</loc><lastmod>{upd:%Y-%m-%d}</lastmod></url>" for u in PAGES)+"</urlset>\n")
 use_sid("llms")
+def plain_url(url):
+    """Retailer or citation URL safe to publish where a bot will fetch every link."""
+    return links.retailer_url(url) or url
 llms=[f"# {NAME}",f"> Daily-checked discounts on authentic designer fragrances at reputable retailers, plus a cited dupes directory. Last updated {D['updated']}.","",
- "## Today's deals (price USD, size, retailer, % off listed compare-at)"]+[f"- {d['brand']} {d['name']} {d['size']}: ${d['price']:.2f} (was ${d['was']:.2f}, -{d['pct_off']}%) at {d['retailer']}: {affiliate_url(d['url'],'list')}" for d in deals]+["","## Dupes (designer original -> alternative)"]+[f"- {d['original']} -> {d['dupe']}"+(f": ${d['price']:.2f} {d['size']} at {d['retailer']} {affiliate_url(d['url'],'list')}" if d['price'] else "")+f" (sources: {', '.join(affiliate_url(s,'src') if is_perfumania(s) else s for s in d['sources'])})" for d in D['dupes']]+["","## Pages",f"- Deals: {BASE}{PREFIX}/",f"- Dupes: {BASE}{PREFIX}/dupes/",f"- Raw data (JSON): {BASE}{PREFIX}/deals.json"]
+ "## Today's deals (price USD, size, retailer, % off listed compare-at)"]+[f"- {d['brand']} {d['name']} {d['size']}: ${d['price']:.2f} (was ${d['was']:.2f}, -{d['pct_off']}%) at {d['retailer']}: {plain_url(d['url'])}" for d in deals]+["","## Dupes (designer original -> alternative)"]+[f"- {d['original']} -> {d['dupe']}"+(f": ${d['price']:.2f} {d['size']} at {d['retailer']} {plain_url(d['url'])}" if d['price'] else "")+f" (sources: {', '.join(plain_url(s) for s in d['sources'])})" for d in D['dupes']]+["","## Pages",f"- Deals: {BASE}{PREFIX}/",f"- Dupes: {BASE}{PREFIX}/dupes/",f"- Raw data (JSON): {BASE}{PREFIX}/deals.json"]
 open(f"{OUT}/llms.txt","w").write("\n".join(llms)+"\n")
 json.dump(D,open(f"{OUT}/deals.json","w"))
 open(f"{OUT}/.nojekyll","w").write("")
@@ -443,7 +451,7 @@ for d in D["dupes"]:
     hb=hub_of(d); hublink=(f"<a href='{PREFIX}/dupes/{hb['slug']}/'>Compare every {e(hb['topic'])} dupe side by side</a> · ") if hb else ""
     body=(f"<h1>Best {e(o)} dupe: {e(d['dupe'])}</h1><p class='sub'>{e(d['notes'])} · {('<b class=price>$%.2f</b> today at %s' % (d['price'],e(d['retailer']))) if d['price'] else 'price not verified yet'}</p>"
       +((buy(d['url'],d['retailer'])+also_line(d)) if d['price'] else "")
-      +f"<div class='box'><h2 style='margin-top:0'>{e(o)} vs {e(d['dupe'])}</h2><table><thead><tr><th></th><th>{e(o)}</th><th>{e(d['dupe'])}</th></tr></thead><tbody><tr><td>Price</td><td>{e(d.get('original_price') or 'varies')}</td><td>{('$%.2f (%s)' % (d['price'],e(d['size']))) if d['price'] else '—'}</td></tr><tr><td>Profile</td><td colspan=2>{e(d['notes'])}</td></tr><tr><td>Sources</td><td colspan=2>{' '.join((f'<a href="{e(affiliate_url(x, "src"))}" rel="sponsored nofollow noopener" target="_blank">[{i+1}]</a>' if is_perfumania(x) else f'<a href={e(x)} rel=noopener target=_blank>[{i+1}]</a>') for i,x in enumerate(d['sources']))}</td></tr></tbody></table></div>"
+      +f"<div class='box'><h2 style='margin-top:0'>{e(o)} vs {e(d['dupe'])}</h2><table><thead><tr><th></th><th>{e(o)}</th><th>{e(d['dupe'])}</th></tr></thead><tbody><tr><td>Price</td><td>{e(d.get('original_price') or 'varies')}</td><td>{('$%.2f (%s)' % (d['price'],e(d['size']))) if d['price'] else '—'}</td></tr><tr><td>Profile</td><td colspan=2>{e(d['notes'])}</td></tr><tr><td>Sources</td><td colspan=2>{' '.join((f'<a href="{e(affiliate_url(x, "src"))}" rel="nofollow sponsored noopener" target="_blank">[{i+1}]</a>' if is_perfumania(x) else f'<a href={e(x)} rel=noopener target=_blank>[{i+1}]</a>') for i,x in enumerate(d['sources']))}</td></tr></tbody></table></div>"
       +((f"<div class='box'><h2 style='margin-top:0'>Where to buy {e(d['dupe'])} cheapest</h2><table><thead><tr><th>Retailer</th><th>Size</th><th>Price</th><th>Checked</th></tr></thead><tbody>{comprows(d)}</tbody></table></div>") if d.get('comps') else "")+faqhtml(qs)+"<h2>More dupes</h2><div class='chips'>"+"".join(f"<a href='{PREFIX}/dupe/{slug(x['original']+' dupe '+x['dupe'])}/'>{e(x['original'])} → {e(x['dupe'])}</a>" for x in rel)+"</div><p>"+hublink+f"<a href='{PREFIX}/dupes/'>All dupes</a></p>")
     lds=[faqld(qs)]+([prod_ld(d, name=d['dupe'], brand=d['dupe'].split()[0])] if d['price'] else [])
     PR=(f" ${d['price']:.2f}" if d['price'] else "")
@@ -490,7 +498,7 @@ for r in ROUNDUPS:
            f"{n} authentic {r['who']} {N}s {SC}, all 15%+ off at authorized retailers, from {CP}. Ranked by price per ounce, checked {upd:%b %-d}."],160),body,[il,faqld(qs)])
 def house(name):
     w=name.split(); return " ".join(w[:2]) if w[0] in ("Al","Ariana") else w[0]
-def srclinks(srcs): return " ".join((f'<a href="{e(affiliate_url(u, "src"))}" rel="sponsored nofollow noopener" target="_blank">[{i+1}]</a>' if is_perfumania(u) else f"<a href='{e(u)}' rel=noopener target=_blank>[{i+1}]</a>") for i,u in enumerate(srcs))
+def srclinks(srcs): return " ".join((f'<a href="{e(affiliate_url(u, "src"))}" rel="nofollow sponsored noopener" target="_blank">[{i+1}]</a>' if is_perfumania(u) else f"<a href='{e(u)}' rel=noopener target=_blank>[{i+1}]</a>") for i,u in enumerate(srcs))
 def hubrow(x):
     link=f"{PREFIX}/dupe/{slug(x['original']+' dupe '+x['dupe'])}/"
     op=f"<div class=meta>{e(x['original_price'])}</div>" if x.get('original_price') else ""
@@ -684,3 +692,52 @@ if _media_tmp:
     shutil.copytree(f"{_media_tmp}/media", f"{OUT}/media")
     shutil.rmtree(_media_tmp)
     print("copied site/media ->", OUT)
+
+def audit_affiliate_output():
+    """String-check every tracking href. Do not request tracking or /go links."""
+    bad=[]
+    tracking_hrefs=0
+    href_re=re.compile(r"""href\s*=\s*(?:"([^"]+)"|'([^']+)')""", re.I)
+    rel_re=re.compile(r"""rel\s*=\s*(?:"([^"]*)"|'([^']*)')""", re.I)
+    for dirpath, _, files in os.walk(OUT):
+        for fn in files:
+            if os.path.splitext(fn)[1].lower() not in (".html",".txt",".xml",".json",".css"): continue
+            path=os.path.join(dirpath, fn)
+            text=open(path, encoding="utf-8", errors="replace").read()
+            relpath=os.path.relpath(path, OUT)
+            for tag in re.findall(r"<a\b[^>]*>", text, re.I):
+                hm=href_re.search(tag)
+                href=html.unescape((hm.group(1) or hm.group(2)) if hm else "")
+                if not (links.is_tracking_url(href) or links.is_internal_redirect(href)): continue
+                tracking_hrefs+=1
+                relm=rel_re.search(tag)
+                relv=(relm.group(1) or relm.group(2) or "") if relm else ""
+                tokens=set(relv.split())
+                if not {"nofollow","sponsored","noopener"}<=tokens:
+                    bad.append(f"{relpath}: affiliate link missing rel nofollow sponsored noopener")
+                if tokens & {"prefetch","prerender"} or re.search(r"prefetch|prerender", tag, re.I):
+                    bad.append(f"{relpath}: prefetch or prerender on an affiliate link")
+                if links.is_tracking_url(href) and not links.affiliate_link_ok(href):
+                    bad.append(f"{relpath}: affiliate link failed string check")
+            stripped=re.sub(r"<a\b[^>]*>.*?</a>", " ", text, flags=re.I|re.S)
+            low=stripped.lower()
+            for domain in links.TRACKING_DOMAINS:
+                if domain in low:
+                    bad.append(f"{relpath}: {domain} outside an affiliate anchor")
+                    break
+            if re.search(r"""(?:href|url)\s*[=:]\s*["'][^"']*(?:/go/|/out/|/redirect/|/r/)""", stripped, re.I):
+                bad.append(f"{relpath}: internal redirect URL outside an anchor")
+    if re.search(r"""rel\s*=\s*["'][^"']*(?:prefetch|prerender)""", open(f"{OUT}/index.html", encoding="utf-8").read(), re.I):
+        bad.append("homepage has prefetch or prerender")
+    robots=open(f"{OUT}/robots.txt", encoding="utf-8").read()
+    for rule in ("Disallow: /go/","Disallow: /out/","Disallow: /redirect/","Disallow: /r/"):
+        if rule not in robots: bad.append(f"robots.txt missing {rule}")
+    if open(f"{OUT}/CNAME", encoding="utf-8").read().strip()!=CUSTOM_DOMAIN:
+        bad.append("CNAME changed")
+    home=open(f"{OUT}/index.html", encoding="utf-8").read()
+    for token in ("GASeKy1uEWpsrSn1II701znBYlw6mBhAwvimW0Yi8Io","AnNdRzKxRNra8nkj3gri7zC9kJYJ-aZehksWkrfImx4"):
+        if token not in home: bad.append("missing Google site-verification meta tag")
+    if bad:
+        raise SystemExit("affiliate audit failed:\n"+"\n".join(bad[:40]))
+    print(f"affiliate audit: {tracking_hrefs} tracking hrefs checked by string only; no prefetch; robots disallow redirect paths")
+audit_affiliate_output()

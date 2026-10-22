@@ -8,6 +8,7 @@ browser reader. Testers, unboxed bottles, oils and body products are ignored.
 Nothing here estimates a price: a miss stays Perfumania-only.
 """
 import json, os, re, time, urllib.parse, urllib.request, urllib.error, sys
+import links
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STORE = "https://www.fragranceshop.com"
@@ -65,6 +66,11 @@ class Client:
         self._next = time.time() + seconds
 
     def get_json(self, url, tries=6):
+        safe = links.safe_request_url(url)
+        if not safe:
+            _log("  ! fs refused affiliate tracking url (not requested)")
+            return None
+        url = safe
         if url in self._cache:
             return self._cache[url]
         self.total += 1
