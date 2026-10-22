@@ -166,3 +166,30 @@ Boss Bottled Unlimited was also added to the existing fresh-citrus cologne round
 **Deploy:** committed directly to main. The push triggers daily-refresh (refresh + build + IndexNow + Pages).
 
 **Open:** no affiliate click or sale data is in the repo. 3 dupes are still unpriced (Club de Nuit Iconic, Club de Nuit Woman, Al Nashama Caprice). No boxed gift set is in today's deals. Vs and roundup pages disappear if a bottle stops being a deal, which can briefly leave a 404 in search.
+
+## 2026-10-21 (Wed) — daily optimization pass
+
+**Refresh status:** site live on the custom domain. https://scentdealsdaily.com/ returns 200, and the old aministan.github.io/scentdealsdaily address 301s there. As of 11:45 AM ET, today's 7:17 AM scheduled daily-refresh run hadn't started yet (GitHub delays it; yesterday's started at 11:38 AM ET). The latest run is yesterday's push-triggered run 39450720860 (563f08d), which passed by 11:48 AM ET on Oct 20; the live data was stamped 2026-10-20T15:41Z. This pass's push triggers today's refresh. Local refresh on the box (stamped 2026-10-21T15:34Z, 11:34 AM ET): 44 live deals, 12/15 dupes priced, 0/120 fetch failures, 4 dropped (Sweet Like Candy and Ralph Lauren Romance are gone; Gucci Bloom and Lancôme Idôle are less than 15% below Ulta). Two new deals: Montblanc Legend Spirit 1.7 oz EDT $61.95 at Perfumania (30% below Ulta's $89.00) and Hermès H24 1.7 oz EDT $64.95 at Perfumania (41% off $110.00).
+
+**Muse.ai deals:** muse_deals.json is unchanged since Oct 15 (56 rows, last commit b4d3e5b). Nothing new to merge. No prices were invented and Amazon was skipped.
+
+**New pages (5, data-driven through config `roundups` and `vs`, so they survive the rebuild)**
+- /best/cologne-deals-under-30/: 5 men's and unisex picks from $17.95 (CK Free $17.95, Azzaro Chrome Legend $22.95, Burberry Weekend $23.95, CK One $24.95, CK Everyone $29.95).
+- /best/perfume-deals-under-30/: 6 women's picks from $20.95 (Peace Love & Juicy Couture $20.95, Eternity Air $20.95, Burberry London $21.95, CK Beauty $23.95, Boss Woman $25.95, Eternity $29.95).
+- /vs/legend-spirit-vs-acqua-di-gio/ ($61.95 for 1.7 oz vs $66.95 for 3.4 oz, both EDT)
+- /vs/ck-defy-vs-ck-free/ ($39.99 vs $17.95, both 3.4 oz EDT)
+- /vs/le-beau-vs-versace-eros/ ($75.95 for 4.2 oz vs $51.95 for 1.7 oz, both EDT)
+Montblanc Legend Spirit also joined the fresh-citrus cologne roundup (now 13 picks from $22.95). Key notes come from today's Perfumania product descriptions, except Legend Spirit: Perfumania's copy names no notes, so its pyramid comes from Montblanc's own product page (pink peppercorn, grapefruit, bergamot; lavender, cardamom, aquatic accord; white woods, oak moss, white musks). Bottles left out: Azzaro Pour Homme (under $30, but its copy still describes a different scent) and Burberry Touch (under $30, copy still conflicts), plus Hermès H24, which had no good pairing today. Each new page has ItemList(Product/AggregateOffer) or 2× Product + FAQPage JSON-LD and 20–23 inbound internal links.
+- Configured roundups can now set `max_price`. A bottle that climbs past it drops off the page on the next rebuild, so an "under $30" or "under $50" page never lists a pricier bottle. It's set on both new under-$30 pages and on fresh-perfume-deals-under-50.
+
+**Titles/meta**
+- Brand names now follow the brand's own spelling: "Mont Blanc" -> "Montblanc" and "Hermes" -> "Hermès" in titles, metas, JSON-LD brand and the brand pages (/brands/montblanc/, /brands/hermes/). Both pages are new today. Fragrance URLs are unchanged.
+- Single-deal brand pages (Bvlgari, Clinique, Coach, Elizabeth Arden, Hermès, Jean Paul Gaultier, Juicy Couture, Montblanc, Paco Rabanne, Tom Ford, Xerjoff) had thin metas like "1 verified Coach fragrance deal from $68.95 (Cologne)". They now name the bottle, size, price, store and discount ("Coach Cologne 2.0 oz for $68.95 at Perfumania, 27% off the Ulta price. Our only verified Coach deal today, checked Oct 21, 2026.").
+- Multi-deal brand metas no longer show a bare "Perfume" or "Cologne" for the bottle name (Billie Eilish now reads "No.2 Perfume, Eilish Perfume").
+- Display names drop a stray "Spray" before Cologne/Perfume ("Calvin Klein Defy Spray Cologne" -> "Calvin Klein Defy Cologne"). URLs are unchanged. **All titles are ≤60.**
+
+**Checks (local build on today's data, CI env):** 123 HTML pages (122 indexable + noindex /subscribed/), all 220 JSON-LD blocks parse, 0 broken internal links of 2,958, 0 github.io links, no duplicate titles or descriptions, all titles ≤60, all metas 70–160 characters, every canonical and og:url on https://scentdealsdaily.com. Every Offer price on the 5 new pages matches that bottle's deals.json price and comps, and every Offer sitewide is a deals.json price. sitemap.xml, llms.txt and feed.xml (38 items) include the 5 new pages, and the feed and sitemap parse as XML. CNAME, both Google verification tags, the Pinterest and Impact tags, the Cloudflare beacon, CJ sids (best-/cmp- on the new pages), the Brevo form, /subscribed/ (noindex) and feed.xml are all intact. weekly-email.yml and send_weekly_email.py weren't touched. IndexNow is still the daily.yml step that runs on every push to main.
+
+**Affiliate data (Gmail, read-only, since Oct 20):** no CJ, Rakuten or Awin approval, decline or sale email. Awin sent its welcome email at 4:16 AM ET Oct 20. Impact answered ticket 898438 at 12:43 PM ET Oct 20: the Marketplace decline stands and the requirements aren't disclosed. Their advice is to apply to brands' Impact programs directly through each brand's own "affiliate program" page. No click or sale data is in the repo.
+
+**Open:** no affiliate click or sale data yet. All 8 CJ and 4 Rakuten applications are still pending, and so is Escentric Molecules on Awin. Impact path: apply brand by brand (Ulta and others) from each brand's partner page. 3 dupes are still unpriced (Club de Nuit Iconic, Club de Nuit Woman, Al Nashama Caprice). Hermès H24 has no notes-backed roundup or vs page yet.

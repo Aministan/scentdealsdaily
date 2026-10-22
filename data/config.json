@@ -617,6 +617,39 @@
    "intro": "Two Hugo Boss eaux de toilette that both sit under $50 today. Bottled Unlimited (2014) is a cool mint and grapefruit fougere. Boss In Motion (2002) opens on orange and basil and dries down woodier. The bottles are close in size, so the per-ounce row is a fair comparison.",
    "difference": "Bottled Unlimited opens with mint, grapefruit and violet leaf, then pineapple, cinnamon and rose, over sandalwood, labdanum and musk. Boss In Motion opens with orange, bergamot, violet leaf and basil, runs through pink pepper, cinnamon, nutmeg and cardamom, and finishes on sandalwood, vetiver and musk, so the spice and the wood are louder.",
    "pick": "Pick Bottled Unlimited for a cooler, minty everyday scent; pick Boss In Motion if you want the spice and a woodier dry-down."
+  },
+  {
+   "slug": "legend-spirit-vs-acqua-di-gio",
+   "title": "Legend Spirit vs Acqua di Gio",
+   "a": "legend-spirit-eau-de-toilette-spray-for-men-by-montblanc",
+   "b": "giorgio-armani-acqua-di-gio-eau-de-toilette-cologne-for-men",
+   "a_notes": "Pink peppercorn, grapefruit, bergamot; lavender, cardamom, aquatic accord; white woods, oakmoss, white musks",
+   "b_notes": "Lime, lemon, bergamot, orange, neroli; marine notes, rosemary, jasmine, nutmeg; white musk, cedar, oakmoss, patchouli, amber",
+   "intro": "Two fresh aquatic eaux de toilette that are both marked down today. Acqua di Gio (1996) is the classic citrus-and-sea cologne. Montblanc Legend Spirit (2016) is a lighter take with pink pepper, lavender and white woods. The bottles here differ in size, so the per-ounce row matters more than the sticker.",
+   "difference": "Legend Spirit opens with pink peppercorn, grapefruit and bergamot, moves to lavender, cardamom and an aquatic accord, and settles on white woods, oakmoss and white musks, per Montblanc. Acqua di Gio opens on lime, lemon, bergamot and orange with neroli, has a marine heart with rosemary, jasmine and nutmeg, and dries down to white musk, cedar, oakmoss, patchouli and amber, so it is more citrus-forward and a little warmer at the end.",
+   "pick": "Pick Acqua di Gio for the classic citrus-marine scent and the bigger bottle; pick Legend Spirit for a softer, lavender-and-pepper fresh scent at a lower sticker price."
+  },
+  {
+   "slug": "ck-defy-vs-ck-free",
+   "title": "CK Defy vs CK Free",
+   "a": "calvin-klein-defy-eau-de-toilette-for-men",
+   "b": "calvin-klein-free-mens-eau-de-toilette-spray",
+   "a_notes": "Bergamot, lavender; vetiver; amber",
+   "b_notes": "Juniper berries, star anise, wormwood, jackfruit; suede, tobacco, buchu, coffee; Virginia cedar, oak, patchouli",
+   "intro": "Two Calvin Klein eaux de toilette for men, both 3.4 oz bottles and both deeply discounted today. Defy is a short, clean formula built on bergamot, lavender, vetiver and amber. Free is busier and darker, with anise, coffee, tobacco and wood. Same size, so the price gap is a straight comparison.",
+   "difference": "Defy opens with bergamot and lavender, keeps vetiver alone in the middle and closes on amber, so it stays clean and simple. Free opens with juniper berries, star anise, wormwood and jackfruit, runs through suede, tobacco, buchu and coffee, and dries down to Virginia cedar, oak and patchouli, which makes it darker and more unusual.",
+   "pick": "Pick Defy for a clean, office-safe everyday scent; pick Free if you want a cheaper, darker coffee-and-wood cologne for evenings."
+  },
+  {
+   "slug": "le-beau-vs-versace-eros",
+   "title": "Le Beau vs Versace Eros",
+   "a": "le-beau-eau-de-toilette-spray-for-men-by-jean-paul-gaultier",
+   "b": "versace-eros-cologne-eau-de-toilette-for-men",
+   "a_notes": "Bergamot; coconut; tonka bean",
+   "b_notes": "Mint, green apple, lemon; tonka bean, ambroxan; vanilla, cedar, vetiver",
+   "intro": "Two sweet, crowd-pleasing eaux de toilette for men, both on sale today. Jean Paul Gaultier Le Beau is a coconut and tonka scent. Versace Eros (2012) pairs mint and green apple with vanilla. Le Beau comes in a bigger 4.2 oz bottle, so check the per-ounce row.",
+   "difference": "Le Beau opens on bergamot, builds a creamy coconut heart and settles on tonka bean, so it reads tropical and smooth. Eros opens with mint, green apple and lemon, adds tonka bean and ambroxan, and dries down to vanilla, cedar and vetiver, which makes it fresher at the start and louder overall.",
+   "pick": "Pick Le Beau for a smoother coconut scent and the bigger bottle; pick Eros for the minty-sweet classic at a lower sticker price."
   }
  ],
  "roundups": [
@@ -676,6 +709,10 @@
     {
      "id": "boss-bottled-unlimited-by-hugo-boss-for-men-eau-de-toilette-spray",
      "notes": "Fresh fougere: mint, grapefruit, violet leaf, pineapple, sandalwood"
+    },
+    {
+     "id": "legend-spirit-eau-de-toilette-spray-for-men-by-montblanc",
+     "notes": "Fresh woody: grapefruit, bergamot, pink pepper, lavender, white woods"
     }
    ],
    "faq": [
@@ -955,6 +992,95 @@
     [
      "Is the cheapest bottle the best value?",
      "Not always. All four are eaux de parfum, but Clinique Happy is a 1.0 oz bottle, so its price per ounce is much higher than the 3.0 oz and 3.4 oz bottles even when the sticker looks modest. Use the per-ounce column, not only the sale price."
+    ]
+   ],
+   "max_price": 50
+  },
+  {
+   "slug": "cologne-deals-under-30",
+   "title": "Best Cologne Deals Under $30",
+   "noun": "cologne",
+   "who": "men's and unisex",
+   "scope": "under $30",
+   "max_price": 30,
+   "rule": "the price must be under $30 right now, it must be a full-size bottle, and the retailer's description must name its notes",
+   "lead": "Full-size designer colognes for less than $30 today, from a coffee-and-wood evening scent to clean citrus and green-tea daily wear. Each note line comes from the retailer's product description. Azzaro Pour Homme is also under $30 today but is left out because its listing copy describes a different scent from the bottle's published notes.",
+   "items": [
+    {
+     "id": "calvin-klein-free-mens-eau-de-toilette-spray",
+     "notes": "Aromatic woody: juniper, star anise, coffee, Virginia cedar, oak, patchouli"
+    },
+    {
+     "id": "azzaro-chrome-legend-mens-eau-de-toilette-spray",
+     "notes": "Green: green apple, tea, bitter orange, vetiver"
+    },
+    {
+     "id": "burberry-weekend-mens-eau-de-toilette-spray",
+     "notes": "Citrus: lemon, grapefruit, mandarin, melon, honey-musk base"
+    },
+    {
+     "id": "calvin-klein-ck-one-eau-de-toilette-unisex-fragrance",
+     "notes": "Citrus aromatic (unisex): lemon, bergamot, pineapple, green tea, musk"
+    },
+    {
+     "id": "ck-everyone-unisex-fragrance",
+     "notes": "Aquatic (unisex): orange oil, ginger, watery notes, tea, cedar"
+    }
+   ],
+   "faq": [
+    [
+     "Is a $20 cologne worth buying?",
+     "At these prices you are paying a discount on a real designer bottle, not buying a cheaper formula. CK Free, Chrome Legend and Burberry Weekend are the same eaux de toilette sold at full price elsewhere; the low price reflects the retailer's markdown, not a different juice."
+    ],
+    [
+     "Which of these is best for everyday wear?",
+     "For office and daytime, the citrus and tea picks (CK One, CK Everyone, Chrome Legend, Burberry Weekend) are the safe choice. CK Free is darker, with coffee and wood, and suits evenings better."
+    ]
+   ]
+  },
+  {
+   "slug": "perfume-deals-under-30",
+   "title": "Best Perfume Deals Under $30",
+   "noun": "perfume",
+   "who": "women's",
+   "scope": "under $30",
+   "max_price": 30,
+   "rule": "the price must be under $30 right now, and the retailer's description must name its notes",
+   "lead": "Designer eaux de parfum for women at less than $30 today, most of them full 3.0 to 3.4 oz bottles. Every note line comes from the retailer's product description. Burberry Touch is also under $30 but is left out because its listing copy doesn't match its published notes.",
+   "items": [
+    {
+     "id": "peace-love-juicy-couture-by-juicy-couture-for-women-edp-spray",
+     "notes": "Fruity floral: hyacinth, cassis, red apple, honeysuckle, jasmine, musk"
+    },
+    {
+     "id": "eternity-air-eau-de-parfum-spray-for-women-by-calvin-klein",
+     "notes": "Fresh fruity floral: grapefruit, black currant, peony, pear, musk"
+    },
+    {
+     "id": "burberry-london-perfume-eau-de-parfum-for-women",
+     "notes": "White floral: honeysuckle, tangerine, rose, jasmine, peony, sandalwood"
+    },
+    {
+     "id": "calvin-klein-beauty-perfume-eau-de-parfum-for-women",
+     "notes": "Floral musk: ambrette, jasmine, Virginia cedar"
+    },
+    {
+     "id": "woman-eau-de-parfum-spray-for-women-by-hugo-boss",
+     "notes": "Fruity floral: mango, mandarin, violet root, freesia, sandalwood"
+    },
+    {
+     "id": "calvin-klein-eternity-womens-eau-de-parfum-spray",
+     "notes": "Green floral: freesia, mandarin, sage, lily, rose, sandalwood"
+    }
+   ],
+   "faq": [
+    [
+     "Are perfumes under $30 real designer bottles?",
+     "Yes. Every pick is a sealed eau de parfum from an authorized US fragrance retailer, marked down at least 15% from its listed price. We exclude testers, unboxed bottles and marketplace sellers."
+    ],
+    [
+     "Which one is the best blind buy?",
+     "Calvin Klein Eternity and Burberry London are long-running classics that are easy to wear. Eternity Air and Peace Love & Juicy Couture are lighter and fruitier. Burberry London is the only 1.0 oz bottle here, so check the per-ounce column."
     ]
    ]
   }

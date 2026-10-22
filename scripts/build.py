@@ -89,11 +89,11 @@ def ext_a(url, inner, cls="", style="", placement="link"):
     return f"<a{extra} rel='nofollow sponsored noopener' target=_blank href='{href}'>{inner}</a>"
 def slug(s): return re.sub(r"[^a-z0-9]+","-",s.lower()).strip("-")
 import unicodedata
-BRAND_CANON={"Lancome":"Lancôme"}  # Perfumania uses both spellings; one brand page
+BRAND_CANON={"Lancome":"Lancôme","Mont Blanc":"Montblanc","Hermes":"Hermès"}  # retailer spellings -> the brand's own; one brand page
 def canon(b): return BRAND_CANON.get(b,b)
 def bslug(b): return slug(unicodedata.normalize("NFKD",canon(b)).encode("ascii","ignore").decode())
 def sz(size): return re.sub(r"\s+"," ",size or "").strip().rstrip(".")
-def fullname(d):
+def _fullname(d):
     """Display name without a doubled brand ("Azzaro Azzaro Cologne" -> "Azzaro Cologne"). URLs keep brand+name slugs."""
     b,n=d['brand'],d['name']; cb=canon(b)
     if n.lower().startswith(b.lower()+" "): return cb+n[len(b):]
@@ -101,6 +101,9 @@ def fullname(d):
     last=cb.split()[-1]
     if " " in cb and n.lower().startswith(last.lower()+" "): return cb+n[len(last):]  # Hugo Boss + "Boss Bottled ..." -> "Hugo Boss Bottled ..."
     return f"{cb} {n}"
+def fullname(d):
+    """Display name; drops a stray "Spray" before Cologne/Perfume ("Defy Spray Cologne" -> "Defy Cologne")."""
+    return re.sub(r" Spray (Cologne|Perfume)$",r" \1",_fullname(d))
 def oz(size):
     m=re.match(r"\s*([0-9]*\.?[0-9]+)\s*oz",size or "",re.I); return float(m.group(1)) if m else None
 def per_oz(d):
@@ -313,7 +316,7 @@ ROUNDUPS=[r for r in [
    "lead":"Full-size designer bottles you can buy for less than $30 today, mixed across men's, women's and unisex picks.","items":[d for d in deals if d['price']<30]},
   {"slug":"luxury-fragrance-deals","title":"Best Luxury Fragrance Deals","noun":"luxury fragrance","who":"prestige","scope":"with a $120+ list price","rule":"the bottle's listed price (or another authorized retailer's price) must be $120 or more",
    "lead":"Prestige perfumes and colognes that normally list for $120 or more, discounted at authorized retailers today. Good for gifts or a bottle you would not usually pay full price for.","items":[d for d in deals if d['was']>=120]},
- ]+[dict(r,items=[BYID[i['id']] for i in r['items'] if i['id'] in BYID],notes={i['id']:i['notes'] for i in r['items']}) for r in CFG.get("roundups",[])] if len(r["items"])>=3]
+ ]+[dict(r,items=[BYID[i['id']] for i in r['items'] if i['id'] in BYID and BYID[i['id']]['price']<r.get('max_price',1e9)],notes={i['id']:i['notes'] for i in r['items']}) for r in CFG.get("roundups",[])] if len(r["items"])>=3]
 def roundups_of(d): return [r for r in ROUNDUPS if d in r['items']]
 HUBS=[]
 for h in CFG.get("hubs",[]):
@@ -377,10 +380,20 @@ brands=sorted({canon(d["brand"]) for d in deals})
 for b in brands:
     ds=[d for d in deals if canon(d["brand"])==b]
     use_sid("brand", bslug(b))
-    nm=", ".join(fullname(d).replace(b+" ","",1) for d in ds[:2])+(" & more" if len(ds)>2 else "")
+    def short_nm(d):
+        n=fullname(d).replace(b+" ","",1)
+        return d['name'] if n in ("Perfume","Cologne","Eau de Toilette","Eau de Parfum") else n  # "Coach Cologne", not "Cologne"
+    nm=", ".join(short_nm(d) for d in ds[:2])+(" & more" if len(ds)>2 else "")
     mx=max(d['pct_off'] for d in ds)
+    one=ds[0]
+    if len(ds)==1:
+        bm=fit([f"{fullname(one)} {sz(one['size'])} for ${one['price']:.2f} at {one['retailer']}, {one['pct_off']}% off"+(f" the {one['was_label']} price" if one.get('was_label') else f" its ${one['was']:.2f} list price")+f". Our only verified {b} deal today, checked {upd:%b %-d, %Y}.",
+                f"{fullname(one)} {sz(one['size'])} for ${one['price']:.2f} at {one['retailer']}, {one['pct_off']}% off. Our only verified {b} deal today, checked {upd:%b %-d}.",
+                f"{fullname(one)} {sz(one['size'])}: ${one['price']:.2f} at {one['retailer']}, {one['pct_off']}% off. Checked {upd:%b %-d}."],160)
+    else:
+        bm=f"{len(ds)} verified {b} fragrance deals from ${min(d['price'] for d in ds):.2f} ({nm}). Authentic, price-checked {upd:%b %-d, %Y}."
     page(f"brands/{bslug(b)}/index.html",fit([f"{b} Perfume & Cologne Deals: Up to {mx}% Off Today | {NAME}",f"{b} Perfume & Cologne Deals: Up to {mx}% Off | {NAME}",f"{b} Perfume & Cologne Deals: Up to {mx}% Off Today",f"{b} Perfume & Cologne Deals: Up to {mx}% Off",f"{b} Fragrance Deals: Up to {mx}% Off"]),
-      f"{len(ds)} verified {b} fragrance deal{'s' if len(ds)>1 else ''} from ${min(d['price'] for d in ds):.2f} ({nm}). Authentic, price-checked {upd:%b %-d, %Y}.",
+      bm,
       f"<h1>{e(b)} deals</h1><p class='sub'>checked {upd_h}</p><div class='grid'>{''.join(card(d) for d in ds)}</div>{BREVO_FORM}",[itemlist(ds,b+" deals")])
 page("brands/index.html",fit([f"Fragrance Deals by Brand: {len(brands)} Designer Brands on Sale Today | {NAME}",f"Fragrance Deals by Brand: {len(brands)} Designer Brands on Sale Today"]),f"Browse today's verified perfume and cologne discounts from {len(brands)} brands including {', '.join(brands[:4])}. Authorized retailers only, checked daily.",
  "<h1>Deals by brand</h1><div class='chips'>"+"".join(f"<a href='{PREFIX}/brands/{bslug(b)}/'>{e(b)}</a>" for b in brands)+"</div>")

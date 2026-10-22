@@ -1,5 +1,5 @@
 # ScentDealsDaily
-> Daily-checked discounts on authentic designer fragrances at reputable retailers, plus a cited dupes directory. Last updated 2026-10-21T15:57:30Z.
+> Daily-checked discounts on authentic designer fragrances at reputable retailers, plus a cited dupes directory. Last updated 2026-10-22T13:11:08Z.
 
 ## Today's deals (price USD, size, retailer, % off listed compare-at)
 - Juicy Couture Peace Love & Juicy Couture Perfume 3.4 oz.: $20.95 (was $89.00, -76%) at FragranceShop: https://www.fragranceshop.com/product/peace-love-juicy-couture-perfume-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz
@@ -139,6 +139,8 @@ https://scentdealsdaily.com/best/floral-perfume-deals/
 https://scentdealsdaily.com/best/long-lasting-cologne-deals/
 https://scentdealsdaily.com/best/woody-amber-cologne-deals/
 https://scentdealsdaily.com/best/fresh-perfume-deals-under-50/
+https://scentdealsdaily.com/best/cologne-deals-under-30/
+https://scentdealsdaily.com/best/perfume-deals-under-30/
 https://scentdealsdaily.com/dupes/creed-dupes/
 https://scentdealsdaily.com/dupes/baccarat-rouge-540-dupes/
 https://scentdealsdaily.com/dupes/kilian-angels-share-dupes/
@@ -154,8 +156,14 @@ https://scentdealsdaily.com/vs/eros-flame-vs-the-most-wanted-parfum/
 https://scentdealsdaily.com/vs/dylan-blue-vs-bright-crystal-absolu/
 https://scentdealsdaily.com/vs/green-tea-vs-eternity-air/
 https://scentdealsdaily.com/vs/boss-unlimited-vs-boss-in-motion/
+https://scentdealsdaily.com/vs/legend-spirit-vs-acqua-di-gio/
+https://scentdealsdaily.com/vs/le-beau-vs-versace-eros/
 https://scentdealsdaily.com/gifts/
 https://scentdealsdaily.com/gifts/for-him/
 https://scentdealsdaily.com/gifts/for-her/
 https://scentdealsdaily.com/gifts/under-50/
 https://scentdealsdaily.com/gifts/gift-sets/
+https://scentdealsdaily.com/gifts/perfume-gifts-for-her-under-50/
+https://scentdealsdaily.com/gifts/best-mens-cologne-under-40/
+https://scentdealsdaily.com/gifts/stocking-stuffer-minis/
+https://scentdealsdaily.com/gifts/holiday-gift-sets/
