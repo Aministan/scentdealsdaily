@@ -238,9 +238,37 @@ def also_line(d):
     a=d.get("also")
     if not a or a.get("price") is None or not a.get("url"): return ""
     return f"<div class='also'>also at {ext_a(a['url'], e(a['retailer']), placement='also')} · ${a['price']:.2f}</div>"
-def card(d,eager=False):
+# Neutral stand-in when the retailer data has no photo. Not a product picture.
+_PLACEHOLDER_SVG='<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400"><rect width="400" height="400" fill="#f4f1ec"/><rect x="168" y="88" width="64" height="16" rx="3" fill="#d5cfc7"/><path d="M156 110h88v188a30 30 0 0 1-30 30h-28a30 30 0 0 1-30-30V110z" fill="#e6e0d8" stroke="#c8c2ba" stroke-width="3"/><text x="200" y="358" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" fill="#7a7480">No photo</text></svg>'
+PLACEHOLDER_SRC="data:image/svg+xml,"+urllib.parse.quote(_PLACEHOLDER_SVG)
+MISSING_PHOTOS=[]
+def retailer_image(d):
+    """Photo already stored on the product: retailer feed or the retailer's own image URL. Never macys.com."""
+    url=(d.get("image") or "").strip() if isinstance(d.get("image"),str) else ""
+    if not url.startswith(("http://","https://")): return ""
+    host=(urllib.parse.urlparse(url).hostname or "").lower()
+    if not host or "macys" in host: return ""
+    return url
+def product_alt(d):
+    """'<Brand> <Name> <size>' from the fields we already store."""
+    if d.get("brand") and d.get("name"): name=fullname(d)
+    else: name=(d.get("dupe") or d.get("name") or "Fragrance").strip()
+    size=sz(d.get("size") or "")
+    if size and size.lower() not in name.lower(): return f"{name} {size}"
+    return name
+def card_img(d, eager=False, alt=None):
+    """Same img markup as the roundup cards: dimensions, lazy (unless the LCP slot), async decode."""
+    src=retailer_image(d)
+    if not src:
+        src=PLACEHOLDER_SRC
+        key=d.get("id") or product_alt(d)
+        if key not in {row["key"] for row in MISSING_PHOTOS}:
+            MISSING_PHOTOS.append({"key":key,"label":product_alt(d),"brand":d.get("brand") or "","name":d.get("name") or d.get("dupe") or "","size":sz(d.get("size") or "")})
     ld='fetchpriority="high"' if eager else 'loading="lazy"'
-    return f"""<article class="card"><img {ld} decoding="async" src="{e(d['image'] or '')}" alt="{e(fullname(d))}" width="400" height="400">
+    alt=product_alt(d) if alt is None else alt
+    return f'<img {ld} decoding="async" src="{e(src)}" alt="{e(alt)}" width="400" height="400">'
+def card(d,eager=False):
+    return f"""<article class="card">{card_img(d, eager, alt=fullname(d))}
 <div><span class="badge">-{d['pct_off']}%</span></div><div class="brand">{e(canon(d['brand']))}</div><div class="nm"><a href="{PREFIX}/fragrance/{slug(d['brand']+' '+d['name'])}/">{e(d['name'])}</a> · {e(d['size'])}</div>
 <div><span class="price">${d['price']:.2f}</span><span class="was">${d['was']:.2f}</span></div>
 <div class="meta">at {e(d['retailer'])} · checked {upd_h} · {('crossed-out = price at '+e(d['was_label'])) if d.get('was_label') else '"was" = retailer\'s listed compare-at price'}</div>
@@ -303,7 +331,8 @@ def prod_ld(d, name=None, brand=None):
         brand=canon(d["brand"]) if d.get("brand") else (d.get("dupe") or "").split(" ")[0]
     product={"@context":"https://schema.org","@type":"Product","name":name,"description":product_description(d)}
     if brand: product["brand"]={"@type":"Brand","name":brand}
-    if d.get("image"): product["image"]=d["image"]
+    img=retailer_image(d)
+    if img: product["image"]=img
     offers=aggregate_offer(d)
     if offers: product["offers"]=offers
     return product
@@ -705,20 +734,31 @@ def fragrance_href(d):
     mo, do=oz(match.get("size")), oz(d.get("size"))
     if mo and do and abs(mo-do)>0.05: return None
     return f"{PREFIX}/fragrance/{s}/"
+def gift_card(d, notes=None):
+    """Roundup card markup, plus the set contents line gift guides already show."""
+    notes=notes or {}
+    href=fragrance_href(d)
+    name=e(d["name"])
+    title=f"<a href='{href}'>{name}</a>" if href else name
+    size=sz(d.get("size") or "")
+    size_bit=f" · {e(size)}" if size else ""
+    was=""
+    if isinstance(d.get("was"), (int, float)) and not isinstance(d.get("was"), bool) and d["was"]>d["price"]:
+        was=f'<span class="was">${d["was"]:.2f}</span>'
+    badge=f'<div><span class="badge">-{d["pct_off"]}%</span></div>' if d.get("pct_off") else ""
+    label=(f"<div class=meta>compare-at price at {e(d['was_label'])}</div>" if d.get("was_label") else "")
+    note=(f"<div class=meta>{e(notes[d['id']])}</div>" if d.get("id") in notes else "")
+    return f"""<article class="card">{card_img(d)}
+{badge}<div class="brand">{brand_link(d)}</div><div class="nm">{title}{size_bit}</div>
+<div class="meta">{e(gift_detail(d))}</div>{note}
+<div><span class="price">${d['price']:.2f}</span>{was}</div>
+{label}<div class="meta">at {e(d['retailer'])} · checked {upd_h}</div>
+{also_line(d)}
+{ext_a(d['url'], f"Buy at {e(d['retailer'])}", cls="btn", placement="grid")}</article>"""
 def gift_table(ds, notes=None):
     notes=notes or {}
-    rows=[]
-    for d in ds:
-        href=fragrance_href(d)
-        name=e(fullname(d))
-        title=f"<a href='{href}'>{name}</a>" if href else name
-        was=""
-        if isinstance(d.get("was"), (int, float)) and not isinstance(d.get("was"), bool) and d["was"]>d["price"]:
-            was=f" <span class=was>${d['was']:.2f}</span>"
-        label=(f"<div class=meta>compare-at price at {e(d['was_label'])}</div>" if d.get("was_label") else "")
-        note=(f"<div class=meta>{e(notes[d['id']])}</div>" if d['id'] in notes else "")
-        rows.append(f"<tr><td><div class=meta>{brand_link(d)}</div>{title}<div class=meta>{e(gift_detail(d))}</div>{note}{label}</td><td><b>${d['price']:.2f}</b>{was}</td><td>{ext_a(d['url'], 'Buy at '+e(d['retailer']), placement='list')}</td></tr>")
-    return "<table><thead><tr><th>Fragrance</th><th>Price</th><th></th></tr></thead><tbody>"+"".join(rows)+"</tbody></table>"
+    if not ds: return ""
+    return "<div class='grid'>"+"".join(gift_card(d, notes) for d in ds)+"</div>"
 def gift_sections(ds):
     groups={}; order=[]
     for d in sorted(ds, key=lambda d:(canon(d["brand"]).lower(), d["price"], d["id"])):
@@ -1077,4 +1117,170 @@ def audit_affiliate_output():
     if bad:
         raise SystemExit("affiliate audit failed:\n"+"\n".join(bad[:40]))
     print(f"affiliate audit: {tracking_hrefs} tracking hrefs checked by string only; no prefetch; robots disallow redirect paths")
+def _attr(attrs, name):
+    m=re.search(rf'{name}\s*=\s*(?:"([^"]*)"|\'([^\']*)\')', attrs, re.I)
+    return html.unescape((m.group(1) if m.group(1) is not None else m.group(2)) if m else "")
+def _ld_images(node):
+    img=node.get("image") if isinstance(node, dict) else None
+    if isinstance(img, str): return [img]
+    if isinstance(img, list):
+        out=[]
+        for x in img:
+            if isinstance(x, str): out.append(x)
+            elif isinstance(x, dict) and x.get("url"): out.append(x["url"])
+        return out
+    if isinstance(img, dict) and img.get("url"): return [img["url"]]
+    return []
+def _walk_ld(node, products):
+    if isinstance(node, dict):
+        if node.get("@type")=="Product": products.append(node)
+        for v in node.values(): _walk_ld(v, products)
+    elif isinstance(node, list):
+        for v in node: _walk_ld(v, products)
+def _local_path(href):
+    """Site path for an internal URL, or None when it is external or a tracking URL. Does not fetch."""
+    href=html.unescape(href or "").strip()
+    if not href or href.startswith(("#","mailto:","tel:","javascript:","data:")): return None
+    if links.is_tracking_url(href) or links.is_internal_redirect(href): return None
+    parsed=urllib.parse.urlparse(href)
+    if parsed.scheme in ("http","https"):
+        host=(parsed.hostname or "").lower()
+        if host not in ("scentdealsdaily.com","www.scentdealsdaily.com"): return None
+        path=urllib.parse.unquote(parsed.path or "/")
+    elif parsed.scheme: return None
+    else:
+        path=urllib.parse.unquote(parsed.path or href)
+    path=path.split("?")[0].split("#")[0]
+    if PREFIX and path.startswith(PREFIX+"/"): path=path[len(PREFIX):] or "/"
+    if not path.startswith("/"): path="/"+path
+    return path
+def _local_file(path):
+    rel=path.lstrip("/")
+    cands=[os.path.join(OUT, rel)] if rel else [os.path.join(OUT, "index.html")]
+    if rel.endswith("/"): cands.append(os.path.join(OUT, rel, "index.html"))
+    elif rel: cands.append(os.path.join(OUT, rel, "index.html"))
+    return next((c for c in cands if os.path.isfile(c)), None)
+def audit_cards_links_jsonld():
+    """Fail when a product card has no image. Warn when the only image is the neutral placeholder.
+    Parse every JSON-LD block and resolve internal links on disk. Never request a tracking URL."""
+    bad=[]
+    broken=[]
+    jsonld_blocks=0
+    card_re=re.compile(r'<article class="card">(.*?)</article>', re.S)
+    img_re=re.compile(r"<img\b([^>]*)>", re.I)
+    href_re=re.compile(r"""<(?:a|link)\b([^>]*?)href\s*=\s*(?:"([^"]*)"|'([^']*)')""", re.I)
+    gift_rows=[]
+    cards=0
+    for dirpath, _, files in os.walk(OUT):
+        for fn in files:
+            if not fn.endswith(".html"): continue
+            path=os.path.join(dirpath, fn)
+            rel=os.path.relpath(path, OUT).replace(os.sep, "/")
+            text=open(path, encoding="utf-8").read()
+            page_dir=os.path.dirname(rel)
+            for raw in re.findall(r'<script type="application/ld\+json">(.*?)</script>', text, re.S):
+                jsonld_blocks+=1
+                try: data=json.loads(raw)
+                except json.JSONDecodeError as ex:
+                    bad.append(f"{rel}: JSON-LD did not parse ({ex})")
+                    continue
+                products=[]
+                _walk_ld(data, products)
+                for product in products:
+                    for img in _ld_images(product):
+                        host=(urllib.parse.urlparse(img).hostname or "").lower()
+                        if "macys" in host:
+                            bad.append(f"{rel}: JSON-LD image is from macys.com ({product.get('name')})")
+            found=card_re.findall(text)
+            card_srcs=[]
+            placeholders=0
+            for body in found:
+                cards+=1
+                ims=img_re.findall(body)
+                if not ims:
+                    bad.append(f"{rel}: product card rendered with no img")
+                    continue
+                attrs=ims[0]
+                src=_attr(attrs, "src"); alt=_attr(attrs, "alt")
+                if not src: bad.append(f"{rel}: product card img has an empty src")
+                if not alt: bad.append(f"{rel}: product card img has an empty alt")
+                if not _attr(attrs, "width") or not _attr(attrs, "height"):
+                    bad.append(f"{rel}: product card img missing width or height")
+                if not re.search(r"decoding\s*=\s*[\"']async[\"']", attrs, re.I):
+                    bad.append(f"{rel}: product card img missing decoding=async")
+                lazy=re.search(r"loading\s*=\s*[\"']lazy[\"']", attrs, re.I)
+                eager=re.search(r"fetchpriority\s*=\s*[\"']high[\"']", attrs, re.I)
+                if not lazy and not eager:
+                    bad.append(f"{rel}: product card img missing loading=lazy")
+                host=(urllib.parse.urlparse(src).hostname or "").lower()
+                if "macys" in host or "macys.com" in src.lower():
+                    bad.append(f"{rel}: product card uses a macys.com image")
+                if src.startswith("data:"): placeholders+=1
+                elif src.startswith(("http://","https://")): card_srcs.append(src)
+                elif src.startswith("/"):
+                    if not _local_file(src.split("?")[0].split("#")[0]):
+                        bad.append(f"{rel}: product card image file missing ({src[:80]})")
+                if rel.startswith("gifts/") and not lazy:
+                    bad.append(f"{rel}: gift card image must use loading=lazy")
+            if rel.startswith("gifts/") and found:
+                # ItemList products only. FAQPage blocks on the same page are not products.
+                item_imgs=[]
+                item_n=0
+                bare=0
+                for raw in re.findall(r'<script type="application/ld\+json">(.*?)</script>', text, re.S):
+                    try: data=json.loads(raw)
+                    except json.JSONDecodeError: continue
+                    lists=[]
+                    def walk_lists(node):
+                        if isinstance(node, dict):
+                            if node.get("@type")=="ItemList": lists.append(node)
+                            for v in node.values(): walk_lists(v)
+                        elif isinstance(node, list):
+                            for v in node: walk_lists(v)
+                    walk_lists(data)
+                    for lst in lists:
+                        for el in lst.get("itemListElement") or []:
+                            item=(el.get("item") if isinstance(el, dict) else None) or {}
+                            if item.get("@type")!="Product": continue
+                            item_n+=1
+                            imgs=_ld_images(item)
+                            if imgs: item_imgs.extend(imgs)
+                            else: bare+=1
+                missing=[s for s in card_srcs if s not in set(item_imgs)]
+                if missing:
+                    bad.append(f"{rel}: {len(missing)} card photo(s) missing from ItemList JSON-LD")
+                if bare!=placeholders:
+                    bad.append(f"{rel}: {bare} ItemList products lack an image, {placeholders} cards use the placeholder")
+                if item_n and len(found)<item_n:
+                    bad.append(f"{rel}: {len(found)} cards for {item_n} ItemList products")
+                gift_rows.append((rel, len(found), len(found)-placeholders, placeholders))
+            for tag, h1, h2 in href_re.findall(text):
+                href=h1 or h2
+                local=_local_path(href)
+                if local is None:
+                    # Relative links stay on this page's directory.
+                    raw_href=html.unescape(href or "").strip()
+                    if raw_href and not raw_href.startswith(("#","mailto:","tel:","javascript:","data:","http://","https://","/")) and not links.is_tracking_url(raw_href):
+                        joined=os.path.normpath(os.path.join("/"+page_dir, raw_href.split("?")[0].split("#")[0]))
+                        local=joined if joined.startswith("/") else "/"+joined
+                if not local: continue
+                if not _local_file(local):
+                    broken.append(f"{rel}: {local}")
+    if MISSING_PHOTOS:
+        print("WARNING: product cards with no retailer image. A neutral placeholder is shown. Do not invent a photo.")
+        for row in MISSING_PHOTOS:
+            size=f" {row['size']}" if row["size"] else ""
+            print(f"WARNING: missing image: {row['label']}{'' if row['size'] and row['size'].lower() in row['label'].lower() else size}")
+    else:
+        print("product images: every rendered product has a retailer image; no placeholders")
+    if broken:
+        bad.extend(f"broken internal link {line}" for line in broken)
+    if bad:
+        print("WARNING: product-card image check failed:")
+        for line in bad[:60]: print(" ", line)
+        raise SystemExit(f"product-card image check failed ({len(bad)} problems)")
+    print(f"product-card image check: {cards} cards, all have an image; {jsonld_blocks} JSON-LD blocks parsed; {len(broken)} broken internal links")
+    for rel, n, photos, ph in sorted(gift_rows):
+        print(f"  /{os.path.dirname(rel) or 'gifts'}/: {n} cards, {photos} retailer photos, {ph} placeholders")
 audit_affiliate_output()
+audit_cards_links_jsonld()
