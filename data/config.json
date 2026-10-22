@@ -1225,5 +1225,146 @@
     {"href": "/gifts/holiday-gift-sets/", "label": "Holiday fragrance gift sets"}
    ]
   }
+ ],
+ "gift_catalog": [
+  {
+   "handle": "britney-spears-fantasy-womens-eau-de-parfum-spray",
+   "kind": "mini",
+   "size": "1.0"
+  },
+  {
+   "handle": "burberry-brit-cologne-eau-de-toilette-for-men",
+   "kind": "mini",
+   "size": "1.0"
+  },
+  {
+   "handle": "cacharel-amor-amor-women-eau-de-toilette-spray",
+   "kind": "mini",
+   "size": "1.0"
+  },
+  {
+   "handle": "oscar-de-la-renta-oscar-womens-eau-de-toilette-spray",
+   "kind": "mini",
+   "size": "1.0"
+  },
+  {
+   "handle": "davidoff-cool-water-women-eau-de-toilette-spray",
+   "kind": "mini",
+   "size": "1.0"
+  },
+  {
+   "handle": "estee-lauder-pleasures-womens-eau-de-parfum-spray",
+   "kind": "mini",
+   "size": "1.0"
+  },
+  {
+   "handle": "versace-dylan-blue-cologne-for-men-eau-de-toilette",
+   "kind": "mini",
+   "size": "1.0"
+  },
+  {
+   "handle": "versace-eros-cologne-eau-de-toilette-for-men",
+   "kind": "mini",
+   "size": "1.0"
+  },
+  {
+   "handle": "donna-karan-be-delicious-womens-eau-de-parfum-spray",
+   "kind": "mini",
+   "size": "1.0"
+  },
+  {
+   "handle": "azzaro-chrome-cologne-for-men-eau-de-toilette",
+   "kind": "mini",
+   "size": "1.0"
+  },
+  {
+   "handle": "calvin-klein-eternity-mens-eau-de-toilette-spray",
+   "kind": "mini",
+   "size": "1.0"
+  },
+  {
+   "handle": "360-miniature-set-for-men-by-perry-ellis",
+   "kind": "set"
+  },
+  {
+   "handle": "live-luxe-by-jennifer-lopez-for-women-3-pc-gift-set",
+   "kind": "set"
+  },
+  {
+   "handle": "guess-girl-by-guess-for-women-3-pc-gift-set",
+   "kind": "set"
+  },
+  {
+   "handle": "calvin-klein-4-piece-miniature-gift-set",
+   "kind": "set"
+  },
+  {
+   "handle": "red-wood-2-piece-gift-set",
+   "kind": "set"
+  },
+  {
+   "handle": "lattafa-yara-4-piece-gift-set-for-women",
+   "kind": "set"
+  },
+  {
+   "handle": "elizabeth-taylor-white-diamonds-gift-set-eau-de-toilette-body-lotion-shower-gel-for-women",
+   "kind": "set"
+  },
+  {
+   "handle": "coach-new-york-mini-4-piece-gift-set",
+   "kind": "set"
+  },
+  {
+   "handle": "dolce-gabbana-4-piece-mini-gift-set",
+   "kind": "set"
+  },
+  {
+   "handle": "paco-rabanne-4-piece-mini-gift-set",
+   "kind": "set"
+  },
+  {
+   "handle": "polo-classic-mini-gift-set",
+   "kind": "set"
+  },
+  {
+   "handle": "her-goddess-4-piece-mini-gift-set",
+   "kind": "set"
+  },
+  {
+   "handle": "jean-paul-gaultier-gift-set",
+   "kind": "set"
+  },
+  {
+   "handle": "donna-born-in-roma-3-piece-discovery-gift-set",
+   "kind": "set"
+  },
+  {
+   "handle": "ysl-4-piece-mini-gift-set",
+   "kind": "set"
+  },
+  {
+   "handle": "good-girl-4-piece-mini-set",
+   "kind": "set"
+  },
+  {
+   "handle": "versace-eros-gift-set-for-men-by-versace",
+   "kind": "set"
+  },
+  {
+   "handle": "la-vie-est-belle-gift-set",
+   "kind": "set"
+  },
+  {
+   "handle": "classique-2-piece-perfume-gift-set",
+   "kind": "set"
+  },
+  {
+   "handle": "goddess-gift-set",
+   "kind": "set"
+  },
+  {
+   "handle": "her-2-piece-gift-set",
+   "kind": "set"
+  }
  ]
 }

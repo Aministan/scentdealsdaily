@@ -100,6 +100,12 @@ def _fullname(d):
     if n.lower().startswith(cb.lower()+" "): return n
     last=cb.split()[-1]
     if " " in cb and n.lower().startswith(last.lower()+" "): return cb+n[len(last):]  # Hugo Boss + "Boss Bottled ..." -> "Hugo Boss Bottled ..."
+    def fold(s):
+        return re.sub(r"[^a-z0-9]+"," ", s.lower().replace("&"," and ")).strip()
+    folded, brand_folded=fold(n), fold(cb)
+    words=[w for w in brand_folded.split() if w!="and"]
+    if folded==brand_folded or folded.startswith(brand_folded+" ") or (words and all(re.search(r"\b"+re.escape(w)+r"\b", folded) for w in words)):
+        return n
     return f"{cb} {n}"
 def fullname(d):
     """Display name; drops a stray "Spray" before Cologne/Perfume ("Defy Spray Cologne" -> "Defy Cologne")."""
@@ -268,7 +274,10 @@ def product_description(d):
     if d.get("gender")=="men": text+=" for men"
     elif d.get("gender")=="women": text+=" for women"
     elif d.get("gender")=="unisex": text+=" for men and women"
-    return text+", compared across authorized retailers."
+    text+=", compared across authorized retailers."
+    if d.get("contents"):
+        text+=" "+str(d["contents"]).strip().rstrip(".")+"."
+    return text
 def offer_rows(d):
     rows=[c for c in (d.get("comps") or []) if isinstance(c.get("price"),(int,float)) and not isinstance(c.get("price"),bool) and c.get("url") and c.get("retailer")]
     if rows: return rows
@@ -301,7 +310,8 @@ def prod_ld(d, name=None, brand=None):
 def itemlist(ds,name):
     items=[]
     for i,d in enumerate(ds):
-        item=prod_ld(d, name=f"{fullname(d)} {d['size']}", brand=canon(d["brand"]))
+        label=fullname(d) if d.get("contents") else f"{fullname(d)} {d['size']}".strip()
+        item=prod_ld(d, name=label, brand=canon(d["brand"]))
         item.pop("@context",None)
         items.append({"@type":"ListItem","position":i+1,"item":item})
     return {"@context":"https://schema.org","@type":"ItemList","name":name,"itemListElement":items}
@@ -658,29 +668,76 @@ def gift_ok(d):
     if "amazon" in blob or "amazon." in host or host.endswith("amazon.com"): return False
     return True
 def is_gift_set(d):
+    if d.get("kind")=="mini": return False
+    if d.get("kind")=="set": return True
     blob=gift_blob(d)
-    return any(s in blob for s in ("gift set","gift-set","coffret","discovery set"))
+    if any(s in blob for s in ("gift set","gift-set","coffret","discovery set","mini set")): return True
+    return bool(re.search(r"\b\d+\s*-?\s*(pc|piece|pcs)\b", blob) and "set" in blob)
 def is_mini_or_travel(d):
-    """A mini or travel spray we actually checked. A 1 oz bottle is not one."""
+    """Travel spray, mini, or rollerball from about 0.3 oz through 1.0 oz. A 1.7 oz bottle is not one."""
+    if is_gift_set(d): return False
+    if d.get("kind")=="mini": return True
     blob=gift_blob(d)
-    if re.search(r"\b(mini|minis|miniature|travel|travel-size|travelsize|rollerball|roller-ball)\b", blob): return True
     o=oz(d.get("size") or "")
-    return o is not None and o<1
+    named=bool(re.search(r"\b(mini|minis|miniature|travel(?:\s*|-)?size|travelsize|roller-?ball)\b", blob))
+    if o is not None:
+        return 0.3<=o<=1.0
+    return named
 def gift_line(d):
     """One plain line from concentration, size, and who it is for. No scent claims."""
     who={"men":"for men","women":"for women","unisex":"for men and women"}.get(d.get("gender"),"")
     bits=[b for b in (conc_name(d.get("type")), sz(d.get("size") or ""), who) if b]
     return ", ".join(bits)+"." if bits else "Price checked at an authorized retailer."
+def gift_detail(d):
+    if d.get("contents"):
+        return str(d["contents"]).strip().rstrip(".")+"."
+    return gift_line(d)
+def brand_link(d):
+    b=canon(d["brand"])
+    if b in brands:
+        return f"<a href='{PREFIX}/brands/{bslug(b)}/'>{e(b)}</a>"
+    return e(b)
+def fragrance_href(d):
+    """Deal page only when that page is the same bottle size. A 1 oz row must not point at a 3.4 oz deal."""
+    s=slug(d["brand"]+" "+d["name"])
+    match=next((x for x in deals if slug(x["brand"]+" "+x["name"])==s), None)
+    if not match: return None
+    mo, do=oz(match.get("size")), oz(d.get("size"))
+    if mo and do and abs(mo-do)>0.05: return None
+    return f"{PREFIX}/fragrance/{s}/"
 def gift_table(ds, notes=None):
     notes=notes or {}
     rows=[]
     for d in ds:
-        href=f"{PREFIX}/fragrance/{slug(d['brand']+' '+d['name'])}/"
-        was=f" <span class=was>${d['was']:.2f}</span>" if isinstance(d.get("was"), (int, float)) and not isinstance(d.get("was"), bool) else ""
+        href=fragrance_href(d)
+        name=e(fullname(d))
+        title=f"<a href='{href}'>{name}</a>" if href else name
+        was=""
+        if isinstance(d.get("was"), (int, float)) and not isinstance(d.get("was"), bool) and d["was"]>d["price"]:
+            was=f" <span class=was>${d['was']:.2f}</span>"
         label=(f"<div class=meta>compare-at price at {e(d['was_label'])}</div>" if d.get("was_label") else "")
         note=(f"<div class=meta>{e(notes[d['id']])}</div>" if d['id'] in notes else "")
-        rows.append(f"<tr><td><a href='{href}'>{e(fullname(d))}</a><div class=meta>{e(gift_line(d))}</div>{note}{label}</td><td><b>${d['price']:.2f}</b>{was}</td><td>{ext_a(d['url'], 'Buy at '+e(d['retailer']), placement='list')}</td></tr>")
+        rows.append(f"<tr><td><div class=meta>{brand_link(d)}</div>{title}<div class=meta>{e(gift_detail(d))}</div>{note}{label}</td><td><b>${d['price']:.2f}</b>{was}</td><td>{ext_a(d['url'], 'Buy at '+e(d['retailer']), placement='list')}</td></tr>")
     return "<table><thead><tr><th>Fragrance</th><th>Price</th><th></th></tr></thead><tbody>"+"".join(rows)+"</tbody></table>"
+def gift_sections(ds):
+    groups={}; order=[]
+    for d in sorted(ds, key=lambda d:(canon(d["brand"]).lower(), d["price"], d["id"])):
+        b=canon(d["brand"])
+        if b not in groups:
+            groups[b]=[]; order.append(b)
+        groups[b].append(d)
+    parts=[]
+    for b in order:
+        heading=f"<a href='{PREFIX}/brands/{bslug(b)}/'>{e(b)}</a>" if b in brands else e(b)
+        parts.append(f"<h2>{heading}</h2>"+gift_table(groups[b]))
+    return "".join(parts)
+def brand_chips(rows):
+    seen=[]
+    for d in rows:
+        b=canon(d["brand"])
+        if b in brands and b not in seen: seen.append(b)
+    if not seen: return ""
+    return "<p class='chips'>"+"".join(f"<a href='{PREFIX}/brands/{bslug(b)}/'>{e(b)} deals</a>" for b in seen)+"</p>"
 GIFT_LINKS=[("","Holiday gifts"),("for-him","For him"),("for-her","For her"),("under-50","Under $50"),("gift-sets","Gift sets")]+SEO_GIFTS
 def gift_nav():
     return "<p class='chips'>"+"".join(f"<a href='{PREFIX}/gifts/{slug+'/' if slug else ''}'>{e(label)}</a>" for slug,label in GIFT_LINKS)+"</p>"
@@ -706,9 +763,6 @@ gift_pages=[
  ("gifts/under-50/index.html","under-50","Fragrance gifts under $50","Gifts under $50",
   "The lowest prices we checked that are still under $50.",
   sorted([d for d in eligible if d["price"]<50], key=lambda d:(d["price"], -(d.get("pct_off") or 0), d["id"]))[:12],"Fragrance gifts under $50","/media/pins/fragrance-gifts-under-50.png"),
- ("gifts/gift-sets/index.html","gift-sets","Fragrance gift sets","Checked fragrance gift sets",
-  "Boxed sets only. A deal is listed here when the product we checked is a gift set.",
-  [d for d in by_off if is_gift_set(d)][:12],"Fragrance gift sets","/media/pins/fragrance-gift-sets.png"),
 ]
 for path,sid_slug,title,short,intro,picks,list_name,image in gift_pages:
     use_sid("gifts", sid_slug)
@@ -739,29 +793,43 @@ def seo_title(h1, picks):
     base=f"{h1}: From ${lowest_deal(picks)['price']:.2f}" if picks else h1
     named=f"{base} | {NAME}"
     return named if len(named)<=60 else base
-def seo_meta_filled(n_label, picks):
+def seo_meta_filled(n_label, picks, tail="Sealed bottles only."):
     lo=lowest_deal(picks)
     price=f"${lo['price']:.2f}"
     when=f"{upd:%b %-d, %Y}"
-    full=f"{len(picks)} {n_label}, starting at {price} for {fullname(lo)} ({sz(lo['size'])}) at {lo['retailer']}. Checked {when}. Sealed bottles only."
+    size_bit=f" ({sz(lo['size'])})" if lo.get("size") and not lo.get("contents") else ""
+    full=f"{len(picks)} {n_label}, starting at {price} for {fullname(lo)}{size_bit} at {lo['retailer']}. Checked {when}. {tail}"
     if len(full)<=160: return full
-    shorter=f"{len(picks)} {n_label}, starting at {price} for {fullname(lo)} ({sz(lo['size'])}) at {lo['retailer']}. Checked {when}."
+    shorter=f"{len(picks)} {n_label}, starting at {price} for {fullname(lo)}{size_bit} at {lo['retailer']}. Checked {when}."
     if len(shorter)<=160: return shorter
     return f"{len(picks)} {n_label}, starting at {price} at {lo['retailer']}. Checked {when}."
-def render_seo_gift(slug_s, h1, intro, picks, faqs, empty_html, empty_desc, filled_label, notes=None, extra_html=""):
+def render_seo_gift(slug_s, h1, intro, picks, faqs, empty_html, empty_desc, filled_label, notes=None, extra_html="", extra="", group_by_brand=False, image=None, tail="Sealed bottles only."):
     use_sid("gifts", slug_s)
     title=seo_title(h1, picks)
-    desc=seo_meta_filled(filled_label, picks) if picks else empty_desc
-    listing=gift_table(picks, notes) if picks else empty_html
+    desc=seo_meta_filled(filled_label, picks, tail) if picks else empty_desc
+    if picks:
+        listing=(gift_sections(picks) if group_by_brand else gift_table(picks, notes))+brand_chips(picks)
+    else:
+        listing=empty_html
     ld=([itemlist(picks, h1)] if picks else [])+[faqld(faqs)]
     page(f"gifts/{slug_s}/index.html", title, desc,
-      f"<h1>{e(h1)}</h1><p class='sub'>{e(intro)} Checked {upd_h}.</p>{gift_nav()}{GIFT_DISC}{listing}{faqhtml(faqs)}{extra_html}{BREVO_FORM}<p class='meta'>Prices are copied from the deals we checked. We do not invent a price, and we do not list testers, decants, or Amazon.</p>",
-      ld, feed=bool(picks))
+      f"<h1>{e(h1)}</h1><p class='sub'>{e(intro)} Checked {upd_h}.</p>{gift_nav()}{GIFT_DISC}{extra}{listing}{faqhtml(faqs)}{extra_html}{BREVO_FORM}<p class='meta'>Prices are the ones we checked. A name links to a price comparison only when that same size already has a deal page. We do not invent a price, and we do not list testers, decants, or Amazon.</p>",
+      ld, image=image, feed=bool(picks))
     KW.append(h1.lower())
 her_under_50=by_price([d for d in eligible if d["gender"]=="women" and d["price"]<50])
 men_under_40=by_price([d for d in eligible if d["gender"]=="men" and d["price"]<40])
-mini_picks=by_price([d for d in eligible if is_mini_or_travel(d)])
-set_picks=by_price([d for d in eligible if is_gift_set(d)])
+catalog=[d for d in (D.get("gifts") or []) if gift_ok(d)]
+catalog_ids={d["id"] for d in catalog}
+travel=[d for d in catalog if d.get("kind")=="mini"]
+travel+=[d for d in eligible if d["id"] not in catalog_ids and is_mini_or_travel(d)]
+boxed=[d for d in catalog if d.get("kind")=="set"]
+boxed+=[d for d in eligible if d["id"] not in catalog_ids and is_gift_set(d)]
+mini_picks=by_price(travel)[:12]
+holiday_picks=by_price([d for d in boxed if d["price"]<75])[:12]
+brand_picks=by_price([d for d in boxed if d["price"]>=75])[:12]
+if mini_picks: FILLED_GIFT_SLUGS.add("stocking-stuffer-minis")
+if holiday_picks: FILLED_GIFT_SLUGS.add("holiday-gift-sets")
+if brand_picks: FILLED_GIFT_SLUGS.add("gift-sets")
 her_lo=lowest_deal(her_under_50) if her_under_50 else None
 men_lo=lowest_deal(men_under_40) if men_under_40 else None
 render_seo_gift("perfume-gifts-for-her-under-50","Perfume gifts for her under $50",
@@ -806,46 +874,76 @@ render_seo_gift("best-mens-cologne-under-40","Best men's cologne under $40",
   "<p>None of the men's colognes we checked today are under $40, so this page has no prices to show.</p>",
   "Best men's cologne under $40: none of today's checked men's colognes is under $40. Unisex bottles are not listed here.",
   "men's colognes under $40")
+mini_lo=lowest_deal(mini_picks) if mini_picks else None
+holiday_lo=lowest_deal(holiday_picks) if holiday_picks else None
+brand_lo=lowest_deal(brand_picks) if brand_picks else None
+roller_on_page=any(re.search(r"roller", gift_blob(d)) for d in mini_picks)
+roller_line=(" This page includes a rollerball we checked." if roller_on_page else " No in-stock rollerball turned up in the catalog we checked, so the rows are travel sprays.")
 render_seo_gift("stocking-stuffer-minis","Stocking stuffer fragrance minis & travel sizes",
-  "A mini or a travel spray is listed only when that is the product we priced. A 1 oz bottle is a small bottle, not a mini, so it stays on the other guides.",
+  "Travel sprays and minis from 0.3 oz to 1.0 oz, lowest price first. A 1.7 oz bottle stays on the other gift guides.",
   mini_picks,([
-    ("What mini should I buy?",
-     f"The lowest mini or travel size we checked is ${lowest_deal(mini_picks)['price']:.2f} for {fullname(lowest_deal(mini_picks))} ({sz(lowest_deal(mini_picks)['size'])}) at {lowest_deal(mini_picks)['retailer']}."),
-    ("Is a 1 oz bottle a travel size?",
-     "Not on this page. Travel sizes here are bottles under 1 oz, or products named mini or travel."),
+    ("What counts as a stocking stuffer here?",
+     "A travel spray, mini, or rollerball from about 0.3 oz to 1.0 oz, priced at Perfumania or FragranceShop. Bottles of 1.7 oz and larger stay on the other gift guides."+roller_line),
+    ("What is the lowest travel size you checked?",
+     f"{fullname(mini_lo)} is ${mini_lo['price']:.2f} for {sz(mini_lo['size'])} at {mini_lo['retailer']}. {len(mini_picks)} travel sizes are on this page, from ${mini_lo['price']:.2f} to ${max(d['price'] for d in mini_picks):.2f}."),
     ("Are these prices estimated?",
-     f"No. Checked {upd_h} at authorized retailers."),
+     f"No. Each price is the price we checked at that row's retailer. Checked {upd_h}."),
   ] if mini_picks else [
     ("Are there fragrance minis or travel sizes today?",
-     "Not in the deals we checked. Nothing today is named a mini or a travel spray, and nothing is a bottle under 1 oz."),
-    ("Is a 1 oz bottle a mini?",
-     "No. We leave 1 oz bottles on the perfume and cologne gift guides. This page is only for minis and travel sizes."),
+     "Not in the products we checked. Nothing in stock is a 0.3 to 1.0 oz travel spray, mini, or rollerball."),
+    ("Is a 1.7 oz bottle a stocking stuffer here?",
+     "No. This page is 0.3 oz to 1.0 oz. Larger bottles stay on the perfume and cologne gift guides."),
     ("Where should I look instead?",
-     "Perfume gifts for her under $50 and men's cologne under $40 list single bottles we did price."),
+     "Holiday gift sets and the gift sets by brand list boxed sets we did price."),
   ]),
-  check_back_note("No fragrance mini or travel size is in today's checked deals, so this page has no list. A 1 oz bottle stays on the other guides. These guides have bottles we priced."),
-  "Check back soon. No fragrance mini or travel size is in today's checked deals. Bottles of 1 oz and up are on the other gift guides.",
-  "fragrance minis and travel sizes")
+  check_back_note("No fragrance mini or travel size is in the products we checked, so this page has no list. A 1.7 oz bottle stays on the other guides. These guides have products we priced."),
+  "Check back soon. No 0.3 to 1.0 oz fragrance mini or travel spray is in the products we checked.",
+  "travel sprays and minis from 0.3 oz to 1.0 oz",
+  extra="<p>Boxed coffrets under $75 are on <a href='/gifts/holiday-gift-sets/'>holiday gift sets</a>. Sets at $75 and up are grouped by brand on <a href='/gifts/gift-sets/'>gift sets</a>.</p>")
 render_seo_gift("holiday-gift-sets","Fragrance gift sets for the holidays",
-  "A holiday set is listed only when the product we checked is a boxed set, coffret, or discovery set. A single bottle is not listed as a set.",
-  set_picks,([
-    ("Which fragrance gift set is the lowest price?",
-     f"The lowest set we checked is ${lowest_deal(set_picks)['price']:.2f} for {fullname(lowest_deal(set_picks))} at {lowest_deal(set_picks)['retailer']}."),
+  "Boxed sets we checked under $75: miniature coffrets and other multi-piece sets. Lowest price first. A single bottle is not listed as a set.",
+  holiday_picks,([
+    ("Which holiday gift set is the lowest price?",
+     f"The lowest set on this page is ${holiday_lo['price']:.2f} for {fullname(holiday_lo)} at {holiday_lo['retailer']}. {len(holiday_picks)} sets here are under $75, up to ${max(d['price'] for d in holiday_picks):.2f}."),
+    ("Why isn't every gift set on this page?",
+     "This page is seasonal coffrets and other boxed sets under $75. Sets at $75 and up are grouped by brand on the gift sets page. The two lists do not share a product."),
     ("Do you guess a set price?",
-     f"No. A set is listed only after we check its price. Checked {upd_h}."),
-    ("Are single bottles included?",
-     "No. Single bottles stay on the other gift guides."),
-  ] if set_picks else [
-    ("Do you have fragrance gift sets for the holidays?",
-     "Not today. None of the deals we checked is a gift set, coffret, or discovery set."),
+     f"No. A set is listed only after we check its price and that the retailer calls it a set. Checked {upd_h}."),
+  ] if holiday_picks else [
+    ("Do you have fragrance gift sets under $75?",
+     "Not today. None of the boxed sets we checked is under $75."),
     ("Will you guess a set price?",
      "No. A set is listed only after we check its price and that it is in stock."),
-    ("What can I give instead?",
-     "A single bottle from the other gift guides. Those prices are the ones we checked."),
+    ("Where are the other sets?",
+     "Sets at $75 and up are on the gift sets page, grouped by brand. Single bottles are on the other gift guides."),
   ]),
-  check_back_note("No fragrance gift set for the holidays is in today's checked deals, so this page has no list. These guides have bottles we priced."),
-  "Check back soon. No fragrance gift set for the holidays is in today's checked deals. Single bottles are on the other gift guides.",
-  "fragrance gift sets")
+  check_back_note("No fragrance gift set under $75 is in the products we checked, so this page has no list. These guides have products we priced."),
+  "Check back soon. No fragrance gift set under $75 is in the products we checked.",
+  "boxed fragrance sets under $75",
+  extra="<p>Sets at $75 and up, grouped by brand, are on <a href='/gifts/gift-sets/'>gift sets</a>. Travel sprays are on <a href='/gifts/stocking-stuffer-minis/'>stocking stuffer minis</a>.</p>",
+  tail="Boxed sets only.")
+render_seo_gift("gift-sets","Fragrance gift sets",
+  "Boxed sets at $75 and up, grouped by brand. A single bottle is not listed as a set.",
+  brand_picks,([
+    ("How is this different from holiday gift sets?",
+     "Holiday gift sets are the boxed sets we checked under $75. This page lists sets at $75 and up and groups them by brand. The same set is not on both pages."),
+    ("Which set on this page costs the least?",
+     f"The lowest set here is ${brand_lo['price']:.2f} for {fullname(brand_lo)} at {brand_lo['retailer']}. {len(brand_picks)} sets are listed, up to ${max(d['price'] for d in brand_picks):.2f}."),
+    ("Are single bottles included?",
+     f"No. Each row is a multi-piece set the retailer sells as a gift set. Checked {upd_h}."),
+  ] if brand_picks else [
+    ("Do you have fragrance gift sets at $75 and up?",
+     "Not today. None of the boxed sets we checked is $75 or more."),
+    ("Where are the sets under $75?",
+     "On the holiday gift sets page."),
+    ("Will you guess a set price?",
+     "No. A set is listed only after we check its price and that it is in stock."),
+  ]),
+  check_back_note("No fragrance gift set at $75 or more is in the products we checked, so this page has no list. These guides have products we priced."),
+  "Check back soon. No fragrance gift set at $75 or more is in the products we checked.",
+  "boxed fragrance sets at $75 and up",
+  extra="<p>Coffrets under $75 are on <a href='/gifts/holiday-gift-sets/'>holiday gift sets</a>. Travel sprays are on <a href='/gifts/stocking-stuffer-minis/'>stocking stuffer minis</a>.</p>",
+  group_by_brand=True, image="/media/pins/fragrance-gift-sets.png", tail="Boxed sets only.")
 for spec in GIFT_GUIDES:
     picks=spec["picks"]
     h1=spec["title"]

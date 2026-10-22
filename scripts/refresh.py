@@ -41,6 +41,135 @@ def best_variant(p, require_discount=True):
         if require_discount and c<=pr: continue
         out.append((1-pr/c if c>pr else 0, v, pr, c))
     return max(out,key=lambda x:x[0]) if out else None
+def _plain(html_body):
+    import html as _html
+    import re as _re
+    text=_re.sub(r"<[^>]+>"," ", html_body or "")
+    text=_html.unescape(text)
+    return _re.sub(r"\s+"," ", text).strip()
+def _cut_contents(fragment):
+    """Stop at a sentence end. Keep decimals (0.25) and the abbreviation oz."""
+    out=[]
+    for i,ch in enumerate(fragment):
+        if len(out)>=420:
+            break
+        if ch==".":
+            prev=fragment[i-1] if i else ""
+            if prev.isdigit() or fragment[max(0,i-2):i].lower()=="oz":
+                out.append(ch)
+                continue
+            break
+        out.append(ch)
+    return "".join(out).strip(" .,;")
+def contents_from(html_body):
+    """Piece list copied from the retailer description. Empty when the page does not list pieces."""
+    import re as _re
+    items=[]
+    for raw in _re.findall(r"<li>(.*?)</li>", html_body or "", _re.I|_re.S):
+        line=_plain(raw).strip(" .,;")
+        if line and len(line)<=160:
+            items.append(line)
+    if len(items)>=2 and not any(_re.search(r"\bnotes?\b", line, _re.I) for line in items):
+        return "; ".join(items)
+    text=_plain(html_body)
+    for pat in (r"gift set includes\b", r"\d+\s*-?\s*(?:pc|piece)\s+gift set\b"):
+        m=_re.search(pat, text, _re.I)
+        if not m:
+            continue
+        cut=_cut_contents(text[m.start():])
+        if len(cut)>=12:
+            return cut
+    return ""
+def _oz_in(title):
+    import re as _re
+    m=_re.search(r"([0-9]*\.?[0-9]+)\s*oz", title or "", _re.I)
+    return float(m.group(1)) if m else None
+def collect_gifts(cfg, now, avail_fn):
+    """In-stock minis and boxed sets from config gift_catalog. Prices come from the product JSON.
+
+    Minis are one sealed 0.3–1.0 oz spray. Sets must be gift sets on the retailer page.
+    No 15% rule: these pages list a checked price, not only a deep discount.
+    """
+    import re as _re
+    gifts=[]
+    for item in cfg.get("gift_catalog") or []:
+        h=item.get("handle")
+        kind=item.get("kind")
+        if not h or kind not in ("mini","set"):
+            continue
+        p=get(h); time.sleep(PAUSE)
+        if not p:
+            print("  ! gift miss", h, file=sys.stderr); continue
+        stock=avail_fn(h) or {}
+        want=item.get("size")
+        want_f=float(want) if want not in (None,"") else None
+        cands=[]
+        for v in p.get("variants") or []:
+            title=v.get("title") or ""
+            blob=(title+" "+(p.get("title") or "")).lower()
+            if any(x in blob for x in ("tester","unboxed","decant")):
+                continue
+            if stock.get(v["id"]) is not True:
+                continue
+            if want_f is not None:
+                got=_oz_in(title)
+                if got is None or abs(got-want_f)>0.02:
+                    continue
+            try:
+                pr=float(v["price"])
+            except (TypeError, ValueError):
+                continue
+            if pr<=0:
+                continue
+            try:
+                compare=float(v.get("compare_at_price") or 0)
+            except (TypeError, ValueError):
+                compare=0
+            cands.append((pr, compare, v))
+        if not cands:
+            print("  ! gift out of stock or size miss", h, file=sys.stderr); continue
+        pr, compare, v=min(cands, key=lambda row: row[0])
+        title_blob=" ".join((p.get("title") or "", p.get("product_type") or "", p.get("handle") or "")).lower()
+        if kind=="set":
+            set_ok=(p.get("product_type") or "").lower()=="gift set" or any(s in title_blob for s in ("gift set","gift-set","coffret","discovery set","mini set")) or _re.search(r"\b\d+\s*-?\s*(pc|piece|pcs)\b", title_blob)
+            if not set_ok:
+                print("  ! gift not a set", h, file=sys.stderr); continue
+        else:
+            got=_oz_in(v.get("title") or "")
+            if got is None or got<0.3 or got>1.05:
+                print("  ! gift mini size", h, got, file=sys.stderr); continue
+            if "gift set" in (p.get("title") or "").lower() or "gift set" in (p.get("product_type") or "").lower():
+                print("  ! gift mini is a set", h, file=sys.stderr); continue
+        row={"id":h,"brand":p.get("vendor") or "","name":p.get("title") or "","size":(v.get("title") or "").strip(),
+             "type":p.get("product_type") or "","gender":gift_gender(p),"price":round(pr,2),
+             "pct_off":round((1-pr/compare)*100) if compare>pr else 0,
+             "retailer":"Perfumania","url":f"{STORE}/products/{h}?variant={v['id']}",
+             "image":(p.get("image") or {}).get("src"),"checked":now,"in_stock":True,"kind":kind}
+        if compare>pr:
+            row["was"]=round(compare,2)
+        if kind=="set":
+            contents=contents_from(p.get("body_html") or "")
+            if contents:
+                row["contents"]=contents
+        gifts.append(row)
+    return gifts
+def gift_gender(p):
+    """Read GENDER_Men / GENDER_Women tags. Titles of sets often omit who the set is for."""
+    import re as _re
+    tags=p.get("tags") or []
+    if isinstance(tags, str):
+        tags=[t.strip() for t in tags.split(",")]
+    for tag in tags:
+        tl=tag.lower().replace("_"," ")
+        if "gender" not in tl:
+            continue
+        if "women" in tl:
+            return "women"
+        if _re.search(r"\bmen\b", tl):
+            return "men"
+        if "unisex" in tl:
+            return "unisex"
+    return gender(p)
 def gender(p):
     t=(p["title"]+" "+p.get("handle","").replace("-"," ")+" "+" ".join(p.get("tags",[]) if isinstance(p.get("tags"),list) else [p.get("tags","")])).lower()  # handle catches e.g. "ck-one-...-unisex-fragrance" tagged GENDER_Women
     if "unisex" in t: return "unisex"
@@ -139,6 +268,17 @@ def main():
             print(f"fragranceshop fetch degraded ({st['transient']}/{st['total']}); kept same-day FragranceShop prices", file=sys.stderr)
     deals=[d for d in deals if (d.get("pct_off") or 0)>=15]
     deals.sort(key=lambda d:-d["pct_off"])
-    json.dump({"updated":now,"deals":deals,"dupes":dupes,"dropped":dropped},open(out,"w"),indent=1)
-    print(f"{len(deals)} live deals, {len(dropped)} dropped {dropped}, {sum(1 for d in dupes if d['price'])}/{len(dupes)} dupes priced, {FAIL['transient']}/{FAIL['total']} fetch failures")
+    # Gift pages read this list. A failed pass keeps the previous list so a blip
+    # does not empty stocking and gift-set pages that were already checked.
+    gifts=collect_gifts(cfg, now, avail) if cfg.get("gift_catalog") else []
+    if cfg.get("gift_catalog") and not gifts:
+        try:
+            prev_gifts=(json.load(open(out)).get("gifts") or [])
+        except Exception:
+            prev_gifts=[]
+        if prev_gifts:
+            gifts=prev_gifts
+            print(f"gift catalog fetch returned nothing; kept {len(gifts)} previous gift rows", file=sys.stderr)
+    json.dump({"updated":now,"deals":deals,"dupes":dupes,"dropped":dropped,"gifts":gifts},open(out,"w"),indent=1)
+    print(f"{len(deals)} live deals, {len(gifts)} gift rows, {len(dropped)} dropped {dropped}, {sum(1 for d in dupes if d['price'])}/{len(dupes)} dupes priced, {FAIL['transient']}/{FAIL['total']} fetch failures")
 if __name__=="__main__": main()
