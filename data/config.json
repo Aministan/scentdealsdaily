@@ -554,7 +554,7 @@
   },
   {
    "slug": "billie-eilish-eilish-vs-eilish-no-2",
-   "title": "Billie Eilish Eilish vs Eilish No. 2",
+   "title": "Eilish vs Eilish No. 2",
    "a": "billie-eilish-perfume-eau-de-parfum-for-women",
    "b": "billie-eilish-no-2-eau-de-parfum-perfume-for-women",
    "a_notes": "Sugar, red berries, mandarin; vanilla, cacao, spices, rose; tonka bean, amber, musk, woods",
@@ -1082,6 +1082,147 @@
      "Which one is the best blind buy?",
      "Calvin Klein Eternity and Burberry London are long-running classics that are easy to wear. Eternity Air and Peace Love & Juicy Couture are lighter and fruitier. Burberry London is the only 1.0 oz bottle here, so check the per-ounce column."
     ]
+   ]
+  }
+ ],
+ "gift_guides": [
+  {
+   "slug": "cologne-gifts-for-him-under-50",
+   "title": "Best cologne gifts for him under $50",
+   "chip": "Cologne gifts under $50",
+   "gender": "men",
+   "max_price": 50,
+   "filled_label": "men's cologne gifts under $50",
+   "intro": "Men's colognes for a holiday gift, lowest checked price first. Unisex bottles stay off this page. For shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes.",
+   "empty": "No men's cologne we checked today is under $50, so this page has no list. These guides have bottles we priced.",
+   "empty_desc": "Best cologne gifts for him under $50: no men's cologne we checked today is under $50. Other gift guides list bottles we did price.",
+   "faq": [
+    [
+     "Are unisex colognes included?",
+     "No. This page is men's cologne only. A unisex bottle can still appear on the teen or stocking guide when its checked price is under that page's cap."
+    ],
+    [
+     "Does a $50 bottle qualify?",
+     "No. The price we checked has to be under $50. If a bottle moves to $50 or more, the next rebuild drops it."
+    ]
+   ],
+   "links": [
+    {"href": "/best/cologne-deals-under-50/", "label": "Best cologne deals under $50"},
+    {"href": "/best/fresh-citrus-cologne-deals/", "label": "Fresh and citrus cologne deals"},
+    {"href": "/best/woody-amber-cologne-deals/", "label": "Woody and amber cologne deals"},
+    {"href": "/gifts/for-him/", "label": "All fragrance gifts for him"},
+    {"href": "/gifts/best-mens-cologne-under-40/", "label": "Best men's cologne under $40"},
+    {"href": "/men/", "label": "All men's deals"}
+   ]
+  },
+  {
+   "slug": "perfume-gifts-for-her-under-40",
+   "title": "Perfume gifts for her under $40",
+   "chip": "Perfume gifts under $40",
+   "gender": "women",
+   "max_price": 40,
+   "filled_label": "women's perfume gifts under $40",
+   "intro": "Women's perfumes for a holiday gift, lowest checked price first. Bottles from $40 up to $50 stay on the under-$50 perfume gift guide. For shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes.",
+   "empty": "No women's perfume we checked today is under $40, so this page has no list. These guides have bottles we priced.",
+   "empty_desc": "Perfume gifts for her under $40: no women's perfume we checked today is under $40. The under-$50 guide lists bottles we did price.",
+   "faq": [
+    [
+     "How is this different from perfume gifts under $50?",
+     "The under-$50 guide keeps women's perfumes from $40 up to $50. This page stops below $40, and a bottle that climbs to $40 or more drops off on the next rebuild."
+    ],
+    [
+     "Is the cheapest bottle the best value?",
+     "Not always. A 1.0 oz bottle can cost more per ounce than a larger bottle with a higher sticker. Open the bottle's page for the price per ounce."
+    ]
+   ],
+   "links": [
+    {"href": "/gifts/perfume-gifts-for-her-under-50/", "label": "Perfume gifts for her under $50"},
+    {"href": "/best/perfume-deals-under-30/", "label": "Perfume deals under $30"},
+    {"href": "/best/floral-perfume-deals/", "label": "Floral perfume deals"},
+    {"href": "/best/fresh-perfume-deals-under-50/", "label": "Fresh perfume deals under $50"},
+    {"href": "/gifts/for-her/", "label": "All fragrance gifts for her"},
+    {"href": "/women/", "label": "All women's deals"}
+   ]
+  },
+  {
+   "slug": "fragrance-gifts-for-teens",
+   "title": "Fragrance gifts for teens under $40",
+   "chip": "Gifts for teens under $40",
+   "max_price": 40,
+   "filled_label": "fragrance gifts for teens under $40",
+   "intro": "A budget list for someone buying a fragrance gift for a teenager: men's, women's, and unisex bottles together, lowest checked price first. We do not call a scent a teen fragrance unless the brand's own copy says so, and these listings do not. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes.",
+   "empty": "No fragrance we checked today is under $40, so this page has no list. These guides have bottles we priced.",
+   "empty_desc": "Fragrance gifts for teens under $40: nothing we checked today is under $40. Other gift guides list bottles we did price.",
+   "faq": [
+    [
+     "Which of these is marketed to teens?",
+     "We only repeat what the retailer publishes. None of these listings is labeled a teen fragrance in the deal data, so this page is a budget list, not an age claim."
+    ],
+    [
+     "Why is the cap $40?",
+     "The page is the under-$40 set of checked bottles, which is the budget in this gift search. A bottle at $40 or more is left off, including on the next rebuild if a price rises."
+    ]
+   ],
+   "links": [
+    {"href": "/best/fragrance-deals-under-30/", "label": "Fragrance deals under $30"},
+    {"href": "/best/cologne-deals-under-30/", "label": "Cologne deals under $30"},
+    {"href": "/best/perfume-deals-under-30/", "label": "Perfume deals under $30"},
+    {"href": "/gifts/stocking-stuffer-fragrances/", "label": "Stocking stuffers under $25"},
+    {"href": "/unisex/", "label": "Unisex deals"}
+   ]
+  },
+  {
+   "slug": "stocking-stuffer-fragrances",
+   "title": "Stocking stuffer fragrances under $25",
+   "chip": "Stocking stuffers under $25",
+   "max_price": 25,
+   "exclude_mini": true,
+   "filled_label": "stocking-stuffer bottles under $25",
+   "intro": "Regular bottles cheap enough to drop in a stocking, lowest checked price first. These are not minis or travel sprays. The minis page lists a product only when we checked a mini, a travel size, or a bottle under 1 oz. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes.",
+   "empty": "No regular bottle we checked today is under $25, so this page has no list. These guides have bottles we priced.",
+   "empty_desc": "Stocking stuffer fragrances under $25: no regular bottle we checked today is under $25. Minis stay on their own guide.",
+   "faq": [
+    [
+     "Is a 1 oz bottle a stocking stuffer here?",
+     "Only when today's checked price is under $25. Bottle size does not put a product on this page. The minis guide is for products named mini or travel, or for bottles under 1 oz."
+    ],
+    [
+     "Why is the mini page separate?",
+     "A mini or a travel spray is a different product. This page is full bottles under $25. We do not relabel a 1 oz bottle as a mini."
+    ]
+   ],
+   "links": [
+    {"href": "/gifts/stocking-stuffer-minis/", "label": "Fragrance minis and travel sizes"},
+    {"href": "/best/fragrance-deals-under-30/", "label": "Fragrance deals under $30"},
+    {"href": "/gifts/fragrance-gifts-for-teens/", "label": "Fragrance gifts for teens under $40"},
+    {"href": "/gifts/under-50/", "label": "Fragrance gifts under $50"}
+   ]
+  },
+  {
+   "slug": "luxury-fragrance-gifts",
+   "title": "Luxury fragrance gifts",
+   "chip": "Luxury fragrance gifts",
+   "min_was": 120,
+   "filled_label": "luxury fragrance gifts listed at $120 or more",
+   "intro": "Single bottles whose checked compare-at price is in prestige territory, for a holiday gift when the name and the markdown both matter. Sorted by today's price, lowest first. No boxed set is included. The luxury deals roundup ranks these same bottles by price per ounce. For shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes.",
+   "empty": "No bottle we checked today has a compare-at price of $120 or more, so this page has no list. These guides have bottles we priced.",
+   "empty_desc": "Luxury fragrance gifts: no bottle we checked today has a compare-at price of $120 or more. Other gift guides list bottles we did price.",
+   "faq": [
+    [
+     "What counts as luxury here?",
+     "The compare-at price we checked is $120 or more. That is the retailer's own list price, or another authorized retailer's price when that is the comparison we stored."
+    ],
+    [
+     "Are these gift sets?",
+     "No. They are single bottles. A boxed set is listed only on the gift-set pages, and only after we check that product."
+    ]
+   ],
+   "links": [
+    {"href": "/best/luxury-fragrance-deals/", "label": "Luxury fragrance deals"},
+    {"href": "/gifts/for-him/", "label": "Fragrance gifts for him"},
+    {"href": "/gifts/for-her/", "label": "Fragrance gifts for her"},
+    {"href": "/gifts/gift-sets/", "label": "Fragrance gift sets"},
+    {"href": "/gifts/holiday-gift-sets/", "label": "Holiday fragrance gift sets"}
    ]
   }
  ]

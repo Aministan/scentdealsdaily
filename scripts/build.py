@@ -184,7 +184,7 @@ BREVO_JS="""<script>
 <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>"""
 NL_FOOT=f'<p class="nl-foot"><a href="{BREVO_URL}">Weekly fragrance deals</a>, every Friday.</p>'
 TITLES=set()
-def page(path,title,desc,body,jsonld=None,index=True,image=None):
+def page(path,title,desc,body,jsonld=None,index=True,image=None,feed=True):
     if title in TITLES: title=f"{title} ({path.split('/')[0].title()})"
     TITLES.add(title); desc=clip(desc)
     url=f"{BASE}{PREFIX}/{path}".replace("/index.html","/")
@@ -219,12 +219,12 @@ We list only authorized or long-established retailers, never gray-market marketp
     if not index: return
     PAGES.append(url)
     k=feed_kind(path)
-    if k: FEED.append((k,title,url,desc))
+    if feed and k: FEED.append((k,title,url,desc))
 PAGES=[]
 FEED=[]  # (kind, title, url, plain meta description) for deal and comparison pages
 def feed_kind(path):
     if path.startswith("fragrance/"): return "deal"
-    if path.startswith("vs/") or path.startswith("best/"): return "compare"
+    if path.startswith("vs/") or path.startswith("best/") or path.startswith("gifts/"): return "compare"
     if path.startswith("dupes/") and path!="dupes/index.html": return "hub"
     if path.startswith("dupe/"): return "dupe"
     return None
@@ -318,6 +318,41 @@ ROUNDUPS=[r for r in [
    "lead":"Prestige perfumes and colognes that normally list for $120 or more, discounted at authorized retailers today. Good for gifts or a bottle you would not usually pay full price for.","items":[d for d in deals if d['was']>=120]},
  ]+[dict(r,items=[BYID[i['id']] for i in r['items'] if i['id'] in BYID and BYID[i['id']]['price']<r.get('max_price',1e9)],notes={i['id']:i['notes'] for i in r['items']}) for r in CFG.get("roundups",[])] if len(r["items"])>=3]
 def roundups_of(d): return [r for r in ROUNDUPS if d in r['items']]
+def _deal_blob(d):
+    return " ".join(str(d.get(k) or "") for k in ("name","brand","type","size","retailer","url")).lower()
+def early_gift_ok(d):
+    """A checked bottle we can recommend. Testers, decants, and Amazon stay out."""
+    if d.get("in_stock") is False: return False
+    if isinstance(d.get("price"), bool) or not isinstance(d.get("price"), (int, float)): return False
+    if not d.get("url") or not d.get("retailer"): return False
+    blob=_deal_blob(d)
+    if re.search(r"\b(tester|testers|decant|decants)\b", blob): return False
+    host=(urllib.parse.urlparse(d.get("url") or "").hostname or "").lower()
+    if "amazon" in blob or "amazon." in host or host.endswith("amazon.com"): return False
+    return True
+def early_mini(d):
+    blob=_deal_blob(d)
+    if re.search(r"\b(mini|minis|miniature|travel|travel-size|travelsize|rollerball|roller-ball)\b", blob): return True
+    o=oz(d.get("size") or "")
+    return o is not None and o<1
+NOTE_BY_ID={}
+for _r in CFG.get("roundups",[]):
+    for _it in _r.get("items",[]):
+        if _it.get("id") and _it.get("notes"): NOTE_BY_ID.setdefault(_it["id"], _it["notes"])
+def guide_rows(spec):
+    rows=[d for d in deals if early_gift_ok(d)]
+    if spec.get("gender"): rows=[d for d in rows if d["gender"]==spec["gender"]]
+    if spec.get("genders"): rows=[d for d in rows if d["gender"] in spec["genders"]]
+    cap=spec.get("max_price")
+    if isinstance(cap,(int,float)) and not isinstance(cap,bool): rows=[d for d in rows if d["price"]<cap]
+    floor=spec.get("min_was")
+    if isinstance(floor,(int,float)) and not isinstance(floor,bool):
+        rows=[d for d in rows if isinstance(d.get("was"),(int,float)) and not isinstance(d.get("was"),bool) and d["was"]>=floor]
+    if spec.get("exclude_mini"): rows=[d for d in rows if not early_mini(d)]
+    rows.sort(key=lambda d:(d["price"], -(d.get("pct_off") or 0), d["id"]))
+    return rows
+GIFT_GUIDES=[dict(spec, picks=guide_rows(spec)) for spec in CFG.get("gift_guides",[])]
+def guides_for(d): return [g for g in GIFT_GUIDES if d in g["picks"]]
 HUBS=[]
 for h in CFG.get("hubs",[]):
     ms=[x for x in D["dupes"] if any(m in x["original"] for m in h["match"])]
@@ -334,7 +369,7 @@ SEO_GIFTS=[
  ("best-mens-cologne-under-40","Best men's cologne under $40"),
  ("stocking-stuffer-minis","Stocking stuffer fragrance minis & travel sizes"),
  ("holiday-gift-sets","Fragrance gift sets for the holidays"),
-]
+]+[(g["slug"], g.get("chip") or g["title"]) for g in GIFT_GUIDES]
 use_sid("home")
 page("index.html",fit([f"Perfume & Cologne Deals Today: Up to {max(d['pct_off'] for d in deals)}% Off | {NAME}",f"Fragrance Deals Today: Up to {max(d['pct_off'] for d in deals)}% Off | {NAME}"]),
  f"{len(deals)} verified deals on authentic designer perfume & cologne from ${min(d['price'] for d in deals):.2f}, up to {max(d['pct_off'] for d in deals)}% off at authorized retailers. Checked {upd:%b %-d}, plus the best dupes.",
@@ -370,12 +405,13 @@ for g,label in [("men","Men's Cologne"),("women","Women's Perfume"),("unisex","U
     ds=[d for d in deals if d["gender"]==g]
     if not ds: continue
     use_sid(g)
+    gchip="".join(f"<a href='{PREFIX}/gifts/{gu['slug']}/'>{e(gu.get('chip') or gu['title'])}</a>" for gu in GIFT_GUIDES if any(d["gender"]==g for d in gu["picks"]))
     tb=", ".join(dict.fromkeys(d['brand'] for d in ds))
     tb=tb if len(tb)<50 else tb[:tb.rfind(",",0,50)]+" & more"
     mx=max(d['pct_off'] for d in ds)
     page(f"{g}/index.html",fit([f"{label} Deals Today ({upd:%b %-d}): Up to {mx}% Off | {NAME}",f"{label} Deals: Up to {mx}% Off Today | {NAME}",f"{label} Deals Today ({upd:%b %-d}): Up to {mx}% Off"]),
       f"{len(ds)} authentic {label.lower()} deals from ${min(d['price'] for d in ds):.2f}, up to {max(d['pct_off'] for d in ds)}% off at authorized retailers: {tb}. Checked {upd:%b %-d}.",
-      f"<h1>{label} deals</h1><p class='sub'>{len(ds)} live · checked {upd_h}</p><div class='grid'>{''.join(card(d) for d in ds)}</div>{BREVO_FORM}{bestchips()}",[itemlist(ds,label+" deals")])
+      f"<h1>{label} deals</h1><p class='sub'>{len(ds)} live · checked {upd_h}</p><div class='grid'>{''.join(card(d) for d in ds)}</div>{BREVO_FORM}{bestchips()}"+(f"<p class='chips'>{gchip}</p>" if gchip else ""),[itemlist(ds,label+" deals")])
 brands=sorted({canon(d["brand"]) for d in deals})
 for b in brands:
     ds=[d for d in deals if canon(d["brand"])==b]
@@ -386,13 +422,15 @@ for b in brands:
     nm=", ".join(short_nm(d) for d in ds[:2])+(" & more" if len(ds)>2 else "")
     mx=max(d['pct_off'] for d in ds)
     one=ds[0]
+    genders={d["gender"] for d in ds}
+    kind="Cologne" if genders=={"men"} else "Perfume" if genders=={"women"} else "Fragrance" if genders=={"unisex"} else "Perfume & Cologne"
     if len(ds)==1:
         bm=fit([f"{fullname(one)} {sz(one['size'])} for ${one['price']:.2f} at {one['retailer']}, {one['pct_off']}% off"+(f" the {one['was_label']} price" if one.get('was_label') else f" its ${one['was']:.2f} list price")+f". Our only verified {b} deal today, checked {upd:%b %-d, %Y}.",
                 f"{fullname(one)} {sz(one['size'])} for ${one['price']:.2f} at {one['retailer']}, {one['pct_off']}% off. Our only verified {b} deal today, checked {upd:%b %-d}.",
                 f"{fullname(one)} {sz(one['size'])}: ${one['price']:.2f} at {one['retailer']}, {one['pct_off']}% off. Checked {upd:%b %-d}."],160)
     else:
         bm=f"{len(ds)} verified {b} fragrance deals from ${min(d['price'] for d in ds):.2f} ({nm}). Authentic, price-checked {upd:%b %-d, %Y}."
-    page(f"brands/{bslug(b)}/index.html",fit([f"{b} Perfume & Cologne Deals: Up to {mx}% Off Today | {NAME}",f"{b} Perfume & Cologne Deals: Up to {mx}% Off | {NAME}",f"{b} Perfume & Cologne Deals: Up to {mx}% Off Today",f"{b} Perfume & Cologne Deals: Up to {mx}% Off",f"{b} Fragrance Deals: Up to {mx}% Off"]),
+    page(f"brands/{bslug(b)}/index.html",fit([f"{b} {kind} Deals: Up to {mx}% Off Today | {NAME}",f"{b} {kind} Deals: Up to {mx}% Off Today",f"{b} {kind} Deals: Up to {mx}% Off",f"{b} Fragrance Deals: Up to {mx}% Off"]),
       bm,
       f"<h1>{e(b)} deals</h1><p class='sub'>checked {upd_h}</p><div class='grid'>{''.join(card(d) for d in ds)}</div>{BREVO_FORM}",[itemlist(ds,b+" deals")])
 page("brands/index.html",fit([f"Fragrance Deals by Brand: {len(brands)} Designer Brands on Sale Today | {NAME}",f"Fragrance Deals by Brand: {len(brands)} Designer Brands on Sale Today"]),f"Browse today's verified perfume and cologne discounts from {len(brands)} brands including {', '.join(brands[:4])}. Authorized retailers only, checked daily.",
@@ -437,7 +475,7 @@ def faqhtml(qs): return "<section class='box'><h2 style='margin-top:0'>FAQ</h2>"
 def buy(url,ret): return ext_a(url, f"Buy at {e(ret)} →", cls="btn", style="max-width:340px", placement="cta")
 KW=[]
 for d in deals:
-    full=fullname(d); s=slug(f"{d['brand']} {d['name']}"); use_sid("deal", s); KW+= [f"{full.lower()} cheapest price",f"{full.lower()} sale",f"{full.lower()} {d['size'].lower()} deal"]
+    full=fullname(d); s=slug(f"{d['brand']} {d['name']}"); use_sid("deal", s); KW+= [f"{full.lower()} cheapest price",f"{full.lower()} sale",f"{full.lower()} {sz(d['size']).lower()} deal"]
     gl={"men":"men's cologne","women":"women's perfume","unisex":"unisex fragrance"}[d['gender']]
     others=[x for x in deals if x['gender']==d['gender'] and x['id']!=d['id']][:4]
     qs=[(f"What is the cheapest price for {full} right now?",f"As of {upd_h}, the lowest price we verified is ${d['price']:.2f} for {d['size']} at {d['retailer']}, {d['pct_off']}% below {('the $%.2f at %s' % (d['was'],d['was_label'])) if d.get('was_label') else ('its listed $%.2f' % d['was'])}."),
@@ -451,10 +489,15 @@ for d in deals:
       +BREVO_FORM
       +f"<p>{e(full)} is one of today's best {gl} deals: {d['pct_off']}% {('below the '+e(d['was_label'])+' price') if d.get('was_label') else 'off the listed price'}, a {d['type'].lower() or 'fragrance'} from {e(d['brand'])} (<a href='{PREFIX}/brands/{bslug(d['brand'])}/'>all {e(canon(d['brand']))} deals</a>{"".join(", <a href='"+PREFIX+"/best/"+ru['slug']+"/'>"+e(ru['title'].lower().replace('best ','more '))+"</a>" for ru in rus)}).</p>"
       +"".join(f"<p><b>Comparing?</b> <a href='{PREFIX}/vs/{v['slug']}/'>{e(v['title'])}: prices, size and notes side by side</a></p>" for v in vs_of(d))
+      +(f"<p><b>Holiday gift guides:</b> "+", ".join(f"<a href='{PREFIX}/gifts/{g['slug']}/'>{e(g['title'])}</a>" for g in guides_for(d))+".</p>" if guides_for(d) else "")
       +faqhtml(qs)+"<h2>Similar deals today</h2><div class='grid'>"+"".join(card(x) for x in others)+"</div>")
     short=re.sub(r"( Spray)? (Cologne|Perfume|Unisex Fragrance)$","",full); P=f"${d['price']:.2f}"; Z=sz(d['size'])
+    save=d['was']-d['price']
+    was_bit=(f"{d['pct_off']}% below the ${d['was']:.2f} {d['was_label']} price" if d.get('was_label') else f"{d['pct_off']}% off the ${d['was']:.2f} list price")
     page(f"fragrance/{s}/index.html",fit([f"{full} {Z} Sale: {P} ({d['pct_off']}% Off) – Cheapest Price {upd:%b %Y}",f"{full} {Z} Sale: {P} ({d['pct_off']}% Off)",f"{short} {Z} Sale: {P} ({d['pct_off']}% Off)",f"{short} {Z}: {P} ({d['pct_off']}% Off)",f"{short}: {P} ({d['pct_off']}% Off)",f"{short.replace(canon(d['brand'])+' ','',1).replace(d['brand']+' ','',1)} {Z}: {P} ({d['pct_off']}% Off)"]),
-      f"{full} {sz(d['size'])} for ${d['price']:.2f} at {d['retailer']} ("+(f"${d['was']:.2f} at {d['was_label']}" if d.get('was_label') else f"was ${d['was']:.2f}")+f"). Authentic, sealed, price-checked {upd:%b %-d, %Y}.",body,
+      fit([f"{full} {Z} is {P} at {d['retailer']}, {was_bit} (save ${save:.2f}). Sealed bottle, checked {upd:%b %-d, %Y}.",
+           f"{full} {Z} is {P} at {d['retailer']}, {was_bit}. Sealed, checked {upd:%b %-d, %Y}.",
+           f"{full} {Z} for {P} at {d['retailer']} ({was_bit}). Checked {upd:%b %-d, %Y}."],160),body,
       [prod_ld(d, name=f"{full} {d['size']}", brand=d['brand']),faqld(qs)])
 def nohouse(n):
     """Name without the house prefix (Armaf/Lattafa/MFK/YSL...), for titles that would run past 60 chars."""
@@ -476,8 +519,14 @@ for d in D["dupes"]:
     lds=[faqld(qs)]+([prod_ld(d, name=d['dupe'], brand=d['dupe'].split()[0])] if d['price'] else [])
     PR=(f" ${d['price']:.2f}" if d['price'] else "")
     bare=re.sub(r' [(].*?[)]','',o)
+    note=d['notes'].rstrip('.')
+    if d['price']:
+        dmeta=f"{d['dupe']} vs {o}: {note.split(';')[0].rstrip('.')}. ${d['price']:.2f} for {d['size']} at {d['retailer']} today. Cited sources, authentic bottles only."
+    else:
+        dmeta=fit([f"{d['dupe']} vs {o}: {note}. No live retailer price verified yet. Cited sources, authentic bottles only.",
+                   f"{d['dupe']} vs {o}: {note.split(';')[0].rstrip('.')}. No live price verified yet. Cited sources only."],160)
     page(f"dupe/{s}/index.html",fit([f"Best {o} Dupe {upd.year}: {d['dupe']}{PR}",f"Best {o} Dupe: {d['dupe']}{PR}",f"{o} Dupe: {d['dupe']}{PR}",f"{bare} Dupe: {nohouse(d['dupe'])}{PR}" if d['price'] else "",f"{nohouse(o)} Dupe: {nohouse(d['dupe'])}{PR}" if d['price'] else "",f"{o} Dupe: {d['dupe']}",f"{bare} Dupe: {re.sub(r' [(].*?[)]','',d['dupe'])}",f"{o} Dupe: {nohouse(d['dupe'])}",f"{nohouse(o)} Dupe: {nohouse(d['dupe'])}"]),
-      f"{d['dupe']} vs {o}: {d['notes'].split(';')[0].rstrip('.')}."+(f" ${d['price']:.2f} for {d['size']} at {d['retailer']} today." if d['price'] else "")+" Cited sources, authentic bottles only.",body,lds)
+      dmeta,body,lds)
 def picks(cheap,val,big):
     """Quick-pick bullets; merges labels when one bottle wins several, so the list never repeats itself."""
     out=[]
@@ -509,7 +558,7 @@ for r in ROUNDUPS:
       +f"<table><thead><tr><th>Fragrance</th><th>Size</th><th>Price</th><th>Per oz</th><th>Off</th><th></th></tr></thead><tbody>{rows}</tbody></table>"
       +BREVO_FORM
       +f"<h2>All {n} picks</h2><div class='grid'>{''.join(card(d) for d in ds)}</div>"+faqhtml(qs)
-      +"<p class='chips'>"+"".join(f"<a href='{PREFIX}/best/{x['slug']}/'>{e(x['title'])}</a>" for x in others)+f"<a href='{PREFIX}/men/'>All men's deals</a><a href='{PREFIX}/women/'>All women's deals</a><a href='{PREFIX}/dupes/'>Designer dupes</a></p>")
+      +"<p class='chips'>"+"".join(f"<a href='{PREFIX}/best/{x['slug']}/'>{e(x['title'])}</a>" for x in others)+"".join(f"<a href='{PREFIX}/gifts/{g['slug']}/'>{e(g.get('chip') or g['title'])}</a>" for g in GIFT_GUIDES if any(d in g['picks'] for d in ds))+f"<a href='{PREFIX}/men/'>All men's deals</a><a href='{PREFIX}/women/'>All women's deals</a><a href='{PREFIX}/dupes/'>Designer dupes</a></p>")
     il={"@context":"https://schema.org","@type":"ItemList","name":r['title'],"numberOfItems":n,"itemListElement":[{"@type":"ListItem","position":i+1,"item":offer_item(d, f"{fullname(d)} {d['size']}", d['brand'])} for i,d in enumerate(ds)]}
     CP=f"${cheap['price']:.2f}"
     page(f"best/{r['slug']}/index.html",fit([f"{r['title']} Today ({upd:%b %-d}): {n} Authentic Picks | {NAME}",f"{r['title']} Today: {n} Picks From {CP}",f"{r['title']}: {n} Picks From {CP}",f"{r['title']} ({upd:%b %Y})"]),
@@ -546,8 +595,11 @@ for h in HUBS:
       +faqhtml(qs)+"<p class='chips'>"+"".join(f"<a href='{PREFIX}/dupes/{x['slug']}/'>{e(x['title'])}</a>" for x in HUBS if x is not h)+f"<a href='{PREFIX}/dupes/'>All dupes</a></p>")
     il={"@context":"https://schema.org","@type":"ItemList","name":h['title'],"numberOfItems":len(pr),"itemListElement":[{"@type":"ListItem","position":i+1,"item":offer_item(x, x['dupe'], x['dupe'].split()[0])} for i,x in enumerate(pr)]}
     FR=(f" From ${cheapest['price']:.2f}" if cheapest else "")
+    names=", ".join(nohouse(x['dupe']) for x in ms)
+    priced=(f" Prices from ${cheapest['price']:.2f}." if cheapest else " No live price verified yet.")
     page(f"dupes/{h['slug']}/index.html",fit([f"{h['title']} {upd.year}: {len(ms)} Clones Compared{FR} | {NAME}",f"{h['title']} {upd.year}: {len(ms)} Clones Compared{FR}",f"{h['title']} {upd.year}: {len(ms)} Clones{FR}",f"{h['title']} {upd.year}"]),
-      fit([f"{', '.join(x['dupe'] for x in ms)} compared: scent profiles, cited sources and verified prices"+(f" from ${cheapest['price']:.2f}" if cheapest else "")+".",
+      fit([f"{len(ms)} {T} dupes: {names}.{priced} Checked {upd:%b %-d, %Y}.",
+           f"{len(ms)} {T} dupes from {houses}.{priced} Profiles and cited sources, checked {upd:%b %-d, %Y}.",
            f"{len(ms)} {T} dupes from {houses} compared: scent profiles, cited sources and verified prices"+(f" from ${cheapest['price']:.2f}" if cheapest else "")+"."],160),body,([il] if pr else [])+[faqld(qs)])
 # ---------- head-to-head comparisons (/vs/<slug>/) ----------
 def conc(t):
@@ -619,19 +671,21 @@ def gift_line(d):
     who={"men":"for men","women":"for women","unisex":"for men and women"}.get(d.get("gender"),"")
     bits=[b for b in (conc_name(d.get("type")), sz(d.get("size") or ""), who) if b]
     return ", ".join(bits)+"." if bits else "Price checked at an authorized retailer."
-def gift_table(ds):
+def gift_table(ds, notes=None):
+    notes=notes or {}
     rows=[]
     for d in ds:
         href=f"{PREFIX}/fragrance/{slug(d['brand']+' '+d['name'])}/"
         was=f" <span class=was>${d['was']:.2f}</span>" if isinstance(d.get("was"), (int, float)) and not isinstance(d.get("was"), bool) else ""
         label=(f"<div class=meta>compare-at price at {e(d['was_label'])}</div>" if d.get("was_label") else "")
-        rows.append(f"<tr><td><a href='{href}'>{e(fullname(d))}</a><div class=meta>{e(gift_line(d))}</div>{label}</td><td><b>${d['price']:.2f}</b>{was}</td><td>{ext_a(d['url'], 'Buy at '+e(d['retailer']), placement='list')}</td></tr>")
+        note=(f"<div class=meta>{e(notes[d['id']])}</div>" if d['id'] in notes else "")
+        rows.append(f"<tr><td><a href='{href}'>{e(fullname(d))}</a><div class=meta>{e(gift_line(d))}</div>{note}{label}</td><td><b>${d['price']:.2f}</b>{was}</td><td>{ext_a(d['url'], 'Buy at '+e(d['retailer']), placement='list')}</td></tr>")
     return "<table><thead><tr><th>Fragrance</th><th>Price</th><th></th></tr></thead><tbody>"+"".join(rows)+"</tbody></table>"
 GIFT_LINKS=[("","Holiday gifts"),("for-him","For him"),("for-her","For her"),("under-50","Under $50"),("gift-sets","Gift sets")]+SEO_GIFTS
 def gift_nav():
     return "<p class='chips'>"+"".join(f"<a href='{PREFIX}/gifts/{slug+'/' if slug else ''}'>{e(label)}</a>" for slug,label in GIFT_LINKS)+"</p>"
 # Guides that list checked bottles. Empty pages point here instead of at each other.
-FILLED_GIFT_SLUGS={"","for-him","for-her","under-50","perfume-gifts-for-her-under-50","best-mens-cologne-under-40"}
+FILLED_GIFT_SLUGS={"","for-him","for-her","under-50","perfume-gifts-for-her-under-50","best-mens-cologne-under-40"} | {g["slug"] for g in GIFT_GUIDES if g["picks"]}
 def check_back_note(sentence):
     """Calm empty state. No table, no invented price, links only to guides that have bottles."""
     links="".join(f"<a href='{PREFIX}/gifts/{slug+'/' if slug else ''}'>{e(label)}</a>" for slug,label in GIFT_LINKS if slug in FILLED_GIFT_SLUGS)
@@ -674,8 +728,9 @@ for path,sid_slug,title,short,intro,picks,list_name,image in gift_pages:
     page(path, titles,
       desc,
       f"<h1>{e(title)}</h1><p class='sub'>{e(intro)} Checked {upd_h}.</p>{gift_nav()}{GIFT_DISC}{listing}<p class='meta'>Each name links to that bottle's price comparison. We do not list testers, decants, or Amazon.</p>",
-      ld, image=image)
-    KW+=[title.lower(), f"fragrance {short.lower()}"]
+      ld, image=image, feed=bool(picks))
+    extra=short.lower()
+    KW+=[title.lower(), extra if "fragrance" in extra else f"fragrance {extra}"]
 def by_price(rows):
     return sorted(rows, key=lambda d:(d["price"], -(d.get("pct_off") or 0), d["id"]))
 def lowest_deal(rows):
@@ -693,15 +748,15 @@ def seo_meta_filled(n_label, picks):
     shorter=f"{len(picks)} {n_label}, starting at {price} for {fullname(lo)} ({sz(lo['size'])}) at {lo['retailer']}. Checked {when}."
     if len(shorter)<=160: return shorter
     return f"{len(picks)} {n_label}, starting at {price} at {lo['retailer']}. Checked {when}."
-def render_seo_gift(slug_s, h1, intro, picks, faqs, empty_html, empty_desc, filled_label):
+def render_seo_gift(slug_s, h1, intro, picks, faqs, empty_html, empty_desc, filled_label, notes=None, extra_html=""):
     use_sid("gifts", slug_s)
     title=seo_title(h1, picks)
     desc=seo_meta_filled(filled_label, picks) if picks else empty_desc
-    listing=gift_table(picks) if picks else empty_html
+    listing=gift_table(picks, notes) if picks else empty_html
     ld=([itemlist(picks, h1)] if picks else [])+[faqld(faqs)]
     page(f"gifts/{slug_s}/index.html", title, desc,
-      f"<h1>{e(h1)}</h1><p class='sub'>{e(intro)} Checked {upd_h}.</p>{gift_nav()}{GIFT_DISC}{listing}{faqhtml(faqs)}{BREVO_FORM}<p class='meta'>Prices are copied from the deals we checked. We do not invent a price, and we do not list testers, decants, or Amazon.</p>",
-      ld)
+      f"<h1>{e(h1)}</h1><p class='sub'>{e(intro)} Checked {upd_h}.</p>{gift_nav()}{GIFT_DISC}{listing}{faqhtml(faqs)}{extra_html}{BREVO_FORM}<p class='meta'>Prices are copied from the deals we checked. We do not invent a price, and we do not list testers, decants, or Amazon.</p>",
+      ld, feed=bool(picks))
     KW.append(h1.lower())
 her_under_50=by_price([d for d in eligible if d["gender"]=="women" and d["price"]<50])
 men_under_40=by_price([d for d in eligible if d["gender"]=="men" and d["price"]<40])
@@ -791,6 +846,43 @@ render_seo_gift("holiday-gift-sets","Fragrance gift sets for the holidays",
   check_back_note("No fragrance gift set for the holidays is in today's checked deals, so this page has no list. These guides have bottles we priced."),
   "Check back soon. No fragrance gift set for the holidays is in today's checked deals. Single bottles are on the other gift guides.",
   "fragrance gift sets")
+for spec in GIFT_GUIDES:
+    picks=spec["picks"]
+    h1=spec["title"]
+    cap=spec.get("max_price")
+    floor=spec.get("min_was")
+    bits=[spec["intro"]]
+    if isinstance(cap,(int,float)) and not isinstance(cap,bool):
+        bits.append(f"Price cap: under ${cap:g}. A checked price of ${cap:g} or more is left off on the next rebuild.")
+    if isinstance(floor,(int,float)) and not isinstance(floor,bool):
+        bits.append(f"Included only when the checked compare-at price is ${floor:g} or higher.")
+    noted=[(d, NOTE_BY_ID[d["id"]]) for d in picks if d["id"] in NOTE_BY_ID]
+    if noted:
+        sample=noted[:3]
+        bits.append("Retailer note lines include "+"; ".join(f"{fullname(d)} ({n})" for d,n in sample)+".")
+    intro=" ".join(bits)
+    notes={d["id"]: NOTE_BY_ID[d["id"]] for d in picks if d["id"] in NOTE_BY_ID}
+    faqs=[]
+    if picks:
+        lo=lowest_deal(picks)
+        faqs.append((f"What is the lowest price for {h1.lower()}?",
+            f"The lowest price we checked is ${lo['price']:.2f} for {fullname(lo)} ({sz(lo['size'])}) at {lo['retailer']}. {len(picks)} bottles are on this page. Checked {upd_h}."))
+        faqs.append(("Are these prices estimated?",
+            f"No. Every price is copied from a deal we checked. Checked {upd_h}. We do not invent a price."))
+        faqs.append(("Do you list testers, decants, or Amazon?",
+            "No. These are sealed bottles at Perfumania or FragranceShop. Testers, decants, and Amazon are left out."))
+    else:
+        faqs.append((f"Do you have {h1.lower()} today?",
+            "Not in the deals we checked. This page stays up so the address does not disappear, and it fills in when a matching bottle is on sale."))
+        faqs.append(("Will you estimate a price?",
+            "No. A bottle is listed only after we check its price."))
+    for pair in spec.get("faq") or []:
+        faqs.append((pair[0], pair[1]))
+    extra=""
+    if spec.get("links"):
+        extra="<p class='chips'>"+"".join(f"<a href='{PREFIX}{l['href']}'>{e(l['label'])}</a>" for l in spec["links"])+"</p>"
+    render_seo_gift(spec["slug"], h1, intro, picks, faqs,
+        check_back_note(spec["empty"]), spec["empty_desc"], spec["filled_label"], notes=notes, extra_html=extra)
 # rewrite sitemap with new pages + keyword list + IndexNow key
 open(f"{OUT}/sitemap.xml","w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+"".join(f"<url><loc>{u}</loc><lastmod>{upd:%Y-%m-%d}</lastmod></url>" for u in PAGES)+"</urlset>\n")
 def rfc822(dt):
