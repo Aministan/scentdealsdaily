@@ -326,12 +326,19 @@ def bestchips(): return ("<section class='box'><h2 style='margin-top:0'>Shop by 
     +"".join(f"<a href='{PREFIX}/best/{r['slug']}/'>{e(r['title'])}</a>" for r in ROUNDUPS)
     +"".join(f"<a href='{PREFIX}/dupes/{h['slug']}/'>{e(h['title'])}</a>" for h in HUBS)
     +"".join(f"<a href='{PREFIX}/vs/{v['slug']}/'>{e(v['title'])}</a>" for v in VS)+"</div></section>") if (ROUNDUPS or HUBS or VS) else ""
+SEO_GIFTS=[
+ ("perfume-gifts-for-her-under-50","Perfume gifts for her under $50"),
+ ("best-mens-cologne-under-40","Best men's cologne under $40"),
+ ("stocking-stuffer-minis","Stocking stuffer fragrance minis & travel sizes"),
+ ("holiday-gift-sets","Fragrance gift sets for the holidays"),
+]
 use_sid("home")
 page("index.html",fit([f"Perfume & Cologne Deals Today: Up to {max(d['pct_off'] for d in deals)}% Off | {NAME}",f"Fragrance Deals Today: Up to {max(d['pct_off'] for d in deals)}% Off | {NAME}"]),
  f"{len(deals)} verified deals on authentic designer perfume & cologne from ${min(d['price'] for d in deals):.2f}, up to {max(d['pct_off'] for d in deals)}% off at authorized retailers. Checked {upd:%b %-d}, plus the best dupes.",
  f"<h1>Today's best designer fragrance deals</h1><p class='sub'>{len(deals)} live deals on authentic bottles · last checked {upd_h} · sorted by % off</p>"
  +BREVO_FORM
- +f"<div class='grid'>{''.join(card(d,i<2) for i,d in enumerate(deals))}</div><p class='chips'><a href='{PREFIX}/gifts/'>Holiday fragrance gifts</a></p>{bestchips()}"
+ +f"<div class='grid'>{''.join(card(d,i<2) for i,d in enumerate(deals))}</div><p class='chips'><a href='{PREFIX}/gifts/'>Holiday fragrance gifts</a>"
+ +"".join(f"<a href='{PREFIX}/gifts/{slug}/'>{e(label)}</a>" for slug,label in SEO_GIFTS)+"</p>{bestchips()}"
  +"<section class='box'><h2 style='margin-top:0'>Why trust these deals?</h2><p>We only list authorized or long-established retailers (no anonymous marketplace sellers), re-check every price and stock status daily, and drop expired deals automatically. Want the smell for less? See our <a href='"+PREFIX+"/dupes/'>dupes directory</a>.</p></section>",
  [itemlist(deals,"Today's designer fragrance deals"),{"@context":"https://schema.org","@type":"WebSite","name":NAME,"url":BASE+PREFIX+"/"}])
 # confirmation page for the Brevo double opt-in email; not for search
@@ -588,6 +595,12 @@ def gift_ok(d):
 def is_gift_set(d):
     blob=gift_blob(d)
     return any(s in blob for s in ("gift set","gift-set","coffret","discovery set"))
+def is_mini_or_travel(d):
+    """A mini or travel spray we actually checked. A 1 oz bottle is not one."""
+    blob=gift_blob(d)
+    if re.search(r"\b(mini|minis|miniature|travel|travel-size|travelsize|rollerball|roller-ball)\b", blob): return True
+    o=oz(d.get("size") or "")
+    return o is not None and o<1
 def gift_line(d):
     """One plain line from concentration, size, and who it is for. No scent claims."""
     who={"men":"for men","women":"for women","unisex":"for men and women"}.get(d.get("gender"),"")
@@ -601,7 +614,7 @@ def gift_table(ds):
         label=(f"<div class=meta>compare-at price at {e(d['was_label'])}</div>" if d.get("was_label") else "")
         rows.append(f"<tr><td><a href='{href}'>{e(fullname(d))}</a><div class=meta>{e(gift_line(d))}</div>{label}</td><td><b>${d['price']:.2f}</b>{was}</td><td>{ext_a(d['url'], 'Buy at '+e(d['retailer']), placement='list')}</td></tr>")
     return "<table><thead><tr><th>Fragrance</th><th>Price</th><th></th></tr></thead><tbody>"+"".join(rows)+"</tbody></table>"
-GIFT_LINKS=[("","Holiday gifts"),("for-him","For him"),("for-her","For her"),("under-50","Under $50"),("gift-sets","Gift sets")]
+GIFT_LINKS=[("","Holiday gifts"),("for-him","For him"),("for-her","For her"),("under-50","Under $50"),("gift-sets","Gift sets")]+SEO_GIFTS
 def gift_nav():
     return "<p class='chips'>"+"".join(f"<a href='{PREFIX}/gifts/{slug+'/' if slug else ''}'>{e(label)}</a>" for slug,label in GIFT_LINKS)+"</p>"
 GIFT_DISC="<p>Affiliate disclosure: some links on this page earn us a commission if you buy, at no extra cost to you. Prices are the ones we checked at authorized retailers.</p>"
@@ -644,6 +657,121 @@ for path,sid_slug,title,short,intro,picks,list_name,image in gift_pages:
       f"<h1>{e(title)}</h1><p class='sub'>{e(intro)} Checked {upd_h}.</p>{gift_nav()}{GIFT_DISC}{listing}<p class='meta'>Each name links to that bottle's price comparison. We do not list testers, decants, or Amazon.</p>",
       ld, image=image)
     KW+=[title.lower(), f"fragrance {short.lower()}"]
+def by_price(rows):
+    return sorted(rows, key=lambda d:(d["price"], -(d.get("pct_off") or 0), d["id"]))
+def lowest_deal(rows):
+    return min(rows, key=lambda d:(d["price"], -(d.get("pct_off") or 0), d["id"]))
+def seo_title(h1, picks):
+    base=f"{h1}: From ${lowest_deal(picks)['price']:.2f}" if picks else h1
+    named=f"{base} | {NAME}"
+    return named if len(named)<=60 else base
+def seo_meta_filled(n_label, picks):
+    lo=lowest_deal(picks)
+    price=f"${lo['price']:.2f}"
+    when=f"{upd:%b %-d, %Y}"
+    full=f"{len(picks)} {n_label}, starting at {price} for {fullname(lo)} ({sz(lo['size'])}) at {lo['retailer']}. Checked {when}. Sealed bottles only."
+    if len(full)<=160: return full
+    shorter=f"{len(picks)} {n_label}, starting at {price} for {fullname(lo)} ({sz(lo['size'])}) at {lo['retailer']}. Checked {when}."
+    if len(shorter)<=160: return shorter
+    return f"{len(picks)} {n_label}, starting at {price} at {lo['retailer']}. Checked {when}."
+def render_seo_gift(slug_s, h1, intro, picks, faqs, empty_html, empty_desc, filled_label):
+    use_sid("gifts", slug_s)
+    title=seo_title(h1, picks)
+    desc=seo_meta_filled(filled_label, picks) if picks else empty_desc
+    listing=gift_table(picks) if picks else empty_html
+    ld=([itemlist(picks, h1)] if picks else [])+[faqld(faqs)]
+    page(f"gifts/{slug_s}/index.html", title, desc,
+      f"<h1>{e(h1)}</h1><p class='sub'>{e(intro)} Checked {upd_h}.</p>{gift_nav()}{GIFT_DISC}{listing}{faqhtml(faqs)}{BREVO_FORM}<p class='meta'>Prices are copied from the deals we checked. We do not invent a price, and we do not list testers, decants, or Amazon.</p>",
+      ld)
+    KW.append(h1.lower())
+her_under_50=by_price([d for d in eligible if d["gender"]=="women" and d["price"]<50])
+men_under_40=by_price([d for d in eligible if d["gender"]=="men" and d["price"]<40])
+mini_picks=by_price([d for d in eligible if is_mini_or_travel(d)])
+set_picks=by_price([d for d in eligible if is_gift_set(d)])
+her_lo=lowest_deal(her_under_50) if her_under_50 else None
+men_lo=lowest_deal(men_under_40) if men_under_40 else None
+render_seo_gift("perfume-gifts-for-her-under-50","Perfume gifts for her under $50",
+  (f"{len(her_under_50)} women's perfumes from the deals we checked are under $50. Lowest price first." if her_under_50
+   else "A perfume is listed here only when we checked a women's bottle under $50."),
+  her_under_50,([
+    ("What perfume gifts for her are under $50?",
+     f"The lowest price we checked is ${her_lo['price']:.2f} for {fullname(her_lo)} ({sz(her_lo['size'])}) at {her_lo['retailer']}. {len(her_under_50)} women's perfumes on this page are under $50."),
+    ("Are these prices estimated?",
+     f"No. Each price is the price we checked at that row's retailer. Checked {upd_h}."),
+    ("Do you include testers?",
+     "No. These are sealed bottles at Perfumania or FragranceShop. Testers, decants, and Amazon are left out."),
+  ] if her_under_50 else [
+    ("Are there perfume gifts for her under $50 today?",
+     "Not in the deals we checked. No women's perfume we priced today is under $50."),
+    ("Will you estimate a price?",
+     "No. A bottle is listed only after we check its price."),
+    ("Where else can I look?",
+     "The other gift guides list bottles we did check, including ones at $50 and above."),
+  ]),
+  "<p>None of the women's perfumes we checked today are under $50, so this page has no prices to show.</p>",
+  "Perfume gifts for her under $50: none of today's checked women's perfumes is under $50. Other gift guides list bottles we did price.",
+  "women's perfumes under $50")
+render_seo_gift("best-mens-cologne-under-40","Best men's cologne under $40",
+  (f"{len(men_under_40)} men's colognes from the deals we checked are under $40. Lowest price first. Unisex bottles are not listed here." if men_under_40
+   else "A cologne is listed here only when we checked a men's bottle under $40. Unisex bottles are not listed here."),
+  men_under_40,([
+    ("What is the lowest men's cologne under $40 you checked?",
+     f"{fullname(men_lo)} is ${men_lo['price']:.2f} for {sz(men_lo['size'])} at {men_lo['retailer']}. {len(men_under_40)} men's colognes on this page are under $40."),
+    ("Why are some colognes missing?",
+     "A bottle is listed only when today's checked price is under $40 and the product is a men's cologne. Unisex bottles stay off this page."),
+    ("Are these prices estimated?",
+     f"No. The prices were checked {upd_h} at authorized retailers. The store can change a price before you buy."),
+  ] if men_under_40 else [
+    ("Is there a men's cologne under $40 today?",
+     "Not in the deals we checked. No men's cologne we priced today is under $40."),
+    ("Are unisex bottles included?",
+     "No. This page is men's cologne only."),
+    ("Will you estimate a price?",
+     "No. A bottle is listed only after we check its price."),
+  ]),
+  "<p>None of the men's colognes we checked today are under $40, so this page has no prices to show.</p>",
+  "Best men's cologne under $40: none of today's checked men's colognes is under $40. Unisex bottles are not listed here.",
+  "men's colognes under $40")
+render_seo_gift("stocking-stuffer-minis","Stocking stuffer fragrance minis & travel sizes",
+  "A mini or a travel spray is listed only when that is the product we priced. A 1 oz bottle is a small bottle, not a mini, so it stays on the other guides.",
+  mini_picks,([
+    ("What mini should I buy?",
+     f"The lowest mini or travel size we checked is ${lowest_deal(mini_picks)['price']:.2f} for {fullname(lowest_deal(mini_picks))} ({sz(lowest_deal(mini_picks)['size'])}) at {lowest_deal(mini_picks)['retailer']}."),
+    ("Is a 1 oz bottle a travel size?",
+     "Not on this page. Travel sizes here are bottles under 1 oz, or products named mini or travel."),
+    ("Are these prices estimated?",
+     f"No. Checked {upd_h} at authorized retailers."),
+  ] if mini_picks else [
+    ("Are there fragrance minis or travel sizes today?",
+     "Not in the deals we checked. Nothing today is named a mini or a travel spray, and nothing is a bottle under 1 oz."),
+    ("Is a 1 oz bottle a mini?",
+     "No. We leave 1 oz bottles on the perfume and cologne gift guides. This page is only for minis and travel sizes."),
+    ("Where should I look instead?",
+     "Perfume gifts for her under $50 and men's cologne under $40 list single bottles we did price."),
+  ]),
+  "<p>None of the deals we checked today are fragrance minis or travel sizes, so this page has no prices to show. Single bottles that work as gifts are on the other guides.</p>",
+  "Stocking stuffer fragrance minis and travel sizes: none of today's checked deals is a mini or a travel spray. Bottles of 1 oz and up stay on the other guides.",
+  "fragrance minis and travel sizes")
+render_seo_gift("holiday-gift-sets","Fragrance gift sets for the holidays",
+  "A holiday set is listed only when the product we checked is a boxed set, coffret, or discovery set. A single bottle is not listed as a set.",
+  set_picks,([
+    ("Which fragrance gift set is the lowest price?",
+     f"The lowest set we checked is ${lowest_deal(set_picks)['price']:.2f} for {fullname(lowest_deal(set_picks))} at {lowest_deal(set_picks)['retailer']}."),
+    ("Do you guess a set price?",
+     f"No. A set is listed only after we check its price. Checked {upd_h}."),
+    ("Are single bottles included?",
+     "No. Single bottles stay on the other gift guides."),
+  ] if set_picks else [
+    ("Do you have fragrance gift sets for the holidays?",
+     "Not today. None of the deals we checked is a gift set, coffret, or discovery set."),
+    ("Will you guess a set price?",
+     "No. A set is listed only after we check its price and that it is in stock."),
+    ("What can I give instead?",
+     "A single bottle from the other gift guides. Those prices are the ones we checked."),
+  ]),
+  "<p>None of the deals we checked today are boxed fragrance gift sets, so this page has no prices to show. Single bottles that work as gifts are on the other guides.</p>",
+  "Fragrance gift sets for the holidays: none of today's checked deals is a boxed set, coffret, or discovery set. Single bottles are on the other gift guides.",
+  "fragrance gift sets")
 # rewrite sitemap with new pages + keyword list + IndexNow key
 open(f"{OUT}/sitemap.xml","w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+"".join(f"<url><loc>{u}</loc><lastmod>{upd:%Y-%m-%d}</lastmod></url>" for u in PAGES)+"</urlset>\n")
 def rfc822(dt):
