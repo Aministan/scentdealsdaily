@@ -1,5 +1,5 @@
 # ScentDealsDaily
-> Daily-checked discounts on authentic designer fragrances at reputable retailers, plus a cited dupes directory. Last updated 2026-10-23T13:05:16Z.
+> Daily-checked discounts on authentic designer fragrances at reputable retailers, plus a cited dupes directory. Last updated 2026-10-23T16:03:22Z.
 
 ## Today's deals (price USD, size, retailer, % off listed compare-at)
 - Juicy Couture Peace Love & Juicy Couture Perfume 3.4 oz.: $20.95 (was $89.00, -76%) at FragranceShop: https://www.fragranceshop.com/product/peace-love-juicy-couture-perfume-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz
@@ -21,6 +21,7 @@
 - Burberry London Perfume 1.0 oz.: $21.95 (was $42.00, -48%) at FragranceShop: https://www.fragranceshop.com/product/burberry-london-for-women/?attribute_pa_size=eau-de-parfum-spray-1-0-oz
 - Versace Eros Flame Cologne 1.7 oz.: $45.95 (was $87.00, -47%) at FragranceShop: https://www.fragranceshop.com/product/versace-eros-flame-for-men/?attribute_pa_size=eau-de-parfum-spray-1-7-oz
 - Versace Dylan Blue Pour Femme Perfume 3.4 oz.: $64.95 (was $120.00, -46%) at FragranceShop: https://www.fragranceshop.com/product/dylan-blue-versace-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz
+- Ralph Lauren Romance Perfume 1.0 oz.: $28.95 (was $53.00, -45%) at FragranceShop: https://www.fragranceshop.com/product/romance-for-women/?attribute_pa_size=eau-de-parfum-spray-1-0-oz
 - Xerjoff Casamorati Mefisto Cologne 3.4 oz.: $189.95 (was $330.00, -42%) at Perfumania: https://www.perfumania.com/products/casamorati-mefisto-cologne?variant=41547243225221
 - Jean Paul Gaultier Le Beau Cologne 4.2 oz.: $75.95 (was $130.00, -42%) at FragranceShop: https://www.fragranceshop.com/product/jean-paul-gaultier-le-beau-cologne-for-men/?attribute_pa_size=eau-de-toilette-spray-4-2-oz
 - Hugo Boss Boss In Motion Cologne 3.0 oz.: $44.95 (was $76.00, -41%) at Perfumania: https://www.perfumania.com/products/hugo-boss-in-motion-mens-eau-de-toilette-spray?variant=31838659510405
@@ -87,6 +88,7 @@ https://scentdealsdaily.com/fragrance/burberry-weekend-cologne/
 https://scentdealsdaily.com/fragrance/burberry-london-perfume/
 https://scentdealsdaily.com/fragrance/versace-eros-flame-cologne/
 https://scentdealsdaily.com/fragrance/versace-dylan-blue-pour-femme-perfume/
+https://scentdealsdaily.com/fragrance/ralph-lauren-romance-perfume/
 https://scentdealsdaily.com/fragrance/xerjoff-casamorati-mefisto-cologne/
 https://scentdealsdaily.com/fragrance/jean-paul-gaultier-le-beau-cologne/
 https://scentdealsdaily.com/fragrance/hugo-boss-boss-in-motion-cologne/
@@ -175,3 +177,4 @@ https://scentdealsdaily.com/gifts/luxury-fragrance-gifts/
 https://scentdealsdaily.com/gifts/secret-santa-fragrances-under-30/
 https://scentdealsdaily.com/gifts/christmas-perfume-gifts-for-mom/
 https://scentdealsdaily.com/gifts/cologne-gifts-for-dad/
+https://scentdealsdaily.com/black-friday-fragrance-deals/
