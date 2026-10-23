@@ -411,13 +411,28 @@ SEO_GIFTS=[
  ("stocking-stuffer-minis","Stocking stuffer fragrance minis & travel sizes"),
  ("holiday-gift-sets","Fragrance gift sets for the holidays"),
 ]+[(g["slug"], g.get("chip") or g["title"]) for g in GIFT_GUIDES]
+# Filled as each gift subpage is written, then spliced into the hub, homepage,
+# and sibling pages. The sitemap is the same page() pass, so a new guide is linked
+# from the build that adds it.
+GIFT_SUBPAGES=[]
+GIFT_HUB_MARK="<!--gift-guides-->"
+GIFT_HOME_MARK="<!--holiday-gift-guides-->"
+GIFT_MORE_MARK="<!--more-gift-guides-->"
+# Compact homepage set. Titles come from GIFT_SUBPAGES, not from this tuple.
+HOME_GIFT_SLUGS=("for-him","for-her","under-50","perfume-gifts-for-her-under-50","best-mens-cologne-under-40","holiday-gift-sets","fragrance-gifts-for-teens")
+def register_gift_subpage(slug, title):
+    if not slug or not str(title or "").strip():
+        raise SystemExit("gift guide missing a slug or page title")
+    if any(s==slug for s,_ in GIFT_SUBPAGES):
+        raise SystemExit(f"gift guide registered twice: {slug}")
+    GIFT_SUBPAGES.append((slug, str(title).strip()))
 use_sid("home")
 page("index.html",fit([f"Perfume & Cologne Deals Today: Up to {max(d['pct_off'] for d in deals)}% Off | {NAME}",f"Fragrance Deals Today: Up to {max(d['pct_off'] for d in deals)}% Off | {NAME}"]),
  f"{len(deals)} verified deals on authentic designer perfume & cologne from ${min(d['price'] for d in deals):.2f}, up to {max(d['pct_off'] for d in deals)}% off at authorized retailers. Checked {upd:%b %-d}, plus the best dupes.",
  f"<h1>Today's best designer fragrance deals</h1><p class='sub'>{len(deals)} live deals on authentic bottles · last checked {upd_h} · sorted by % off</p>"
  +BREVO_FORM
  +f"<div class='grid'>{''.join(card(d,i<2) for i,d in enumerate(deals))}</div><p class='chips'><a href='{PREFIX}/gifts/'>Holiday fragrance gifts</a>"
- +"".join(f"<a href='{PREFIX}/gifts/{slug}/'>{e(label)}</a>" for slug,label in SEO_GIFTS)+"</p>"+bestchips()
+ +"".join(f"<a href='{PREFIX}/gifts/{slug}/'>{e(label)}</a>" for slug,label in SEO_GIFTS)+"</p>"+GIFT_HOME_MARK+bestchips()
  +"<section class='box'><h2 style='margin-top:0'>Why trust these deals?</h2><p>We only list authorized or long-established retailers (no anonymous marketplace sellers), re-check every price and stock status daily, and drop expired deals automatically. Want the smell for less? See our <a href='"+PREFIX+"/dupes/'>dupes directory</a>.</p></section>",
  [itemlist(deals,"Today's designer fragrance deals"),{"@context":"https://schema.org","@type":"WebSite","name":NAME,"url":BASE+PREFIX+"/"}])
 # confirmation page for the Brevo double opt-in email; not for search
@@ -844,11 +859,17 @@ for path,sid_slug,title,short,intro,picks,list_name,image in gift_pages:
         ld=None
         titles=fit([f"{title} ({upd:%b %Y}) | {NAME}", f"{title} | {NAME}", title])
     hub_extra=""
+    top_mark=""
+    bot_mark=""
     if path=="gifts/index.html":
         hub_extra=f"<p>For the long weekend, <a href='{PREFIX}{BF_PATH}'>Black Friday and Cyber Monday fragrance deals</a> rebuilds from the same daily price check.</p>"
+        top_mark=GIFT_HUB_MARK
+    else:
+        register_gift_subpage(sid_slug, title)
+        bot_mark=GIFT_MORE_MARK
     page(path, titles,
       desc,
-      f"<h1>{e(title)}</h1><p class='sub'>{e(intro)} Checked {upd_h}.</p>{gift_nav()}{hub_extra}{GIFT_DISC}{listing}<p class='meta'>Each name links to that bottle's price comparison. We do not list testers, decants, or Amazon.</p>",
+      f"<h1>{e(title)}</h1><p class='sub'>{e(intro)} Checked {upd_h}.</p>{gift_nav()}{hub_extra}{top_mark}{GIFT_DISC}{listing}{bot_mark}<p class='meta'>Each name links to that bottle's price comparison. We do not list testers, decants, or Amazon.</p>",
       ld, image=image, feed=bool(picks))
     extra=short.lower()
     KW+=[title.lower(), extra if "fragrance" in extra else f"fragrance {extra}"]
@@ -877,6 +898,7 @@ def seo_meta_filled(n_label, picks, tail="Sealed bottles only."):
     ],160)
 def render_seo_gift(slug_s, h1, intro, picks, faqs, empty_html, empty_desc, filled_label, notes=None, extra_html="", extra="", group_by_brand=False, image=None, tail="Sealed bottles only."):
     use_sid("gifts", slug_s)
+    register_gift_subpage(slug_s, h1)
     title=seo_title(h1, picks)
     desc=seo_meta_filled(filled_label, picks, tail) if picks else empty_desc
     if picks:
@@ -885,7 +907,7 @@ def render_seo_gift(slug_s, h1, intro, picks, faqs, empty_html, empty_desc, fill
         listing=empty_html
     ld=([itemlist(picks, h1)] if picks else [])+[faqld(faqs)]
     page(f"gifts/{slug_s}/index.html", title, desc,
-      f"<h1>{e(h1)}</h1><p class='sub'>{e(intro)} Checked {upd_h}.</p>{gift_nav()}{GIFT_DISC}{extra}{listing}{faqhtml(faqs)}{extra_html}{BREVO_FORM}<p class='meta'>Prices are the ones we checked. A name links to a price comparison only when that same size already has a deal page. We do not invent a price, and we do not list testers, decants, or Amazon.</p>",
+      f"<h1>{e(h1)}</h1><p class='sub'>{e(intro)} Checked {upd_h}.</p>{gift_nav()}{GIFT_DISC}{extra}{listing}{faqhtml(faqs)}{extra_html}{BREVO_FORM}{GIFT_MORE_MARK}<p class='meta'>Prices are the ones we checked. A name links to a price comparison only when that same size already has a deal page. We do not invent a price, and we do not list testers, decants, or Amazon.</p>",
       ld, image=image, feed=bool(picks))
     KW.append(h1.lower())
 her_under_50=by_price([d for d in eligible if d["gender"]=="women" and d["price"]<50])
@@ -1056,6 +1078,76 @@ for spec in GIFT_GUIDES:
         extra="<p class='chips'>"+"".join(f"<a href='{PREFIX}{l['href']}'>{e(l['label'])}</a>" for l in spec["links"])+"</p>"
     render_seo_gift(spec["slug"], h1, intro, picks, faqs,
         check_back_note(spec["empty"]), spec["empty_desc"], spec["filled_label"], notes=notes, extra_html=extra)
+def gift_guide_section(heading, pairs, extra=()):
+    """Labeled chip block. Anchor text is the guide's page title (its h1)."""
+    links="".join(f"<a href='{PREFIX}/gifts/{slug}/'>{e(title)}</a>" for slug, title in pairs)
+    links+="".join(f"<a href='{href}'>{e(label)}</a>" for href, label in extra)
+    return f"<section class='box'><h2 style='margin-top:0'>{e(heading)}</h2><div class='chips'>{links}</div></section>"
+def _page_h1(rel):
+    text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+    m=re.search(r"<h1>(.*?)</h1>", text, re.S)
+    if not m: raise SystemExit(f"{rel}: no h1")
+    return html.unescape(re.sub(r"<[^>]+>", "", m.group(1))).strip()
+def _splice_mark(rel, mark, html_block):
+    fp=f"{OUT}/{rel}"
+    text=open(fp, encoding="utf-8").read()
+    n=text.count(mark)
+    if n!=1: raise SystemExit(f"{rel}: expected one {mark}, found {n}")
+    open(fp,"w", encoding="utf-8").write(text.replace(mark, html_block, 1))
+def _section_anchors(rel, heading):
+    text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+    m=re.search(rf"<section class='box'><h2 style='margin-top:0'>{re.escape(e(heading))}</h2><div class='chips'>(.*?)</div></section>", text, re.S)
+    if not m: raise SystemExit(f"{rel}: missing {heading} section")
+    return [(html.unescape(href), html.unescape(label)) for href, label in re.findall(r"<a href='([^']*)'>(.*?)</a>", m.group(1), re.S)]
+def apply_gift_guide_links():
+    """Write hub, homepage, and sibling links from the guides this build just created."""
+    root=f"{BASE}{PREFIX}/gifts/"
+    sitemap_slugs=[]
+    for u in PAGES:
+        if u==root or not u.startswith(root): continue
+        slug=u[len(root):].strip("/")
+        if slug: sitemap_slugs.append(slug)
+    registered=[slug for slug,_ in GIFT_SUBPAGES]
+    if registered!=sitemap_slugs:
+        raise SystemExit("gift guide links drifted from the sitemap: registered "+repr(registered)+" sitemap "+repr(sitemap_slugs))
+    for slug, title in GIFT_SUBPAGES:
+        h1=_page_h1(f"gifts/{slug}/index.html")
+        if h1!=title:
+            raise SystemExit(f"gift guide {slug}: link title {title!r} is not the page h1 {h1!r}")
+    by_slug=dict(GIFT_SUBPAGES)
+    home_pairs=[(slug, by_slug[slug]) for slug in HOME_GIFT_SLUGS if slug in by_slug]
+    if len(home_pairs)<4:
+        raise SystemExit("homepage holiday gift guides: fewer than 4 guides were generated")
+    hub_html=gift_guide_section("Gift guides", GIFT_SUBPAGES)
+    home_html=gift_guide_section("Holiday gift guides", home_pairs, extra=((f"{PREFIX}/gifts/", "All holiday gift guides"),))
+    _splice_mark("gifts/index.html", GIFT_HUB_MARK, hub_html)
+    _splice_mark("index.html", GIFT_HOME_MARK, home_html)
+    for slug, title in GIFT_SUBPAGES:
+        others=[(s, t) for s, t in GIFT_SUBPAGES if s!=slug]
+        _splice_mark(f"gifts/{slug}/index.html", GIFT_MORE_MARK, gift_guide_section("More gift guides", others))
+    for dirpath, _, files in os.walk(OUT):
+        for fn in files:
+            if not fn.endswith(".html"): continue
+            path=os.path.join(dirpath, fn)
+            text=open(path, encoding="utf-8").read()
+            for mark in (GIFT_HUB_MARK, GIFT_HOME_MARK, GIFT_MORE_MARK):
+                if mark in text:
+                    raise SystemExit(f"{os.path.relpath(path, OUT)}: still contains {mark}")
+    hub_links=_section_anchors("gifts/index.html", "Gift guides")
+    expect=[(f"{PREFIX}/gifts/{slug}/", title) for slug, title in GIFT_SUBPAGES]
+    if hub_links!=expect:
+        raise SystemExit("hub Gift guides section does not list every gift page by its title")
+    home_links=_section_anchors("index.html", "Holiday gift guides")
+    home_expect=[(f"{PREFIX}/gifts/{slug}/", title) for slug, title in home_pairs]+[(f"{PREFIX}/gifts/", "All holiday gift guides")]
+    if home_links!=home_expect:
+        raise SystemExit("homepage Holiday gift guides section is missing a guide or the /gifts/ link")
+    for slug, title in GIFT_SUBPAGES:
+        more=_section_anchors(f"gifts/{slug}/index.html", "More gift guides")
+        more_expect=[(f"{PREFIX}/gifts/{s}/", t) for s, t in GIFT_SUBPAGES if s!=slug]
+        if more!=more_expect:
+            raise SystemExit(f"{slug}: More gift guides does not link the other gift pages")
+    print(f"gift guide links: {len(GIFT_SUBPAGES)} subpages listed on /gifts/ by page title; homepage links {len(home_pairs)} plus /gifts/")
+apply_gift_guide_links()
 # ---------- Black Friday & Cyber Monday (/black-friday-fragrance-deals/) ----------
 # Generated from deals.json on every build, including the daily refresh, so the
 # rows and the last-updated line move with the price check. No prices are invented.
