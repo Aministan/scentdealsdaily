@@ -650,6 +650,17 @@
    "intro": "Two sweet, crowd-pleasing eaux de toilette for men, both on sale today. Jean Paul Gaultier Le Beau is a coconut and tonka scent. Versace Eros (2012) pairs mint and green apple with vanilla. Le Beau comes in a bigger 4.2 oz bottle, so check the per-ounce row.",
    "difference": "Le Beau opens on bergamot, builds a creamy coconut heart and settles on tonka bean, so it reads tropical and smooth. Eros opens with mint, green apple and lemon, adds tonka bean and ambroxan, and dries down to vanilla, cedar and vetiver, which makes it fresher at the start and louder overall.",
    "pick": "Pick Le Beau for a smoother coconut scent and the bigger bottle; pick Eros for the minty-sweet classic at a lower sticker price."
+  },
+  {
+   "slug": "most-wanted-vs-stronger-with-you",
+   "title": "Most Wanted vs SWY Intensely",
+   "a": "the-most-wanted-parfum-cologne",
+   "b": "stronger-with-you-intensely-cologne-for-men",
+   "a_notes": "Ginger; woody notes; bourbon vanilla",
+   "b_notes": "Pink pepper, juniper, violet; toffee, cinnamon, lavender, sage; vanilla, amber, tonka bean, suede",
+   "intro": "Two warm evening colognes in the same 1.7 oz size. Azzaro The Most Wanted Parfum is a three-note parfum of ginger, woods and bourbon vanilla. Emporio Armani Stronger With You Intensely is an eau de parfum built on toffee, cinnamon and vanilla. Both are discounted today, so the sticker and the concentration are a straight comparison.",
+   "difference": "The Most Wanted Parfum stays on ginger, woody notes and bourbon vanilla, at parfum concentration, so it is dense from the first spray. Stronger With You Intensely opens with pink pepper, juniper and violet, moves through toffee, cinnamon, lavender and sage, and dries down to vanilla, amber, tonka bean and suede, so it is sweeter and has more notes in play.",
+   "pick": "Pick The Most Wanted Parfum for the denser ginger-and-vanilla scent at the lower price; pick Stronger With You Intensely if you want toffee and cinnamon and will pay more for the same size."
   }
  ],
  "roundups": [
@@ -871,7 +882,7 @@
    "who": "men's",
    "scope": "on sale",
    "rule": "the bottle must be an eau de parfum or parfum, the higher-concentration versions that usually outlast an eau de toilette",
-   "lead": "Men's eaux de parfum and parfums, the stronger concentrations that tend to last through a full day or a long night out, all authentic and discounted at authorized retailers today. Each pick lists its key notes, from fresh neroli to toffee and vanilla.",
+   "lead": "Men's eaux de parfum and parfums, the stronger concentrations that tend to last through a full day or a long night out, all authentic and discounted at authorized retailers today. Each pick lists its key notes, from fresh neroli to toffee and vanilla. Azzaro Wanted by Night is an eau de parfum on sale today and is left off: the retailer's description names the original Wanted notes, not this bottle.",
    "items": [
     {
      "id": "bvlgari-man-wood-neroli-cologne-eau-de-parfum",
@@ -896,10 +907,6 @@
     {
      "id": "uomo-intense-by-valentino-for-men-eau-de-parfum-spray",
      "notes": "Vanilla aromatic: vanilla, lavender, vetiver"
-    },
-    {
-     "id": "azzaro-wanted-by-night-cologne-eau-de-parfum-for-men",
-     "notes": "Aromatic spicy: lemon, ginger, cardamom, tonka bean, amberwood, vetiver"
     }
    ],
    "faq": [
@@ -1083,6 +1090,43 @@
      "Calvin Klein Eternity and Burberry London are long-running classics that are easy to wear. Eternity Air and Peace Love & Juicy Couture are lighter and fruitier. Burberry London is the only 1.0 oz bottle here, so check the per-ounce column."
     ]
    ]
+  },
+  {
+   "slug": "warm-spicy-cologne-deals",
+   "title": "Best Warm & Spicy Cologne Deals",
+   "noun": "warm spicy cologne",
+   "who": "men's",
+   "scope": "on sale",
+   "rule": "cinnamon, cardamom, black pepper, or ginger must be a named note, and the bottle is not filed as a fresh citrus that only mentions spice in passing",
+   "lead": "Evening colognes whose published notes name cinnamon, cardamom, black pepper, or ginger, all authentic and discounted at authorized retailers today. Vanilla-only bottles stay on the vanilla roundup. A bottle whose listing copy conflicts, or names no spice, is left off.",
+   "items": [
+    {
+     "id": "hugo-boss-in-motion-mens-eau-de-toilette-spray",
+     "notes": "Spicy woody: orange, cardamom, cinnamon, sandalwood, vetiver"
+    },
+    {
+     "id": "versace-eros-flame-eau-de-parfum-for-men",
+     "notes": "Spicy sweet: lemon, black pepper, rose, tonka bean, vanilla"
+    },
+    {
+     "id": "the-most-wanted-parfum-cologne",
+     "notes": "Spiced vanilla: ginger, woods, bourbon vanilla"
+    },
+    {
+     "id": "stronger-with-you-intensely-cologne-for-men",
+     "notes": "Toffee & spice: toffee, cinnamon, lavender, vanilla, tonka"
+    }
+   ],
+   "faq": [
+    [
+     "What counts as warm and spicy here?",
+     "The retailer's notes have to name cinnamon, cardamom, black pepper, or ginger. A fresh citrus that only lists pink pepper beside grapefruit stays on the fresh cologne page. A vanilla with no spice stays on the vanilla page."
+    ],
+    [
+     "Which of these is the easiest everyday wear?",
+     "Boss In Motion is the eau de toilette, with orange up top and spice in the heart, so it is the lighter of the four. Eros Flame, The Most Wanted Parfum, and Stronger With You Intensely are the denser evening bottles."
+    ]
+   ]
   }
  ],
  "gift_guides": [
@@ -1223,6 +1267,95 @@
     {"href": "/gifts/for-her/", "label": "Fragrance gifts for her"},
     {"href": "/gifts/gift-sets/", "label": "Fragrance gift sets"},
     {"href": "/gifts/holiday-gift-sets/", "label": "Holiday fragrance gift sets"}
+   ]
+  },
+  {
+   "slug": "secret-santa-fragrances-under-30",
+   "title": "Secret Santa fragrances under $30",
+   "chip": "Secret Santa under $30",
+   "max_price": 30,
+   "exclude_mini": true,
+   "filled_label": "Secret Santa fragrances under $30",
+   "intro": "A gift-exchange list for Secret Santa and office swaps: men's, women's, and unisex bottles together, lowest checked price first. The cap is under $30, which is the usual exchange limit and a step above the $25 stocking page. We do not call any of these a Secret Santa scent. The listings do not say that. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes. Azzaro Cologne and Burberry Touch are on this price list with no note line, because their listing copy conflicts with the usual pyramid.",
+   "empty": "No regular bottle we checked today is under $30, so this page has no list. These guides have bottles we priced.",
+   "empty_desc": "Secret Santa fragrances under $30: no regular bottle we checked today is under $30. Other gift guides list bottles we did price.",
+   "faq": [
+    [
+     "How is this different from stocking stuffers under $25?",
+     "The stocking page stops under $25. This page keeps those bottles and adds the ones from $25 up to, but not including, $30. A bottle that reaches $30 drops off on the next rebuild."
+    ],
+    [
+     "Are minis included?",
+     "No. This page is regular bottles under $30. Minis and travel sprays stay on the minis guide."
+    ]
+   ],
+   "links": [
+    {"href": "/gifts/stocking-stuffer-fragrances/", "label": "Stocking stuffers under $25"},
+    {"href": "/best/fragrance-deals-under-30/", "label": "Fragrance deals under $30"},
+    {"href": "/best/cologne-deals-under-30/", "label": "Cologne deals under $30"},
+    {"href": "/best/perfume-deals-under-30/", "label": "Perfume deals under $30"},
+    {"href": "/gifts/fragrance-gifts-for-teens/", "label": "Fragrance gifts for teens under $40"},
+    {"href": "/gifts/under-50/", "label": "Fragrance gifts under $50"}
+   ]
+  },
+  {
+   "slug": "christmas-perfume-gifts-for-mom",
+   "title": "Christmas perfume gifts for mom",
+   "chip": "Gifts for mom",
+   "gender": "women",
+   "min_price": 50,
+   "filled_label": "Christmas perfume gifts for mom",
+   "intro": "Women's perfumes at $50 and up, for someone buying a Christmas gift for their mom or wife. Lowest checked price first. Bottles under $50 stay on the under-$50 and under-$40 perfume gift guides, so this page does not repeat that budget list. We do not call a scent a mom perfume. None of these listings do. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes.",
+   "empty": "No women's perfume we checked today is $50 or more, so this page has no list. These guides have bottles we priced.",
+   "empty_desc": "Christmas perfume gifts for mom: no women's perfume we checked today is $50 or more. The under-$50 guide lists bottles we did price.",
+   "faq": [
+    [
+     "Does this include a gift for a wife?",
+     "Yes. The list is every women's perfume we checked at $50 or more. It is a recipient budget, not a claim that the brand made the scent for moms or for wives."
+    ],
+    [
+     "Why isn't a $30 perfume on this page?",
+     "Bottles under $50 are on the perfume gifts for her under $40 and under $50. This page starts at $50 so the two lists do not share a bottle."
+    ]
+   ],
+   "links": [
+    {"href": "/gifts/perfume-gifts-for-her-under-50/", "label": "Perfume gifts for her under $50"},
+    {"href": "/gifts/perfume-gifts-for-her-under-40/", "label": "Perfume gifts for her under $40"},
+    {"href": "/best/floral-perfume-deals/", "label": "Floral perfume deals"},
+    {"href": "/best/vanilla-sweet-fragrance-deals/", "label": "Vanilla and sweet fragrance deals"},
+    {"href": "/gifts/for-her/", "label": "All fragrance gifts for her"},
+    {"href": "/gifts/luxury-fragrance-gifts/", "label": "Luxury fragrance gifts"},
+    {"href": "/women/", "label": "All women's deals"}
+   ]
+  },
+  {
+   "slug": "cologne-gifts-for-dad",
+   "title": "Cologne gifts for dad",
+   "chip": "Gifts for dad",
+   "gender": "men",
+   "min_price": 50,
+   "filled_label": "cologne gifts for dad",
+   "intro": "Men's colognes at $50 and up, for someone buying a Christmas gift for their dad or husband. Lowest checked price first. Bottles under $50 stay on the cologne gifts for him under $50, so this page does not repeat that list. We do not call a scent a dad cologne. None of these listings do. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes. Wanted by Night, Burberry Hero, and Bottled No. 6 can appear here on price alone, with no note line, because the retailer copy conflicts or names no notes.",
+   "empty": "No men's cologne we checked today is $50 or more, so this page has no list. These guides have bottles we priced.",
+   "empty_desc": "Cologne gifts for dad: no men's cologne we checked today is $50 or more. The under-$50 guide lists bottles we did price.",
+   "faq": [
+    [
+     "Does this include a gift for a husband?",
+     "Yes. The list is every men's cologne we checked at $50 or more. It is a recipient budget, not a claim that the brand made the scent for dads or for husbands."
+    ],
+    [
+     "Why is the floor $50?",
+     "Cologne gifts for him under $50 already holds the cheaper bottles. A checked price under $50 stays there. If a bottle here falls under $50, the next rebuild moves it off this page."
+    ]
+   ],
+   "links": [
+    {"href": "/gifts/cologne-gifts-for-him-under-50/", "label": "Cologne gifts for him under $50"},
+    {"href": "/best/warm-spicy-cologne-deals/", "label": "Warm and spicy cologne deals"},
+    {"href": "/best/woody-amber-cologne-deals/", "label": "Woody and amber cologne deals"},
+    {"href": "/best/fresh-citrus-cologne-deals/", "label": "Fresh and citrus cologne deals"},
+    {"href": "/gifts/for-him/", "label": "All fragrance gifts for him"},
+    {"href": "/gifts/luxury-fragrance-gifts/", "label": "Luxury fragrance gifts"},
+    {"href": "/men/", "label": "All men's deals"}
    ]
   }
  ],
