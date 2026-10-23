@@ -190,6 +190,53 @@ BREVO_JS="""<script>
 <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>"""
 NL_FOOT=f'<p class="nl-foot"><a href="{BREVO_URL}">Weekly fragrance deals</a>, every Friday.</p>'
 TITLES=set()
+# Sitewide share image. Same 1000x1500 navy/gold pin format as site/media/pins/.
+DEFAULT_SHARE="/media/og-default.png"
+_PIN_INDEX=None
+def pin_index():
+    """Pin stems preserved in the media copy. site/ is wiped before pages render."""
+    global _PIN_INDEX
+    if _PIN_INDEX is not None: return _PIN_INDEX
+    found={}
+    root=f"{_media_tmp}/media/pins" if _media_tmp else ""
+    if root and os.path.isdir(root):
+        for fn in os.listdir(root):
+            if fn.lower().endswith(".png"):
+                found[os.path.splitext(fn)[0]]=f"/media/pins/{fn}"
+    _PIN_INDEX=found
+    return found
+def page_slug(path):
+    rel=path
+    if rel.endswith("/index.html"): rel=rel[:-len("/index.html")]
+    elif rel.endswith("index.html"): rel=rel[:-len("index.html")]
+    rel=rel.strip("/")
+    return rel.split("/")[-1] if rel else ""
+def pin_for_page(path):
+    """Existing /media/pins/ image whose name matches this page, or None."""
+    pins=pin_index()
+    slug=page_slug(path)
+    if not slug: return None
+    if slug in pins: return pins[slug]
+    # A more specific page keeps the pin it extends (perfume-gifts-for-her-under-50).
+    prefix=[stem for stem in pins if slug.startswith(stem+"-")]
+    if prefix: return pins[max(prefix, key=len)]
+    if not path.startswith("gifts/"): return None
+    contained=[stem for stem in pins if len(stem)>=12 and stem in slug]
+    # cologne-gifts-for-dad / boyfriend share the "for him" pin; mom / girlfriend share "for her".
+    if slug.startswith("cologne-gifts-for-") and "cologne-gifts-for-him" in pins:
+        contained.append("cologne-gifts-for-him")
+    if "perfume-gifts-for-" in slug and "perfume-gifts-for-her" in pins:
+        contained.append("perfume-gifts-for-her")
+    if "gift-set" in slug:
+        contained.extend(stem for stem in pins if "gift-set" in stem)
+    if not contained: return None
+    return pins[max(set(contained), key=len)]
+def share_image(path, image):
+    """Absolute og:image. Caller's image, else a matching pin, else the site default."""
+    chosen=image or pin_for_page(path) or DEFAULT_SHARE
+    if chosen.startswith(("http://","https://")): return chosen
+    if not chosen.startswith("/"): chosen="/"+chosen
+    return f"{BASE}{PREFIX}{chosen}"
 def page(path,title,desc,body,jsonld=None,index=True,image=None,feed=True):
     if title in TITLES: title=f"{title} ({path.split('/')[0].title()})"
     TITLES.add(title); desc=clip(desc)
@@ -200,12 +247,13 @@ def page(path,title,desc,body,jsonld=None,index=True,image=None,feed=True):
     brevo_head=BREVO_HEAD if has_form else ""
     brevo_js=BREVO_JS if has_form else ""
     robots="" if index else '<meta name="robots" content="noindex">'
-    if image:
-        img=image if image.startswith("http") else f"{BASE}{PREFIX}{image}"
-        social=(f'<meta property="og:image" content="{e(img)}"><meta property="og:image:width" content="1000"><meta property="og:image:height" content="1500">'
-                f'<meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="{e(img)}">')
-    else:
-        social='<meta name="twitter:card" content="summary">'
+    img=share_image(path, image)
+    social=(f'<meta property="og:type" content="website"><meta property="og:site_name" content="{e(NAME)}">'
+             f'<meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}">'
+             f'<meta property="og:url" content="{url}">'
+             f'<meta property="og:image" content="{e(img)}"><meta property="og:image:width" content="1000"><meta property="og:image:height" content="1500">'
+             f'<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{e(title)}">'
+             f'<meta name="twitter:description" content="{e(desc)}"><meta name="twitter:image" content="{e(img)}">')
     doc=f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="google-site-verification" content="GASeKy1uEWpsrSn1II701znBYlw6mBhAwvimW0Yi8Io" />
 <meta name="google-site-verification" content="AnNdRzKxRNra8nkj3gri7zC9kJYJ-aZehksWkrfImx4" />
@@ -213,7 +261,6 @@ def page(path,title,desc,body,jsonld=None,index=True,image=None,feed=True):
 <meta name="p:domain_verify" content="7833fa67293af531c9de288142c68c3c"/>
 {robots}<title>{e(title)}</title><meta name="description" content="{e(desc)}"><link rel="canonical" href="{url}">
 <link rel="alternate" type="application/rss+xml" title="ScentDealsDaily" href="{FEED_HREF}">
-<meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{url}"><meta property="og:type" content="website">
 {social}<link rel="preconnect" href="https://cdn.shopify.com"><style>{CSS}</style>{brevo_head}{ld}</head><body>
 <header><a class="logo" href="{p}/">Scent<span>Deals</span>Daily</a><nav><a href="{p}/">Today's deals</a><a href="{p}/dupes/">Dupes</a><a href="{p}/men/">Men</a><a href="{p}/women/">Women</a><a href="{p}/brands/">Brands</a><a href="{p}/sponsor/">Sponsor</a></nav></header>
 <main>{body}</main><footer>{NL_FOOT}<p>We may earn a commission when you buy through our links, at no extra cost to you. Affiliate links go to Perfumania and FragranceShop.</p>
@@ -1496,5 +1543,74 @@ def audit_cards_links_jsonld():
     print(f"product-card image check: {cards} cards, all have an image; {jsonld_blocks} JSON-LD blocks parsed; {len(broken)} broken internal links")
     for rel, n, photos, ph in sorted(gift_rows):
         print(f"  /{os.path.dirname(rel) or 'gifts'}/: {n} cards, {photos} retailer photos, {ph} placeholders")
+def audit_share_meta():
+    """Every HTML page has one absolute og:image on this host, and og:url equals the canonical."""
+    bad=[]
+    specific=[]
+    defaulted=[]
+    htmls=0
+    prop_re=re.compile(r'<meta\s+property="([^"]+)"\s+content="([^"]*)"', re.I)
+    name_re=re.compile(r'<meta\s+name="([^"]+)"\s+content="([^"]*)"', re.I)
+    canon_re=re.compile(r'<link\s+rel="canonical"\s+href="([^"]*)"', re.I)
+    title_re=re.compile(r"<title>(.*?)</title>", re.S)
+    host=(urllib.parse.urlsplit(BASE).hostname or "").lower()
+    for dirpath, _, files in os.walk(OUT):
+        for fn in files:
+            if not fn.endswith(".html"): continue
+            htmls+=1
+            path=os.path.join(dirpath, fn)
+            rel=os.path.relpath(path, OUT).replace(os.sep, "/")
+            text=open(path, encoding="utf-8").read()
+            head=text.split("</head>",1)[0]
+            props={}; names={}
+            for k,v in prop_re.findall(head): props.setdefault(k, []).append(html.unescape(v))
+            for k,v in name_re.findall(head): names.setdefault(k, []).append(html.unescape(v))
+            def one(bag, key):
+                vals=bag.get(key) or []
+                if len(vals)!=1:
+                    bad.append(f"{rel}: expected one {key}, found {len(vals)}")
+                    return None
+                return vals[0]
+            og_type,og_site=one(props,"og:type"),one(props,"og:site_name")
+            og_title,og_desc=one(props,"og:title"),one(props,"og:description")
+            og_url,og_img=one(props,"og:url"),one(props,"og:image")
+            tw_card,tw_title=one(names,"twitter:card"),one(names,"twitter:title")
+            tw_desc,tw_img=one(names,"twitter:description"),one(names,"twitter:image")
+            canon_m=canon_re.search(head)
+            canon=html.unescape(canon_m.group(1)) if canon_m else ""
+            title_m=title_re.search(head)
+            title=html.unescape(title_m.group(1)) if title_m else ""
+            desc_vals=names.get("description") or []
+            desc=desc_vals[0] if desc_vals else ""
+            if not canon: bad.append(f"{rel}: missing canonical")
+            if og_url and canon and og_url!=canon: bad.append(f"{rel}: og:url {og_url} != canonical {canon}")
+            if og_type and og_type!="website": bad.append(f"{rel}: og:type {og_type}")
+            if og_site and og_site!=NAME: bad.append(f"{rel}: og:site_name {og_site}")
+            if og_title is not None and title and og_title!=title: bad.append(f"{rel}: og:title does not match <title>")
+            if og_desc is not None and desc and og_desc!=desc: bad.append(f"{rel}: og:description does not match meta description")
+            if tw_card and tw_card!="summary_large_image": bad.append(f"{rel}: twitter:card {tw_card}")
+            if tw_title and og_title and tw_title!=og_title: bad.append(f"{rel}: twitter:title does not match og:title")
+            if tw_desc and og_desc and tw_desc!=og_desc: bad.append(f"{rel}: twitter:description does not match og:description")
+            if tw_img and og_img and tw_img!=og_img: bad.append(f"{rel}: twitter:image does not match og:image")
+            if not og_img: continue
+            parsed=urllib.parse.urlparse(og_img)
+            if parsed.scheme!="https" or (parsed.hostname or "").lower()!=host:
+                bad.append(f"{rel}: og:image is not an absolute https://{host} URL ({og_img})")
+            elif not _local_file(parsed.path):
+                bad.append(f"{rel}: og:image file missing ({parsed.path})")
+            else:
+                page_path=urllib.parse.urlparse(canon).path if canon else "/"+rel
+                if parsed.path==DEFAULT_SHARE:
+                    defaulted.append(page_path)
+                else:
+                    specific.append((page_path, parsed.path))
+    if bad:
+        print("share metadata check failed:")
+        for line in bad[:40]: print(" ", line)
+        raise SystemExit(f"share metadata check failed ({len(bad)} problems)")
+    print(f"share metadata: {htmls} pages, {len(specific)} page-specific images, {len(defaulted)} default images")
+    for url, img in sorted(specific):
+        print(f"  specific {url} -> {img}")
 audit_affiliate_output()
 audit_cards_links_jsonld()
+audit_share_meta()
