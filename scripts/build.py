@@ -390,6 +390,18 @@ def guide_rows(spec):
     if isinstance(floor,(int,float)) and not isinstance(floor,bool):
         rows=[d for d in rows if isinstance(d.get("was"),(int,float)) and not isinstance(d.get("was"),bool) and d["was"]>=floor]
     if spec.get("exclude_mini"): rows=[d for d in rows if not early_mini(d)]
+    wanted=spec.get("roundups")
+    if wanted:
+        # Only bottles already on a notes roundup. A note line exists for each of those ids.
+        known={r["slug"]: r for r in CFG.get("roundups", [])}
+        missing=[s for s in wanted if s not in known]
+        if missing:
+            raise SystemExit("gift guide unknown roundup: "+", ".join(missing))
+        ids=set()
+        for s in wanted:
+            for it in known[s].get("items") or []:
+                if it.get("id") and it.get("notes"): ids.add(it["id"])
+        rows=[d for d in rows if d.get("id") in ids]
     rows.sort(key=lambda d:(d["price"], -(d.get("pct_off") or 0), d["id"]))
     return rows
 GIFT_GUIDES=[dict(spec, picks=guide_rows(spec)) for spec in CFG.get("gift_guides",[])]

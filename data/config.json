@@ -1156,6 +1156,7 @@
     {"href": "/best/woody-amber-cologne-deals/", "label": "Woody and amber cologne deals"},
     {"href": "/gifts/for-him/", "label": "All fragrance gifts for him"},
     {"href": "/gifts/best-mens-cologne-under-40/", "label": "Best men's cologne under $40"},
+    {"href": "/gifts/cologne-gifts-for-boyfriend/", "label": "Cologne gifts for boyfriend"},
     {"href": "/men/", "label": "All men's deals"}
    ]
   },
@@ -1185,6 +1186,7 @@
     {"href": "/best/floral-perfume-deals/", "label": "Floral perfume deals"},
     {"href": "/best/fresh-perfume-deals-under-50/", "label": "Fresh perfume deals under $50"},
     {"href": "/gifts/for-her/", "label": "All fragrance gifts for her"},
+    {"href": "/gifts/perfume-gifts-for-girlfriend/", "label": "Perfume gifts for girlfriend"},
     {"href": "/women/", "label": "All women's deals"}
    ]
   },
@@ -1325,6 +1327,7 @@
     {"href": "/best/vanilla-sweet-fragrance-deals/", "label": "Vanilla and sweet fragrance deals"},
     {"href": "/gifts/for-her/", "label": "All fragrance gifts for her"},
     {"href": "/gifts/luxury-fragrance-gifts/", "label": "Luxury fragrance gifts"},
+    {"href": "/gifts/perfume-gifts-for-girlfriend/", "label": "Perfume gifts for girlfriend"},
     {"href": "/women/", "label": "All women's deals"}
    ]
   },
@@ -1355,7 +1358,71 @@
     {"href": "/best/fresh-citrus-cologne-deals/", "label": "Fresh and citrus cologne deals"},
     {"href": "/gifts/for-him/", "label": "All fragrance gifts for him"},
     {"href": "/gifts/luxury-fragrance-gifts/", "label": "Luxury fragrance gifts"},
+    {"href": "/gifts/cologne-gifts-for-boyfriend/", "label": "Cologne gifts for boyfriend"},
     {"href": "/men/", "label": "All men's deals"}
+   ]
+  },
+  {
+   "slug": "cologne-gifts-for-boyfriend",
+   "title": "Cologne gifts for boyfriend",
+   "chip": "Gifts for boyfriend",
+   "gender": "men",
+   "min_price": 30,
+   "max_price": 150,
+   "roundups": ["vanilla-sweet-fragrance-deals", "fresh-citrus-cologne-deals"],
+   "filled_label": "cologne gifts for a boyfriend",
+   "intro": "Men's colognes for someone buying a gift for a boyfriend, lowest checked price first. A bottle is listed only when it is already on the vanilla-and-sweet roundup or the fresh-and-citrus cologne roundup, which is where a retailer description names the notes. That is a different list from fragrance gifts for him, which keeps the 12 largest men's discounts and does not require a note line, and from cologne gifts for dad, which is every men's cologne at $50 and up. We do not call a scent a boyfriend cologne, and we do not rank bottles by the buyer's age. None of these listings do. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes.",
+   "empty": "No men's cologne on the sweet or fresh roundup is priced from $30 up to $150 in the deals we checked, so this page has no list. These guides have bottles we priced.",
+   "empty_desc": "Cologne gifts for boyfriend: no sweet or fresh men's cologne we checked is priced from $30 up to $150. Other gift guides list bottles we did price.",
+   "faq": [
+    [
+     "How is this different from fragrance gifts for him?",
+     "Fragrance gifts for him lists the 12 men's colognes with the largest checked discount. This page keeps a men's cologne only when it is on the vanilla-and-sweet roundup or the fresh-and-citrus cologne roundup and the checked price is $30 or more and under $150."
+    ],
+    [
+     "Do you call these boyfriend colognes?",
+     "No. None of these listings say that. The page is a gift list of men's colognes whose retailer notes are sweet or fresh. It is not a ranking of who wears them."
+    ]
+   ],
+   "links": [
+    {"href": "/gifts/for-him/", "label": "Fragrance gifts for him"},
+    {"href": "/gifts/cologne-gifts-for-him-under-50/", "label": "Cologne gifts for him under $50"},
+    {"href": "/gifts/cologne-gifts-for-dad/", "label": "Cologne gifts for dad"},
+    {"href": "/best/vanilla-sweet-fragrance-deals/", "label": "Vanilla and sweet fragrance deals"},
+    {"href": "/best/fresh-citrus-cologne-deals/", "label": "Fresh and citrus cologne deals"},
+    {"href": "/best/warm-spicy-cologne-deals/", "label": "Warm and spicy cologne deals"},
+    {"href": "/men/", "label": "All men's deals"}
+   ]
+  },
+  {
+   "slug": "perfume-gifts-for-girlfriend",
+   "title": "Perfume gifts for girlfriend",
+   "chip": "Gifts for girlfriend",
+   "gender": "women",
+   "max_price": 150,
+   "roundups": ["floral-perfume-deals", "vanilla-sweet-fragrance-deals"],
+   "filled_label": "perfume gifts for a girlfriend",
+   "intro": "Women's perfumes for someone buying a gift for a girlfriend, lowest checked price first. A bottle is listed only when it is already on the floral perfume roundup or the vanilla-and-sweet roundup, which is where a retailer description names the notes. That is a different list from fragrance gifts for her, which keeps the 12 largest women's discounts and does not require a note line, and from Christmas perfume gifts for mom, which is every women's perfume at $50 and up. We do not call a scent a girlfriend perfume, and we do not rank bottles by the buyer's age. None of these listings do. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes.",
+   "empty": "No women's perfume on the floral or vanilla roundup is under $150 in the deals we checked, so this page has no list. These guides have bottles we priced.",
+   "empty_desc": "Perfume gifts for girlfriend: no floral or vanilla women's perfume we checked is under $150. Other gift guides list bottles we did price.",
+   "faq": [
+    [
+     "How is this different from fragrance gifts for her?",
+     "Fragrance gifts for her lists the 12 women's perfumes with the largest checked discount. This page keeps a women's perfume only when it is on the floral perfume roundup or the vanilla-and-sweet roundup and the checked price is under $150."
+    ],
+    [
+     "Do you call these girlfriend perfumes?",
+     "No. None of these listings say that. The page is a gift list of women's perfumes whose retailer notes are floral or sweet. It is not a ranking of who wears them."
+    ]
+   ],
+   "links": [
+    {"href": "/gifts/for-her/", "label": "Fragrance gifts for her"},
+    {"href": "/gifts/perfume-gifts-for-her-under-50/", "label": "Perfume gifts for her under $50"},
+    {"href": "/gifts/perfume-gifts-for-her-under-40/", "label": "Perfume gifts for her under $40"},
+    {"href": "/gifts/christmas-perfume-gifts-for-mom/", "label": "Christmas perfume gifts for mom"},
+    {"href": "/best/floral-perfume-deals/", "label": "Floral perfume deals"},
+    {"href": "/best/vanilla-sweet-fragrance-deals/", "label": "Vanilla and sweet fragrance deals"},
+    {"href": "/women/", "label": "All women's deals"}
    ]
   }
  ],
