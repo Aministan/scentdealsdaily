@@ -3,9 +3,10 @@
 
 Also writes site/404.html (branded, noindex). That file is not added to sitemap.xml,
 llms.txt, the feed, or IndexNow, which submits the sitemap.
-Every page except the homepage and 404 gets a visible breadcrumb trail and one
-BreadcrumbList JSON-LD block. A parent crumb is emitted only when that hub page
-was built (for example /gifts/); a section with no hub is skipped.
+Every page except the homepage, the 404, and a gift URL that canonicalizes to
+another guide gets a visible breadcrumb trail and one BreadcrumbList JSON-LD
+block. A parent crumb is emitted only when that hub page was built (for example
+/gifts/); a section with no hub is skipped.
 """
 import json, os, html, re, datetime, urllib.parse, shutil, tempfile
 import links
@@ -249,20 +250,24 @@ def share_image(path, image):
     if chosen.startswith(("http://","https://")): return chosen
     if not chosen.startswith("/"): chosen="/"+chosen
     return f"{BASE}{PREFIX}{chosen}"
-def page(path,title,desc,body,jsonld=None,index=True,image=None,feed=True):
+def page(path,title,desc,body,jsonld=None,index=True,image=None,feed=True,canonical=None,robots=None):
     if title in TITLES: title=f"{title} ({path.split('/')[0].title()})"
     TITLES.add(title); desc=clip(desc)
     url=f"{BASE}{PREFIX}/{path}".replace("/index.html","/")
+    canon_url=canonical or url
     ld="".join(f'<script type="application/ld+json">{json.dumps(j,ensure_ascii=False)}</script>' for j in (jsonld or []))
     p=PREFIX
     has_form='id="sib-form"' in body
     brevo_head=BREVO_HEAD if has_form else ""
     brevo_js=BREVO_JS if has_form else ""
-    robots="" if index else '<meta name="robots" content="noindex">'
+    if robots is None:
+        robots_tag="" if index else '<meta name="robots" content="noindex">'
+    else:
+        robots_tag=f'<meta name="robots" content="{e(robots)}">'
     img=share_image(path, image)
     social=(f'<meta property="og:type" content="website"><meta property="og:site_name" content="{e(NAME)}">'
              f'<meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}">'
-             f'<meta property="og:url" content="{url}">'
+             f'<meta property="og:url" content="{canon_url}">'
              f'<meta property="og:image" content="{e(img)}"><meta property="og:image:width" content="1000"><meta property="og:image:height" content="1500">'
              f'<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{e(title)}">'
              f'<meta name="twitter:description" content="{e(desc)}"><meta name="twitter:image" content="{e(img)}">')
@@ -271,7 +276,7 @@ def page(path,title,desc,body,jsonld=None,index=True,image=None,feed=True):
 <meta name="google-site-verification" content="AnNdRzKxRNra8nkj3gri7zC9kJYJ-aZehksWkrfImx4" />
 <meta name='impact-site-verification' value='6f939439-73de-427f-89fc-c18dc2f9f64d'>
 <meta name="p:domain_verify" content="7833fa67293af531c9de288142c68c3c"/>
-{robots}<title>{e(title)}</title><meta name="description" content="{e(desc)}"><link rel="canonical" href="{url}">
+{robots_tag}<title>{e(title)}</title><meta name="description" content="{e(desc)}"><link rel="canonical" href="{canon_url}">
 <link rel="alternate" type="application/rss+xml" title="ScentDealsDaily" href="{FEED_HREF}">
 {social}<link rel="preconnect" href="https://cdn.shopify.com"><style>{CSS}</style>{brevo_head}{ld}</head><body>
 <header><a class="logo" href="{p}/">Scent<span>Deals</span>Daily</a><nav><a href="{p}/">Today's deals</a><a href="{p}/dupes/">Dupes</a><a href="{p}/men/">Men</a><a href="{p}/women/">Women</a><a href="{p}/brands/">Brands</a><a href="{p}/sponsor/">Sponsor</a></nav></header>
@@ -547,7 +552,28 @@ def materialize_guide(raw):
     span=f"${min(prices):.2f}–${max(prices):.2f}" if prices else "none"
     print(f"gift guide {spec['slug']}: {len(picks)} picks, {span}, cap ${spec['max_price']:g}")
     return dict(spec, picks=picks)
-GIFT_GUIDES=[materialize_guide(spec) for spec in CFG.get("gift_guides",[])]
+def _split_gift_specs(specs):
+    """A guide with canonical_slug is an old URL. It is not a second indexable list."""
+    live=[]; aliases=[]
+    for spec in specs:
+        if spec.get("canonical_slug"): aliases.append(spec)
+        else: live.append(spec)
+    return live, aliases
+_LIVE_GUIDE_SPECS, GIFT_ALIASES=_split_gift_specs(CFG.get("gift_guides",[]))
+GIFT_GUIDES=[materialize_guide(spec) for spec in _LIVE_GUIDE_SPECS]
+_live_slugs={g["slug"] for g in GIFT_GUIDES}
+for _alias in GIFT_ALIASES:
+    _aslug=_alias.get("slug") or ""
+    _target=_alias.get("canonical_slug") or ""
+    if not _aslug or not _target or _aslug==_target:
+        raise SystemExit(f"gift alias needs a slug and a different canonical_slug: {_aslug or '(missing)'}")
+    if _target not in _live_slugs:
+        raise SystemExit(f"gift alias {_aslug}: canonical_slug {_target} is not a gift guide")
+    if _aslug in _live_slugs:
+        raise SystemExit(f"gift alias {_aslug} is also a live guide")
+# Relative paths of gift URLs that stay up but canonicalize to another guide.
+# They are not in the sitemap, and they do not own that canonical path.
+ALIAS_RELS=set()
 HUBS=[]
 for h in CFG.get("hubs",[]):
     ms=[x for x in D["dupes"] if any(m in x["original"] for m in h["match"])]
@@ -583,7 +609,7 @@ VS_PAGES=[]
 # (relative path, deal) for each /fragrance/ page this build wrote.
 FRAGRANCE_PAGES=[]
 # Compact homepage set. Titles come from GIFT_SUBPAGES, not from this tuple.
-HOME_GIFT_SLUGS=("for-him","for-her","under-50","perfume-gifts-for-her-under-50","best-mens-cologne-under-40","holiday-gift-sets","fragrance-gifts-for-teens","fragrance-gifts-for-coworkers-under-40","fragrance-gifts-for-college-students","fragrance-stocking-stuffers-under-25","perfume-gifts-for-wife","cologne-gifts-for-husband","perfume-gifts-for-grandma","cologne-gifts-for-grandpa","perfume-gifts-for-sister","cologne-gifts-for-brother")
+HOME_GIFT_SLUGS=("for-him","for-her","under-50","perfume-gifts-for-her-under-50","best-mens-cologne-under-40","holiday-gift-sets","fragrance-gifts-for-teens","fragrance-gifts-for-coworkers-under-40","fragrance-gifts-for-college-students","stocking-stuffer-fragrances","perfume-gifts-for-wife","cologne-gifts-for-husband","perfume-gifts-for-grandma","cologne-gifts-for-grandpa","perfume-gifts-for-sister","cologne-gifts-for-brother")
 def register_gift_subpage(slug, title):
     if not slug or not str(title or "").strip():
         raise SystemExit("gift guide missing a slug or page title")
@@ -1510,6 +1536,44 @@ for spec in GIFT_GUIDES:
         choose_html="<section class='box'><h2 style='margin-top:0'>How to choose</h2>"+"".join(f"<p>{e(p)}</p>" for p in choose if isinstance(p, str) and p.strip())+"</section>"
     render_seo_gift(spec["slug"], h1, intro, picks, faqs,
         check_back_note(spec["empty"]), spec["empty_desc"], spec["filled_label"], notes=notes, extra_html=extra, extra=choose_html)
+def write_gift_aliases():
+    """Keep an old gift URL, but send search and readers to the guide that replaced it.
+
+    The file stays so an existing pin or link does not 404. It is noindex, its
+    canonical is the surviving guide, and nothing else on the site links here.
+    """
+    by_slug=dict(GIFT_SUBPAGES)
+    for spec in GIFT_ALIASES:
+        slug_s=spec["slug"]
+        target=spec["canonical_slug"]
+        if target not in by_slug:
+            raise SystemExit(f"gift alias {slug_s}: /gifts/{target}/ was not built")
+        label=by_slug[target]
+        href=f"{PREFIX}/gifts/{target}/"
+        canon_url=f"{BASE}{PREFIX}/gifts/{target}/"
+        h1=str(spec.get("title") or label).strip()
+        if not h1:
+            raise SystemExit(f"gift alias {slug_s}: missing a title")
+        rel=f"gifts/{slug_s}/index.html"
+        ALIAS_RELS.add(rel)
+        note="This page has moved. The checked list is"
+        body=(f"<h1>{e(h1)}</h1>"
+              f"<div class='box'><p>{e(note)} <a href='{href}'>{e(label)}</a>.</p></div>"
+              f"{gift_nav()}")
+        desc=f"This page has moved. The checked list is {label}, with the prices we checked."
+        page(rel, h1, desc, body, index=False, feed=False, canonical=canon_url,
+             robots="noindex,follow", image=f"/media/pins/{target}.png")
+        text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+        if f'<link rel="canonical" href="{canon_url}">' not in text:
+            raise SystemExit(f"{rel}: canonical is not {canon_url}")
+        if '<meta name="robots" content="noindex,follow">' not in text:
+            raise SystemExit(f"{rel}: missing noindex,follow")
+        if f"<a href='{href}'>{e(label)}</a>" not in text:
+            raise SystemExit(f"{rel}: missing the link to /gifts/{target}/")
+        if slug_s in text.split("<main>",1)[-1]:
+            raise SystemExit(f"{rel}: body still names its own slug")
+        print(f"gift alias: /gifts/{slug_s}/ -> /gifts/{target}/ (noindex,follow)")
+write_gift_aliases()
 def gift_guide_section(heading, pairs, extra=()):
     """Labeled chip block. Anchor text is the guide's page title (its h1)."""
     links="".join(f"<a href='{PREFIX}/gifts/{slug}/'>{e(title)}</a>" for slug, title in pairs)
@@ -1662,7 +1726,7 @@ def apply_brand_gift_guides():
             raise SystemExit(f"{rel}: expected one Gift guides featuring section")
 _OCCASION_GIFT_SLUGS={
     "fragrance-gifts-for-teens","secret-santa-fragrances-under-30",
-    "stocking-stuffer-fragrances","fragrance-stocking-stuffers-under-25",
+    "stocking-stuffer-fragrances",
     "fragrance-gifts-for-coworkers-under-40","fragrance-gifts-for-college-students",
 }
 _GIFT_HUB_SLUGS={"for-him","for-her"}
@@ -2535,10 +2599,12 @@ def _load_pages():
         text=open(f"{OUT}/{rel}", encoding="utf-8").read()
         canon=_canon_of(text, rel)
         path=_url_path(canon)
-        if path in by_path:
-            raise SystemExit(f"duplicate canonical path {path}: {by_path[path]} and {rel}")
         info={"rel":rel,"text":text,"canon":canon,"path":path,"h1":_h1_of(text, rel)}
         pages[rel]=info
+        # An alias canonicalizes to a guide that owns the path. It is not a second copy of that URL.
+        if rel in ALIAS_RELS: continue
+        if path in by_path:
+            raise SystemExit(f"duplicate canonical path {path}: {by_path[path]} and {rel}")
         by_path[path]=rel
     if by_path.get("/")!="index.html":
         raise SystemExit(f"homepage canonical path did not resolve to index.html ({by_path.get('/')})")
@@ -2573,7 +2639,7 @@ def apply_breadcrumbs():
     n=0
     hub_n=0
     for rel,info in pages.items():
-        if rel in ("index.html","404.html"): continue
+        if rel in ("index.html","404.html") or rel in ALIAS_RELS: continue
         before=_ld_scripts(info["text"])
         crumbs=_crumbs_for(info, pages, by_path)
         if len(crumbs)<2: raise SystemExit(f"{rel}: breadcrumb is missing the current page")
@@ -2620,7 +2686,7 @@ def audit_breadcrumbs():
         found=[]
         for block in blocks: _walk_type(block, "BreadcrumbList", found)
         navs=re.findall(r'<nav class="crumbs" aria-label="Breadcrumb">(.*?)</nav>', text, re.S)
-        if rel in ("index.html","404.html"):
+        if rel in ("index.html","404.html") or rel in ALIAS_RELS:
             if found: bad.append(f"{rel}: unexpected BreadcrumbList")
             if navs: bad.append(f"{rel}: unexpected breadcrumb trail")
             continue
@@ -3051,6 +3117,7 @@ def audit_gift_pins():
     sitemap_rels={rel_for(u) for u in gift_locs}
     for rel in built:
         if rel not in sitemap_rels:
+            if rel in ALIAS_RELS: continue
             bad.append(f"{rel}: gift page missing from the sitemap")
     for dirpath,_,files in os.walk(OUT):
         for fn in files:
@@ -3071,9 +3138,44 @@ def audit_gift_pins():
     print(f"gift pins: {len(rows)} /gifts/ URLs, each image distinct and 1000x1500")
     for loc, og in rows:
         print(f"  {loc} -> {og}")
+def audit_gift_aliases():
+    """Old gift URLs stay on disk, canonicalize to the surviving guide, and are not linked."""
+    if not ALIAS_RELS:
+        return
+    href_re=re.compile(r"""<a\b[^>]*href\s*=\s*(?:"([^"]+)"|'([^']+)')""", re.I)
+    bad=[]
+    for rel in sorted(ALIAS_RELS):
+        slug_s=rel.split("/")[1]
+        path=f"/gifts/{slug_s}/"
+        text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+        if '<meta name="robots" content="noindex,follow">' not in text:
+            bad.append(f"{rel}: missing noindex,follow")
+        target=next(spec["canonical_slug"] for spec in GIFT_ALIASES if spec["slug"]==slug_s)
+        canon_url=f"{BASE}{PREFIX}/gifts/{target}/"
+        if f'<link rel="canonical" href="{canon_url}">' not in text:
+            bad.append(f"{rel}: canonical is not {canon_url}")
+        for listing in ("sitemap.xml","llms.txt","feed.xml"):
+            blob=open(f"{OUT}/{listing}", encoding="utf-8").read()
+            if path in blob or slug_s in blob:
+                bad.append(f"{listing} still lists {path}")
+        for dirpath, _, files in os.walk(OUT):
+            for fn in files:
+                if not fn.endswith(".html"): continue
+                other=os.path.relpath(os.path.join(dirpath, fn), OUT).replace(os.sep, "/")
+                page_text=open(os.path.join(dirpath, fn), encoding="utf-8").read()
+                for m in href_re.finditer(page_text):
+                    href=html.unescape(m.group(1) or m.group(2) or "")
+                    if path in href or href.rstrip("/").endswith("/gifts/"+slug_s):
+                        bad.append(f"{other}: still links {href}")
+    if bad:
+        print("gift alias check failed:")
+        for line in bad[:40]: print(" ", line)
+        raise SystemExit(f"gift alias check failed ({len(bad)} problems)")
+    print(f"gift aliases: {len(ALIAS_RELS)} old URLs, noindex,follow, canonicalized, absent from sitemap, unlinked")
 apply_breadcrumbs()
 audit_breadcrumbs()
 audit_affiliate_output()
 audit_cards_links_jsonld()
 audit_share_meta()
 audit_gift_pins()
+audit_gift_aliases()

@@ -1316,7 +1316,7 @@
     {"href": "/best/fragrance-deals-under-30/", "label": "Fragrance deals under $30"},
     {"href": "/best/cologne-deals-under-30/", "label": "Cologne deals under $30"},
     {"href": "/best/perfume-deals-under-30/", "label": "Perfume deals under $30"},
-    {"href": "/gifts/stocking-stuffer-fragrances/", "label": "Stocking stuffers under $25"},
+    {"href": "/gifts/stocking-stuffer-fragrances/", "label": "Fragrance stocking stuffers under $25"},
     {"href": "/gifts/fragrance-gifts-for-coworkers-under-40/", "label": "Fragrance gifts for coworkers under $40"},
     {"href": "/gifts/fragrance-gifts-for-college-students/", "label": "Fragrance gifts for college students"},
     {"href": "/unisex/", "label": "Unisex deals"}
@@ -1324,26 +1324,29 @@
   },
   {
    "slug": "stocking-stuffer-fragrances",
-   "title": "Stocking stuffer fragrances under $25",
-   "chip": "Stocking stuffers under $25",
+   "title": "Fragrance stocking stuffers under $25",
+   "chip": "Fragrance stocking stuffers under $25",
    "max_price": 25,
-   "exclude_mini": true,
-   "filled_label": "stocking-stuffer bottles under $25",
-   "intro": "Regular bottles cheap enough to drop in a stocking, lowest checked price first. These are not minis or travel sprays. The minis page lists a product only when we checked a mini, a travel size, or a bottle under 1 oz. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes.",
-   "empty": "No regular bottle we checked today is under $25, so this page has no list. These guides have bottles we priced.",
-   "empty_desc": "Stocking stuffer fragrances under $25: no regular bottle we checked today is under $25. Minis stay on their own guide.",
+   "max_price_inclusive": true,
+   "include_travel": true,
+   "exclude_set": true,
+   "filled_label": "fragrance stocking stuffers at $25 or less",
+   "intro": "A stocking list of checked fragrances, lowest price first. Full bottles, minis, rollerballs, and travel sizes stay together when today's price is $25 or less. The minis guide lists travel sizes at any price we checked, including ones above $25. A boxed set stays on the gift-set guides. We do not call a scent a stocking fragrance. None of these listings do. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes.",
+   "empty": "No checked fragrance is $25 or less, so this page has no list. These guides have bottles we priced.",
+   "empty_desc": "Fragrance stocking stuffers under $25: nothing we checked today is $25 or less. Other gift guides list bottles we did price.",
    "faq": [
     [
-     "Is a 1 oz bottle a stocking stuffer here?",
-     "Only when today's checked price is under $25. Bottle size does not put a product on this page. The minis guide is for products named mini or travel, or for bottles under 1 oz."
+     "Is a mini or a travel size included?",
+     "Yes, when today's checked price is $25 or less. The minis guide lists travel sizes at any price we checked, including ones above $25. A boxed set stays on the gift-set guides."
     ],
     [
-     "Why is the mini page separate?",
-     "A mini or a travel spray is a different product. This page is full bottles under $25. We do not relabel a 1 oz bottle as a mini."
+     "Does a price of exactly $25 count?",
+     "Yes. The price we checked has to be $25 or less. A bottle above $25 drops off on the next rebuild. We do not round a higher price down to make it fit."
     ]
    ],
    "links": [
     {"href": "/gifts/stocking-stuffer-minis/", "label": "Fragrance minis and travel sizes"},
+    {"href": "/gifts/secret-santa-fragrances-under-30/", "label": "Secret Santa fragrances under $30"},
     {"href": "/best/fragrance-deals-under-30/", "label": "Fragrance deals under $30"},
     {"href": "/gifts/fragrance-gifts-for-teens/", "label": "Fragrance gifts for teens under $40"},
     {"href": "/gifts/under-50/", "label": "Fragrance gifts under $50"}
@@ -1389,7 +1392,7 @@
    "faq": [
     [
      "How is this different from stocking stuffers under $25?",
-     "The stocking page stops under $25. This page keeps those bottles and adds the ones from $25 up to, but not including, $30. A bottle that reaches $30 drops off on the next rebuild."
+     "The stocking page keeps checked fragrances at $25 or less, including a mini or travel size. This page is regular bottles under $30. It adds the bottles from $25 up to, but not including, $30, and it leaves minis off. A bottle that reaches $30 drops off on the next rebuild."
     ],
     [
      "Are minis included?",
@@ -1397,7 +1400,7 @@
     ]
    ],
    "links": [
-    {"href": "/gifts/stocking-stuffer-fragrances/", "label": "Stocking stuffers under $25"},
+    {"href": "/gifts/stocking-stuffer-fragrances/", "label": "Fragrance stocking stuffers under $25"},
     {"href": "/best/fragrance-deals-under-30/", "label": "Fragrance deals under $30"},
     {"href": "/best/cologne-deals-under-30/", "label": "Cologne deals under $30"},
     {"href": "/best/perfume-deals-under-30/", "label": "Perfume deals under $30"},
@@ -1545,36 +1548,8 @@
   },
   {
    "slug": "fragrance-stocking-stuffers-under-25",
-   "title": "Fragrance stocking stuffers under ${cap}",
-   "chip": "Fragrance stocking stuffers under ${cap}",
-   "max_price": 25,
-   "max_price_inclusive": true,
-   "fallback_max_price": 30,
-   "min_picks": 8,
-   "include_travel": true,
-   "exclude_set": true,
-   "filled_label": "fragrance stocking stuffers at ${cap} or less",
-   "intro": "A stocking list of checked fragrances, lowest price first. Full bottles, minis, rollerballs, and travel sizes stay together when today's price is ${cap} or less. That is a different list from stocking stuffer fragrances, which keeps regular bottles only and leaves minis off. A boxed set stays on the gift-set guides. We do not call a scent a stocking fragrance. None of these listings do. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes.",
-   "empty": "No checked fragrance is ${cap} or less, so this page has no list. These guides have bottles we priced.",
-   "empty_desc": "Fragrance stocking stuffers under ${cap}: nothing we checked today is at that price or less. Other gift guides list bottles we did price.",
-   "faq": [
-    [
-     "How is this different from stocking stuffer fragrances under $25?",
-     "That page is regular bottles only. This page keeps a checked full bottle, mini, rollerball, or travel size when the price is ${cap} or less. A boxed set is not listed here."
-    ],
-    [
-     "Does a price of exactly ${cap} count?",
-     "Yes. The price we checked has to be ${cap} or less. A bottle above ${cap} drops off on the next rebuild. We do not round a higher price down to make it fit."
-    ]
-   ],
-   "links": [
-    {"href": "/gifts/stocking-stuffer-fragrances/", "label": "Stocking stuffer fragrances under $25"},
-    {"href": "/gifts/stocking-stuffer-minis/", "label": "Fragrance minis and travel sizes"},
-    {"href": "/best/fragrance-deals-under-30/", "label": "Fragrance deals under $30"},
-    {"href": "/gifts/secret-santa-fragrances-under-30/", "label": "Secret Santa fragrances under $30"},
-    {"href": "/gifts/fragrance-gifts-for-teens/", "label": "Fragrance gifts for teens under $40"},
-    {"href": "/gifts/under-50/", "label": "Fragrance gifts under $50"}
-   ]
+   "canonical_slug": "stocking-stuffer-fragrances",
+   "title": "Fragrance stocking stuffers under $25"
   },
   {
    "slug": "perfume-gifts-for-wife",
