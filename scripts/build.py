@@ -548,6 +548,7 @@ GIFT_HUB_MARK="<!--gift-guides-->"
 GIFT_HOME_MARK="<!--holiday-gift-guides-->"
 GIFT_MORE_MARK="<!--more-gift-guides-->"
 BRAND_GIFT_MARK="<!--brand-gift-guides-->"
+DUPE_GIFT_MARK="<!--dupe-gift-guides-->"
 # Compact homepage set. Titles come from GIFT_SUBPAGES, not from this tuple.
 HOME_GIFT_SLUGS=("for-him","for-her","under-50","perfume-gifts-for-her-under-50","best-mens-cologne-under-40","holiday-gift-sets","fragrance-gifts-for-teens","fragrance-stocking-stuffers-under-25")
 def register_gift_subpage(slug, title):
@@ -705,6 +706,46 @@ def nohouse(n):
     """Name without the house prefix (Armaf/Lattafa/MFK/YSL...), for titles that would run past 60 chars."""
     w=re.sub(r' [(].*?[)]','',n).split(); k=2 if w[0] in ("Al","Ariana") else 1
     return " ".join(w[k:]) if len(w)>k else n
+def house(name):
+    w=(name or "").split()
+    if not w: return ""
+    return " ".join(w[:2]) if w[0] in ("Al","Ariana") else w[0]
+def original_house(name):
+    """Designer house of the fragrance being copied. Chanel is named mid-string on Bleu de Chanel."""
+    n=(name or "").lower()
+    if "chanel" in n: return "chanel"
+    if n.startswith("ysl"): return "ysl"
+    if n.startswith("mfk"): return "mfk"
+    if n.startswith("jean paul"): return "jean paul gaultier"
+    return (n.split() or [""])[0]
+def dupe_href(x):
+    return f"{PREFIX}/dupe/{slug(x['original']+' dupe '+x['dupe'])}/"
+def related_dupe_picks(d, limit=6):
+    """Same original, then the same hub or designer house, then the dupe's own house, then the rest."""
+    others=[x for x in D["dupes"] if x is not d]
+    hb=hub_of(d)
+    in_hub={id(x) for x in (hb["items"] if hb else [])}
+    oh=original_house(d.get("original") or "")
+    dh=house(d.get("dupe") or "").lower()
+    def tier(x):
+        if x.get("original")==d.get("original"): return 0
+        if id(x) in in_hub: return 1
+        if oh and original_house(x.get("original") or "")==oh: return 2
+        if dh and house(x.get("dupe") or "").lower()==dh: return 3
+        return 4
+    return sorted(others, key=lambda x:(tier(x), D["dupes"].index(x)))[:limit]
+def chip_section(heading, pairs):
+    links="".join(f"<a href='{href}'>{e(label)}</a>" for href, label in pairs)
+    return f"<section class='box'><h2 style='margin-top:0'>{e(heading)}</h2><div class='chips'>{links}</div></section>"
+def related_dupes_section(d):
+    pairs=[]
+    hb=hub_of(d)
+    if hb: pairs.append((f"{PREFIX}/dupes/{hb['slug']}/", hb["title"]))
+    for x in related_dupe_picks(d, 6):
+        pairs.append((dupe_href(x), f"{x['original']} → {x['dupe']}"))
+    pairs.append((f"{PREFIX}/dupes/", "All dupes"))
+    return chip_section("Related dupes", pairs)+DUPE_GIFT_MARK
+DUPE_PAGES=[]
 for d in D["dupes"]:
     s=slug(f"{d['original']} dupe {d['dupe']}"); use_sid("dupe", s); o=d['original']
     KW+=[f"{o.lower()} dupe",f"best cheap {o.lower()} dupe {upd.year}",f"{d['dupe'].lower()} vs {o.lower()}"]
@@ -712,12 +753,11 @@ for d in D["dupes"]:
     qs=[(f"What is the best cheap {o} dupe in {upd.year}?",f"{d['dupe']} is one of the most-cited affordable alternatives to {o}: {d['notes']}. Today: {pr}."),
         (f"Does {d['dupe']} smell like {o}?",f"Community rankings rate it as close ({d['notes']}). It is an original 'inspired by' fragrance, not a counterfeit; expect differences in the dry-down."),
         (f"Where can I buy {d['dupe']} cheapest?",f"The lowest price we verified is {pr}" + (f" (checked {upd_h})." if d['price'] else ". Check back; we add prices only after verifying them."))]
-    rel=[x for x in D['dupes'] if x is not d][:5]
-    hb=hub_of(d); hublink=(f"<a href='{PREFIX}/dupes/{hb['slug']}/'>Compare every {e(hb['topic'])} dupe side by side</a> · ") if hb else ""
     body=(f"<h1>Best {e(o)} dupe: {e(d['dupe'])}</h1><p class='sub'>{e(d['notes'])} · {('<b class=price>$%.2f</b> today at %s' % (d['price'],e(d['retailer']))) if d['price'] else 'price not verified yet'}</p>"
       +((buy(d['url'],d['retailer'])+also_line(d)) if d['price'] else "")
       +f"<div class='box'><h2 style='margin-top:0'>{e(o)} vs {e(d['dupe'])}</h2><table><thead><tr><th></th><th>{e(o)}</th><th>{e(d['dupe'])}</th></tr></thead><tbody><tr><td>Price</td><td>{e(d.get('original_price') or 'varies')}</td><td>{('$%.2f (%s)' % (d['price'],e(d['size']))) if d['price'] else '—'}</td></tr><tr><td>Profile</td><td colspan=2>{e(d['notes'])}</td></tr><tr><td>Sources</td><td colspan=2>{' '.join((f'<a href="{e(affiliate_url(x, "src"))}" rel="nofollow sponsored noopener" target="_blank">[{i+1}]</a>' if is_perfumania(x) else f'<a href={e(x)} rel=noopener target=_blank>[{i+1}]</a>') for i,x in enumerate(d['sources']))}</td></tr></tbody></table></div>"
-      +((f"<div class='box'><h2 style='margin-top:0'>Where to buy {e(d['dupe'])} cheapest</h2><table><thead><tr><th>Retailer</th><th>Size</th><th>Price</th><th>Checked</th></tr></thead><tbody>{comprows(d)}</tbody></table></div>") if d.get('comps') else "")+faqhtml(qs)+"<h2>More dupes</h2><div class='chips'>"+"".join(f"<a href='{PREFIX}/dupe/{slug(x['original']+' dupe '+x['dupe'])}/'>{e(x['original'])} → {e(x['dupe'])}</a>" for x in rel)+"</div><p>"+hublink+f"<a href='{PREFIX}/dupes/'>All dupes</a></p>")
+      +((f"<div class='box'><h2 style='margin-top:0'>Where to buy {e(d['dupe'])} cheapest</h2><table><thead><tr><th>Retailer</th><th>Size</th><th>Price</th><th>Checked</th></tr></thead><tbody>{comprows(d)}</tbody></table></div>") if d.get('comps') else "")+faqhtml(qs)+related_dupes_section(d))
+    DUPE_PAGES.append((f"dupe/{s}/index.html", d))
     lds=[faqld(qs)]+([prod_ld(d, name=d['dupe'], brand=d['dupe'].split()[0])] if d['price'] else [])
     PR=(f" ${d['price']:.2f}" if d['price'] else "")
     bare=re.sub(r' [(].*?[)]','',o)
@@ -767,8 +807,6 @@ for r in ROUNDUPS:
       fit([f"{n} authentic {r['who']} {N}s {SC}, all 15%+ off, from ${cheap['price']:.2f} ({fullname(cheap)}). Ranked by price per ounce, checked {upd:%b %-d, %Y}.",
            f"{n} authentic {r['who']} {N}s {SC}, all 15%+ off, from {CP} ({fullname(cheap)}). Checked {upd:%b %-d}.",
            f"{n} authentic {r['who']} {N}s {SC}, all 15%+ off at authorized retailers, from {CP}. Ranked by price per ounce, checked {upd:%b %-d}."],160),body,[il,faqld(qs)])
-def house(name):
-    w=name.split(); return " ".join(w[:2]) if w[0] in ("Al","Ariana") else w[0]
 def srclinks(srcs): return " ".join((f'<a href="{e(affiliate_url(u, "src"))}" rel="nofollow sponsored noopener" target="_blank">[{i+1}]</a>' if is_perfumania(u) else f"<a href='{e(u)}' rel=noopener target=_blank>[{i+1}]</a>") for i,u in enumerate(srcs))
 def hubrow(x):
     link=f"{PREFIX}/dupe/{slug(x['original']+' dupe '+x['dupe'])}/"
@@ -1363,6 +1401,202 @@ def apply_brand_gift_guides():
             raise SystemExit(f"{rel}: still contains {BRAND_GIFT_MARK}")
         if text.count("Gift guides featuring ")!=1:
             raise SystemExit(f"{rel}: expected one Gift guides featuring section")
+_OCCASION_GIFT_SLUGS={
+    "fragrance-gifts-for-teens","secret-santa-fragrances-under-30",
+    "stocking-stuffer-fragrances","fragrance-stocking-stuffers-under-25",
+}
+_GIFT_HUB_SLUGS={"for-him","for-her"}
+def _dupe_words(s):
+    return re.sub(r"[^a-z0-9]+"," ", str(s or "").lower())
+def dupe_audience(d):
+    """men / women / unisex from the product name, the priced URL, or the retailer handle.
+
+    A cited cologne roundup is used only when those fields say nothing.
+    """
+    def hit(text):
+        if re.search(r"\b(for women|woman|women|mademoiselle)\b", text): return "women"
+        if re.search(r"\b(for men|homme|male|man)\b", text): return "men"
+        if re.search(r"\bunisex\b", text): return "unisex"
+        return None
+    named=hit(_dupe_words(f"{d.get('dupe') or ''} {d.get('original') or ''}"))
+    if named in ("men","women"): return named
+    url_hit=hit(_dupe_words(d.get("url")))
+    handle_hit=hit(_dupe_words(d.get("handle")))
+    if "unisex" in (url_hit, handle_hit) and "women" not in (url_hit, handle_hit):
+        return "unisex"
+    if url_hit: return url_hit
+    if handle_hit: return handle_hit
+    if named: return named
+    if re.search(r"\bcologne\b", _dupe_words(" ".join(d.get("sources") or []))): return "men"
+    return None
+def dupe_price(d):
+    p=d.get("price")
+    if isinstance(p, bool) or not isinstance(p, (int, float)): return None
+    return p
+def _gift_rule_rows():
+    """Guides a dupe page may link. Roundup-gated and compare-at guides stay out of the first pass."""
+    rows=[]; seen=set()
+    static=[
+        ("for-him","men",None,None,False,False,False),
+        ("for-her","women",None,None,False,False,False),
+        ("under-50",None,50,None,False,False,False),
+        ("perfume-gifts-for-her-under-50","women",50,None,False,False,False),
+        ("best-mens-cologne-under-40","men",40,None,False,False,False),
+    ]
+    def add(slug, gender, max_price, min_price, inclusive, roundup, occasion, prefer=0):
+        if slug in seen: return
+        seen.add(slug)
+        rows.append({"slug":slug,"gender":gender,"max_price":max_price,"min_price":min_price,
+                     "inclusive":bool(inclusive),"roundup":bool(roundup),
+                     "occasion":bool(occasion) or slug in _OCCASION_GIFT_SLUGS,"prefer":prefer})
+    for row in static: add(*row)
+    for spec in GIFT_GUIDES:
+        if spec.get("min_was"): continue
+        add(spec["slug"], spec.get("gender"), spec.get("max_price"), spec.get("min_price"),
+            spec.get("max_price_inclusive"), spec.get("roundups"), spec.get("include_travel"),
+            1 if spec.get("include_travel") else 0)
+    return rows
+def _price_fits(price, rule, allow_missing):
+    max_price, min_price=rule.get("max_price"), rule.get("min_price")
+    if max_price is None and min_price is None: return True
+    if price is None: return allow_missing
+    if max_price is not None:
+        if rule.get("inclusive"):
+            if price>max_price: return False
+        elif price>=max_price: return False
+    if min_price is not None and price<min_price: return False
+    return True
+def _audience_fits(aud, rule):
+    gender=rule.get("gender")
+    if not gender: return True
+    if aud==gender: return True
+    if aud=="unisex" and rule["slug"] in _GIFT_HUB_SLUGS: return True
+    return False
+def gift_links_for_dupe(d, by_slug):
+    """2–4 gift guides. Gender from the dupe record; a price cap only when today's price is under it."""
+    aud, price=dupe_audience(d), dupe_price(d)
+    filled={slug for slug, _title, picks in GIFT_PAGE_PICKS if picks}
+    rules=[r for r in _gift_rule_rows() if r["slug"] in by_slug and r["slug"] in filled and _audience_fits(aud, r)]
+    def ok(r, allow_missing=False):
+        return _price_fits(price, r, allow_missing)
+    hubs=[r for r in rules if r["slug"] in _GIFT_HUB_SLUGS and ok(r)]
+    gender_caps=sorted([r for r in rules if r["gender"] and r["max_price"] is not None and not r["roundup"] and ok(r)],
+                       key=lambda r:(r["max_price"], r["slug"]))
+    ungendered=sorted([r for r in rules if not r["gender"] and r["max_price"] is not None and not r["roundup"] and not r["occasion"] and ok(r)],
+                      key=lambda r:(r["max_price"], r["slug"]))
+    occasion=sorted([r for r in rules if r["occasion"] and not r["roundup"] and r["max_price"] is not None and ok(r)],
+                    key=lambda r:(r["max_price"], r["prefer"], r["slug"]))
+    floors=sorted([r for r in rules if r["gender"] and r["min_price"] is not None and not r["roundup"] and ok(r)],
+                  key=lambda r:(-(r["min_price"] or 0), r["slug"]))
+    chosen=[]
+    def take(group):
+        for r in group:
+            if len(chosen)>=4: return
+            if r["slug"] in chosen: continue
+            chosen.append(r["slug"])
+    take(hubs)
+    take(gender_caps)
+    tight=min((r["max_price"] for r in gender_caps), default=None)
+    # A $25 or $30 guide is the matching under-$X page. The under-$40 teen list is only a filler
+    # when the page would otherwise have a single link (no gender on the dupe record).
+    if occasion and (tight is None or occasion[0]["max_price"]<tight):
+        if occasion[0]["max_price"]<=30 or len(chosen)<2:
+            take(occasion[:1])
+    take(ungendered[:1])
+    take(floors)
+    if len(chosen)<2:
+        fillers=sorted([r for r in rules if r["roundup"] and ok(r, price is None)],
+                       key=lambda r:(r["max_price"] if r["max_price"] is not None else 10**9, r["slug"]))
+        take(fillers)
+    if not 2<=len(chosen)<=4:
+        raise SystemExit(f"dupe gift guides for {d.get('dupe')}: expected 2–4, got {chosen} (audience={aud}, price={price})")
+    return [(slug, by_slug[slug]) for slug in chosen]
+def apply_dupe_gift_guides():
+    """Splice gift-guide chips onto each dupe page from guides this build registered."""
+    by_slug=dict(GIFT_SUBPAGES)
+    if len(DUPE_PAGES)!=len(D["dupes"]):
+        raise SystemExit(f"dupe pages recorded {len(DUPE_PAGES)} for {len(D['dupes'])} dupes")
+    for rel, d in DUPE_PAGES:
+        pairs=gift_links_for_dupe(d, by_slug)
+        _splice_mark(rel, DUPE_GIFT_MARK, gift_guide_section("Gift guides", pairs))
+        got=_section_anchors(rel, "Gift guides")
+        expect=[(f"{PREFIX}/gifts/{slug}/", title) for slug, title in pairs]
+        if got!=expect:
+            raise SystemExit(f"{rel}: gift guide section drifted")
+        print(f"dupe gift guides: {d['dupe']} ({dupe_audience(d) or 'unspecified'}, {('$' + format(dupe_price(d), '.2f')) if dupe_price(d) is not None else 'no price'}) -> {', '.join(s for s,_ in pairs)}")
+def _sitemap_paths():
+    text=open(f"{OUT}/sitemap.xml", encoding="utf-8").read()
+    out=set()
+    for loc in re.findall(r"<loc>([^<]+)</loc>", text):
+        path=urllib.parse.urlparse(html.unescape(loc)).path or "/"
+        if not path.endswith("/"): path+="/"
+        out.add(path)
+    return out
+def _href_path(href):
+    path=html.unescape(href).split("?")[0].split("#")[0]
+    if not path.startswith("/"):
+        raise SystemExit(f"dupe link is not root-relative: {href}")
+    if not path.endswith("/"): path+="/"
+    return path
+def audit_dupe_related():
+    """Related-dupe and gift-guide chips on every /dupe/ page resolve to sitemap URLs."""
+    paths=_sitemap_paths()
+    by_slug=dict(GIFT_SUBPAGES)
+    if not DUPE_PAGES:
+        raise SystemExit("dupe related audit: no dupe pages")
+    for rel, d in DUPE_PAGES:
+        text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+        if DUPE_GIFT_MARK in text:
+            raise SystemExit(f"{rel}: gift guide marker was not replaced")
+        if "<h2>More dupes</h2>" in text:
+            raise SystemExit(f"{rel}: old More dupes block is still on the page")
+        related=_section_anchors(rel, "Related dupes")
+        gifts=_section_anchors(rel, "Gift guides")
+        if text.count(">Related dupes</h2>")!=1 or text.count(">Gift guides</h2>")!=1:
+            raise SystemExit(f"{rel}: expected one Related dupes and one Gift guides section")
+        for href, _label in related+gifts:
+            path=_href_path(href)
+            if path not in paths:
+                raise SystemExit(f"{rel}: {href} is not in the sitemap")
+            local=path[len(PREFIX):] if PREFIX and path.startswith(PREFIX) else path
+            if not os.path.isfile(f"{OUT}{local.rstrip('/')}/index.html") and local.rstrip("/") not in ("",):
+                # /dupes/ is dupes/index.html; a trailing-slash path maps to that directory.
+                if not os.path.isfile(f"{OUT}{local}index.html"):
+                    raise SystemExit(f"{rel}: {href} has no built page")
+        hb=hub_of(d)
+        dupe_links=[href for href, _label in related if _href_path(href).startswith(f"{PREFIX}/dupe/")]
+        if hb:
+            if not related or _href_path(related[0][0])!=f"{PREFIX}/dupes/{hb['slug']}/":
+                raise SystemExit(f"{rel}: related dupes should lead with /dupes/{hb['slug']}/")
+        elif any(_href_path(href).startswith(f"{PREFIX}/dupes/") and _href_path(href)!=f"{PREFIX}/dupes/" for href, _label in related):
+            raise SystemExit(f"{rel}: linked a dupe hub this original does not belong to")
+        if not 1<=len(dupe_links)<=6:
+            raise SystemExit(f"{rel}: expected 1–6 sibling dupe links, got {len(dupe_links)}")
+        if _href_path(related[-1][0])!=f"{PREFIX}/dupes/":
+            raise SystemExit(f"{rel}: related dupes should keep the /dupes/ index link")
+        self_path=_href_path(dupe_href(d))
+        if self_path in {_href_path(href) for href, _label in related}:
+            raise SystemExit(f"{rel}: related dupes links to itself")
+        expect_sibs=[_href_path(dupe_href(x)) for x in related_dupe_picks(d, 6)]
+        if [_href_path(href) for href in dupe_links]!=expect_sibs:
+            raise SystemExit(f"{rel}: sibling order drifted from same-original / same-house ranking")
+        for sib in D["dupes"]:
+            if sib is d or sib.get("original")!=d.get("original"): continue
+            if _href_path(dupe_href(sib)) not in expect_sibs:
+                raise SystemExit(f"{rel}: missing the other {sib['original']} dupe")
+        if not 2<=len(gifts)<=4:
+            raise SystemExit(f"{rel}: expected 2–4 gift guides, got {len(gifts)}")
+        expect=[(f"{PREFIX}/gifts/{slug}/", title) for slug, title in gift_links_for_dupe(d, by_slug)]
+        if gifts!=expect:
+            raise SystemExit(f"{rel}: gift guides drifted")
+        for href, label in gifts:
+            path=_href_path(href)
+            if path==f"{PREFIX}/gifts/":
+                raise SystemExit(f"{rel}: gift block links the hub instead of a guide")
+            slug=path[len(f"{PREFIX}/gifts/"):].strip("/")
+            if slug not in by_slug or label!=by_slug[slug]:
+                raise SystemExit(f"{rel}: gift anchor {label!r} is not a built guide title")
+    print(f"dupe related links: {len(DUPE_PAGES)} pages, sibling and gift-guide hrefs are in the sitemap")
 def apply_gift_guide_links():
     """Write hub, homepage, and sibling links from the guides this build just created."""
     root=f"{BASE}{PREFIX}/gifts/"
@@ -1390,12 +1624,13 @@ def apply_gift_guide_links():
         others=[(s, t) for s, t in GIFT_SUBPAGES if s!=slug]
         _splice_mark(f"gifts/{slug}/index.html", GIFT_MORE_MARK, gift_guide_section("More gift guides", others))
     apply_brand_gift_guides()
+    apply_dupe_gift_guides()
     for dirpath, _, files in os.walk(OUT):
         for fn in files:
             if not fn.endswith(".html"): continue
             path=os.path.join(dirpath, fn)
             text=open(path, encoding="utf-8").read()
-            for mark in (GIFT_HUB_MARK, GIFT_HOME_MARK, GIFT_MORE_MARK, BRAND_GIFT_MARK):
+            for mark in (GIFT_HUB_MARK, GIFT_HOME_MARK, GIFT_MORE_MARK, BRAND_GIFT_MARK, DUPE_GIFT_MARK):
                 if mark in text:
                     raise SystemExit(f"{os.path.relpath(path, OUT)}: still contains {mark}")
     hub_links=_section_anchors("gifts/index.html", "Gift guides")
@@ -1555,6 +1790,7 @@ def assert_404_unlisted():
     print(f"404.html excluded from sitemap ({n} urls), llms.txt, feed.xml, and IndexNow")
 # rewrite sitemap with new pages + keyword list + IndexNow key
 open(f"{OUT}/sitemap.xml","w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+"".join(f"<url><loc>{u}</loc><lastmod>{upd:%Y-%m-%d}</lastmod></url>" for u in PAGES)+"</urlset>\n")
+audit_dupe_related()
 def rfc822(dt):
     days=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]; mons=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
     return f"{days[dt.weekday()]}, {dt.day:02d} {mons[dt.month-1]} {dt.year} {dt:%H:%M:%S} +0000"
