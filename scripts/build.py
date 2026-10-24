@@ -429,22 +429,55 @@ def early_mini(d):
     if re.search(r"\b(mini|minis|miniature|travel|travel-size|travelsize|rollerball|roller-ball)\b", blob): return True
     o=oz(d.get("size") or "")
     return o is not None and o<1
+def _row_key(d):
+    return (d.get("id"), sz(d.get("size") or ""))
+def _looks_like_set(d):
+    """Boxed set. A mini bottle is not one, even when the word miniature appears beside a single size."""
+    if d.get("kind")=="mini": return False
+    if d.get("kind")=="set": return True
+    blob=_deal_blob(d)
+    if any(s in blob for s in ("gift set","gift-set","coffret","discovery set","mini set")): return True
+    return bool(re.search(r"\b\d+\s*-?\s*(pc|piece|pcs)\b", blob) and "set" in blob)
+def _catalog_travel():
+    """Minis, rollerballs, and travel sizes already checked in the gift catalog. No invented rows."""
+    rows=[]
+    for d in D.get("gifts") or []:
+        if _looks_like_set(d) or not early_gift_ok(d): continue
+        if d.get("kind")=="mini":
+            rows.append(d); continue
+        blob=_deal_blob(d)
+        if re.search(r"\b(mini|minis|miniature|travel(?:\s*|-)?size|travelsize|roller-?ball)\b", blob):
+            rows.append(d)
+    return rows
 NOTE_BY_ID={}
 for _r in CFG.get("roundups",[]):
     for _it in _r.get("items",[]):
         if _it.get("id") and _it.get("notes"): NOTE_BY_ID.setdefault(_it["id"], _it["notes"])
 def guide_rows(spec):
     rows=[d for d in deals if early_gift_ok(d)]
+    if spec.get("include_travel"):
+        # Same retailer handle can be a full bottle in deals and a smaller mini in the catalog.
+        seen={_row_key(d) for d in rows}
+        for d in _catalog_travel():
+            key=_row_key(d)
+            if key in seen: continue
+            rows.append(d)
+            seen.add(key)
     if spec.get("gender"): rows=[d for d in rows if d["gender"]==spec["gender"]]
     if spec.get("genders"): rows=[d for d in rows if d["gender"] in spec["genders"]]
     cap=spec.get("max_price")
-    if isinstance(cap,(int,float)) and not isinstance(cap,bool): rows=[d for d in rows if d["price"]<cap]
+    if isinstance(cap,(int,float)) and not isinstance(cap,bool):
+        if spec.get("max_price_inclusive"):
+            rows=[d for d in rows if d["price"]<=cap]
+        else:
+            rows=[d for d in rows if d["price"]<cap]
     floor_price=spec.get("min_price")
     if isinstance(floor_price,(int,float)) and not isinstance(floor_price,bool): rows=[d for d in rows if d["price"]>=floor_price]
     floor=spec.get("min_was")
     if isinstance(floor,(int,float)) and not isinstance(floor,bool):
         rows=[d for d in rows if isinstance(d.get("was"),(int,float)) and not isinstance(d.get("was"),bool) and d["was"]>=floor]
     if spec.get("exclude_mini"): rows=[d for d in rows if not early_mini(d)]
+    if spec.get("exclude_set"): rows=[d for d in rows if not _looks_like_set(d)]
     wanted=spec.get("roundups")
     if wanted:
         # Only bottles already on a notes roundup. A note line exists for each of those ids.
@@ -459,7 +492,34 @@ def guide_rows(spec):
         rows=[d for d in rows if d.get("id") in ids]
     rows.sort(key=lambda d:(d["price"], -(d.get("pct_off") or 0), d["id"]))
     return rows
-GIFT_GUIDES=[dict(spec, picks=guide_rows(spec)) for spec in CFG.get("gift_guides",[])]
+def _format_cap(raw, cap):
+    """Fill {cap} in a guide's copy. The number is the cap this build actually used."""
+    token=f"{cap:g}"
+    spec=dict(raw)
+    spec["max_price"]=cap
+    for key in ("title","chip","filled_label","empty","empty_desc","intro"):
+        if isinstance(spec.get(key), str): spec[key]=spec[key].replace("{cap}", token)
+    if spec.get("faq"):
+        spec["faq"]=[[q.replace("{cap}", token), a.replace("{cap}", token)] for q,a in spec["faq"]]
+    return spec
+def materialize_guide(raw):
+    if "{cap}" not in json.dumps(raw):
+        return dict(raw, picks=guide_rows(raw))
+    spec=_format_cap(raw, raw.get("max_price"))
+    picks=guide_rows(spec)
+    need=raw.get("min_picks")
+    fb=raw.get("fallback_max_price")
+    if (isinstance(need, int) and not isinstance(need, bool)
+            and isinstance(fb, (int, float)) and not isinstance(fb, bool)
+            and len(picks)<need):
+        spec=_format_cap(raw, fb)
+        picks=guide_rows(spec)
+        print(f"gift guide {spec['slug']}: {need} picks needed, cap raised to ${fb:g} ({len(picks)} picks)")
+    prices=[d["price"] for d in picks]
+    span=f"${min(prices):.2f}–${max(prices):.2f}" if prices else "none"
+    print(f"gift guide {spec['slug']}: {len(picks)} picks, {span}, cap ${spec['max_price']:g}")
+    return dict(spec, picks=picks)
+GIFT_GUIDES=[materialize_guide(spec) for spec in CFG.get("gift_guides",[])]
 def guides_for(d): return [g for g in GIFT_GUIDES if d in g["picks"]]
 HUBS=[]
 for h in CFG.get("hubs",[]):
@@ -489,7 +549,7 @@ GIFT_HOME_MARK="<!--holiday-gift-guides-->"
 GIFT_MORE_MARK="<!--more-gift-guides-->"
 BRAND_GIFT_MARK="<!--brand-gift-guides-->"
 # Compact homepage set. Titles come from GIFT_SUBPAGES, not from this tuple.
-HOME_GIFT_SLUGS=("for-him","for-her","under-50","perfume-gifts-for-her-under-50","best-mens-cologne-under-40","holiday-gift-sets","fragrance-gifts-for-teens")
+HOME_GIFT_SLUGS=("for-him","for-her","under-50","perfume-gifts-for-her-under-50","best-mens-cologne-under-40","holiday-gift-sets","fragrance-gifts-for-teens","fragrance-stocking-stuffers-under-25")
 def register_gift_subpage(slug, title):
     if not slug or not str(title or "").strip():
         raise SystemExit("gift guide missing a slug or page title")
@@ -1117,7 +1177,10 @@ for spec in GIFT_GUIDES:
     floor=spec.get("min_was")
     bits=[spec["intro"]]
     if isinstance(cap,(int,float)) and not isinstance(cap,bool):
-        bits.append(f"Price cap: under ${cap:g}. A checked price of ${cap:g} or more is left off on the next rebuild.")
+        if spec.get("max_price_inclusive"):
+            bits.append(f"Price cap: ${cap:g} or less. A checked price above ${cap:g} is left off on the next rebuild.")
+        else:
+            bits.append(f"Price cap: under ${cap:g}. A checked price of ${cap:g} or more is left off on the next rebuild.")
     floor_price=spec.get("min_price")
     if isinstance(floor_price,(int,float)) and not isinstance(floor_price,bool):
         bits.append(f"Price floor: ${floor_price:g} or more. A checked price under ${floor_price:g} stays on the lower-budget guide.")

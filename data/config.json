@@ -1424,6 +1424,39 @@
     {"href": "/best/vanilla-sweet-fragrance-deals/", "label": "Vanilla and sweet fragrance deals"},
     {"href": "/women/", "label": "All women's deals"}
    ]
+  },
+  {
+   "slug": "fragrance-stocking-stuffers-under-25",
+   "title": "Fragrance stocking stuffers under ${cap}",
+   "chip": "Fragrance stocking stuffers under ${cap}",
+   "max_price": 25,
+   "max_price_inclusive": true,
+   "fallback_max_price": 30,
+   "min_picks": 8,
+   "include_travel": true,
+   "exclude_set": true,
+   "filled_label": "fragrance stocking stuffers at ${cap} or less",
+   "intro": "A stocking list of checked fragrances, lowest price first. Full bottles, minis, rollerballs, and travel sizes stay together when today's price is ${cap} or less. That is a different list from stocking stuffer fragrances, which keeps regular bottles only and leaves minis off. A boxed set stays on the gift-set guides. We do not call a scent a stocking fragrance. None of these listings do. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes.",
+   "empty": "No checked fragrance is ${cap} or less, so this page has no list. These guides have bottles we priced.",
+   "empty_desc": "Fragrance stocking stuffers under ${cap}: nothing we checked today is at that price or less. Other gift guides list bottles we did price.",
+   "faq": [
+    [
+     "How is this different from stocking stuffer fragrances under $25?",
+     "That page is regular bottles only. This page keeps a checked full bottle, mini, rollerball, or travel size when the price is ${cap} or less. A boxed set is not listed here."
+    ],
+    [
+     "Does a price of exactly ${cap} count?",
+     "Yes. The price we checked has to be ${cap} or less. A bottle above ${cap} drops off on the next rebuild. We do not round a higher price down to make it fit."
+    ]
+   ],
+   "links": [
+    {"href": "/gifts/stocking-stuffer-fragrances/", "label": "Stocking stuffer fragrances under $25"},
+    {"href": "/gifts/stocking-stuffer-minis/", "label": "Fragrance minis and travel sizes"},
+    {"href": "/best/fragrance-deals-under-30/", "label": "Fragrance deals under $30"},
+    {"href": "/gifts/secret-santa-fragrances-under-30/", "label": "Secret Santa fragrances under $30"},
+    {"href": "/gifts/fragrance-gifts-for-teens/", "label": "Fragrance gifts for teens under $40"},
+    {"href": "/gifts/under-50/", "label": "Fragrance gifts under $50"}
+   ]
   }
  ],
  "gift_catalog": [
