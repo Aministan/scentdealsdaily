@@ -494,6 +494,25 @@ def guide_rows(spec):
             for it in known[s].get("items") or []:
                 if it.get("id") and it.get("notes"): ids.add(it["id"])
         rows=[d for d in rows if d.get("id") in ids]
+    allow=spec.get("ids")
+    if allow is not None:
+        # Curated spouse lists. A missing id is a deal that left the file, not a bottle we invent.
+        if not isinstance(allow, list) or not allow or any(not isinstance(x, str) or not x for x in allow):
+            raise SystemExit(f"gift guide {spec.get('slug')}: ids must be a non-empty list of deal ids")
+        known_ids={d.get("id") for d in deals}
+        absent=[i for i in allow if i not in known_ids]
+        if absent:
+            print(f"gift guide {spec.get('slug')}: not in deals.json: {', '.join(absent)}")
+        in_rows={d.get("id") for d in rows}
+        filtered=[i for i in allow if i in known_ids and i not in in_rows]
+        if filtered:
+            print(f"gift guide {spec.get('slug')}: ids outside this guide's filters: {', '.join(filtered)}")
+        allow_set=set(allow)
+        rows=[d for d in rows if d.get("id") in allow_set]
+        if not rows:
+            raise SystemExit(f"gift guide {spec.get('slug')}: none of the listed ids are checked deals for this guide")
+        prices=[d["price"] for d in rows]
+        print(f"gift guide {spec.get('slug')}: {len(rows)} curated picks, ${min(prices):.2f}–${max(prices):.2f}")
     rows.sort(key=lambda d:(d["price"], -(d.get("pct_off") or 0), d["id"]))
     return rows
 def _format_cap(raw, cap):
@@ -505,6 +524,11 @@ def _format_cap(raw, cap):
         if isinstance(spec.get(key), str): spec[key]=spec[key].replace("{cap}", token)
     if spec.get("faq"):
         spec["faq"]=[[q.replace("{cap}", token), a.replace("{cap}", token)] for q,a in spec["faq"]]
+    choose=spec.get("choose")
+    if isinstance(choose, str):
+        spec["choose"]=choose.replace("{cap}", token)
+    elif isinstance(choose, list):
+        spec["choose"]=[p.replace("{cap}", token) if isinstance(p, str) else p for p in choose]
     return spec
 def materialize_guide(raw):
     if "{cap}" not in json.dumps(raw):
@@ -559,7 +583,7 @@ VS_PAGES=[]
 # (relative path, deal) for each /fragrance/ page this build wrote.
 FRAGRANCE_PAGES=[]
 # Compact homepage set. Titles come from GIFT_SUBPAGES, not from this tuple.
-HOME_GIFT_SLUGS=("for-him","for-her","under-50","perfume-gifts-for-her-under-50","best-mens-cologne-under-40","holiday-gift-sets","fragrance-gifts-for-teens","fragrance-stocking-stuffers-under-25")
+HOME_GIFT_SLUGS=("for-him","for-her","under-50","perfume-gifts-for-her-under-50","best-mens-cologne-under-40","holiday-gift-sets","fragrance-gifts-for-teens","fragrance-stocking-stuffers-under-25","perfume-gifts-for-wife","cologne-gifts-for-husband")
 def register_gift_subpage(slug, title):
     if not slug or not str(title or "").strip():
         raise SystemExit("gift guide missing a slug or page title")
@@ -1470,8 +1494,13 @@ for spec in GIFT_GUIDES:
     extra=""
     if spec.get("links"):
         extra="<p class='chips'>"+"".join(f"<a href='{PREFIX}{l['href']}'>{e(l['label'])}</a>" for l in spec["links"])+"</p>"
+    choose=spec.get("choose") or []
+    if isinstance(choose, str): choose=[choose]
+    choose_html=""
+    if choose:
+        choose_html="<section class='box'><h2 style='margin-top:0'>How to choose</h2>"+"".join(f"<p>{e(p)}</p>" for p in choose if isinstance(p, str) and p.strip())+"</section>"
     render_seo_gift(spec["slug"], h1, intro, picks, faqs,
-        check_back_note(spec["empty"]), spec["empty_desc"], spec["filled_label"], notes=notes, extra_html=extra)
+        check_back_note(spec["empty"]), spec["empty_desc"], spec["filled_label"], notes=notes, extra_html=extra, extra=choose_html)
 def gift_guide_section(heading, pairs, extra=()):
     """Labeled chip block. Anchor text is the guide's page title (its h1)."""
     links="".join(f"<a href='{PREFIX}/gifts/{slug}/'>{e(title)}</a>" for slug, title in pairs)
@@ -1649,7 +1678,10 @@ def _gift_rule_rows():
                      "occasion":bool(occasion) or slug in _OCCASION_GIFT_SLUGS,"prefer":prefer})
     for row in static: add(*row)
     for spec in GIFT_GUIDES:
-        if spec.get("min_was"): continue
+        # Curated id lists are not a gender or price bucket, so this dupe picker
+        # leaves them out. Brand, fragrance, and vs pages still link a guide when
+        # its rendered picks include the bottle.
+        if spec.get("min_was") or spec.get("ids"): continue
         add(spec["slug"], spec.get("gender"), spec.get("max_price"), spec.get("min_price"),
             spec.get("max_price_inclusive"), spec.get("roundups"), spec.get("include_travel"),
             1 if spec.get("include_travel") else 0)
@@ -1768,7 +1800,7 @@ def guides_featuring_deal(deal):
     return found
 def _guide_rule_fits(rule, d):
     """Gender and checked price only. Roundup, compare-at, and travel-mix guides are not a fallback."""
-    if rule.get("roundups") or rule.get("include_travel") or rule.get("min_was"): return False
+    if rule.get("roundups") or rule.get("include_travel") or rule.get("min_was") or rule.get("ids"): return False
     g=rule.get("gender")
     if g and d.get("gender")!=g: return False
     price=d.get("price")

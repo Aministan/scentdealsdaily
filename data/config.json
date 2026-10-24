@@ -1157,6 +1157,7 @@
     {"href": "/gifts/for-him/", "label": "All fragrance gifts for him"},
     {"href": "/gifts/best-mens-cologne-under-40/", "label": "Best men's cologne under $40"},
     {"href": "/gifts/cologne-gifts-for-boyfriend/", "label": "Cologne gifts for boyfriend"},
+    {"href": "/gifts/cologne-gifts-for-husband/", "label": "Cologne gifts for husband"},
     {"href": "/men/", "label": "All men's deals"}
    ]
   },
@@ -1187,6 +1188,7 @@
     {"href": "/best/fresh-perfume-deals-under-50/", "label": "Fresh perfume deals under $50"},
     {"href": "/gifts/for-her/", "label": "All fragrance gifts for her"},
     {"href": "/gifts/perfume-gifts-for-girlfriend/", "label": "Perfume gifts for girlfriend"},
+    {"href": "/gifts/perfume-gifts-for-wife/", "label": "Perfume gifts for wife"},
     {"href": "/women/", "label": "All women's deals"}
    ]
   },
@@ -1328,6 +1330,7 @@
     {"href": "/gifts/for-her/", "label": "All fragrance gifts for her"},
     {"href": "/gifts/luxury-fragrance-gifts/", "label": "Luxury fragrance gifts"},
     {"href": "/gifts/perfume-gifts-for-girlfriend/", "label": "Perfume gifts for girlfriend"},
+    {"href": "/gifts/perfume-gifts-for-wife/", "label": "Perfume gifts for wife"},
     {"href": "/women/", "label": "All women's deals"}
    ]
   },
@@ -1359,6 +1362,7 @@
     {"href": "/gifts/for-him/", "label": "All fragrance gifts for him"},
     {"href": "/gifts/luxury-fragrance-gifts/", "label": "Luxury fragrance gifts"},
     {"href": "/gifts/cologne-gifts-for-boyfriend/", "label": "Cologne gifts for boyfriend"},
+    {"href": "/gifts/cologne-gifts-for-husband/", "label": "Cologne gifts for husband"},
     {"href": "/men/", "label": "All men's deals"}
    ]
   },
@@ -1391,6 +1395,7 @@
     {"href": "/best/vanilla-sweet-fragrance-deals/", "label": "Vanilla and sweet fragrance deals"},
     {"href": "/best/fresh-citrus-cologne-deals/", "label": "Fresh and citrus cologne deals"},
     {"href": "/best/warm-spicy-cologne-deals/", "label": "Warm and spicy cologne deals"},
+    {"href": "/gifts/cologne-gifts-for-husband/", "label": "Cologne gifts for husband"},
     {"href": "/men/", "label": "All men's deals"}
    ]
   },
@@ -1422,6 +1427,7 @@
     {"href": "/gifts/christmas-perfume-gifts-for-mom/", "label": "Christmas perfume gifts for mom"},
     {"href": "/best/floral-perfume-deals/", "label": "Floral perfume deals"},
     {"href": "/best/vanilla-sweet-fragrance-deals/", "label": "Vanilla and sweet fragrance deals"},
+    {"href": "/gifts/perfume-gifts-for-wife/", "label": "Perfume gifts for wife"},
     {"href": "/women/", "label": "All women's deals"}
    ]
   },
@@ -1456,6 +1462,124 @@
     {"href": "/gifts/secret-santa-fragrances-under-30/", "label": "Secret Santa fragrances under $30"},
     {"href": "/gifts/fragrance-gifts-for-teens/", "label": "Fragrance gifts for teens under $40"},
     {"href": "/gifts/under-50/", "label": "Fragrance gifts under $50"}
+   ]
+  },
+  {
+   "slug": "perfume-gifts-for-wife",
+   "title": "Perfume gifts for wife",
+   "chip": "Gifts for wife",
+   "genders": ["women", "unisex"],
+   "ids": [
+    "calvin-klein-ck-one-eau-de-toilette-unisex-fragrance",
+    "ralph-lauren-romance-perfume-for-women-eau-de-parfum",
+    "calvin-klein-eternity-womens-eau-de-parfum-spray",
+    "elizabeth-arden-green-tea-scent-women-eau-de-parfum-spray",
+    "clinique-happy-women-eau-de-parfum-spray",
+    "olympea-eau-de-parfum-spray-for-women-by-paco-rabanne",
+    "bright-crystal-absolu-by-versace-for-women-eau-de-parfum-spray",
+    "lancome-la-vie-est-belle-perfume-eau-de-parfum-for-women",
+    "lancome-poeme-perfume-for-women-eau-de-parfum-spray",
+    "valentino-donna-born-in-roma-perfume-eau-de-parfum-for-women",
+    "cafe-rose-eau-de-parfum-spray-for-women-by-tom-ford"
+   ],
+   "filled_label": "perfume gifts for a wife",
+   "intro": "A short spouse list of women's perfumes and one unisex bottle, lowest checked price first. The names are long-running gifts, spread from an everyday bottle to a prestige one. Perfume gifts for girlfriend keeps every women's perfume on the floral roundup or the vanilla-and-sweet roundup under $150. Christmas perfume gifts for mom keeps every women's perfume at $50 and up, so the cheaper bottles here stay off that page. We do not call a scent a wife perfume, and we do not rank bottles by the wearer's age. None of these listings do. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes. Ralph Lauren Romance is on this list with no note line, because the deal data does not store one.",
+   "empty": "None of the women's or unisex bottles on this spouse list are in the deals we checked, so this page has no list. These guides have bottles we priced.",
+   "empty_desc": "Perfume gifts for wife: none of the curated women's or unisex bottles are in the deals we checked. Other gift guides list bottles we did price.",
+   "choose": [
+    "Start from a bottle she already finishes. The note line under each card is the only scent description on this page, and it is copied from that retailer's product copy. Green Tea, Clinique Happy, and CK One read fresh in those lines: citrus, tea, or a light floral. La Vie Est Belle, Olympea, Poême, and Donna Born in Roma read sweeter: vanilla, praline, or a floral gourmand. When you do not know which she wears, a fresh bottle is the easier daily gift and a sweet one is the evening gift. That is a wear split. It is not a quality ranking.",
+    "The cards are spread across price bands so a budget does not land in one corner. The lower cards are full bottles from houses people already know: CK One, Romance, Eternity, and Green Tea. The middle is the department-store gift group: Clinique Happy, Olympea, Bright Crystal Absolu, and La Vie Est Belle. The top is Poême, Donna Born in Roma, and Tom Ford Café Rose, the rose splurge. Read the size on the card before you treat two stickers as the same gift. A 1 oz bottle and a 3 oz bottle at a nearby price are different amounts of juice. When the name links to a bottle page, that page shows the price per ounce from the checked price and the size.",
+    "CK One is the unisex bottle, a shared citrus you can both wear. Romance is here as a long-running gift name. Its card has no note line, so this page does not describe how it smells. We do not call any of these a wife perfume."
+   ],
+   "faq": [
+    [
+     "How is this different from perfume gifts for girlfriend?",
+     "Perfume gifts for girlfriend lists every women's perfume on the floral roundup or the vanilla-and-sweet roundup with a checked price under $150. This page is a shorter spouse list. It keeps women's and unisex bottles, including ones that are not on those two roundups, and it leaves off the rest of the floral and vanilla sale list."
+    ],
+    [
+     "How is this different from Christmas perfume gifts for mom?",
+     "Christmas perfume gifts for mom lists every women's perfume we checked at $50 or more. This page is a curated spouse list. It keeps bottles under $50, and it can keep a unisex bottle. A bottle can appear on both pages when it is on this list and its checked price is $50 or more."
+    ],
+    [
+     "Do you call these wife perfumes?",
+     "No. None of these listings say that. The page is a gift list of women's perfumes and one unisex bottle that people have been giving for years. It is not a ranking of who wears them."
+    ],
+    [
+     "Which bottle is the safer gift when I do not know what she wears?",
+     "Stay with a long-running department-store name and read the note line before you buy. Eternity, Green Tea, Bright Crystal Absolu, and La Vie Est Belle are the familiar ones on this page. Pick the fresh note line for daytime and the sweeter note line for evening. Romance is familiar too, and its card has no note line, so smell it in a store if you can before you rely on it."
+    ]
+   ],
+   "links": [
+    {"href": "/gifts/perfume-gifts-for-girlfriend/", "label": "Perfume gifts for girlfriend"},
+    {"href": "/gifts/christmas-perfume-gifts-for-mom/", "label": "Christmas perfume gifts for mom"},
+    {"href": "/gifts/for-her/", "label": "Fragrance gifts for her"},
+    {"href": "/gifts/perfume-gifts-for-her-under-50/", "label": "Perfume gifts for her under $50"},
+    {"href": "/gifts/perfume-gifts-for-her-under-40/", "label": "Perfume gifts for her under $40"},
+    {"href": "/gifts/cologne-gifts-for-husband/", "label": "Cologne gifts for husband"},
+    {"href": "/best/floral-perfume-deals/", "label": "Floral perfume deals"},
+    {"href": "/best/vanilla-sweet-fragrance-deals/", "label": "Vanilla and sweet fragrance deals"},
+    {"href": "/best/fresh-perfume-deals-under-50/", "label": "Fresh perfume deals under $50"},
+    {"href": "/women/", "label": "All women's deals"},
+    {"href": "/unisex/", "label": "Unisex deals"}
+   ]
+  },
+  {
+   "slug": "cologne-gifts-for-husband",
+   "title": "Cologne gifts for husband",
+   "chip": "Gifts for husband",
+   "genders": ["men", "unisex"],
+   "ids": [
+    "burberry-weekend-mens-eau-de-toilette-spray",
+    "calvin-klein-ck-one-eau-de-toilette-unisex-fragrance",
+    "ck-everyone-unisex-fragrance",
+    "versace-pour-homme-cologne-mens-eau-de-toilette",
+    "versace-eros-cologne-eau-de-toilette-for-men",
+    "h24-eau-de-toilette",
+    "giorgio-armani-acqua-di-gio-eau-de-toilette-cologne-for-men",
+    "stronger-with-you-intensely-cologne-for-men",
+    "le-beau-eau-de-toilette-spray-for-men-by-jean-paul-gaultier",
+    "valentino-uomo-born-in-roma-cologne-eau-de-toilette-for-men",
+    "burberry-hero-cologne-eau-de-toilette-for-men",
+    "casamorati-mefisto-cologne"
+   ],
+   "filled_label": "cologne gifts for a husband",
+   "intro": "A short spouse list of men's colognes and unisex bottles, lowest checked price first. The names are ones people recognize as gifts, from a fresh daytime bottle through a sweeter evening one to a niche bottle. Cologne gifts for boyfriend keeps sweet and fresh men's colognes from $30 up to $150 and leaves unisex bottles off. Cologne gifts for dad is every men's cologne at $50 and up. We do not call a scent a husband cologne, and we do not rank bottles by the wearer's age. None of these listings do. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes. Burberry Hero and Hermès H24 are on this list with no note line, because the deal data does not store one.",
+   "empty": "None of the men's or unisex bottles on this spouse list are in the deals we checked, so this page has no list. These guides have bottles we priced.",
+   "empty_desc": "Cologne gifts for husband: none of the curated men's or unisex bottles are in the deals we checked. Other gift guides list bottles we did price.",
+   "choose": [
+    "Split the list by when he would wear it. Burberry Weekend, Versace Pour Homme, Acqua di Gio, Valentino Uomo Born in Roma, CK One, and CK Everyone read fresh in the retailer notes: citrus, aquatic, mineral, or tea. Eros, Le Beau, and Stronger With You Intensely are the sweeter evening bottles: tonka, vanilla, coconut, or toffee. Mefisto is a fresh citrus too, and it is the prestige bottle. When you have never smelled what he wears, the fresh group is the lower-risk daily gift. When his current cologne is already sweet, stay with the evening group. The note line is the retailer's. This is not a quality ranking.",
+    "Use the stickers as a budget ladder, then read the size on the card. A small bottle with a middling sticker can cost more per ounce than a larger one. When the name links to a bottle page, that page shows the price per ounce from the checked price and the size. CK One, CK Everyone, and Hermès H24 are the unisex bottles. CK One and CK Everyone are the shared fresh scents. H24 is the designer unisex option, and this page does not add a smell description for it.",
+    "Burberry Hero is on the list with no note line, same as H24, so do not guess a smell from the name. Cologne gifts for boyfriend is the longer sweet-and-fresh men's list from $30 up to $150, and it leaves unisex bottles off. Cologne gifts for dad is every men's cologne at $50 and up, with no scent filter. A bottle can appear on more than one of those pages when it meets each rule. We do not call any of these a husband cologne."
+   ],
+   "faq": [
+    [
+     "How is this different from cologne gifts for boyfriend?",
+     "Cologne gifts for boyfriend lists a men's cologne only when it is on the vanilla-and-sweet roundup or the fresh-and-citrus cologne roundup and the checked price is $30 or more and under $150. This page is a shorter spouse list. It keeps unisex bottles, and it keeps men's bottles under $30 and over $150 when they are on the list."
+    ],
+    [
+     "How is this different from cologne gifts for dad?",
+     "Cologne gifts for dad lists every men's cologne we checked at $50 or more. This page is a curated spouse list. It keeps bottles under $50, it keeps unisex bottles, and it leaves off men's colognes that are not on the list. A bottle can appear on both pages when it is on this list and its checked price is $50 or more."
+    ],
+    [
+     "Do you call these husband colognes?",
+     "No. None of these listings say that. The page is a gift list of men's colognes and unisex bottles that people recognize as gifts. It is not a ranking of who wears them."
+    ],
+    [
+     "Which bottle is the safer gift when I do not know what he wears?",
+     "Start with a fresh daytime bottle and read the note line. Burberry Weekend, Versace Pour Homme, and Acqua di Gio are the familiar fresh ones on this page. Eros and Le Beau are louder and sweeter, so they fit better when you already know he likes a night-out scent. Hero and H24 have no note line here, so smell those in a store if you can before you rely on the name."
+    ]
+   ],
+   "links": [
+    {"href": "/gifts/cologne-gifts-for-boyfriend/", "label": "Cologne gifts for boyfriend"},
+    {"href": "/gifts/cologne-gifts-for-dad/", "label": "Cologne gifts for dad"},
+    {"href": "/gifts/for-him/", "label": "Fragrance gifts for him"},
+    {"href": "/gifts/cologne-gifts-for-him-under-50/", "label": "Cologne gifts for him under $50"},
+    {"href": "/gifts/perfume-gifts-for-wife/", "label": "Perfume gifts for wife"},
+    {"href": "/best/fresh-citrus-cologne-deals/", "label": "Fresh and citrus cologne deals"},
+    {"href": "/best/vanilla-sweet-fragrance-deals/", "label": "Vanilla and sweet fragrance deals"},
+    {"href": "/best/warm-spicy-cologne-deals/", "label": "Warm and spicy cologne deals"},
+    {"href": "/men/", "label": "All men's deals"},
+    {"href": "/unisex/", "label": "Unisex deals"}
    ]
   }
  ],
