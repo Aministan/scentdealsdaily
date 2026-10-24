@@ -553,6 +553,9 @@ GIFT_MORE_MARK="<!--more-gift-guides-->"
 BRAND_GIFT_MARK="<!--brand-gift-guides-->"
 DUPE_GIFT_MARK="<!--dupe-gift-guides-->"
 FRAGRANCE_GIFT_MARK="<!--fragrance-gift-guides-->"
+VS_GIFT_MARK="<!--vs-gift-guides-->"
+# (relative path, comparison) for each /vs/ page this build wrote.
+VS_PAGES=[]
 # (relative path, deal) for each /fragrance/ page this build wrote.
 FRAGRANCE_PAGES=[]
 # Compact homepage set. Titles come from GIFT_SUBPAGES, not from this tuple.
@@ -1062,13 +1065,16 @@ for v in VS:
       +(f"<li><b>Better value per ounce:</b> {e(fullname(value))} at ${per_oz(value):.2f}/oz.</li>" if per_oz(value) else "")
       +f"<li><b>Bigger discount:</b> {e(fullname(bigger))}, {bigger['pct_off']}% off.</li><li>{e(v['pick'])}</li></ul></div>"
       +faqhtml(qs)+"<h2>Both deals</h2><div class='grid'>"+card(A)+card(B)+"</div>"
+      +VS_GIFT_MARK
       +"<p class='chips'>"+"".join(f"<a href='{PREFIX}/best/{x['slug']}/'>{e(x['title'])}</a>" for x in ROUNDUPS if A in x['items'] or B in x['items'])+"".join(f"<a href='{PREFIX}/vs/{x['slug']}/'>{e(x['title'])}</a>" for x in VS if x is not v)+f"<a href='{PREFIX}/{A['gender']}/'>All {A['gender']}'s deals</a><a href='{PREFIX}/brands/{bslug(A['brand'])}/'>All {e(canon(A['brand']))} deals</a></p>")
     CP=f"${cheaper['price']:.2f}"
-    page(f"vs/{v['slug']}/index.html",fit([f"{T}: Which to Buy? Prices From {CP} ({upd:%b %Y}) | {NAME}",f"{T}: Which to Buy? From {CP}",f"{T}: Which Is Better? From {CP}",f"{T} Compared: From {CP}",f"{T}: From {CP}",f"{T}: Which to Buy?",f"{T} Compared"]),
+    vs_rel=f"vs/{v['slug']}/index.html"
+    page(vs_rel,fit([f"{T}: Which to Buy? Prices From {CP} ({upd:%b %Y}) | {NAME}",f"{T}: Which to Buy? From {CP}",f"{T}: Which Is Better? From {CP}",f"{T} Compared: From {CP}",f"{T}: From {CP}",f"{T}: Which to Buy?",f"{T} Compared"]),
       fit([f"{fa} (${A['price']:.2f}, {sz(A['size'])}) vs {fb} (${B['price']:.2f}, {sz(B['size'])}): price per ounce, concentration and key notes compared. Checked {upd:%b %-d, %Y}.",
            f"{T}: ${A['price']:.2f} ({sz(A['size'])}) vs ${B['price']:.2f} ({sz(B['size'])}) today. Price per ounce, concentration, key notes and which to buy. Checked {upd:%b %-d}.",
            f"{T}: ${A['price']:.2f} ({sz(A['size'])}) vs ${B['price']:.2f} ({sz(B['size'])}) today. Price per ounce, key notes and which to buy."],160),body,
       [prod_ld(A, name=f"{fa} {sz(A['size'])}", brand=canon(A['brand'])),prod_ld(B, name=f"{fb} {sz(B['size'])}", brand=canon(B['brand'])),faqld(qs)])
+    VS_PAGES.append((vs_rel, v))
 # ---------- holiday gift guides (/gifts/...) ----------
 def _sha256_file(path):
     h=hashlib.sha256()
@@ -1912,6 +1918,114 @@ def audit_fragrance_gift_links():
                 raise SystemExit(f"{rel}: {href} has no built page")
         counts.append(len(specific))
     print(f"fragrance gift guides: {len(frag)} sitemap pages, min {min(counts)} max {max(counts)} specific guide links")
+VS_GIFT_HEADING="Gift guides featuring these fragrances"
+VS_GIFT_LINKS=[]
+def guides_featuring_either(ds):
+    """Gift pages whose rendered list includes any of these bottles, in the order the pages were built."""
+    hits=set()
+    for d in ds:
+        hits.update(guides_featuring_deal(d))
+    return [gslug for gslug, _title, picks in GIFT_PAGE_PICKS if gslug in hits]
+def guides_featuring_brands(names):
+    """Gift pages that include a checked deal from these brands. Same inclusion rule as brand pages."""
+    wanted={canon(b) for b in names if b}
+    rows=[d for d in deals if canon(d.get("brand") or "") in wanted]
+    seen=set(); out=[]
+    for gslug, _title in _guides_featuring(rows):
+        if gslug in seen: continue
+        seen.add(gslug)
+        out.append(gslug)
+    return out
+def apply_vs_gift_guides():
+    """Splice 'Gift guides featuring these fragrances' onto each /vs/ page.
+
+    A guide is linked when its rendered list includes either compared bottle.
+    When neither bottle is on a guide, link guides that include another checked
+    deal from the same brand. When neither brand is on a guide, link the /gifts/ hub.
+    """
+    global VS_GIFT_LINKS
+    if not VS_PAGES:
+        raise SystemExit("vs gift guides: no comparison pages")
+    if len(VS_PAGES)!=len(VS):
+        raise SystemExit(f"vs gift guides: {len(VS_PAGES)} pages for {len(VS)} comparisons")
+    if len(VS_PAGES)!=len({rel for rel,_ in VS_PAGES}):
+        raise SystemExit("vs gift guides: two comparisons wrote the same page")
+    by_slug=dict(GIFT_SUBPAGES)
+    for gslug, title, _picks in GIFT_PAGE_PICKS:
+        if by_slug.get(gslug)!=title:
+            raise SystemExit(f"vs gift guides: {gslug} title {title!r} != registered {by_slug.get(gslug)!r}")
+    picks_by={gslug: picks for gslug, _title, picks in GIFT_PAGE_PICKS}
+    hub_href=f"{PREFIX}/gifts/"
+    hub_title=_page_h1("gifts/index.html")
+    VS_GIFT_LINKS=[]
+    counts=[]
+    for rel, v in VS_PAGES:
+        A,B=v["A"],v["B"]
+        featured=guides_featuring_either([A,B])
+        extra=()
+        if featured:
+            pairs=[(gslug, by_slug[gslug]) for gslug in featured]
+            mode="featured"
+        else:
+            branded=guides_featuring_brands([A.get("brand"), B.get("brand")])
+            if branded:
+                pairs=[(gslug, by_slug[gslug]) for gslug in branded]
+                mode="brand"
+            else:
+                pairs=[]
+                mode="hub"
+                extra=((hub_href, hub_title),)
+        if mode!="hub" and not pairs:
+            raise SystemExit(f"{rel}: no gift guide for {v.get('slug')}")
+        if mode=="featured" and guides_featuring_either([A,B])!=[s for s,_ in pairs]:
+            raise SystemExit(f"{rel}: featured guides drifted")
+        if mode=="brand" and guides_featuring_either([A,B]):
+            raise SystemExit(f"{rel}: brand fallback used although a compared fragrance is listed")
+        if mode=="featured":
+            for gslug, _title in pairs:
+                if not any(_pick_features_deal(p, d) for d in (A,B) for p in (picks_by.get(gslug) or [])):
+                    raise SystemExit(f"{rel}: {gslug} does not include either fragrance")
+        if mode=="brand":
+            wanted={canon(A.get("brand")), canon(B.get("brand"))}
+            keys={_deal_key(d) for d in deals if canon(d.get("brand") or "") in wanted}
+            for gslug, _title in pairs:
+                if not any(_deal_key(p) in keys for p in (picks_by.get(gslug) or [])):
+                    raise SystemExit(f"{rel}: {gslug} does not include either brand")
+        _splice_mark(rel, VS_GIFT_MARK, gift_guide_section(VS_GIFT_HEADING, pairs, extra))
+        got=_section_anchors(rel, VS_GIFT_HEADING)
+        expect=[(f"{PREFIX}/gifts/{gslug}/", title) for gslug, title in pairs]+[(href, label) for href, label in extra]
+        if got!=expect:
+            raise SystemExit(f"{rel}: gift guide section drifted")
+        text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+        if VS_GIFT_MARK in text:
+            raise SystemExit(f"{rel}: gift guide marker was not replaced")
+        if text.count(VS_GIFT_HEADING)!=1:
+            raise SystemExit(f"{rel}: expected one {VS_GIFT_HEADING} section")
+        if not got:
+            raise SystemExit(f"{rel}: gift guide section is empty")
+        for href, label in got:
+            path=_href_path(href)
+            if path==hub_href:
+                if mode!="hub" or label!=hub_title:
+                    raise SystemExit(f"{rel}: unexpected /gifts/ hub link")
+                continue
+            gslug=path[len(f"{PREFIX}/gifts/"):].strip("/")
+            if "/" in gslug or gslug not in by_slug or label!=by_slug[gslug]:
+                raise SystemExit(f"{rel}: anchor {label!r} is not a built guide title")
+            if not os.path.isfile(f"{OUT}/gifts/{gslug}/index.html"):
+                raise SystemExit(f"{rel}: {path} was not built")
+            if not picks_by.get(gslug):
+                raise SystemExit(f"{rel}: {gslug} has no deals")
+        specific=len(pairs)
+        if mode=="hub" and specific:
+            raise SystemExit(f"{rel}: hub fallback still linked a guide")
+        if mode!="hub" and specific<1:
+            raise SystemExit(f"{rel}: no specific gift guide link")
+        counts.append(specific)
+        VS_GIFT_LINKS.append((rel, list(pairs), mode, list(extra)))
+        shown=", ".join(s for s,_ in pairs) if pairs else hub_href
+        print(f"vs gift guides: {v['slug']} -> {specific} ({mode}): {shown}")
+    print(f"vs gift guides: {len(counts)} pages, min {min(counts)} max {max(counts)} specific guide links")
 def _sitemap_paths():
     text=open(f"{OUT}/sitemap.xml", encoding="utf-8").read()
     out=set()
@@ -2052,12 +2166,13 @@ def apply_gift_guide_links():
     apply_brand_gift_guides()
     apply_dupe_gift_guides()
     apply_fragrance_gift_guides()
+    apply_vs_gift_guides()
     for dirpath, _, files in os.walk(OUT):
         for fn in files:
             if not fn.endswith(".html"): continue
             path=os.path.join(dirpath, fn)
             text=open(path, encoding="utf-8").read()
-            for mark in (GIFT_HUB_MARK, GIFT_HOME_MARK, GIFT_MORE_MARK, BRAND_GIFT_MARK, DUPE_GIFT_MARK, FRAGRANCE_GIFT_MARK):
+            for mark in (GIFT_HUB_MARK, GIFT_HOME_MARK, GIFT_MORE_MARK, BRAND_GIFT_MARK, DUPE_GIFT_MARK, FRAGRANCE_GIFT_MARK, VS_GIFT_MARK):
                 if mark in text:
                     raise SystemExit(f"{os.path.relpath(path, OUT)}: still contains {mark}")
     hub_links=_section_anchors("gifts/index.html", "Gift guides")
@@ -2217,9 +2332,55 @@ def assert_404_unlisted():
     print(f"404.html excluded from sitemap ({n} urls), llms.txt, feed.xml, and IndexNow")
 # rewrite sitemap with new pages + keyword list + IndexNow key
 open(f"{OUT}/sitemap.xml","w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+"".join(f"<url><loc>{u}</loc><lastmod>{upd:%Y-%m-%d}</lastmod></url>" for u in PAGES)+"</urlset>\n")
+def audit_vs_gift_links():
+    """Every sitemap /vs/ URL links the gift guides that list either bottle, or the /gifts/ hub."""
+    paths=_sitemap_paths()
+    vs_urls=sorted(p for p in paths if p.startswith(f"{PREFIX}/vs/"))
+    if not VS_GIFT_LINKS:
+        raise SystemExit("vs gift guides: nothing was linked")
+    want=[]
+    for rel, _pairs, _mode, _extra in VS_GIFT_LINKS:
+        folder=rel[:-len("index.html")] if rel.endswith("index.html") else rel
+        if not folder.endswith("/"): folder+="/"
+        want.append(f"{PREFIX}/{folder}" if not folder.startswith("/") else f"{PREFIX}{folder}")
+    if sorted(want)!=vs_urls:
+        raise SystemExit(f"vs gift guides: sitemap comparison urls drifted ({len(vs_urls)} sitemap, {len(want)} linked)")
+    hub=f"{PREFIX}/gifts/"
+    by_slug=dict(GIFT_SUBPAGES)
+    counts=[]
+    for rel, pairs, mode, extra in VS_GIFT_LINKS:
+        text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+        if VS_GIFT_MARK in text:
+            raise SystemExit(f"{rel}: gift guide marker was not replaced")
+        anchors=_section_anchors(rel, VS_GIFT_HEADING)
+        specific=[(href, label) for href, label in anchors if _href_path(href).startswith(f"{PREFIX}/gifts/") and _href_path(href)!=hub]
+        expect=[(f"{PREFIX}/gifts/{gslug}/", title) for gslug, title in pairs]
+        if specific!=expect:
+            raise SystemExit(f"{rel}: sitemap audit gift links drifted")
+        if mode=="hub":
+            if specific or anchors!=[(hub, _page_h1("gifts/index.html"))]:
+                raise SystemExit(f"{rel}: hub fallback should be the only gift link")
+        elif len(specific)<1:
+            raise SystemExit(f"{rel}: no specific gift guide link")
+        for href, label in anchors:
+            path=_href_path(href)
+            if path not in paths:
+                raise SystemExit(f"{rel}: {href} is not in the sitemap")
+            local=path[len(PREFIX):] if PREFIX and path.startswith(PREFIX) else path
+            if not os.path.isfile(f"{OUT}{local}index.html"):
+                raise SystemExit(f"{rel}: {href} has no built page")
+            if path==hub: continue
+            gslug=path[len(f"{PREFIX}/gifts/"):].strip("/")
+            if gslug not in by_slug or label!=by_slug[gslug]:
+                raise SystemExit(f"{rel}: {label!r} is not a gift guide title")
+        if mode!="hub" and extra:
+            raise SystemExit(f"{rel}: a specific guide list also links the hub")
+        counts.append(len(specific))
+    print(f"vs gift guides: {len(vs_urls)} sitemap pages, min {min(counts)} max {max(counts)} specific guide links")
 audit_dupe_related()
 audit_dupe_deal_cards()
 audit_fragrance_gift_links()
+audit_vs_gift_links()
 def rfc822(dt):
     days=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]; mons=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
     return f"{days[dt.weekday()]}, {dt.day:02d} {mons[dt.month-1]} {dt.year} {dt:%H:%M:%S} +0000"
