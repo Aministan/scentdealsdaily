@@ -9,6 +9,10 @@ was built (for example /gifts/); a section with no hub is skipped.
 """
 import json, os, html, re, datetime, urllib.parse, shutil, tempfile
 import links
+try:
+    import pins as giftpins
+except ImportError as _pin_err:
+    raise SystemExit("gift pin images need Pillow. Install it with: python3 -m pip install pillow") from _pin_err
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__))); OUT=f"{ROOT}/site"
 # site/ is wiped and regenerated; keep promo videos in site/media across that rebuild.
 _media_tmp=None
@@ -887,6 +891,36 @@ for v in VS:
            f"{T}: ${A['price']:.2f} ({sz(A['size'])}) vs ${B['price']:.2f} ({sz(B['size'])}) today. Price per ounce, key notes and which to buy."],160),body,
       [prod_ld(A, name=f"{fa} {sz(A['size'])}", brand=canon(A['brand'])),prod_ld(B, name=f"{fb} {sz(B['size'])}", brand=canon(B['brand'])),faqld(qs)])
 # ---------- holiday gift guides (/gifts/...) ----------
+def _sha256_file(path):
+    h=hashlib.sha256()
+    with open(path,"rb") as f:
+        for chunk in iter(lambda: f.read(1<<16), b""):
+            h.update(chunk)
+    return h.hexdigest()
+def _snapshot_media(root):
+    found={}
+    if not root or not os.path.isdir(root): return found
+    for dirpath,_,files in os.walk(root):
+        for fn in files:
+            fp=os.path.join(dirpath,fn)
+            rel=os.path.relpath(fp,root).replace(os.sep,"/")
+            found[rel]=_sha256_file(fp)
+    return found
+_MEDIA_BEFORE=_snapshot_media(f"{_media_tmp}/media" if _media_tmp else "")
+_GIFT_PINS_WRITTEN=set()
+def write_gift_pin(slug, title):
+    """One 1000x1500 pin for this guide. Never replaces the five legacy pins."""
+    fn=f"{slug}.png"
+    if fn in giftpins.LEGACY:
+        raise SystemExit(f"gift pin {fn} would replace a legacy pin")
+    root=f"{_media_tmp}/media/pins" if _media_tmp else f"{OUT}/media/pins"
+    os.makedirs(root, exist_ok=True)
+    template=os.path.join(root,"holiday-fragrance-gifts.png")
+    if not os.path.isfile(template):
+        raise SystemExit(f"pin template missing: {template}")
+    giftpins.render(os.path.join(root,fn), template, slug, title, site_host=CUSTOM_DOMAIN)
+    _GIFT_PINS_WRITTEN.add(f"pins/{fn}")
+    return f"/media/pins/{fn}"
 def gift_blob(d):
     return " ".join(str(d.get(k) or "") for k in ("name","brand","type","size","retailer","url")).lower()
 def gift_ok(d):
@@ -1000,18 +1034,19 @@ by_off=sorted(eligible, key=lambda d:(-(d.get("pct_off") or 0), d["price"], d["i
 gift_pages=[
  ("gifts/index.html","","Holiday fragrance gifts","Fragrance gifts from checked deals",
   "Single bottles on sale now, for November and December. Largest checked discount first.",
-  by_off[:12],"Holiday fragrance gifts","/media/pins/holiday-fragrance-gifts.png"),
+  by_off[:12],"Holiday fragrance gifts"),
  ("gifts/for-him/index.html","for-him","Fragrance gifts for him","Men's cologne gifts",
   "Men's colognes from today's checked deals, largest discount first.",
-  [d for d in by_off if d["gender"]=="men"][:12],"Fragrance gifts for him","/media/pins/cologne-gifts-for-him.png"),
+  [d for d in by_off if d["gender"]=="men"][:12],"Fragrance gifts for him"),
  ("gifts/for-her/index.html","for-her","Fragrance gifts for her","Women's perfume gifts",
   "Women's perfumes from today's checked deals, largest discount first.",
-  [d for d in by_off if d["gender"]=="women"][:12],"Fragrance gifts for her","/media/pins/perfume-gifts-for-her.png"),
+  [d for d in by_off if d["gender"]=="women"][:12],"Fragrance gifts for her"),
  ("gifts/under-50/index.html","under-50","Fragrance gifts under $50","Gifts under $50",
   "The lowest prices we checked that are still under $50.",
-  sorted([d for d in eligible if d["price"]<50], key=lambda d:(d["price"], -(d.get("pct_off") or 0), d["id"]))[:12],"Fragrance gifts under $50","/media/pins/fragrance-gifts-under-50.png"),
+  sorted([d for d in eligible if d["price"]<50], key=lambda d:(d["price"], -(d.get("pct_off") or 0), d["id"]))[:12],"Fragrance gifts under $50"),
 ]
-for path,sid_slug,title,short,intro,picks,list_name,image in gift_pages:
+for path,sid_slug,title,short,intro,picks,list_name in gift_pages:
+    image=write_gift_pin(sid_slug or "gifts", title)
     use_sid("gifts", sid_slug)
     if picks:
         lo=min(picks, key=lambda d:d["price"])
@@ -1065,8 +1100,9 @@ def seo_meta_filled(n_label, picks, tail="Sealed bottles only."):
         f"{len(picks)} {n_label}, starting at {price} for {who}. Checked {when}.",
         f"{len(picks)} {n_label}, starting at {price} at {lo['retailer']}. Checked {when}.",
     ],160)
-def render_seo_gift(slug_s, h1, intro, picks, faqs, empty_html, empty_desc, filled_label, notes=None, extra_html="", extra="", group_by_brand=False, image=None, tail="Sealed bottles only."):
+def render_seo_gift(slug_s, h1, intro, picks, faqs, empty_html, empty_desc, filled_label, notes=None, extra_html="", extra="", group_by_brand=False, tail="Sealed bottles only."):
     use_sid("gifts", slug_s)
+    image=write_gift_pin(slug_s, h1)
     register_gift_subpage(slug_s, h1)
     GIFT_PAGE_PICKS.append((slug_s, h1, list(picks or [])))
     title=seo_title(h1, picks)
@@ -1207,7 +1243,7 @@ render_seo_gift("gift-sets","Designer fragrance gift sets",
   "Check back soon. No fragrance gift set at $75 or more is in the products we checked.",
   "boxed fragrance sets at $75 and up",
   extra="<p>Coffrets under $75 are on <a href='/gifts/holiday-gift-sets/'>holiday gift sets</a>. Travel sprays are on <a href='/gifts/stocking-stuffer-minis/'>stocking stuffer minis</a>.</p>",
-  group_by_brand=True, image="/media/pins/fragrance-gift-sets.png", tail="Boxed sets only.")
+  group_by_brand=True, tail="Boxed sets only.")
 for spec in GIFT_GUIDES:
     picks=spec["picks"]
     h1=spec["title"]
@@ -1838,6 +1874,12 @@ if _media_tmp:
     shutil.copytree(f"{_media_tmp}/media", f"{OUT}/media")
     shutil.rmtree(_media_tmp)
     print("copied site/media ->", OUT)
+if _MEDIA_BEFORE:
+    # Gift pins are rewritten every build. Everything else in site/media stays byte-for-byte.
+    changed=[rel for rel,digest in _MEDIA_BEFORE.items() if rel not in _GIFT_PINS_WRITTEN and (not os.path.isfile(f"{OUT}/media/{rel}") or _sha256_file(f"{OUT}/media/{rel}")!=digest)]
+    if changed:
+        raise SystemExit("existing media changed or deleted: "+", ".join(changed[:12]))
+    print(f"media preserved: {len(_MEDIA_BEFORE)-len(_GIFT_PINS_WRITTEN & set(_MEDIA_BEFORE))} existing files unchanged")
 
 # Parent crumb labels. The current page uses its own h1. A section missing from
 # the built files is not linked, so /fragrance/, /dupe/, /best/, and /vs/ stay
@@ -2354,8 +2396,85 @@ def audit_share_meta():
     print(f"share metadata: {htmls} pages, {len(specific)} page-specific images, {len(defaulted)} default images")
     for url, img in sorted(specific):
         print(f"  specific {url} -> {img}")
+def audit_gift_pins():
+    """Every sitemap /gifts/ URL has its own 1000x1500 pin. Other pages keep their image."""
+    from PIL import Image
+    bad=[]
+    prop_re=re.compile(r'<meta\s+property="og:image"\s+content="([^"]*)"', re.I)
+    def og_of(rel):
+        text=open(os.path.join(OUT, rel), encoding="utf-8").read().split("</head>",1)[0]
+        vals=[html.unescape(v) for v in prop_re.findall(text)]
+        if len(vals)!=1:
+            bad.append(f"{rel}: expected one og:image, found {len(vals)}")
+            return None
+        return vals[0]
+    def rel_for(loc):
+        path=urllib.parse.urlparse(loc).path
+        if PREFIX and path.startswith(PREFIX+"/"): path=path[len(PREFIX):] or "/"
+        if not path.startswith("/"): path="/"+path
+        rel=path.strip("/")
+        return (rel+"/index.html") if path.endswith("/") or not rel else rel
+    sitemap=open(f"{OUT}/sitemap.xml", encoding="utf-8").read()
+    locs=re.findall(r"<loc>([^<]+)</loc>", sitemap)
+    gift_locs=[u for u in locs if urllib.parse.urlparse(u).path.rstrip("/").endswith("/gifts") or "/gifts/" in urllib.parse.urlparse(u).path]
+    seen={}; hashes={}; rows=[]
+    for loc in gift_locs:
+        rel=rel_for(loc)
+        og=og_of(rel)
+        if not og: continue
+        parsed=urllib.parse.urlparse(og)
+        slug="gifts" if urllib.parse.urlparse(loc).path.rstrip("/").endswith("/gifts") else urllib.parse.urlparse(loc).path.rstrip("/").split("/")[-1]
+        expect=f"/media/pins/{slug}.png"
+        if not parsed.path.endswith(expect):
+            bad.append(f"{loc}: og:image {parsed.path} is not {expect}")
+        local=_local_file(parsed.path)
+        if not local:
+            bad.append(f"{loc}: og:image file missing ({parsed.path})")
+            continue
+        if Image.open(local).size!=(1000,1500):
+            bad.append(f"{loc}: og:image is {Image.open(local).size}, expected 1000x1500")
+        if og in seen:
+            bad.append(f"{loc}: og:image also used by {seen[og]}")
+        seen[og]=loc
+        digest=_sha256_file(local)
+        if digest in hashes:
+            bad.append(f"{loc}: pin pixels match {hashes[digest]}")
+        hashes[digest]=loc
+        base=os.path.basename(parsed.path)
+        if base in giftpins.LEGACY or parsed.path.endswith(DEFAULT_SHARE):
+            bad.append(f"{loc}: still using a shared image ({parsed.path})")
+        rows.append((loc, og))
+    built=[]
+    for dirpath,_,files in os.walk(os.path.join(OUT,"gifts")):
+        for fn in files:
+            if fn.endswith(".html"):
+                built.append(os.path.relpath(os.path.join(dirpath,fn), OUT).replace(os.sep,"/"))
+    sitemap_rels={rel_for(u) for u in gift_locs}
+    for rel in built:
+        if rel not in sitemap_rels:
+            bad.append(f"{rel}: gift page missing from the sitemap")
+    for dirpath,_,files in os.walk(OUT):
+        for fn in files:
+            if not fn.endswith(".html"): continue
+            rel=os.path.relpath(os.path.join(dirpath,fn), OUT).replace(os.sep,"/")
+            if rel.startswith("gifts/"): continue
+            og=og_of(rel)
+            if not og: continue
+            if rel=="black-friday-fragrance-deals/index.html":
+                if not og.endswith("/media/pins/holiday-fragrance-gifts.png"):
+                    bad.append(f"{rel}: image changed ({og})")
+            elif not og.endswith(DEFAULT_SHARE):
+                bad.append(f"{rel}: non-gift og:image changed ({og})")
+    if bad:
+        print("gift pin check failed:")
+        for line in bad[:40]: print(" ", line)
+        raise SystemExit(f"gift pin check failed ({len(bad)} problems)")
+    print(f"gift pins: {len(rows)} /gifts/ URLs, each image distinct and 1000x1500")
+    for loc, og in rows:
+        print(f"  {loc} -> {og}")
 apply_breadcrumbs()
 audit_breadcrumbs()
 audit_affiliate_output()
 audit_cards_links_jsonld()
 audit_share_meta()
+audit_gift_pins()
