@@ -3,6 +3,9 @@
 
 Also writes site/404.html (branded, noindex). That file is not added to sitemap.xml,
 llms.txt, the feed, or IndexNow, which submits the sitemap.
+Every page except the homepage and 404 gets a visible breadcrumb trail and one
+BreadcrumbList JSON-LD block. A parent crumb is emitted only when that hub page
+was built (for example /gifts/); a section with no hub is skipped.
 """
 import json, os, html, re, datetime, urllib.parse, shutil, tempfile
 import links
@@ -145,6 +148,7 @@ table{width:100%;border-collapse:collapse;background:#fff}th,td{text-align:left;
 .chips a{display:inline-block;margin:3px;padding:4px 10px;border-radius:99px;background:#fff;border:1px solid #e3ddd6;text-decoration:none;font-size:14px}
 footer{max-width:1100px;margin:20px auto;padding:16px;font-size:13px;color:#6f6976}
 .nl{margin:18px 0}.nl-foot{margin:0 0 12px}
+.crumbs{font-size:13px;color:#6f6976;margin:0 0 8px}.crumbs a{text-decoration:none}.crumbs a:hover{text-decoration:underline}.crumbs .sep{margin:0 .35em;color:#b5aeb8}.crumbs [aria-current=page]{color:#5f5a66}
 @media(max-width:640px){table,thead,tbody,tr,td{display:block}thead{display:none}td{border:0;padding:4px 10px}tr{border-bottom:1px solid #eee;padding:8px 0}}"""
 BREVO_URL="https://dc62f1d4.sibforms.com/serve/MUIFAEr2_FjNas7tKaQpb8Gb1G8G8lAWo4YUlMQLlesHgqoeXDeb81p6QoFTA97ntOQFoJ4oeYqYMvNLQ_abdWQ7yXLxfV3Ip6_yAkBb31h5wt_6nN7ia5t-doG3uLTnPam6d-V-faigM0xHfhmkEvb_KToQHCq2QIwPP4u-dsOd3SyYzJzE8_dUkbPBtLTO2DT2MnTeld3EP66vtQ=="
 # Brevo's embed uses fixed ids, so the full form is included once per page. The footer is a link to the hosted form.
@@ -1401,6 +1405,238 @@ if _media_tmp:
     shutil.rmtree(_media_tmp)
     print("copied site/media ->", OUT)
 
+# Parent crumb labels. The current page uses its own h1. A section missing from
+# the built files is not linked, so /fragrance/, /dupe/, /best/, and /vs/ stay
+# two-level trails (Home > this page) instead of pointing at a missing index.
+SECTION_LABELS={
+    "gifts":"Gift guides",
+    "brands":"Brands",
+    "dupes":"Dupes",
+    "men":"Men's cologne",
+    "women":"Women's perfume",
+    "unisex":"Unisex fragrance",
+}
+def _html_rels():
+    found=[]
+    for dirpath,_,files in os.walk(OUT):
+        for fn in files:
+            if fn.endswith(".html"):
+                found.append(os.path.relpath(os.path.join(dirpath,fn), OUT).replace(os.sep,"/"))
+    return found
+def _canon_of(text, rel):
+    m=re.search(r'<link rel="canonical" href="([^"]*)"', text)
+    if not m: raise SystemExit(f"{rel}: missing canonical")
+    return html.unescape(m.group(1))
+def _h1_of(text, rel):
+    m=re.search(r"<h1>(.*?)</h1>", text, re.S)
+    if not m: raise SystemExit(f"{rel}: no h1 for breadcrumb")
+    name=html.unescape(re.sub(r"<[^>]+>","", m.group(1))).strip()
+    if not name: raise SystemExit(f"{rel}: empty h1 for breadcrumb")
+    return name
+def _url_path(canonical):
+    path=urllib.parse.urlparse(canonical).path or "/"
+    return path if path.startswith("/") else "/"+path
+def _prefix_parts():
+    return [p for p in (PREFIX or "").strip("/").split("/") if p]
+def _ancestor_paths(path):
+    parts=[p for p in path.strip("/").split("/") if p]
+    return ["/"+"/".join(parts[:i])+"/" for i in range(1,len(parts))]
+def _section_key(path):
+    """First path segment below PATH_PREFIX when this URL is a section index, else None."""
+    parts=[p for p in path.strip("/").split("/") if p]
+    pre=_prefix_parts()
+    if pre and parts[:len(pre)]==pre: parts=parts[len(pre):]
+    return parts[0] if len(parts)==1 else None
+def _crumb_name(path, h1):
+    key=_section_key(path)
+    if key and key in SECTION_LABELS: return SECTION_LABELS[key]
+    return h1
+def _ld_scripts(text):
+    return re.findall(r'<script type="application/ld\+json">(.*?)</script>', text, re.S)
+def _load_pages():
+    pages={}
+    by_path={}
+    for rel in _html_rels():
+        text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+        canon=_canon_of(text, rel)
+        path=_url_path(canon)
+        if path in by_path:
+            raise SystemExit(f"duplicate canonical path {path}: {by_path[path]} and {rel}")
+        info={"rel":rel,"text":text,"canon":canon,"path":path,"h1":_h1_of(text, rel)}
+        pages[rel]=info
+        by_path[path]=rel
+    if by_path.get("/")!="index.html":
+        raise SystemExit(f"homepage canonical path did not resolve to index.html ({by_path.get('/')})")
+    return pages, by_path
+def _crumbs_for(info, pages, by_path):
+    """Home, then each ancestor that was actually built, then this page."""
+    home=pages["index.html"]
+    crumbs=[("Home", home["canon"], home["path"])]
+    for ap in _ancestor_paths(info["path"]):
+        if ap==home["path"]: continue
+        parent=by_path.get(ap)
+        if not parent: continue
+        pinfo=pages[parent]
+        crumbs.append((_crumb_name(ap, pinfo["h1"]), pinfo["canon"], pinfo["path"]))
+    crumbs.append((info["h1"], info["canon"], None))
+    return crumbs
+def _crumb_nav(crumbs):
+    bits=[]
+    for i,(name,_url,href) in enumerate(crumbs):
+        if i: bits.append('<span class="sep" aria-hidden="true">&gt;</span>')
+        if href: bits.append(f'<a href="{e(href)}">{e(name)}</a>')
+        else: bits.append(f'<span aria-current="page">{e(name)}</span>')
+    return '<nav class="crumbs" aria-label="Breadcrumb">'+"".join(bits)+"</nav>"
+def _crumb_ld(crumbs):
+    ld={"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+        {"@type":"ListItem","position":i+1,"name":name,"item":url} for i,(name,url,_href) in enumerate(crumbs)]}
+    payload=json.dumps(ld, ensure_ascii=False).replace("<","\\u003c")
+    return f'<script type="application/ld+json">{payload}</script>'
+def apply_breadcrumbs():
+    """Insert the trail and its JSON-LD after every page exists, so a hub counts only if it was built."""
+    pages, by_path=_load_pages()
+    n=0
+    hub_n=0
+    for rel,info in pages.items():
+        if rel in ("index.html","404.html"): continue
+        before=_ld_scripts(info["text"])
+        crumbs=_crumbs_for(info, pages, by_path)
+        if len(crumbs)<2: raise SystemExit(f"{rel}: breadcrumb is missing the current page")
+        if len(crumbs)>2: hub_n+=1
+        nav=_crumb_nav(crumbs)
+        script=_crumb_ld(crumbs)
+        text=info["text"]
+        if text.count("<main>")!=1: raise SystemExit(f"{rel}: expected one <main> for the breadcrumb")
+        if text.count("</head>")!=1: raise SystemExit(f"{rel}: expected one </head>")
+        text=text.replace("<main>","<main>"+nav,1).replace("</head>",script+"</head>",1)
+        open(f"{OUT}/{rel}","w",encoding="utf-8").write(text)
+        after=_ld_scripts(text)
+        if after[:-1]!=before:
+            raise SystemExit(f"{rel}: existing JSON-LD was changed while adding the breadcrumb")
+        n+=1
+    print(f"breadcrumbs: {n} pages ({hub_n} with a section hub); skipped homepage and 404")
+def _walk_type(node, typ, acc):
+    if isinstance(node, dict):
+        t=node.get("@type")
+        if t==typ or (isinstance(t, list) and typ in t): acc.append(node)
+        for v in node.values(): _walk_type(v, typ, acc)
+    elif isinstance(node, list):
+        for v in node: _walk_type(v, typ, acc)
+def audit_breadcrumbs():
+    """Every sitemap URL except the homepage has one BreadcrumbList whose last item is that canonical.
+    Every crumb URL is a page this build wrote. Homepage and 404 have neither trail nor schema."""
+    pages, by_path=_load_pages()
+    by_canon={info["canon"]:rel for rel,info in pages.items()}
+    bad=[]
+    sitemap=open(f"{OUT}/sitemap.xml", encoding="utf-8").read()
+    locs=re.findall(r"<loc>([^<]+)</loc>", sitemap)
+    home=pages["index.html"]["canon"]
+    if home not in locs: bad.append("homepage missing from sitemap")
+    seen=set()
+    with_hub=0
+    skipped_section=0
+    for rel,info in pages.items():
+        text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+        blocks=[]
+        for raw in _ld_scripts(text):
+            try: blocks.append(json.loads(raw))
+            except json.JSONDecodeError as ex:
+                bad.append(f"{rel}: JSON-LD did not parse ({ex})")
+        found=[]
+        for block in blocks: _walk_type(block, "BreadcrumbList", found)
+        navs=re.findall(r'<nav class="crumbs" aria-label="Breadcrumb">(.*?)</nav>', text, re.S)
+        if rel in ("index.html","404.html"):
+            if found: bad.append(f"{rel}: unexpected BreadcrumbList")
+            if navs: bad.append(f"{rel}: unexpected breadcrumb trail")
+            continue
+        if len(found)!=1:
+            bad.append(f"{rel}: expected one BreadcrumbList, found {len(found)}")
+            continue
+        if len(navs)!=1:
+            bad.append(f"{rel}: expected one breadcrumb trail, found {len(navs)}")
+            continue
+        bc=found[0]
+        if bc.get("@context")!="https://schema.org":
+            bad.append(f"{rel}: BreadcrumbList @context is {bc.get('@context')}")
+        els=bc.get("itemListElement")
+        if not isinstance(els, list) or len(els)<2:
+            bad.append(f"{rel}: BreadcrumbList needs Home and this page")
+            continue
+        for i,el in enumerate(els):
+            if not isinstance(el, dict) or el.get("@type")!="ListItem":
+                bad.append(f"{rel}: crumb {i+1} is not a ListItem")
+                continue
+            if el.get("position")!=i+1:
+                bad.append(f"{rel}: crumb position {el.get('position')} != {i+1}")
+            name,item=el.get("name"),el.get("item")
+            if not isinstance(name, str) or not name.strip():
+                bad.append(f"{rel}: empty crumb name at {i+1}")
+            if not isinstance(item, str) or urllib.parse.urlparse(item).scheme!="https":
+                bad.append(f"{rel}: crumb {i+1} item is not an absolute https URL ({item})")
+                continue
+            host=(urllib.parse.urlparse(item).hostname or "").lower()
+            if host!=(urllib.parse.urlsplit(BASE).hostname or "").lower():
+                bad.append(f"{rel}: crumb URL is not on {BASE} ({item})")
+            if item not in by_canon:
+                bad.append(f"{rel}: crumb URL is not a built page ({item})")
+            elif _url_path(item)!=pages[by_canon[item]]["path"]:
+                bad.append(f"{rel}: crumb URL path does not match that page ({item})")
+        if els[-1].get("item")!=info["canon"]:
+            bad.append(f"{rel}: last crumb {els[-1].get('item')} != canonical {info['canon']}")
+        if els[0].get("name")!="Home" or els[0].get("item")!=home:
+            bad.append(f"{rel}: first crumb is not the homepage")
+        expect=[pages[by_path[ap]]["canon"] for ap in _ancestor_paths(info["path"]) if ap!=home and ap in by_path]
+        got=[el.get("item") for el in els[1:-1]]
+        if got!=expect:
+            bad.append(f"{rel}: parent crumbs {got} != built hubs {expect}")
+        if len(els)>2: with_hub+=1
+        else:
+            parts=[p for p in info["path"].strip("/").split("/") if p]
+            pre=_prefix_parts()
+            rel_parts=parts[len(pre):] if pre and parts[:len(pre)]==pre else parts
+            if len(rel_parts)>=2: skipped_section+=1
+        nav=navs[0]
+        links=re.findall(r'<a href="([^"]*)">(.*?)</a>', nav)
+        current=re.search(r'<span aria-current="page">(.*?)</span>', nav)
+        if len(links)!=len(els)-1 or not current:
+            bad.append(f"{rel}: visible trail does not match BreadcrumbList ({len(links)} links, current={bool(current)})")
+        else:
+            if html.unescape(current.group(1))!=els[-1].get("name"):
+                bad.append(f"{rel}: visible current crumb does not match the last BreadcrumbList name")
+            for (href,label),el in zip(links, els[:-1]):
+                if html.unescape(label)!=el.get("name"):
+                    bad.append(f"{rel}: visible label {label!r} != {el.get('name')!r}")
+                href_path=html.unescape(href)
+                if _url_path(el.get("item") or "")!=href_path:
+                    bad.append(f"{rel}: visible href {href_path} != {el.get('item')}")
+                if not _local_file(href_path):
+                    bad.append(f"{rel}: breadcrumb link does not resolve ({href_path})")
+        seen.add(info["canon"])
+    for loc in locs:
+        if loc==home: continue
+        if loc not in seen:
+            bad.append(f"sitemap URL has no BreadcrumbList: {loc}")
+    if len(locs)!=len(set(locs)):
+        bad.append("sitemap has duplicate URLs")
+    sample=pages.get("gifts/fragrance-gifts-for-teens/index.html")
+    if not sample:
+        bad.append("missing /gifts/fragrance-gifts-for-teens/ sample page")
+    else:
+        blocks=[json.loads(s) for s in _ld_scripts(open(f"{OUT}/{sample['rel']}", encoding="utf-8").read())]
+        bc=next((b for b in blocks if b.get("@type")=="BreadcrumbList"), None)
+        names=[el["name"] for el in bc["itemListElement"]] if bc else []
+        if names!=["Home","Gift guides",sample["h1"]]:
+            bad.append(f"teens gift trail names {names}")
+        elif bc["itemListElement"][-1]["item"]!=sample["canon"]:
+            bad.append("teens gift trail last item is not the canonical")
+        elif bc["itemListElement"][1]["item"]!=pages[by_path["/gifts/"]]["canon"]:
+            bad.append("teens gift trail does not link the /gifts/ hub")
+    if bad:
+        print("breadcrumb check failed:")
+        for line in bad[:40]: print(" ", line)
+        raise SystemExit(f"breadcrumb check failed ({len(bad)} problems)")
+    nonhome=len(locs)-(1 if home in locs else 0)
+    print(f"breadcrumb audit: sitemap {len(locs)} urls, {nonhome} non-home each with one BreadcrumbList; {len(seen)} html trails ({with_hub} via a hub, {skipped_section} sections with no hub skipped); homepage and 404 have none")
 def audit_affiliate_output():
     """String-check every tracking href. Do not request tracking or /go links."""
     bad=[]
@@ -1684,6 +1920,8 @@ def audit_share_meta():
     print(f"share metadata: {htmls} pages, {len(specific)} page-specific images, {len(defaulted)} default images")
     for url, img in sorted(specific):
         print(f"  specific {url} -> {img}")
+apply_breadcrumbs()
+audit_breadcrumbs()
 audit_affiliate_output()
 audit_cards_links_jsonld()
 audit_share_meta()
