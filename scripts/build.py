@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Render data/deals.json -> static site in site/. Usage: SITE_URL=https://... python3 scripts/build.py"""
+"""Render data/deals.json -> static site in site/. Usage: SITE_URL=https://... python3 scripts/build.py
+
+Also writes site/404.html (branded, noindex). That file is not added to sitemap.xml,
+llms.txt, the feed, or IndexNow, which submits the sitemap.
+"""
 import json, os, html, re, datetime, urllib.parse, shutil, tempfile
 import links
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__))); OUT=f"{ROOT}/site"
@@ -1279,6 +1283,74 @@ page("black-friday-fragrance-deals/index.html", bf_title, bf_desc,
  bf_ld+[faqld(bf_faqs)], image="/media/pins/holiday-fragrance-gifts.png", feed=bool(bf_ids))
 KW+=["black friday perfume deals 2026","cyber monday cologne deals"]
 print(f"black friday page: {len(bf_ids)} unique deals, {bf_cards} cards; men {len(bf_men)}, women {len(bf_women)}, sets {len(bf_sets)}, under $50 {len(bf_u50)}")
+# ---------- 404 (GitHub Pages serves site/404.html for any unknown path) ----------
+def write_404():
+    """Branded not-found page using the same header, footer, and CSS as every other page.
+
+    index=False keeps it out of PAGES, so the sitemap rewrite, llms.txt, the RSS feed,
+    and IndexNow (which submits sitemap.xml) never see it.
+    Links are root-relative because this file is served at whatever path was requested.
+    Gift-guide links are GIFT_SUBPAGES, the same list the /gifts/ hub just wrote.
+    Deal cards are the checked deals only. No price is typed in by hand.
+    """
+    use_sid("404")
+    if not GIFT_SUBPAGES:
+        raise SystemExit("404 page: gift guide list is empty")
+    entry=[(f"{PREFIX}/","Homepage"),(f"{PREFIX}/gifts/","Holiday gifts"),
+           (f"{PREFIX}/men/","Men's deals"),(f"{PREFIX}/women/","Women's deals")]
+    start=("<section class='box'><h2 style='margin-top:0'>Start here</h2><div class='chips'>"
+           +"".join(f"<a href='{href}'>{e(label)}</a>" for href,label in entry)+"</div></section>")
+    guides=gift_guide_section("Gift guides", GIFT_SUBPAGES)
+    top=[d for d in deals if isinstance(d.get("price"),(int,float)) and not isinstance(d.get("price"),bool)
+         and isinstance(d.get("was"),(int,float)) and not isinstance(d.get("was"),bool)
+         and d.get("url") and d.get("retailer")][:4]
+    deals_html=""
+    if top:
+        deals_html=("<h2>A few of today's top deals</h2>"
+                    "<p class='sub'>Largest checked discount first. Prices are the ones we checked.</p>"
+                    f"<div class='grid'>{''.join(card(d) for d in top)}</div>")
+    page("404.html", f"Page not found | {NAME}",
+         "That page isn't on ScentDealsDaily. Browse today's fragrance deals, the holiday gift guides, and men's and women's deals.",
+         "<h1>Page not found</h1><p class='sub'>That page isn't on ScentDealsDaily. The link may be old, or the address was mistyped.</p>"
+         +start+guides+deals_html,
+         index=False)
+    text=open(f"{OUT}/404.html",encoding="utf-8").read()
+    if '<meta name="robots" content="noindex">' not in text:
+        raise SystemExit("404.html missing noindex")
+    if "<h1>Page not found</h1>" not in text:
+        raise SystemExit("404.html missing not-found heading")
+    if any(u.rstrip("/").endswith("/404.html") for u in PAGES):
+        raise SystemExit("404 page was added to the page index")
+    refs=[html.unescape(a or b).strip() for a,b in re.findall(r"""(?:href|src|srcset)\s*=\s*(?:"([^"]*)"|'([^']*)')""", text)]
+    for ref in refs:
+        if not ref or ref.startswith(("#","mailto:","tel:","javascript:","data:","http://","https://","/")):
+            continue
+        raise SystemExit(f"404.html link is not root-relative or absolute: {ref}")
+    if _section_anchors("404.html","Gift guides")!=_section_anchors("gifts/index.html","Gift guides"):
+        raise SystemExit("404 gift guides drifted from the /gifts/ hub")
+    for href,label in entry:
+        if f"<a href='{href}'>{e(label)}</a>" not in text:
+            raise SystemExit(f"404.html missing entry link {label} {href}")
+    intro=re.search(r"<h1>Page not found</h1><p class='sub'>(.*?)</p>", text)
+    if not intro or "$" in intro.group(1):
+        raise SystemExit("404 intro is missing or states a price")
+    for d in top:
+        price=f"${d['price']:.2f}"
+        was=f"${d['was']:.2f}"
+        if price not in text or was not in text:
+            raise SystemExit(f"404 card missing the checked price for {d.get('id')}")
+    print(f"404.html: {len(GIFT_SUBPAGES)} gift guides, {len(top)} top deals, noindex")
+write_404()
+def assert_404_unlisted():
+    """sitemap.xml and llms.txt are what crawlers and IndexNow read. The feed is the same set."""
+    for rel in ("sitemap.xml","llms.txt","feed.xml"):
+        blob=open(f"{OUT}/{rel}",encoding="utf-8").read()
+        if "404.html" in blob:
+            raise SystemExit(f"{rel} lists the 404 page")
+    n=len(re.findall(r"<loc>", open(f"{OUT}/sitemap.xml",encoding="utf-8").read()))
+    if n!=len(PAGES):
+        raise SystemExit(f"sitemap has {n} urls, page index has {len(PAGES)}")
+    print(f"404.html excluded from sitemap ({n} urls), llms.txt, feed.xml, and IndexNow")
 # rewrite sitemap with new pages + keyword list + IndexNow key
 open(f"{OUT}/sitemap.xml","w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+"".join(f"<url><loc>{u}</loc><lastmod>{upd:%Y-%m-%d}</lastmod></url>" for u in PAGES)+"</urlset>\n")
 def rfc822(dt):
@@ -1322,6 +1394,7 @@ KEY=hashlib.md5(b"scentdealsdaily-indexnow").hexdigest(); open(f"{OUT}/{KEY}.txt
 open(f"{ROOT}/docs/keywords.txt","w").write("\n".join(KW)+"\n")
 with open(f"{OUT}/llms.txt","a") as f: f.write("\n## Per-product & per-dupe pages\n"+"\n".join(u for u in PAGES if "/fragrance/" in u or "/dupe/" in u)+"\n")
 with open(f"{OUT}/llms.txt","a") as f: f.write("\n## Buying guides & dupe comparisons\n"+"\n".join(u for u in PAGES if "/best/" in u or "/vs/" in u or "/gifts/" in u or "/black-friday-fragrance-deals/" in u or any(f"/dupes/{h['slug']}/" in u for h in HUBS))+"\n")
+assert_404_unlisted()
 print(len(PAGES),"pages total;",len(KW),"keywords;",nfeed,"feed items")
 if _media_tmp:
     shutil.copytree(f"{_media_tmp}/media", f"{OUT}/media")
