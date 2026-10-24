@@ -12,6 +12,7 @@ jobs:
       - uses: actions/setup-python@v5
         with: {python-version: "3.12"}
       - run: python3 scripts/refresh.py
+      - run: python3 -m pip install --disable-pip-version-check 'Pillow>=10.4,<12'
       - run: python3 scripts/build.py
         env:
           SITE_URL: https://scentdealsdaily.com
