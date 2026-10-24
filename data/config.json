@@ -1254,6 +1254,7 @@
     {"href": "/gifts/cologne-gifts-for-boyfriend/", "label": "Cologne gifts for boyfriend"},
     {"href": "/gifts/cologne-gifts-for-husband/", "label": "Cologne gifts for husband"},
     {"href": "/gifts/cologne-gifts-for-grandpa/", "label": "Cologne gifts for grandpa"},
+    {"href": "/gifts/cologne-gifts-for-brother/", "label": "Cologne gifts for brother"},
     {"href": "/men/", "label": "All men's deals"}
    ]
   },
@@ -1288,6 +1289,7 @@
     {"href": "/gifts/perfume-gifts-for-girlfriend/", "label": "Perfume gifts for girlfriend"},
     {"href": "/gifts/perfume-gifts-for-wife/", "label": "Perfume gifts for wife"},
     {"href": "/gifts/perfume-gifts-for-grandma/", "label": "Perfume gifts for grandma"},
+    {"href": "/gifts/perfume-gifts-for-sister/", "label": "Perfume gifts for sister"},
     {"href": "/women/", "label": "All women's deals"}
    ]
   },
@@ -1434,6 +1436,7 @@
     {"href": "/gifts/perfume-gifts-for-girlfriend/", "label": "Perfume gifts for girlfriend"},
     {"href": "/gifts/perfume-gifts-for-wife/", "label": "Perfume gifts for wife"},
     {"href": "/gifts/perfume-gifts-for-grandma/", "label": "Perfume gifts for grandma"},
+    {"href": "/gifts/perfume-gifts-for-sister/", "label": "Perfume gifts for sister"},
     {"href": "/women/", "label": "All women's deals"}
    ]
   },
@@ -1467,6 +1470,7 @@
     {"href": "/gifts/cologne-gifts-for-boyfriend/", "label": "Cologne gifts for boyfriend"},
     {"href": "/gifts/cologne-gifts-for-husband/", "label": "Cologne gifts for husband"},
     {"href": "/gifts/cologne-gifts-for-grandpa/", "label": "Cologne gifts for grandpa"},
+    {"href": "/gifts/cologne-gifts-for-brother/", "label": "Cologne gifts for brother"},
     {"href": "/men/", "label": "All men's deals"}
    ]
   },
@@ -1501,6 +1505,7 @@
     {"href": "/best/warm-spicy-cologne-deals/", "label": "Warm and spicy cologne deals"},
     {"href": "/gifts/cologne-gifts-for-husband/", "label": "Cologne gifts for husband"},
     {"href": "/gifts/cologne-gifts-for-grandpa/", "label": "Cologne gifts for grandpa"},
+    {"href": "/gifts/cologne-gifts-for-brother/", "label": "Cologne gifts for brother"},
     {"href": "/men/", "label": "All men's deals"}
    ]
   },
@@ -1534,6 +1539,7 @@
     {"href": "/best/vanilla-sweet-fragrance-deals/", "label": "Vanilla and sweet fragrance deals"},
     {"href": "/gifts/perfume-gifts-for-wife/", "label": "Perfume gifts for wife"},
     {"href": "/gifts/perfume-gifts-for-grandma/", "label": "Perfume gifts for grandma"},
+    {"href": "/gifts/perfume-gifts-for-sister/", "label": "Perfume gifts for sister"},
     {"href": "/women/", "label": "All women's deals"}
    ]
   },
@@ -1619,6 +1625,7 @@
     {"href": "/gifts/perfume-gifts-for-girlfriend/", "label": "Perfume gifts for girlfriend"},
     {"href": "/gifts/christmas-perfume-gifts-for-mom/", "label": "Christmas perfume gifts for mom"},
     {"href": "/gifts/perfume-gifts-for-grandma/", "label": "Perfume gifts for grandma"},
+    {"href": "/gifts/perfume-gifts-for-sister/", "label": "Perfume gifts for sister"},
     {"href": "/gifts/for-her/", "label": "Fragrance gifts for her"},
     {"href": "/gifts/perfume-gifts-for-her-under-50/", "label": "Perfume gifts for her under $50"},
     {"href": "/gifts/perfume-gifts-for-her-under-40/", "label": "Perfume gifts for her under $40"},
@@ -1680,6 +1687,7 @@
     {"href": "/gifts/cologne-gifts-for-boyfriend/", "label": "Cologne gifts for boyfriend"},
     {"href": "/gifts/cologne-gifts-for-dad/", "label": "Cologne gifts for dad"},
     {"href": "/gifts/cologne-gifts-for-grandpa/", "label": "Cologne gifts for grandpa"},
+    {"href": "/gifts/cologne-gifts-for-brother/", "label": "Cologne gifts for brother"},
     {"href": "/gifts/for-him/", "label": "Fragrance gifts for him"},
     {"href": "/gifts/cologne-gifts-for-him-under-50/", "label": "Cologne gifts for him under $50"},
     {"href": "/gifts/perfume-gifts-for-wife/", "label": "Perfume gifts for wife"},
@@ -1738,6 +1746,7 @@
     {"href": "/gifts/perfume-gifts-for-wife/", "label": "Perfume gifts for wife"},
     {"href": "/gifts/perfume-gifts-for-girlfriend/", "label": "Perfume gifts for girlfriend"},
     {"href": "/gifts/cologne-gifts-for-grandpa/", "label": "Cologne gifts for grandpa"},
+    {"href": "/gifts/perfume-gifts-for-sister/", "label": "Perfume gifts for sister"},
     {"href": "/gifts/for-her/", "label": "All fragrance gifts for her"},
     {"href": "/gifts/perfume-gifts-for-her-under-50/", "label": "Perfume gifts for her under $50"},
     {"href": "/gifts/perfume-gifts-for-her-under-40/", "label": "Perfume gifts for her under $40"},
@@ -1795,6 +1804,7 @@
     {"href": "/gifts/cologne-gifts-for-husband/", "label": "Cologne gifts for husband"},
     {"href": "/gifts/cologne-gifts-for-boyfriend/", "label": "Cologne gifts for boyfriend"},
     {"href": "/gifts/perfume-gifts-for-grandma/", "label": "Perfume gifts for grandma"},
+    {"href": "/gifts/cologne-gifts-for-brother/", "label": "Cologne gifts for brother"},
     {"href": "/gifts/for-him/", "label": "All fragrance gifts for him"},
     {"href": "/gifts/cologne-gifts-for-him-under-50/", "label": "Cologne gifts for him under $50"},
     {"href": "/best/fresh-citrus-cologne-deals/", "label": "Fresh and citrus cologne deals"},
@@ -1802,6 +1812,122 @@
     {"href": "/gifts/luxury-fragrance-gifts/", "label": "Luxury fragrance gifts"},
     {"href": "/men/", "label": "All men's deals"},
     {"href": "/unisex/", "label": "Unisex deals"}
+   ]
+  },
+  {
+   "slug": "perfume-gifts-for-sister",
+   "title": "Perfume gifts for sister",
+   "chip": "Gifts for sister",
+   "genders": ["women"],
+   "ids": [
+    "peace-love-juicy-couture-by-juicy-couture-for-women-edp-spray",
+    "eternity-air-eau-de-parfum-spray-for-women-by-calvin-klein",
+    "woman-eau-de-parfum-spray-for-women-by-hugo-boss",
+    "elizabeth-arden-green-tea-scent-women-eau-de-parfum-spray",
+    "clinique-happy-women-eau-de-parfum-spray",
+    "olympea-eau-de-parfum-spray-for-women-by-paco-rabanne",
+    "dylan-blue-eau-de-parfum-spray-for-women-by-versace",
+    "billie-eilish-perfume-eau-de-parfum-for-women",
+    "bright-crystal-absolu-by-versace-for-women-eau-de-parfum-spray",
+    "valentino-donna-born-in-roma-perfume-eau-de-parfum-for-women"
+   ],
+   "filled_label": "perfume gifts for a sister",
+   "intro": "A short list of crowd-pleasing perfumes for someone buying a Christmas gift for their sister, lowest checked price first. The note line under each card is copied from that retailer's product copy: fruity florals and a citrus tea for the easy bottles, and vanilla or a gourmand for the sweeter ones. Perfume gifts for wife opens on CK One and keeps Romance, Eternity, La Vie Est Belle, Poême, and a Tom Ford rose. This page leaves those off. It keeps Peace Love & Juicy Couture, Eternity Air, Boss Woman, Dylan Blue Pour Femme, and Eilish, which the wife list does not. Perfume gifts for grandma is the classic floral list, and the two pages share Green Tea and Clinique Happy only. We do not call a scent a sister perfume, and we do not rank bottles by the wearer's age. None of these listings do. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes.",
+   "empty": "None of the women's bottles on this sister list are in the deals we checked, so this page has no list. These guides have bottles we priced.",
+   "empty_desc": "Perfume gifts for sister: none of the curated women's bottles are in the deals we checked. Other gift guides list bottles we did price.",
+   "choose": [
+    "Read the note line before you match a bottle to her. Peace Love & Juicy Couture is red apple, cassis, and jasmine. Boss Woman is mango, mandarin, and freesia. Dylan Blue Pour Femme is green apple, peach, and rose. Bright Crystal Absolu is yuzu, raspberry, and peony. Those are the fruity florals. Eternity Air is grapefruit, black currant, and peony. Clinique Happy is grapefruit, apple, and lily of the valley. Green Tea is lemon, bergamot, and green tea. Olympea is the salty vanilla, with mandarin and a salt accord. Eilish is the gourmand: sugar, red berries, vanilla, and cacao. Donna Born in Roma is jasmine and bourbon vanilla. When you do not know what she wears, a fruity floral or the green tea is the easier daily gift, and Eilish or Donna Born in Roma is the sweeter evening one. That is a wear split from the note lines. It is not a quality ranking.",
+    "The cards run from the easy full bottles to the designer gifts, and the size on the card matters. Peace Love & Juicy Couture, Eternity Air, Boss Woman, and Green Tea are the lower stickers, and each is a 3 oz bottle or larger. Clinique Happy is the only 1.0 oz bottle on this list, so a modest sticker can still be a small amount of juice. Olympea and Donna Born in Roma are 1.7 oz. Dylan Blue Pour Femme and Eilish are 3.4 oz, and Bright Crystal Absolu is 3.0 oz. When the name links to a bottle page, that page shows the price per ounce from the checked price and the size.",
+    "Perfume gifts for girlfriend lists every women's perfume on the floral roundup or the vanilla-and-sweet roundup under $150, including Burberry London, Eternity, Poême, La Vie Est Belle, and Café Rose. This page is the shorter crowd-pleasing list and leaves those off. Green Tea is on this page and not on that girlfriend list, because its notes are citrus and tea. Perfume gifts for wife keeps a unisex bottle and the spouse names this page leaves off. Perfume gifts for grandma keeps the classic florals and the rose splurge. A bottle can appear on more than one of those pages when it is on this list and it also meets the other page's rule. We do not call any of these a sister perfume."
+   ],
+   "faq": [
+    [
+     "How is this different from perfume gifts for wife?",
+     "Perfume gifts for wife is a spouse list. It opens on CK One and keeps Romance, Eternity, La Vie Est Belle, Poême, and Café Rose. This page leaves those off. It keeps Peace Love & Juicy Couture, Eternity Air, Boss Woman, Dylan Blue Pour Femme, and Eilish, which the wife list does not. A bottle can appear on both pages when it is on both lists."
+    ],
+    [
+     "How is this different from perfume gifts for grandma?",
+     "Perfume gifts for grandma is a list of classic florals, a soft musk, a citrus tea, and a comforting vanilla, including Burberry London, CK Beauty, and Café Rose. This page is the crowd-pleasing list. The two pages share Green Tea and Clinique Happy. This page leaves the rose splurge and the classic florals off."
+    ],
+    [
+     "Do you call these sister perfumes?",
+     "No. None of these listings say that. The page is a gift list of women's perfumes whose retailer notes are fruity, floral, tea, or sweet. It is not a ranking of who wears them."
+    ],
+    [
+     "Which bottle is the safer gift when I do not know what she wears?",
+     "Stay with a familiar fruity or citrus bottle and read the note line. Peace Love & Juicy Couture, Boss Woman, and Bright Crystal Absolu are the fruity florals. Green Tea and Eternity Air are the lighter citrus ones. Eilish is sweeter. Clinique Happy is familiar too, and it is the 1.0 oz bottle, so check the size on the card before you treat it as a full-size gift."
+    ]
+   ],
+   "links": [
+    {"href": "/gifts/perfume-gifts-for-girlfriend/", "label": "Perfume gifts for girlfriend"},
+    {"href": "/gifts/perfume-gifts-for-wife/", "label": "Perfume gifts for wife"},
+    {"href": "/gifts/perfume-gifts-for-grandma/", "label": "Perfume gifts for grandma"},
+    {"href": "/gifts/christmas-perfume-gifts-for-mom/", "label": "Christmas perfume gifts for mom"},
+    {"href": "/gifts/cologne-gifts-for-brother/", "label": "Cologne gifts for brother"},
+    {"href": "/gifts/for-her/", "label": "All fragrance gifts for her"},
+    {"href": "/gifts/perfume-gifts-for-her-under-50/", "label": "Perfume gifts for her under $50"},
+    {"href": "/gifts/perfume-gifts-for-her-under-40/", "label": "Perfume gifts for her under $40"},
+    {"href": "/best/floral-perfume-deals/", "label": "Floral perfume deals"},
+    {"href": "/best/vanilla-sweet-fragrance-deals/", "label": "Vanilla and sweet fragrance deals"},
+    {"href": "/best/fresh-perfume-deals-under-50/", "label": "Fresh perfume deals under $50"},
+    {"href": "/women/", "label": "All women's deals"}
+   ]
+  },
+  {
+   "slug": "cologne-gifts-for-brother",
+   "title": "Cologne gifts for brother",
+   "chip": "Gifts for brother",
+   "genders": ["men"],
+   "ids": [
+    "hugo-boss-in-motion-mens-eau-de-toilette-spray",
+    "versace-eros-flame-eau-de-parfum-for-men",
+    "versace-eros-cologne-eau-de-toilette-for-men",
+    "the-most-wanted-parfum-cologne",
+    "giorgio-armani-acqua-di-gio-eau-de-toilette-cologne-for-men",
+    "coach-for-men-eau-de-toilette",
+    "stronger-with-you-intensely-cologne-for-men",
+    "le-beau-eau-de-toilette-spray-for-men-by-jean-paul-gaultier",
+    "valentino-uomo-born-in-roma-cologne-eau-de-toilette-for-men"
+   ],
+   "filled_label": "cologne gifts for a brother",
+   "intro": "A short list of crowd-pleasing colognes for someone buying a Christmas gift for their brother, lowest checked price first. The note line under each card is copied from that retailer's product copy: a spicy woody and a fresh aquatic for daily wear, and mint, tonka, coconut, or vanilla for the sweeter ones. Cologne gifts for husband opens on Burberry Weekend and keeps CK One and CK Everyone. This page leaves those off. It keeps Boss In Motion, Eros Flame, The Most Wanted, and Coach, which the husband list does not. Cologne gifts for grandpa is the fresh citrus and neroli list, and the two pages share Acqua di Gio only. We do not call a scent a brother cologne, and we do not rank bottles by the wearer's age. None of these listings do. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes.",
+   "empty": "None of the men's bottles on this brother list are in the deals we checked, so this page has no list. These guides have bottles we priced.",
+   "empty_desc": "Cologne gifts for brother: none of the curated men's bottles are in the deals we checked. Other gift guides list bottles we did price.",
+   "choose": [
+    "Split the list by the retailer note line. Boss In Motion is orange, cardamom, and cinnamon. Acqua di Gio is lime, bergamot, and marine notes. Coach is pear, bergamot, and grapefruit. Uomo Born in Roma is a salt accord, violet leaf, and ginger. Those are the fresher or spicy daily bottles. Eros is mint, green apple, and tonka. Eros Flame is lemon, black pepper, and vanilla. The Most Wanted is ginger and bourbon vanilla. Stronger With You Intensely is toffee, cinnamon, and vanilla. Le Beau is coconut and tonka. Those are the sweeter evening bottles. When you have never smelled what he wears, Acqua di Gio or Coach is the lower-risk daily gift. When his current cologne is already sweet, stay with Eros, Le Beau, or Stronger With You Intensely. The note line is the retailer's. This is not a quality ranking.",
+    "Use the stickers as a budget ladder, then read the size on the card. Boss In Motion is the lower card and a 3.0 oz bottle. Eros Flame, Eros, The Most Wanted, Stronger With You Intensely, and Uomo Born in Roma are 1.7 oz, so a mid sticker can still be less juice than a larger bottle. Coach is 2.0 oz. Acqua di Gio is 3.4 oz. Le Beau is 4.2 oz. When the name links to a bottle page, that page shows the price per ounce from the checked price and the size.",
+    "Cologne gifts for husband opens on Burberry Weekend and keeps CK One, CK Everyone, Versace Pour Homme, Hermès H24, Burberry Hero, and Mefisto. This page leaves those off. Cologne gifts for grandpa keeps Weekend, Bvlgari Man Wood Neroli, Montblanc Legend Spirit, and Mefisto, and the two pages share Acqua di Gio. Cologne gifts for boyfriend lists a men's cologne only when it is on the vanilla-and-sweet roundup or the fresh-and-citrus roundup and the checked price is $30 or more and under $150. Boss In Motion is on this page and not on that one, because its retailer notes name cardamom and cinnamon and it is filed on the warm spicy roundup. A bottle can appear on more than one of those pages when it meets each rule. We do not call any of these a brother cologne."
+   ],
+   "faq": [
+    [
+     "How is this different from cologne gifts for husband?",
+     "Cologne gifts for husband opens on Burberry Weekend and keeps CK One, CK Everyone, and unisex bottles. This page leaves those off. It keeps Boss In Motion, Eros Flame, The Most Wanted, and Coach, which the husband list does not. A bottle can appear on both pages when it is on both lists, including Eros, Acqua di Gio, and Le Beau."
+    ],
+    [
+     "How is this different from cologne gifts for grandpa?",
+     "Cologne gifts for grandpa is a list of fresh citrus, neroli, lavender, and one prestige citrus with iris. It keeps Burberry Weekend, Bvlgari Man Wood Neroli, and Montblanc Legend Spirit. This page leaves those off and keeps the sweeter evening bottles. The two pages share Acqua di Gio."
+    ],
+    [
+     "Do you call these brother colognes?",
+     "No. None of these listings say that. The page is a gift list of men's colognes whose retailer notes are citrus, spice, or sweet. It is not a ranking of who wears them."
+    ],
+    [
+     "Which bottle is the safer gift when I do not know what he wears?",
+     "Start with a fresh daytime bottle and read the note line. Acqua di Gio and Coach are the familiar fresh ones on this page. Eros and Le Beau are louder and sweeter, so they fit better when you already know he likes a night-out scent. Boss In Motion is the spicy woody bottle at the low end of this list."
+    ]
+   ],
+   "links": [
+    {"href": "/gifts/cologne-gifts-for-boyfriend/", "label": "Cologne gifts for boyfriend"},
+    {"href": "/gifts/cologne-gifts-for-husband/", "label": "Cologne gifts for husband"},
+    {"href": "/gifts/cologne-gifts-for-dad/", "label": "Cologne gifts for dad"},
+    {"href": "/gifts/cologne-gifts-for-grandpa/", "label": "Cologne gifts for grandpa"},
+    {"href": "/gifts/perfume-gifts-for-sister/", "label": "Perfume gifts for sister"},
+    {"href": "/gifts/for-him/", "label": "All fragrance gifts for him"},
+    {"href": "/gifts/cologne-gifts-for-him-under-50/", "label": "Cologne gifts for him under $50"},
+    {"href": "/best/fresh-citrus-cologne-deals/", "label": "Fresh and citrus cologne deals"},
+    {"href": "/best/vanilla-sweet-fragrance-deals/", "label": "Vanilla and sweet fragrance deals"},
+    {"href": "/best/warm-spicy-cologne-deals/", "label": "Warm and spicy cologne deals"},
+    {"href": "/men/", "label": "All men's deals"}
    ]
   },
   {

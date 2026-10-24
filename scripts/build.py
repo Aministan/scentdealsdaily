@@ -496,7 +496,7 @@ def guide_rows(spec):
         rows=[d for d in rows if d.get("id") in ids]
     allow=spec.get("ids")
     if allow is not None:
-        # Curated spouse lists. A missing id is a deal that left the file, not a bottle we invent.
+        # Curated recipient lists. A missing id is a deal that left the file, not a bottle we invent.
         if not isinstance(allow, list) or not allow or any(not isinstance(x, str) or not x for x in allow):
             raise SystemExit(f"gift guide {spec.get('slug')}: ids must be a non-empty list of deal ids")
         known_ids={d.get("id") for d in deals}
@@ -583,7 +583,7 @@ VS_PAGES=[]
 # (relative path, deal) for each /fragrance/ page this build wrote.
 FRAGRANCE_PAGES=[]
 # Compact homepage set. Titles come from GIFT_SUBPAGES, not from this tuple.
-HOME_GIFT_SLUGS=("for-him","for-her","under-50","perfume-gifts-for-her-under-50","best-mens-cologne-under-40","holiday-gift-sets","fragrance-gifts-for-teens","fragrance-gifts-for-coworkers-under-40","fragrance-gifts-for-college-students","fragrance-stocking-stuffers-under-25","perfume-gifts-for-wife","cologne-gifts-for-husband","perfume-gifts-for-grandma","cologne-gifts-for-grandpa")
+HOME_GIFT_SLUGS=("for-him","for-her","under-50","perfume-gifts-for-her-under-50","best-mens-cologne-under-40","holiday-gift-sets","fragrance-gifts-for-teens","fragrance-gifts-for-coworkers-under-40","fragrance-gifts-for-college-students","fragrance-stocking-stuffers-under-25","perfume-gifts-for-wife","cologne-gifts-for-husband","perfume-gifts-for-grandma","cologne-gifts-for-grandpa","perfume-gifts-for-sister","cologne-gifts-for-brother")
 def register_gift_subpage(slug, title):
     if not slug or not str(title or "").strip():
         raise SystemExit("gift guide missing a slug or page title")
