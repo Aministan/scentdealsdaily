@@ -753,6 +753,181 @@ def related_dupes_section(d):
         pairs.append((dupe_href(x), f"{x['original']} → {x['dupe']}"))
     pairs.append((f"{PREFIX}/dupes/", "All dupes"))
     return chip_section("Related dupes", pairs)+DUPE_GIFT_MARK
+def _dupe_words(s):
+    return re.sub(r"[^a-z0-9]+"," ", str(s or "").lower())
+def dupe_audience(d):
+    """men / women / unisex from the product name, the priced URL, or the retailer handle.
+
+    A cited cologne roundup is used only when those fields say nothing.
+    """
+    def hit(text):
+        if re.search(r"\b(for women|woman|women|mademoiselle)\b", text): return "women"
+        if re.search(r"\b(for men|homme|male|man)\b", text): return "men"
+        if re.search(r"\bunisex\b", text): return "unisex"
+        return None
+    named=hit(_dupe_words(f"{d.get('dupe') or ''} {d.get('original') or ''}"))
+    if named in ("men","women"): return named
+    url_hit=hit(_dupe_words(d.get("url")))
+    handle_hit=hit(_dupe_words(d.get("handle")))
+    if "unisex" in (url_hit, handle_hit) and "women" not in (url_hit, handle_hit):
+        return "unisex"
+    if url_hit: return url_hit
+    if handle_hit: return handle_hit
+    if named: return named
+    if re.search(r"\bcologne\b", _dupe_words(" ".join(d.get("sources") or []))): return "men"
+    return None
+# Scent families are the note roundups already in config. Price roundups are not families.
+_SCENT_FAMILY_SLUGS=(
+    "fresh-citrus-cologne-deals","vanilla-sweet-fragrance-deals","floral-perfume-deals",
+    "woody-amber-cologne-deals","warm-spicy-cologne-deals","fresh-perfume-deals-under-50",
+)
+_NOTE_STOP=frozenset("""
+with from that this into over under than then and the for notes note base accord accords
+scent scents listed range checked overall scored altscent scentfile dupenote per adds closer
+read twist playful office polished spray eau parfum toilette cologne perfume fragrance
+unisex women woman price today bottle more most other their they have been were which while
+where about after before black white green pink blue down softer airy rich clean cool warm
+play widely original alternative community dry aroma aromas smell smells like very just
+only also each both same your our not but can may
+""".split())
+def _note_tokens(text):
+    text=re.sub(r"https?://\S+"," ", str(text or ""))
+    text=re.sub(r"\$\d[\d.,]*"," ", text)
+    return {w for w in re.findall(r"[a-z]{4,}", text.lower()) if w not in _NOTE_STOP}
+def _build_scent_index():
+    known={r["slug"]: r for r in CFG.get("roundups") or []}
+    vocab={}; members={}
+    for slug in _SCENT_FAMILY_SLUGS:
+        row=known.get(slug)
+        if not row: continue
+        words=set(); ids=set()
+        for it in row.get("items") or []:
+            if it.get("id"): ids.add(it["id"])
+            words |= _note_tokens(it.get("notes"))
+        if words:
+            vocab[slug]=words
+            members[slug]=ids
+    return vocab, members
+_FAMILY_VOCAB,_FAMILY_MEMBERS=_build_scent_index()
+_DEAL_FAMILIES={}
+for _slug,_ids in _FAMILY_MEMBERS.items():
+    for _i in _ids: _DEAL_FAMILIES.setdefault(_i, set()).add(_slug)
+_FAMILY_WORDS=set().union(*_FAMILY_VOCAB.values()) if _FAMILY_VOCAB else set()
+DUPE_DEAL_TARGET=6
+DUPE_DEAL_PICKS={}
+def _card_deal_ok(d):
+    """A deals.json row the shared card can render. No price is filled in here."""
+    if d.get("in_stock") is False: return False
+    if isinstance(d.get("price"), bool) or not isinstance(d.get("price"), (int, float)): return False
+    if isinstance(d.get("was"), bool) or not isinstance(d.get("was"), (int, float)): return False
+    if isinstance(d.get("pct_off"), bool) or not isinstance(d.get("pct_off"), (int, float)): return False
+    return bool(d.get("url") and d.get("retailer") and d.get("brand") and d.get("name") and d.get("id"))
+def _is_exact_deal(dupe, deal):
+    """True when this deals.json row is the dupe or the original, not a neighbor."""
+    handle=dupe.get("handle")
+    if handle and handle==deal.get("id"): return True
+    blob=_dupe_words(f"{deal.get('brand') or ''} {deal.get('name') or ''}").strip()
+    if not blob: return False
+    for raw in (dupe.get("dupe"), dupe.get("original")):
+        phrase=_dupe_words(raw).strip()
+        if len(phrase)>=8 and phrase in blob: return True
+    return False
+def _scent_blob(dupe):
+    """This pair's notes. When they name no family, borrow a closer original's notes."""
+    blob=dupe.get("notes") or ""
+    if _note_tokens(blob) & _FAMILY_WORDS: return blob
+    orig=dupe.get("original") or ""
+    extra=[]
+    for other in D["dupes"]:
+        if other is dupe: continue
+        oth=other.get("original") or ""
+        if oth and oth!=orig and (orig.startswith(oth) or oth.startswith(orig)):
+            extra.append(other.get("notes") or "")
+    return " ".join([blob]+extra)
+def _house_keys(dupe):
+    keys=set()
+    for key in (house(dupe.get("dupe") or "").lower().strip(), original_house(dupe.get("original") or "").lower().strip()):
+        if len(key)>=3: keys.add(key)
+    return keys
+def _brand_match(deal, keys):
+    b=(deal.get("brand") or "").lower().strip()
+    if len(b)<3: return False
+    return any(b==k or b.startswith(k+" ") or k.startswith(b+" ") for k in keys)
+def _dupe_families(tokens):
+    return {slug for slug, words in _FAMILY_VOCAB.items() if tokens & words}
+def _score_deal(dupe, deal, tokens, families, keys, aud):
+    score=0; why=set()
+    if _brand_match(deal, keys):
+        score+=6; why.add("brand")
+    g=deal.get("gender")
+    if aud in ("men","women") and g==aud:
+        score+=3; why.add("gender")
+    elif aud in ("men","women") and g=="unisex":
+        score+=1; why.add("gender")
+    elif aud=="unisex" and g=="unisex":
+        score+=2; why.add("gender")
+    overlap=tokens & _note_tokens(NOTE_BY_ID.get(deal.get("id"), ""))
+    if overlap:
+        score+=2*len(overlap); why.add("scent")
+    if families and (_DEAL_FAMILIES.get(deal.get("id"), set()) & families):
+        score+=2; why.add("scent")
+    return score, why
+def pick_dupe_deals(dupe):
+    """Exact deals.json rows, then similar rows until the page has a full card grid.
+
+    Similar rows stay inside the dupe's gender when that pool is large enough.
+    Rank is shared brand, then gender, then scent-family notes already stored on the deal.
+    """
+    feed=[d for d in deals if _card_deal_ok(d)]
+    exact=[d for d in feed if _is_exact_deal(dupe, d)]
+    exact.sort(key=lambda d:(-(d.get("pct_off") or 0), d["price"], d["id"]))
+    used={d["id"] for d in exact}
+    rest=[d for d in feed if d["id"] not in used]
+    need=max(0, DUPE_DEAL_TARGET-len(exact))
+    if not exact: need=DUPE_DEAL_TARGET
+    tokens=_note_tokens(_scent_blob(dupe))
+    families=_dupe_families(tokens)
+    keys=_house_keys(dupe)
+    aud=dupe_audience(dupe)
+    pool=rest
+    if aud in ("men","women"):
+        pref=[d for d in rest if d.get("gender") in (aud, "unisex")]
+        if len(pref)>=need: pool=pref
+    def ranked(rows):
+        scored=[(*_score_deal(dupe, d, tokens, families, keys, aud), d) for d in rows]
+        scored.sort(key=lambda row:(-row[0], -(row[2].get("pct_off") or 0), row[2]["price"], row[2]["id"]))
+        return scored
+    chosen=ranked(pool)[:need]
+    similar=[row[2] for row in chosen]
+    reasons=set().union(*(row[1] for row in chosen)) if chosen else set()
+    if len(exact)+len(similar)<DUPE_DEAL_TARGET:
+        have={d["id"] for d in similar}
+        for score, why, d in ranked([d for d in rest if d["id"] not in have]):
+            if len(exact)+len(similar)>=DUPE_DEAL_TARGET: break
+            similar.append(d); reasons |= why
+    if len(exact)+len(similar)<DUPE_DEAL_TARGET:
+        raise SystemExit(f"dupe page for {dupe.get('dupe')}: {len(exact)+len(similar)} deal cards, need {DUPE_DEAL_TARGET}")
+    return exact, similar, reasons
+def dupe_deals_html(d):
+    """Deal cards for one dupe page. Prices come only from the deals passed to card()."""
+    exact, similar, reasons=pick_dupe_deals(d)
+    DUPE_DEAL_PICKS[id(d)]={"exact":exact,"similar":similar,"reasons":reasons}
+    parts=[]
+    if exact:
+        lead="These match the dupe or the original in today's deals. Prices are the ones we already checked."
+        if "$" in lead: raise SystemExit("dupe deal copy contains a price")
+        parts.append("<section class='box'><h2 style='margin-top:0'>Matching deals in stock now</h2>"
+            f"<p>{e(lead)}</p><div class='grid'>"+"".join(card(x) for x in exact)+"</div></section>")
+    if similar:
+        if exact:
+            lead="These bottles are from the deals we already checked, ranked by shared gender, scent family, or brand. They are not the dupe or the original."
+        else:
+            lead="The exact dupe and the original are not in today's deals. These bottles are from the deals we already checked, ranked by shared gender, scent family, or brand."
+        if "$" in lead: raise SystemExit("dupe deal copy contains a price")
+        parts.append("<section class='box'><h2 style='margin-top:0'>Similar deals in stock now</h2>"
+            f"<p>{e(lead)}</p><div class='grid'>"+"".join(card(x) for x in similar)+"</div></section>")
+    print(f"dupe deals: {d.get('dupe')} exact={len(exact)} similar={len(similar)} ({','.join(sorted(reasons)) or 'feed'})")
+    return "".join(parts)
 DUPE_PAGES=[]
 for d in D["dupes"]:
     s=slug(f"{d['original']} dupe {d['dupe']}"); use_sid("dupe", s); o=d['original']
@@ -764,7 +939,7 @@ for d in D["dupes"]:
     body=(f"<h1>Best {e(o)} dupe: {e(d['dupe'])}</h1><p class='sub'>{e(d['notes'])} · {('<b class=price>$%.2f</b> today at %s' % (d['price'],e(d['retailer']))) if d['price'] else 'price not verified yet'}</p>"
       +((buy(d['url'],d['retailer'])+also_line(d)) if d['price'] else "")
       +f"<div class='box'><h2 style='margin-top:0'>{e(o)} vs {e(d['dupe'])}</h2><table><thead><tr><th></th><th>{e(o)}</th><th>{e(d['dupe'])}</th></tr></thead><tbody><tr><td>Price</td><td>{e(d.get('original_price') or 'varies')}</td><td>{('$%.2f (%s)' % (d['price'],e(d['size']))) if d['price'] else '—'}</td></tr><tr><td>Profile</td><td colspan=2>{e(d['notes'])}</td></tr><tr><td>Sources</td><td colspan=2>{' '.join((f'<a href="{e(affiliate_url(x, "src"))}" rel="nofollow sponsored noopener" target="_blank">[{i+1}]</a>' if is_perfumania(x) else f'<a href={e(x)} rel=noopener target=_blank>[{i+1}]</a>') for i,x in enumerate(d['sources']))}</td></tr></tbody></table></div>"
-      +((f"<div class='box'><h2 style='margin-top:0'>Where to buy {e(d['dupe'])} cheapest</h2><table><thead><tr><th>Retailer</th><th>Size</th><th>Price</th><th>Checked</th></tr></thead><tbody>{comprows(d)}</tbody></table></div>") if d.get('comps') else "")+faqhtml(qs)+related_dupes_section(d))
+      +((f"<div class='box'><h2 style='margin-top:0'>Where to buy {e(d['dupe'])} cheapest</h2><table><thead><tr><th>Retailer</th><th>Size</th><th>Price</th><th>Checked</th></tr></thead><tbody>{comprows(d)}</tbody></table></div>") if d.get('comps') else "")+dupe_deals_html(d)+faqhtml(qs)+related_dupes_section(d))
     DUPE_PAGES.append((f"dupe/{s}/index.html", d))
     lds=[faqld(qs)]+([prod_ld(d, name=d['dupe'], brand=d['dupe'].split()[0])] if d['price'] else [])
     PR=(f" ${d['price']:.2f}" if d['price'] else "")
@@ -1446,29 +1621,6 @@ _OCCASION_GIFT_SLUGS={
     "stocking-stuffer-fragrances","fragrance-stocking-stuffers-under-25",
 }
 _GIFT_HUB_SLUGS={"for-him","for-her"}
-def _dupe_words(s):
-    return re.sub(r"[^a-z0-9]+"," ", str(s or "").lower())
-def dupe_audience(d):
-    """men / women / unisex from the product name, the priced URL, or the retailer handle.
-
-    A cited cologne roundup is used only when those fields say nothing.
-    """
-    def hit(text):
-        if re.search(r"\b(for women|woman|women|mademoiselle)\b", text): return "women"
-        if re.search(r"\b(for men|homme|male|man)\b", text): return "men"
-        if re.search(r"\bunisex\b", text): return "unisex"
-        return None
-    named=hit(_dupe_words(f"{d.get('dupe') or ''} {d.get('original') or ''}"))
-    if named in ("men","women"): return named
-    url_hit=hit(_dupe_words(d.get("url")))
-    handle_hit=hit(_dupe_words(d.get("handle")))
-    if "unisex" in (url_hit, handle_hit) and "women" not in (url_hit, handle_hit):
-        return "unisex"
-    if url_hit: return url_hit
-    if handle_hit: return handle_hit
-    if named: return named
-    if re.search(r"\bcologne\b", _dupe_words(" ".join(d.get("sources") or []))): return "men"
-    return None
 def dupe_price(d):
     p=d.get("price")
     if isinstance(p, bool) or not isinstance(p, (int, float)): return None
@@ -1833,6 +1985,44 @@ def audit_dupe_related():
             if slug not in by_slug or label!=by_slug[slug]:
                 raise SystemExit(f"{rel}: gift anchor {label!r} is not a built guide title")
     print(f"dupe related links: {len(DUPE_PAGES)} pages, sibling and gift-guide hrefs are in the sitemap")
+def audit_dupe_deal_cards():
+    """Every dupe page renders at least 6 cards whose prices are deals.json rows."""
+    card_re=re.compile(r'<article class="card">(.*?)</article>', re.S)
+    price_re=re.compile(r'<span class="price">\$([0-9]+\.[0-9]{2})</span>')
+    was_re=re.compile(r'<span class="was">\$([0-9]+\.[0-9]{2})</span>')
+    if len(DUPE_PAGES)!=len(D["dupes"]):
+        raise SystemExit(f"dupe deal cards: {len(DUPE_PAGES)} pages for {len(D['dupes'])} dupes")
+    checked={(d["id"], f"{d['price']:.2f}", f"{d['was']:.2f}") for d in deals if _card_deal_ok(d)}
+    for rel, d in DUPE_PAGES:
+        text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+        picked=DUPE_DEAL_PICKS.get(id(d))
+        if not picked:
+            raise SystemExit(f"{rel}: no deal-card pick recorded")
+        expect=picked["exact"]+picked["similar"]
+        cards=card_re.findall(text)
+        if len(cards)<DUPE_DEAL_TARGET or len(cards)!=len(expect):
+            raise SystemExit(f"{rel}: {len(cards)} deal cards, expected {len(expect)}")
+        if picked["exact"]:
+            if text.count(">Matching deals in stock now</h2>")!=1:
+                raise SystemExit(f"{rel}: missing the matching-deals heading")
+        else:
+            if text.count(">Similar deals in stock now</h2>")!=1:
+                raise SystemExit(f"{rel}: missing the similar-deals heading")
+            if "not in today" not in text:
+                raise SystemExit(f"{rel}: fallback copy does not say the exact fragrance is absent")
+        for body, deal in zip(cards, expect):
+            key=(deal["id"], f"{deal['price']:.2f}", f"{deal['was']:.2f}")
+            if key not in checked:
+                raise SystemExit(f"{rel}: card {deal.get('id')} is not a checked deal")
+            pm, wm=price_re.search(body), was_re.search(body)
+            if not pm or pm.group(1)!=key[1] or not wm or wm.group(1)!=key[2]:
+                raise SystemExit(f"{rel}: card price drifted from deals.json for {deal.get('id')}")
+            frag=f"/fragrance/{slug(deal['brand']+' '+deal['name'])}/"
+            if frag not in body or f"Buy at {e(deal['retailer'])}" not in body:
+                raise SystemExit(f"{rel}: card for {deal.get('id')} is missing its deal link or button")
+        if text.count(">Related dupes</h2>")!=1 or text.count(">Gift guides</h2>")!=1:
+            raise SystemExit(f"{rel}: deal cards disturbed related dupes or gift guides")
+    print(f"dupe deal cards: {len(DUPE_PAGES)} pages, each with at least {DUPE_DEAL_TARGET} priced cards from deals.json")
 def apply_gift_guide_links():
     """Write hub, homepage, and sibling links from the guides this build just created."""
     root=f"{BASE}{PREFIX}/gifts/"
@@ -2028,6 +2218,7 @@ def assert_404_unlisted():
 # rewrite sitemap with new pages + keyword list + IndexNow key
 open(f"{OUT}/sitemap.xml","w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+"".join(f"<url><loc>{u}</loc><lastmod>{upd:%Y-%m-%d}</lastmod></url>" for u in PAGES)+"</urlset>\n")
 audit_dupe_related()
+audit_dupe_deal_cards()
 audit_fragrance_gift_links()
 def rfc822(dt):
     days=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]; mons=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
