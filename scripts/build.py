@@ -524,7 +524,6 @@ def materialize_guide(raw):
     print(f"gift guide {spec['slug']}: {len(picks)} picks, {span}, cap ${spec['max_price']:g}")
     return dict(spec, picks=picks)
 GIFT_GUIDES=[materialize_guide(spec) for spec in CFG.get("gift_guides",[])]
-def guides_for(d): return [g for g in GIFT_GUIDES if d in g["picks"]]
 HUBS=[]
 for h in CFG.get("hubs",[]):
     ms=[x for x in D["dupes"] if any(m in x["original"] for m in h["match"])]
@@ -553,6 +552,9 @@ GIFT_HOME_MARK="<!--holiday-gift-guides-->"
 GIFT_MORE_MARK="<!--more-gift-guides-->"
 BRAND_GIFT_MARK="<!--brand-gift-guides-->"
 DUPE_GIFT_MARK="<!--dupe-gift-guides-->"
+FRAGRANCE_GIFT_MARK="<!--fragrance-gift-guides-->"
+# (relative path, deal) for each /fragrance/ page this build wrote.
+FRAGRANCE_PAGES=[]
 # Compact homepage set. Titles come from GIFT_SUBPAGES, not from this tuple.
 HOME_GIFT_SLUGS=("for-him","for-her","under-50","perfume-gifts-for-her-under-50","best-mens-cologne-under-40","holiday-gift-sets","fragrance-gifts-for-teens","fragrance-stocking-stuffers-under-25")
 def register_gift_subpage(slug, title):
@@ -696,16 +698,18 @@ for d in deals:
       +BREVO_FORM
       +f"<p>{e(full)} is one of today's best {gl} deals: {d['pct_off']}% {('below the '+e(d['was_label'])+' price') if d.get('was_label') else 'off the listed price'}, a {d['type'].lower() or 'fragrance'} from {e(d['brand'])} (<a href='{PREFIX}/brands/{bslug(d['brand'])}/'>all {e(canon(d['brand']))} deals</a>{"".join(", <a href='"+PREFIX+"/best/"+ru['slug']+"/'>"+e(ru['title'].lower().replace('best ','more '))+"</a>" for ru in rus)}).</p>"
       +"".join(f"<p><b>Comparing?</b> <a href='{PREFIX}/vs/{v['slug']}/'>{e(v['title'])}: prices, size and notes side by side</a></p>" for v in vs_of(d))
-      +(f"<p><b>Holiday gift guides:</b> "+", ".join(f"<a href='{PREFIX}/gifts/{g['slug']}/'>{e(g['title'])}</a>" for g in guides_for(d))+".</p>" if guides_for(d) else "")
+      +FRAGRANCE_GIFT_MARK
       +faqhtml(qs)+"<h2>Similar deals today</h2><div class='grid'>"+"".join(card(x) for x in others)+"</div>")
     short=re.sub(r"( Spray)? (Cologne|Perfume|Unisex Fragrance)$","",full); P=f"${d['price']:.2f}"; Z=sz(d['size'])
     save=d['was']-d['price']
     was_bit=(f"{d['pct_off']}% below the ${d['was']:.2f} {d['was_label']} price" if d.get('was_label') else f"{d['pct_off']}% off the ${d['was']:.2f} list price")
-    page(f"fragrance/{s}/index.html",fit([f"{full} {Z} Sale: {P} ({d['pct_off']}% Off) – Cheapest Price {upd:%b %Y}",f"{full} {Z} Sale: {P} ({d['pct_off']}% Off)",f"{short} {Z} Sale: {P} ({d['pct_off']}% Off)",f"{short} {Z}: {P} ({d['pct_off']}% Off)",f"{short}: {P} ({d['pct_off']}% Off)",f"{short.replace(canon(d['brand'])+' ','',1).replace(d['brand']+' ','',1)} {Z}: {P} ({d['pct_off']}% Off)"]),
+    frag_rel=f"fragrance/{s}/index.html"
+    page(frag_rel,fit([f"{full} {Z} Sale: {P} ({d['pct_off']}% Off) – Cheapest Price {upd:%b %Y}",f"{full} {Z} Sale: {P} ({d['pct_off']}% Off)",f"{short} {Z} Sale: {P} ({d['pct_off']}% Off)",f"{short} {Z}: {P} ({d['pct_off']}% Off)",f"{short}: {P} ({d['pct_off']}% Off)",f"{short.replace(canon(d['brand'])+' ','',1).replace(d['brand']+' ','',1)} {Z}: {P} ({d['pct_off']}% Off)"]),
       fit([f"{full} {Z} is {P} at {d['retailer']}, {was_bit} (save ${save:.2f}). Sealed bottle, checked {upd:%b %-d, %Y}.",
            f"{full} {Z} is {P} at {d['retailer']}, {was_bit}. Sealed, checked {upd:%b %-d, %Y}.",
            f"{full} {Z} for {P} at {d['retailer']} ({was_bit}). Checked {upd:%b %-d, %Y}."],160),body,
       [prod_ld(d, name=f"{full} {d['size']}", brand=d['brand']),faqld(qs)])
+    FRAGRANCE_PAGES.append((frag_rel, d))
 def nohouse(n):
     """Name without the house prefix (Armaf/Lattafa/MFK/YSL...), for titles that would run past 60 chars."""
     w=re.sub(r' [(].*?[)]','',n).split(); k=2 if w[0] in ("Al","Ariana") else 1
@@ -1560,6 +1564,202 @@ def apply_dupe_gift_guides():
         if got!=expect:
             raise SystemExit(f"{rel}: gift guide section drifted")
         print(f"dupe gift guides: {d['dupe']} ({dupe_audience(d) or 'unspecified'}, {('$' + format(dupe_price(d), '.2f')) if dupe_price(d) is not None else 'no price'}) -> {', '.join(s for s,_ in pairs)}")
+FRAGRANCE_GIFT_HEADING="Featured in these gift guides"
+FRAGRANCE_GIFT_LINKS=[]
+# Audience and price filters for the gift pages that are not config specs.
+# These are the same filters the page builders use. Not a list of products.
+_STRUCTURAL_GIFT_RULES=(
+    {"slug":"for-him","gender":"men"},
+    {"slug":"for-her","gender":"women"},
+    {"slug":"under-50","max_price":50},
+    {"slug":"perfume-gifts-for-her-under-50","gender":"women","max_price":50},
+    {"slug":"best-mens-cologne-under-40","gender":"men","max_price":40},
+)
+def fragrance_gift_section(heading, pairs, extra=()):
+    """Chip block. hrefs are double-quoted so they match the rest of the page chrome."""
+    def anchor(href, label):
+        return f'<a href="{e(href)}">{e(label)}</a>'
+    links="".join(anchor(f"{PREFIX}/gifts/{slug}/", title) for slug, title in pairs)
+    links+="".join(anchor(href, label) for href, label in extra)
+    return f"<section class='box'><h2 style='margin-top:0'>{e(heading)}</h2><div class='chips'>{links}</div></section>"
+def _chip_anchors(blob):
+    out=[]
+    for m in re.finditer(r"<a href=(?:\"([^\"]*)\"|'([^']*)')>(.*?)</a>", blob, re.S):
+        href=m.group(1) if m.group(1) is not None else m.group(2)
+        label=re.sub(r"<[^>]+>", "", m.group(3))
+        out.append((html.unescape(href), html.unescape(label)))
+    return out
+def _section_chip_anchors(rel, heading):
+    text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+    m=re.search(rf"<section class='box'><h2 style='margin-top:0'>{re.escape(e(heading))}</h2><div class='chips'>(.*?)</div></section>", text, re.S)
+    if not m: raise SystemExit(f"{rel}: missing {heading} section")
+    return _chip_anchors(m.group(1))
+def _pick_features_deal(pick, deal):
+    """True when this rendered row is the fragrance page's bottle."""
+    if _deal_key(pick)==_deal_key(deal): return True
+    if slug((pick.get("brand") or "")+" "+(pick.get("name") or ""))!=slug(deal["brand"]+" "+deal["name"]):
+        return False
+    po, do=oz(pick.get("size")), oz(deal.get("size"))
+    return bool(po and do and abs(po-do)<=0.05)
+def guides_featuring_deal(deal):
+    """Gift pages whose rendered list includes this bottle, in the order the pages were built."""
+    found=[]
+    for gslug, _title, picks in GIFT_PAGE_PICKS:
+        if picks and any(_pick_features_deal(p, deal) for p in picks):
+            found.append(gslug)
+    return found
+def _guide_rule_fits(rule, d):
+    """Gender and checked price only. Roundup, compare-at, and travel-mix guides are not a fallback."""
+    if rule.get("roundups") or rule.get("include_travel") or rule.get("min_was"): return False
+    g=rule.get("gender")
+    if g and d.get("gender")!=g: return False
+    price=d.get("price")
+    if isinstance(price, bool) or not isinstance(price, (int, float)): return False
+    cap=rule.get("max_price")
+    if isinstance(cap,(int,float)) and not isinstance(cap,bool):
+        if rule.get("max_price_inclusive"):
+            if price>cap: return False
+        elif price>=cap: return False
+    floor=rule.get("min_price")
+    if isinstance(floor,(int,float)) and not isinstance(floor,bool) and price<floor: return False
+    return True
+def _gender_price_guides(d, by_slug, picks_by):
+    rules=[spec for spec in GIFT_GUIDES if spec.get("slug") in by_slug]
+    rules+=[r for r in _STRUCTURAL_GIFT_RULES if r["slug"] in by_slug]
+    def sort_key(rule):
+        cap=rule.get("max_price")
+        floor=rule.get("min_price") or 0
+        gendered=0 if rule.get("gender") else 1
+        cap_v=cap if isinstance(cap,(int,float)) and not isinstance(cap,bool) else 10**6
+        floor_v=floor if isinstance(floor,(int,float)) and not isinstance(floor,bool) else 0
+        return (gendered, cap_v, -floor_v, rule["slug"])
+    seen=set(); ranked=[]
+    for rule in sorted(rules, key=sort_key):
+        gslug=rule["slug"]
+        if gslug in seen or not picks_by.get(gslug): continue
+        if not _guide_rule_fits(rule, d): continue
+        seen.add(gslug)
+        ranked.append((gslug, by_slug[gslug]))
+    return ranked
+def fragrance_fallback_pairs(d, by_slug, picks_by):
+    """2 or 3 filled guides that match this bottle's gender and checked price.
+
+    Used only when no rendered gift list contains the bottle. A short list is
+    padded from the same broad guides brand pages use.
+    """
+    pairs=_gender_price_guides(d, by_slug, picks_by)
+    if len(pairs)>3: pairs=pairs[:3]
+    if len(pairs)>=2: return pairs
+    for gslug, title in general_gift_guides([d], by_slug, picks_by):
+        if gslug not in {s for s,_ in pairs} and picks_by.get(gslug):
+            pairs.append((gslug, title))
+        if len(pairs)>=3: break
+    return pairs[:3]
+def apply_fragrance_gift_guides():
+    """Splice 'Featured in these gift guides' onto each fragrance page from the rendered gift lists."""
+    global FRAGRANCE_GIFT_LINKS
+    if not FRAGRANCE_PAGES:
+        raise SystemExit("fragrance gift guides: no fragrance pages")
+    if len(FRAGRANCE_PAGES)!=len({rel for rel,_ in FRAGRANCE_PAGES}):
+        raise SystemExit("fragrance gift guides: two deals wrote the same page")
+    by_slug=dict(GIFT_SUBPAGES)
+    for gslug, title, _picks in GIFT_PAGE_PICKS:
+        if by_slug.get(gslug)!=title:
+            raise SystemExit(f"fragrance gift guides: {gslug} title {title!r} != registered {by_slug.get(gslug)!r}")
+    picks_by={gslug: picks for gslug, _title, picks in GIFT_PAGE_PICKS}
+    FRAGRANCE_GIFT_LINKS=[]
+    counts=[]
+    for rel, d in FRAGRANCE_PAGES:
+        featured=[(gslug, by_slug[gslug]) for gslug in guides_featuring_deal(d)]
+        if featured:
+            pairs=featured
+            mode="featured"
+        else:
+            pairs=fragrance_fallback_pairs(d, by_slug, picks_by)
+            mode="fallback"
+        if not pairs:
+            raise SystemExit(f"{rel}: no gift guide for {d.get('id')} ({d.get('gender')}, {d.get('price')})")
+        if mode=="fallback" and not (2<=len(pairs)<=3):
+            raise SystemExit(f"{rel}: fallback linked {len(pairs)} guides, expected 2 or 3")
+        if mode=="featured":
+            want=guides_featuring_deal(d)
+            if [s for s,_ in pairs]!=want:
+                raise SystemExit(f"{rel}: featured guides drifted")
+            for gslug, _title in pairs:
+                if not any(_pick_features_deal(p, d) for p in picks_by.get(gslug) or []):
+                    raise SystemExit(f"{rel}: {gslug} does not include this fragrance")
+        b=canon(d["brand"])
+        brand_href=f"{PREFIX}/brands/{bslug(b)}/"
+        pre=open(f"{OUT}/{rel}", encoding="utf-8").read()
+        extra=()
+        if b in brands and brand_href not in pre:
+            extra=((brand_href, f"More from {b}"),)
+        _splice_mark(rel, FRAGRANCE_GIFT_MARK, fragrance_gift_section(FRAGRANCE_GIFT_HEADING, pairs, extra))
+        got=_section_chip_anchors(rel, FRAGRANCE_GIFT_HEADING)
+        expect=[(f"{PREFIX}/gifts/{gslug}/", title) for gslug, title in pairs]+[(href, label) for href, label in extra]
+        if got!=expect:
+            raise SystemExit(f"{rel}: gift guide section drifted")
+        for href, label in got:
+            path=_href_path(href)
+            if path==brand_href:
+                if label!=f"More from {b}":
+                    raise SystemExit(f"{rel}: brand link label {label!r}")
+                continue
+            if path==f"{PREFIX}/gifts/":
+                raise SystemExit(f"{rel}: gift section links the hub instead of a guide")
+            gslug=path[len(f"{PREFIX}/gifts/"):].strip("/")
+            if gslug not in by_slug or label!=by_slug[gslug]:
+                raise SystemExit(f"{rel}: anchor {label!r} is not a built guide title")
+            if not os.path.isfile(f"{OUT}/gifts/{gslug}/index.html"):
+                raise SystemExit(f"{rel}: {path} was not built")
+            if not picks_by.get(gslug):
+                raise SystemExit(f"{rel}: {gslug} has no deals")
+            if f'href="{path}"' not in open(f"{OUT}/{rel}", encoding="utf-8").read():
+                raise SystemExit(f"{rel}: {path} is not a double-quoted href")
+        text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+        if text.count(FRAGRANCE_GIFT_HEADING)!=1:
+            raise SystemExit(f"{rel}: expected one {FRAGRANCE_GIFT_HEADING} section")
+        if "<b>Holiday gift guides:</b>" in text:
+            raise SystemExit(f"{rel}: old holiday gift line is still on the page")
+        counts.append(len(pairs))
+        FRAGRANCE_GIFT_LINKS.append((rel, list(pairs), mode))
+        print(f"fragrance gift guides: {fullname(d)} -> {len(pairs)} ({mode}): {', '.join(s for s,_ in pairs)}")
+    print(f"fragrance gift guides: {len(counts)} pages, min {min(counts)} max {max(counts)} specific guide links")
+def audit_fragrance_gift_links():
+    """Every sitemap /fragrance/ URL links to at least one specific /gifts/<guide>/ page."""
+    paths=_sitemap_paths()
+    frag=sorted(p for p in paths if p.startswith(f"{PREFIX}/fragrance/"))
+    if not FRAGRANCE_GIFT_LINKS:
+        raise SystemExit("fragrance gift guides: nothing was linked")
+    want=[]
+    for rel, _pairs, _mode in FRAGRANCE_GIFT_LINKS:
+        folder=rel[:-len("index.html")] if rel.endswith("index.html") else rel
+        if not folder.endswith("/"): folder+="/"
+        want.append(f"{PREFIX}/{folder}" if not folder.startswith("/") else f"{PREFIX}{folder}")
+    if sorted(want)!=frag:
+        raise SystemExit(f"fragrance gift guides: sitemap fragrance urls drifted ({len(frag)} sitemap, {len(want)} linked)")
+    counts=[]
+    for rel, pairs, mode in FRAGRANCE_GIFT_LINKS:
+        text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+        if FRAGRANCE_GIFT_MARK in text:
+            raise SystemExit(f"{rel}: gift guide marker was not replaced")
+        anchors=_section_chip_anchors(rel, FRAGRANCE_GIFT_HEADING)
+        specific=[(href, label) for href, label in anchors if _href_path(href).startswith(f"{PREFIX}/gifts/") and _href_path(href)!=f"{PREFIX}/gifts/"]
+        if [ (f"{PREFIX}/gifts/{gslug}/", title) for gslug, title in pairs ]!=specific:
+            raise SystemExit(f"{rel}: sitemap audit gift links drifted")
+        if len(specific)<1:
+            raise SystemExit(f"{rel}: no specific gift guide link")
+        if mode=="fallback" and not (2<=len(specific)<=3):
+            raise SystemExit(f"{rel}: fallback should be 2 or 3 guides")
+        for href, label in specific:
+            path=_href_path(href)
+            if path not in paths:
+                raise SystemExit(f"{rel}: {href} is not in the sitemap")
+            local=path[len(PREFIX):] if PREFIX and path.startswith(PREFIX) else path
+            if not os.path.isfile(f"{OUT}{local}index.html"):
+                raise SystemExit(f"{rel}: {href} has no built page")
+        counts.append(len(specific))
+    print(f"fragrance gift guides: {len(frag)} sitemap pages, min {min(counts)} max {max(counts)} specific guide links")
 def _sitemap_paths():
     text=open(f"{OUT}/sitemap.xml", encoding="utf-8").read()
     out=set()
@@ -1661,12 +1861,13 @@ def apply_gift_guide_links():
         _splice_mark(f"gifts/{slug}/index.html", GIFT_MORE_MARK, gift_guide_section("More gift guides", others))
     apply_brand_gift_guides()
     apply_dupe_gift_guides()
+    apply_fragrance_gift_guides()
     for dirpath, _, files in os.walk(OUT):
         for fn in files:
             if not fn.endswith(".html"): continue
             path=os.path.join(dirpath, fn)
             text=open(path, encoding="utf-8").read()
-            for mark in (GIFT_HUB_MARK, GIFT_HOME_MARK, GIFT_MORE_MARK, BRAND_GIFT_MARK, DUPE_GIFT_MARK):
+            for mark in (GIFT_HUB_MARK, GIFT_HOME_MARK, GIFT_MORE_MARK, BRAND_GIFT_MARK, DUPE_GIFT_MARK, FRAGRANCE_GIFT_MARK):
                 if mark in text:
                     raise SystemExit(f"{os.path.relpath(path, OUT)}: still contains {mark}")
     hub_links=_section_anchors("gifts/index.html", "Gift guides")
@@ -1827,6 +2028,7 @@ def assert_404_unlisted():
 # rewrite sitemap with new pages + keyword list + IndexNow key
 open(f"{OUT}/sitemap.xml","w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+"".join(f"<url><loc>{u}</loc><lastmod>{upd:%Y-%m-%d}</lastmod></url>" for u in PAGES)+"</urlset>\n")
 audit_dupe_related()
+audit_fragrance_gift_links()
 def rfc822(dt):
     days=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]; mons=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
     return f"{days[dt.weekday()]}, {dt.day:02d} {mons[dt.month-1]} {dt.year} {dt:%H:%M:%S} +0000"
