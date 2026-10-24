@@ -661,6 +661,17 @@
    "intro": "Two warm evening colognes in the same 1.7 oz size. Azzaro The Most Wanted Parfum is a three-note parfum of ginger, woods and bourbon vanilla. Emporio Armani Stronger With You Intensely is an eau de parfum built on toffee, cinnamon and vanilla. Both are discounted today, so the sticker and the concentration are a straight comparison.",
    "difference": "The Most Wanted Parfum stays on ginger, woody notes and bourbon vanilla, at parfum concentration, so it is dense from the first spray. Stronger With You Intensely opens with pink pepper, juniper and violet, moves through toffee, cinnamon, lavender and sage, and dries down to vanilla, amber, tonka bean and suede, so it is sweeter and has more notes in play.",
    "pick": "Pick The Most Wanted Parfum for the denser ginger-and-vanilla scent at the lower price; pick Stronger With You Intensely if you want toffee and cinnamon and will pay more for the same size."
+  },
+  {
+   "slug": "clinique-happy-vs-green-tea",
+   "title": "Clinique Happy vs Green Tea",
+   "a": "clinique-happy-women-eau-de-parfum-spray",
+   "b": "elizabeth-arden-green-tea-scent-women-eau-de-parfum-spray",
+   "a_notes": "Orange, blood grapefruit, mandarin, bergamot, apple, plum; lily of the valley, freesia, orchid, rose; mimosa, musk, amber",
+   "b_notes": "Lemon, bergamot, orange zest, rhubarb; green tea, jasmine, celery; musk, amber, oakmoss",
+   "intro": "Two fresh daytime eaux de parfum, both at Perfumania today. Clinique Happy is a 1.0 oz citrus-fruit floral. Elizabeth Arden Green Tea is a 3.4 oz citrus-and-tea scent. The stickers are not the same amount of juice, so read the per-ounce row before you treat the lower price as the only difference.",
+   "difference": "Happy opens with orange, blood grapefruit, Indian mandarin, bergamot, apple and plum, then lily of the valley, freesia, orchid and rose, and dries down to mimosa, lily, magnolia, musk and amber, per Perfumania's product copy checked Oct 24, 2026. Green Tea opens with lemon, bergamot, orange zest and rhubarb, puts green tea, jasmine and celery in the heart, and finishes on musk, amber and oakmoss. Happy is the fruitier floral. Green Tea is the lighter tea.",
+   "pick": "Pick Green Tea for the tea-and-citrus scent and the much larger bottle at the lower sticker. Pick Happy if you want the fruitier floral and you are fine with a 1.0 oz bottle."
   }
  ],
  "roundups": [
@@ -841,7 +852,7 @@
     },
     {
      "id": "clinique-happy-women-eau-de-parfum-spray",
-     "notes": "Citrus floral: blood grapefruit, mandarin, lily of the valley, freesia, mimosa"
+     "notes": "Citrus floral: blood grapefruit, orange, mandarin, apple, lily of the valley, freesia, rose"
     },
     {
      "id": "peace-love-juicy-couture-by-juicy-couture-for-women-edp-spray",
@@ -988,7 +999,7 @@
     },
     {
      "id": "clinique-happy-women-eau-de-parfum-spray",
-     "notes": "Citrus floral: blood grapefruit, orange, mandarin, freesia, mimosa"
+     "notes": "Citrus floral: blood grapefruit, orange, mandarin, apple, lily of the valley, freesia, rose"
     }
    ],
    "faq": [
@@ -1127,6 +1138,90 @@
      "Boss In Motion is the eau de toilette, with orange up top and spice in the heart, so it is the lighter of the four. Eros Flame, The Most Wanted Parfum, and Stronger With You Intensely are the denser evening bottles."
     ]
    ]
+  },
+  {
+   "slug": "long-lasting-perfume-deals-under-50",
+   "title": "Long-Lasting Perfumes Under $50",
+   "noun": "long-lasting perfume",
+   "who": "women's",
+   "scope": "under $50",
+   "max_price": 50,
+   "rule": "the bottle must be a women's eau de parfum of at least 3 oz, the checked price must be under $50, and the retailer's description must name the notes",
+   "lead": "Women's eaux de parfum in a 3 oz bottle or larger, each under $50 today. The same concentration rule as the men's long-lasting cologne page, plus a size floor so a 1 oz bottle is not listed as the long-wearing gift. This is not a wear-time test. A 1 oz eau de parfum stays on the other perfume pages. Eilish No. 2 is a 3.4 oz eau de parfum under $50 and is left off: it is not on a notes roundup, so this page does not describe how it smells. Every note line is one already stored from the retailer's product description.",
+   "items": [
+    {
+     "id": "peace-love-juicy-couture-by-juicy-couture-for-women-edp-spray",
+     "notes": "Fruity floral: hyacinth, cassis, red apple, honeysuckle, jasmine, musk"
+    },
+    {
+     "id": "eternity-air-eau-de-parfum-spray-for-women-by-calvin-klein",
+     "notes": "Fresh fruity floral: grapefruit, black currant, peony, pear, musk"
+    },
+    {
+     "id": "calvin-klein-beauty-perfume-eau-de-parfum-for-women",
+     "notes": "Floral musk: ambrette, jasmine, Virginia cedar"
+    },
+    {
+     "id": "woman-eau-de-parfum-spray-for-women-by-hugo-boss",
+     "notes": "Fruity floral: mango, mandarin, violet root, freesia, sandalwood"
+    },
+    {
+     "id": "calvin-klein-eternity-womens-eau-de-parfum-spray",
+     "notes": "Green floral: freesia, mandarin, sage, lily, rose, sandalwood"
+    },
+    {
+     "id": "elizabeth-arden-green-tea-scent-women-eau-de-parfum-spray",
+     "notes": "Citrus tea: lemon, bergamot, rhubarb, green tea, jasmine, oakmoss"
+    }
+   ],
+   "faq": [
+    [
+     "Why are these called long-lasting?",
+     "They are eaux de parfum, which carry more fragrance oil than an eau de toilette, in a bottle of at least 3 oz. That is the same concentration idea as the men's long-lasting cologne page. We have not timed how long each one lasts on skin."
+    ],
+    [
+     "Why isn't a 1 oz perfume on this page?",
+     "A 1 oz eau de parfum can be the same concentration and still be a small amount of juice. Burberry London, Clinique Happy, and other 1 oz bottles stay on the perfume deals and gift pages. If a bottle here shrinks under 3 oz or the checked price reaches $50, the next rebuild drops it."
+    ]
+   ]
+  },
+  {
+   "slug": "woody-perfume-deals-under-50",
+   "title": "Woody Perfumes Under $50",
+   "noun": "woody perfume",
+   "who": "women's",
+   "scope": "under $50",
+   "max_price": 50,
+   "rule": "sandalwood or cedar must be a named note in the retailer's description, the bottle is a women's perfume, and the checked price must be under $50",
+   "lead": "Women's perfumes under $50 whose stored retailer notes name sandalwood or cedar. The flower or the fruit can still lead the opening. A bottle is here because a wood is named, not because the scent is only wood. The men's woody and amber cologne page is a different list. Olympea names sandalwood and is over $50 today, so it stays off until a checked price is under $50 and it is added here. Every note line is one already stored from the retailer's product description.",
+   "items": [
+    {
+     "id": "burberry-london-perfume-eau-de-parfum-for-women",
+     "notes": "White floral: honeysuckle, tangerine, rose, jasmine, peony, sandalwood"
+    },
+    {
+     "id": "calvin-klein-beauty-perfume-eau-de-parfum-for-women",
+     "notes": "Floral musk: ambrette, jasmine, Virginia cedar"
+    },
+    {
+     "id": "woman-eau-de-parfum-spray-for-women-by-hugo-boss",
+     "notes": "Fruity floral: mango, mandarin, violet root, freesia, sandalwood"
+    },
+    {
+     "id": "calvin-klein-eternity-womens-eau-de-parfum-spray",
+     "notes": "Green floral: freesia, mandarin, sage, lily, rose, sandalwood"
+    }
+   ],
+   "faq": [
+    [
+     "What counts as woody here?",
+     "The stored retailer note has to name sandalwood or cedar. A fresh citrus with only musk does not qualify. Oakmoss alone does not qualify, so Green Tea stays on the fresh perfume page."
+    ],
+    [
+     "Are these only wood scents?",
+     "No. London, Eternity, and Boss Woman open on flowers or fruit and name a wood in the base. CK Beauty names jasmine and Virginia cedar. Read the note line on the card. It is the retailer's, not a ranking of which is woodier."
+    ]
+   ]
   }
  ],
  "gift_guides": [
@@ -1187,6 +1282,8 @@
     {"href": "/best/perfume-deals-under-30/", "label": "Perfume deals under $30"},
     {"href": "/best/floral-perfume-deals/", "label": "Floral perfume deals"},
     {"href": "/best/fresh-perfume-deals-under-50/", "label": "Fresh perfume deals under $50"},
+    {"href": "/best/long-lasting-perfume-deals-under-50/", "label": "Long-lasting perfumes under $50"},
+    {"href": "/best/woody-perfume-deals-under-50/", "label": "Woody perfumes under $50"},
     {"href": "/gifts/for-her/", "label": "All fragrance gifts for her"},
     {"href": "/gifts/perfume-gifts-for-girlfriend/", "label": "Perfume gifts for girlfriend"},
     {"href": "/gifts/perfume-gifts-for-wife/", "label": "Perfume gifts for wife"},
@@ -1218,6 +1315,8 @@
     {"href": "/best/cologne-deals-under-30/", "label": "Cologne deals under $30"},
     {"href": "/best/perfume-deals-under-30/", "label": "Perfume deals under $30"},
     {"href": "/gifts/stocking-stuffer-fragrances/", "label": "Stocking stuffers under $25"},
+    {"href": "/gifts/fragrance-gifts-for-coworkers-under-40/", "label": "Fragrance gifts for coworkers under $40"},
+    {"href": "/gifts/fragrance-gifts-for-college-students/", "label": "Fragrance gifts for college students"},
     {"href": "/unisex/", "label": "Unisex deals"}
    ]
   },
@@ -1301,6 +1400,7 @@
     {"href": "/best/cologne-deals-under-30/", "label": "Cologne deals under $30"},
     {"href": "/best/perfume-deals-under-30/", "label": "Perfume deals under $30"},
     {"href": "/gifts/fragrance-gifts-for-teens/", "label": "Fragrance gifts for teens under $40"},
+    {"href": "/gifts/fragrance-gifts-for-coworkers-under-40/", "label": "Fragrance gifts for coworkers under $40"},
     {"href": "/gifts/under-50/", "label": "Fragrance gifts under $50"}
    ]
   },
@@ -1702,6 +1802,86 @@
     {"href": "/gifts/luxury-fragrance-gifts/", "label": "Luxury fragrance gifts"},
     {"href": "/men/", "label": "All men's deals"},
     {"href": "/unisex/", "label": "Unisex deals"}
+   ]
+  },
+  {
+   "slug": "fragrance-gifts-for-coworkers-under-40",
+   "title": "Fragrance gifts for coworkers under $40",
+   "chip": "Coworker gifts under $40",
+   "max_price": 40,
+   "exclude_mini": true,
+   "roundups": ["fresh-citrus-cologne-deals", "fresh-perfume-deals-under-50"],
+   "filled_label": "fragrance gifts for coworkers under $40",
+   "intro": "A holiday list for a coworker, a desk mate, or a small office gift: men's, women's, and unisex bottles together, lowest checked price first. A bottle is listed only when it is already on the fresh-and-citrus cologne roundup or the fresh perfume roundup, and the checked price is under $40. Those note lines open on citrus, tea, or aquatic notes. Sweet vanilla bottles stay on the vanilla roundup. Secret Santa under $30 keeps every regular bottle under $30, including ones with no note line. Fragrance gifts for teens under $40 keeps every checked bottle under $40. We do not call a scent a coworker fragrance, and we do not rank bottles by who wears them to an office. None of these listings do. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes.",
+   "empty": "No fresh cologne or fresh perfume we checked today is under $40, so this page has no list. These guides have bottles we priced.",
+   "empty_desc": "Fragrance gifts for coworkers under $40: no fresh cologne or fresh perfume we checked is under $40. Other gift guides list bottles we did price.",
+   "choose": [
+    "Stay with the note line on the card. Eternity Air, Green Tea, and Boss Woman are the women's fresh perfumes: grapefruit, green tea, or mango and mandarin. Chrome Legend, Burberry Weekend, and Boss Bottled Unlimited are the men's fresh colognes: green apple and tea, lemon and grapefruit, or mint and grapefruit. CK One and CK Everyone are the unisex fresh bottles. When you have never smelled what they wear, a citrus or tea opening is the daytime bottle on this page. That is a wear split from the retailer notes. It is not a quality ranking.",
+    "The cap is under $40, which is a step above the Secret Santa page and a step below a $50 gift. A checked price of $40 or more drops off on the next rebuild. Clinique Happy is on the fresh perfume roundup and is over this cap today, so it stays on the college list and the fresh perfume page. We do not call any of these a coworker fragrance."
+   ],
+   "faq": [
+    [
+     "How is this different from Secret Santa fragrances under $30?",
+     "Secret Santa lists every regular bottle under $30, including ones whose listing copy conflicts or names no notes. This page stops under $40 and keeps a bottle only when it is already on the fresh cologne roundup or the fresh perfume roundup."
+    ],
+    [
+     "How is this different from fragrance gifts for teens under $40?",
+     "The teen page is every checked bottle under $40, with no scent filter. This page is the fresh subset of that budget, and it also leaves off bottles that are not on those two roundups."
+    ],
+    [
+     "Do you call these office-safe or coworker scents?",
+     "No. None of these listings say that. The page is a gift list of fresh colognes and fresh perfumes under $40. The fresh roundups already describe those openings as daytime and office scents because the notes are citrus, tea, or aquatic."
+    ]
+   ],
+   "links": [
+    {"href": "/gifts/secret-santa-fragrances-under-30/", "label": "Secret Santa fragrances under $30"},
+    {"href": "/gifts/fragrance-gifts-for-teens/", "label": "Fragrance gifts for teens under $40"},
+    {"href": "/gifts/fragrance-gifts-for-college-students/", "label": "Fragrance gifts for college students"},
+    {"href": "/best/fresh-citrus-cologne-deals/", "label": "Fresh and citrus cologne deals"},
+    {"href": "/best/fresh-perfume-deals-under-50/", "label": "Fresh perfume deals under $50"},
+    {"href": "/gifts/under-50/", "label": "Fragrance gifts under $50"},
+    {"href": "/unisex/", "label": "Unisex deals"}
+   ]
+  },
+  {
+   "slug": "fragrance-gifts-for-college-students",
+   "title": "Fragrance gifts for college students",
+   "chip": "Gifts for college students",
+   "max_price": 50,
+   "exclude_mini": true,
+   "roundups": ["fresh-citrus-cologne-deals", "fresh-perfume-deals-under-50", "floral-perfume-deals", "vanilla-sweet-fragrance-deals", "warm-spicy-cologne-deals", "woody-amber-cologne-deals"],
+   "filled_label": "fragrance gifts for college students under $50",
+   "intro": "A holiday list for someone buying a fragrance for a college student: men's, women's, and unisex bottles together, lowest checked price first. A bottle is listed only when it is already on a scent roundup, so the retailer description names the notes, and the checked price is under $50. That includes fresh daytime bottles and the warm or sweet bottles that are still under $50. Fragrance gifts for teens under $40 keeps every checked bottle under $40, including ones with no note line. Coworker gifts under $40 keep only the fresh roundups and stop below $40. We do not call a scent a college fragrance, and we do not rank bottles by the wearer's age. None of these listings do. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes. Azzaro Cologne, Burberry Touch, and Ralph Lauren Romance stay off this page, because their listing copy conflicts or the deal data does not store a note line.",
+   "empty": "No noted fragrance we checked today is under $50, so this page has no list. These guides have bottles we priced.",
+   "empty_desc": "Fragrance gifts for college students: no noted fragrance we checked is under $50. Other gift guides list bottles we did price.",
+   "choose": [
+    "Split the cards by the note line. The fresh group opens on citrus, tea, or an aquatic note: Chrome Legend, Burberry Weekend, Versace Pour Homme, CK One, CK Everyone, Eternity Air, Green Tea, Boss Woman, and Clinique Happy. CK Free is the woody aromatic, with coffee and cedar. Boss In Motion and Eros Flame are the warm spicy bottles still under $50, with cinnamon, cardamom, or black pepper in the stored notes. Peace Love & Juicy Couture, Burberry London, CK Beauty, and Eternity are the florals. When you do not know what they wear, start with a fresh note line. When you know they like a sweeter night-out scent, use the spicy cards. That is a wear split from the retailer notes. It is not a quality ranking.",
+    "The cap is under $50. A checked price of $50 or more drops off on the next rebuild, including a sweet bottle that climbs past the cap. Read the size on the card. Versace Pour Homme, Burberry London, and Clinique Happy are the 1 oz bottles on this list, so a modest sticker can still be a small amount of juice. When the name links to a bottle page, that page shows the price per ounce. We do not call any of these a college fragrance."
+   ],
+   "faq": [
+    [
+     "How is this different from fragrance gifts for teens under $40?",
+     "The teen page lists every checked bottle under $40, including ones with no note line. This page goes up to, but not including, $50, and it keeps a bottle only when a scent roundup already has retailer notes for it."
+    ],
+    [
+     "How is this different from coworker gifts under $40?",
+     "Coworker gifts keep the fresh cologne roundup and the fresh perfume roundup, and they stop below $40. This page adds floral, vanilla, warm spicy, and woody bottles, and it keeps fresh bottles from $40 up to $50."
+    ],
+    [
+     "Do you call these college fragrances?",
+     "No. None of these listings say that. The page is a gift list of noted bottles under $50. It is not a ranking of who wears them."
+    ]
+   ],
+   "links": [
+    {"href": "/gifts/fragrance-gifts-for-coworkers-under-40/", "label": "Fragrance gifts for coworkers under $40"},
+    {"href": "/gifts/fragrance-gifts-for-teens/", "label": "Fragrance gifts for teens under $40"},
+    {"href": "/gifts/secret-santa-fragrances-under-30/", "label": "Secret Santa fragrances under $30"},
+    {"href": "/best/fresh-citrus-cologne-deals/", "label": "Fresh and citrus cologne deals"},
+    {"href": "/best/fresh-perfume-deals-under-50/", "label": "Fresh perfume deals under $50"},
+    {"href": "/best/long-lasting-perfume-deals-under-50/", "label": "Long-lasting perfumes under $50"},
+    {"href": "/best/woody-perfume-deals-under-50/", "label": "Woody perfumes under $50"},
+    {"href": "/best/warm-spicy-cologne-deals/", "label": "Warm and spicy cologne deals"},
+    {"href": "/gifts/under-50/", "label": "Fragrance gifts under $50"}
    ]
   }
  ],

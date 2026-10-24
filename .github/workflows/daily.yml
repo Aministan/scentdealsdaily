@@ -3,6 +3,10 @@ on:
   schedule: [{cron: "17 11 * * *"}]   # ~7:17 AM ET daily
   workflow_dispatch: {}
   push: {branches: [main]}
+# Newest push or schedule wins. An older checkout must not deploy over a later one.
+concurrency:
+  group: daily-refresh
+  cancel-in-progress: true
 permissions: {contents: write, pages: write, id-token: write}
 jobs:
   build:

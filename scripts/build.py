@@ -583,7 +583,7 @@ VS_PAGES=[]
 # (relative path, deal) for each /fragrance/ page this build wrote.
 FRAGRANCE_PAGES=[]
 # Compact homepage set. Titles come from GIFT_SUBPAGES, not from this tuple.
-HOME_GIFT_SLUGS=("for-him","for-her","under-50","perfume-gifts-for-her-under-50","best-mens-cologne-under-40","holiday-gift-sets","fragrance-gifts-for-teens","fragrance-stocking-stuffers-under-25","perfume-gifts-for-wife","cologne-gifts-for-husband","perfume-gifts-for-grandma","cologne-gifts-for-grandpa")
+HOME_GIFT_SLUGS=("for-him","for-her","under-50","perfume-gifts-for-her-under-50","best-mens-cologne-under-40","holiday-gift-sets","fragrance-gifts-for-teens","fragrance-gifts-for-coworkers-under-40","fragrance-gifts-for-college-students","fragrance-stocking-stuffers-under-25","perfume-gifts-for-wife","cologne-gifts-for-husband","perfume-gifts-for-grandma","cologne-gifts-for-grandpa")
 def register_gift_subpage(slug, title):
     if not slug or not str(title or "").strip():
         raise SystemExit("gift guide missing a slug or page title")
@@ -617,8 +617,13 @@ rows="".join(f"""<tr><td><b>{e(d['original'])}</b>{('<div class=meta>'+e(d['orig
 <td>{(f"<b>${d['price']:.2f}</b> ({e(d['size'])}) {ext_a(d['url'], e(d.get('retailer') or 'Retailer'), placement='table')}<div class=meta>checked {upd_h}</div>") if d['price'] else "<span class=meta>Not tracked yet — price check coming</span>"}</td>
 <td class=meta>{' '.join((f'<a href="{e(affiliate_url(s, "src"))}" rel="nofollow sponsored noopener" target="_blank">[{i+1}]</a>' if is_perfumania(s) else f"<a href='{e(s)}' rel=noopener target=_blank>[{i+1}]</a>") for i,s in enumerate(d['sources']))}</td></tr>""" for d in D["dupes"])
 faq={"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":f"What is the best dupe for {d['original']}?","acceptedAnswer":{"@type":"Answer","text":f"{d['dupe']} is a widely cited alternative to {d['original']} ({d['notes']})."+(f" It was ${d['price']:.2f} for {d['size']} at {d.get('retailer') or 'the retailer'} as of {upd:%Y-%m-%d}." if d['price'] else "")}} for d in D["dupes"]]}
-page("dupes/index.html",fit([f"Best Designer Fragrance Dupes {upd.year}: {len(D['dupes'])} Clones With Live Prices | {NAME}",f"Best Fragrance Dupes {upd.year}: {len(D['dupes'])} Clones With Live Prices"]),
- "Creed Aventus, Baccarat Rouge 540, Angels' Share, Sauvage Elixir and more: the most-cited affordable dupes, with today's prices and sources.",
+_dupe_priced=[d for d in D["dupes"] if isinstance(d.get("price"),(int,float)) and not isinstance(d.get("price"),bool)]
+_dupe_lo=min(_dupe_priced,key=lambda d:d["price"]) if _dupe_priced else None
+_dupe_from=(f" From ${_dupe_lo['price']:.2f}" if _dupe_lo else "")
+page("dupes/index.html",fit([f"Best Fragrance Dupes {upd.year}: {len(D['dupes'])} Clones{_dupe_from} | {NAME}",f"Best Fragrance Dupes {upd.year}: {len(D['dupes'])} Clones{_dupe_from}",f"Best Fragrance Dupes {upd.year}: {len(D['dupes'])} Clones With Live Prices"]),
+ fit([f"Creed Aventus, Baccarat Rouge 540, Angels' Share and Sauvage Elixir dupes. {len(_dupe_priced)} of {len(D['dupes'])} have a checked price"+(_dupe_from.lower() if _dupe_lo else "")+f". Sources cited. Checked {upd:%b %-d, %Y}.",
+      f"{len(D['dupes'])} designer fragrance dupes, {len(_dupe_priced)} with a checked price"+(_dupe_from.lower() if _dupe_lo else "")+f". Creed, Baccarat Rouge 540, Angels' Share and more. Checked {upd:%b %-d, %Y}.",
+      "Creed Aventus, Baccarat Rouge 540, Angels' Share, Sauvage Elixir and more: the most-cited affordable dupes, with today's prices and sources."],160),
  f"<h1>Designer fragrance dupes directory</h1><p class='sub'>Popular designer → affordable alternative pairs, cited from fragrance community rankings. Dupes are legally sold originals \"inspired by\" a scent — not counterfeits.</p>"+(("<p class='chips'>Compare guides: "+"".join(f"<a href='{PREFIX}/dupes/{h['slug']}/'>{e(h['title'])}</a>" for h in HUBS)+"</p>") if HUBS else "")+f"<table><thead><tr><th>Designer original</th><th>Dupe</th><th>Today's price</th><th>Sources</th></tr></thead><tbody>{rows}</tbody></table>{BREVO_FORM}",[faq])
 # gender/category pages
 for g,label in [("men","Men's Cologne"),("women","Women's Perfume"),("unisex","Unisex Fragrance")]:
@@ -668,8 +673,12 @@ for b in brands:
     page(f"brands/{bslug(b)}/index.html",fit([f"{b} {kind} Deals: Up to {mx}% Off Today | {NAME}",f"{b} {kind} Deals: Up to {mx}% Off Today",f"{b} {kind} Deals: Up to {mx}% Off",f"{b} Fragrance Deals: Up to {mx}% Off"]),
       bm,
       f"<h1>{e(b)} deals</h1><p class='sub'>checked {upd_h}</p><div class='grid'>{''.join(card(d) for d in ds)}</div>{BRAND_GIFT_MARK}{BREVO_FORM}",[itemlist(ds,b+" deals")])
-page("brands/index.html",fit([f"Fragrance Deals by Brand: {len(brands)} Designer Brands on Sale Today | {NAME}",f"Fragrance Deals by Brand: {len(brands)} Designer Brands on Sale Today"]),
- f"{len(brands)} designer brands with checked perfume and cologne deals, including {', '.join(brands[:3])}. Authorized retailers only, prices checked daily.",
+_brand_mx=max(d["pct_off"] for d in deals)
+_brand_lo=min(d["price"] for d in deals)
+page("brands/index.html",fit([f"Fragrance Deals by Brand: {len(brands)} Brands, Up to {_brand_mx}% Off | {NAME}",f"Fragrance Deals by Brand: Up to {_brand_mx}% Off Today",f"{len(brands)} Brands on Sale: Up to {_brand_mx}% Off"]),
+ fit([f"{len(brands)} designer brands with checked deals from ${_brand_lo:.2f}, up to {_brand_mx}% off, including {', '.join(brands[:3])}. Authorized retailers. Checked {upd:%b %-d, %Y}.",
+      f"{len(brands)} designer brands on sale, from ${_brand_lo:.2f}, up to {_brand_mx}% off. Including {', '.join(brands[:3])}. Checked {upd:%b %-d, %Y}.",
+      f"{len(brands)} designer brands with checked perfume and cologne deals, including {', '.join(brands[:3])}. Authorized retailers only, prices checked daily."],160),
  "<h1>Deals by brand</h1><div class='chips'>"+"".join(f"<a href='{PREFIX}/brands/{bslug(b)}/'>{e(b)}</a>" for b in brands)+"</div>")
 page("sponsor/index.html",f"Advertise on {NAME}: Featured Fragrance Deals","Reach shoppers ready to buy designer perfume and cologne: featured deal spots, Friday newsletter sponsorships and dupe spotlights, always labeled Sponsored.",
  f"""<h1>Feature your fragrance brand</h1><p class='sub'>Put your scent in front of shoppers who are ready to buy.</p>
@@ -1654,6 +1663,7 @@ def apply_brand_gift_guides():
 _OCCASION_GIFT_SLUGS={
     "fragrance-gifts-for-teens","secret-santa-fragrances-under-30",
     "stocking-stuffer-fragrances","fragrance-stocking-stuffers-under-25",
+    "fragrance-gifts-for-coworkers-under-40","fragrance-gifts-for-college-students",
 }
 _GIFT_HUB_SLUGS={"for-him","for-her"}
 def dupe_price(d):
@@ -1735,7 +1745,7 @@ def gift_links_for_dupe(d, by_slug):
     take(ungendered[:1])
     take(floors)
     if len(chosen)<2:
-        fillers=sorted([r for r in rules if r["roundup"] and ok(r, price is None)],
+        fillers=sorted([r for r in rules if r["roundup"] and not r["occasion"] and ok(r, price is None)],
                        key=lambda r:(r["max_price"] if r["max_price"] is not None else 10**9, r["slug"]))
         take(fillers)
     if not 2<=len(chosen)<=4:
@@ -2266,9 +2276,12 @@ for _,_,_,rows,_ in bf_sections:
 bf_cards=sum(len(rows) for _,_,_,rows,_ in bf_sections)
 bf_when=f"{upd:%b %-d, %Y}"
 bf_noun="checked pick" if len(bf_ids)==1 else "checked picks"
+bf_rows=[d for d in deals if d["id"] in set(bf_ids)]
+bf_lo=min(bf_rows, key=lambda d:d["price"])
+bf_mx=max(d["pct_off"] for d in bf_rows)
 bf_h1="Black Friday perfume deals 2026"
-bf_title=f"Black Friday Perfume Deals 2026 | {NAME}"
-bf_desc=f"Black Friday perfume deals 2026 and Cyber Monday cologne deals: {len(bf_ids)} {bf_noun} for men's, women's, gift sets, and under $50. Last updated {bf_when}."
+bf_title=f"Black Friday Perfume Deals 2026: From ${bf_lo['price']:.2f}"
+bf_desc=f"Black Friday perfume deals 2026 and Cyber Monday cologne deals: {len(bf_ids)} {bf_noun} from ${bf_lo['price']:.2f}, up to {bf_mx}% off. Updated {bf_when}."
 if len(bf_title)>60 or "black friday perfume deals 2026" not in bf_title.lower():
     raise SystemExit(f"black friday title is {len(bf_title)} chars or misses the target phrase")
 if not (70<=len(bf_desc)<=160) or "cyber monday cologne deals" not in bf_desc.lower() or "black friday perfume deals 2026" not in bf_desc.lower():
