@@ -482,9 +482,12 @@ SEO_GIFTS=[
 # and sibling pages. The sitemap is the same page() pass, so a new guide is linked
 # from the build that adds it.
 GIFT_SUBPAGES=[]
+# (slug, h1, picks actually rendered) for each /gifts/<slug>/ page. The hub is not included.
+GIFT_PAGE_PICKS=[]
 GIFT_HUB_MARK="<!--gift-guides-->"
 GIFT_HOME_MARK="<!--holiday-gift-guides-->"
 GIFT_MORE_MARK="<!--more-gift-guides-->"
+BRAND_GIFT_MARK="<!--brand-gift-guides-->"
 # Compact homepage set. Titles come from GIFT_SUBPAGES, not from this tuple.
 HOME_GIFT_SLUGS=("for-him","for-her","under-50","perfume-gifts-for-her-under-50","best-mens-cologne-under-40","holiday-gift-sets","fragrance-gifts-for-teens")
 def register_gift_subpage(slug, title):
@@ -570,7 +573,7 @@ for b in brands:
         ],160)
     page(f"brands/{bslug(b)}/index.html",fit([f"{b} {kind} Deals: Up to {mx}% Off Today | {NAME}",f"{b} {kind} Deals: Up to {mx}% Off Today",f"{b} {kind} Deals: Up to {mx}% Off",f"{b} Fragrance Deals: Up to {mx}% Off"]),
       bm,
-      f"<h1>{e(b)} deals</h1><p class='sub'>checked {upd_h}</p><div class='grid'>{''.join(card(d) for d in ds)}</div>{BREVO_FORM}",[itemlist(ds,b+" deals")])
+      f"<h1>{e(b)} deals</h1><p class='sub'>checked {upd_h}</p><div class='grid'>{''.join(card(d) for d in ds)}</div>{BRAND_GIFT_MARK}{BREVO_FORM}",[itemlist(ds,b+" deals")])
 page("brands/index.html",fit([f"Fragrance Deals by Brand: {len(brands)} Designer Brands on Sale Today | {NAME}",f"Fragrance Deals by Brand: {len(brands)} Designer Brands on Sale Today"]),
  f"{len(brands)} designer brands with checked perfume and cologne deals, including {', '.join(brands[:3])}. Authorized retailers only, prices checked daily.",
  "<h1>Deals by brand</h1><div class='chips'>"+"".join(f"<a href='{PREFIX}/brands/{bslug(b)}/'>{e(b)}</a>" for b in brands)+"</div>")
@@ -933,6 +936,7 @@ for path,sid_slug,title,short,intro,picks,list_name,image in gift_pages:
         top_mark=GIFT_HUB_MARK
     else:
         register_gift_subpage(sid_slug, title)
+        GIFT_PAGE_PICKS.append((sid_slug, title, list(picks)))
         bot_mark=GIFT_MORE_MARK
     page(path, titles,
       desc,
@@ -966,6 +970,7 @@ def seo_meta_filled(n_label, picks, tail="Sealed bottles only."):
 def render_seo_gift(slug_s, h1, intro, picks, faqs, empty_html, empty_desc, filled_label, notes=None, extra_html="", extra="", group_by_brand=False, image=None, tail="Sealed bottles only."):
     use_sid("gifts", slug_s)
     register_gift_subpage(slug_s, h1)
+    GIFT_PAGE_PICKS.append((slug_s, h1, list(picks or [])))
     title=seo_title(h1, picks)
     desc=seo_meta_filled(filled_label, picks, tail) if picks else empty_desc
     if picks:
@@ -1166,6 +1171,135 @@ def _section_anchors(rel, heading):
     m=re.search(rf"<section class='box'><h2 style='margin-top:0'>{re.escape(e(heading))}</h2><div class='chips'>(.*?)</div></section>", text, re.S)
     if not m: raise SystemExit(f"{rel}: missing {heading} section")
     return [(html.unescape(href), html.unescape(label)) for href, label in re.findall(r"<a href='([^']*)'>(.*?)</a>", m.group(1), re.S)]
+def _price_under(d, cap):
+    p=d.get("price")
+    return isinstance(p,(int,float)) and not isinstance(p,bool) and p<cap
+def general_gift_guides(ds, by_slug, picks_by):
+    """3 or 4 broad for-him / for-her / under-$50 guides.
+
+    Used only when none of this brand's deals is on a gift page. Titles are the
+    pages this build registered. A guide with no bottles is skipped.
+    """
+    genders={d.get("gender") for d in ds}
+    has_men="men" in genders
+    has_women="women" in genders
+    unisex_only=not has_men and not has_women
+    order=[]
+    def add(slug):
+        if slug in order or slug not in by_slug: return False
+        if not picks_by.get(slug): return False
+        order.append(slug)
+        return True
+    if has_men or unisex_only: add("for-him")
+    if has_women or unisex_only: add("for-her")
+    add("under-50")
+    if has_men and has_women:
+        men_n=sum(1 for d in ds if d.get("gender")=="men" and _price_under(d, 50))
+        women_n=sum(1 for d in ds if d.get("gender")=="women" and _price_under(d, 50))
+        add("perfume-gifts-for-her-under-50" if women_n>men_n else "cologne-gifts-for-him-under-50")
+    elif has_men:
+        add("cologne-gifts-for-him-under-50")
+        if any(d.get("gender")=="men" and _price_under(d, 40) for d in ds):
+            add("best-mens-cologne-under-40")
+    elif has_women:
+        add("perfume-gifts-for-her-under-50")
+        if any(d.get("gender")=="women" and _price_under(d, 40) for d in ds):
+            add("perfume-gifts-for-her-under-40")
+    fillers=("for-him","for-her","under-50","cologne-gifts-for-him-under-50",
+             "perfume-gifts-for-her-under-50","best-mens-cologne-under-40","perfume-gifts-for-her-under-40")
+    for slug in fillers:
+        if len(order)>=3: break
+        add(slug)
+    if len(order)>4: order=order[:4]
+    if not (3<=len(order)<=4):
+        raise SystemExit("general gift guides: expected 3 or 4 available guides, got "+", ".join(order) or "(none)")
+    return [(slug, by_slug[slug]) for slug in order]
+def _deal_key(d):
+    """Identity of a checked deal. Gift-catalog rows can reuse a retailer handle as id for a different size."""
+    price=d.get("price")
+    if isinstance(price, bool) or not isinstance(price, (int, float)): price=None
+    return (d.get("id"), sz(d.get("size") or ""), price)
+def _guides_featuring(brand_deals):
+    """Gift pages whose rendered list includes at least one of this brand's deals."""
+    keys={_deal_key(d) for d in brand_deals}
+    found=[]
+    for slug, title, picks in GIFT_PAGE_PICKS:
+        if any(_deal_key(p) in keys for p in picks):
+            found.append((slug, title))
+    return found
+def apply_brand_gift_guides():
+    """Splice 'Gift guides featuring <Brand>' onto each brand page from the gift-page picks."""
+    registered=[slug for slug,_ in GIFT_SUBPAGES]
+    recorded=[slug for slug,_,_ in GIFT_PAGE_PICKS]
+    if recorded!=registered:
+        raise SystemExit("brand gift guides: recorded pages drifted from registered gift guides")
+    by_slug=dict(GIFT_SUBPAGES)
+    for slug, title, _picks in GIFT_PAGE_PICKS:
+        if by_slug[slug]!=title:
+            raise SystemExit(f"brand gift guides: {slug} title {title!r} != registered {by_slug[slug]!r}")
+        if _page_h1(f"gifts/{slug}/index.html")!=title:
+            raise SystemExit(f"brand gift guides: {slug} title is not the page h1")
+    picks_by={slug: picks for slug, _title, picks in GIFT_PAGE_PICKS}
+    for b in brands:
+        ds=[d for d in deals if canon(d["brand"])==b]
+        featured=_guides_featuring(ds)
+        mode="featured"
+        if not featured:
+            pairs=general_gift_guides(ds, by_slug, picks_by)
+            mode="fallback"
+        elif len(featured)<2:
+            pairs=list(featured)
+            for slug, title in general_gift_guides(ds, by_slug, picks_by):
+                if slug not in {s for s,_ in pairs}:
+                    pairs.append((slug, title))
+                    break
+            mode="topup"
+        else:
+            pairs=featured
+        if len(pairs)<2:
+            raise SystemExit(f"{b}: brand page has {len(pairs)} gift-guide links")
+        if mode=="fallback" and not (3<=len(pairs)<=4):
+            raise SystemExit(f"{b}: fallback linked {len(pairs)} guides, expected 3 or 4")
+        featured_slugs={s for s,_ in featured}
+        linked_slugs={s for s,_ in pairs}
+        if mode!="fallback" and not featured_slugs<=linked_slugs:
+            raise SystemExit(f"{b}: dropped a gift guide that includes this brand's deals")
+        if mode=="featured" and linked_slugs!=featured_slugs:
+            raise SystemExit(f"{b}: linked a gift guide that does not include this brand's deals")
+        heading=f"Gift guides featuring {b}"
+        rel=f"brands/{bslug(b)}/index.html"
+        _splice_mark(rel, BRAND_GIFT_MARK, gift_guide_section(heading, pairs))
+        got=_section_anchors(rel, heading)
+        expect=[(f"{PREFIX}/gifts/{slug}/", title) for slug, title in pairs]
+        if got!=expect:
+            raise SystemExit(f"{b}: gift guide section links drifted")
+        for href, label in got:
+            slug=href[len(f"{PREFIX}/gifts/"):].strip("/")
+            if slug not in by_slug:
+                raise SystemExit(f"{b}: {href} is not a gift guide page")
+            if not os.path.isfile(f"{OUT}/gifts/{slug}/index.html"):
+                raise SystemExit(f"{b}: {href} was not built")
+            if label!=by_slug[slug]:
+                raise SystemExit(f"{b}: anchor {label!r} is not the gift guide title")
+        print(f"brand gift guides: {b} -> {len(pairs)} ({mode}): {', '.join(s for s,_ in pairs)}")
+    hub_rel="brands/index.html"
+    hub=open(f"{OUT}/{hub_rel}", encoding="utf-8").read()
+    if BRAND_GIFT_MARK in hub or "Gift guides featuring" in hub:
+        raise SystemExit("brands hub should not list per-brand gift guides")
+    brand_rels=[]
+    for dirpath, _, files in os.walk(f"{OUT}/brands"):
+        for fn in files:
+            if fn.endswith(".html"):
+                brand_rels.append(os.path.relpath(os.path.join(dirpath, fn), OUT).replace(os.sep, "/"))
+    pages=[r for r in brand_rels if r!="brands/index.html"]
+    if len(pages)!=len(brands):
+        raise SystemExit(f"brand gift guides: {len(pages)} brand pages for {len(brands)} brands")
+    for rel in pages:
+        text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+        if BRAND_GIFT_MARK in text:
+            raise SystemExit(f"{rel}: still contains {BRAND_GIFT_MARK}")
+        if text.count("Gift guides featuring ")!=1:
+            raise SystemExit(f"{rel}: expected one Gift guides featuring section")
 def apply_gift_guide_links():
     """Write hub, homepage, and sibling links from the guides this build just created."""
     root=f"{BASE}{PREFIX}/gifts/"
@@ -1192,12 +1326,13 @@ def apply_gift_guide_links():
     for slug, title in GIFT_SUBPAGES:
         others=[(s, t) for s, t in GIFT_SUBPAGES if s!=slug]
         _splice_mark(f"gifts/{slug}/index.html", GIFT_MORE_MARK, gift_guide_section("More gift guides", others))
+    apply_brand_gift_guides()
     for dirpath, _, files in os.walk(OUT):
         for fn in files:
             if not fn.endswith(".html"): continue
             path=os.path.join(dirpath, fn)
             text=open(path, encoding="utf-8").read()
-            for mark in (GIFT_HUB_MARK, GIFT_HOME_MARK, GIFT_MORE_MARK):
+            for mark in (GIFT_HUB_MARK, GIFT_HOME_MARK, GIFT_MORE_MARK, BRAND_GIFT_MARK):
                 if mark in text:
                     raise SystemExit(f"{os.path.relpath(path, OUT)}: still contains {mark}")
     hub_links=_section_anchors("gifts/index.html", "Gift guides")
