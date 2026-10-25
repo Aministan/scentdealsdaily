@@ -609,7 +609,7 @@ VS_PAGES=[]
 # (relative path, deal) for each /fragrance/ page this build wrote.
 FRAGRANCE_PAGES=[]
 # Compact homepage set. Titles come from GIFT_SUBPAGES, not from this tuple.
-HOME_GIFT_SLUGS=("for-him","for-her","under-50","perfume-gifts-for-her-under-50","best-mens-cologne-under-40","holiday-gift-sets","fragrance-gifts-for-teens","fragrance-gifts-for-coworkers-under-40","fragrance-gifts-for-college-students","stocking-stuffer-fragrances","perfume-gifts-for-wife","cologne-gifts-for-husband","perfume-gifts-for-grandma","cologne-gifts-for-grandpa","perfume-gifts-for-sister","cologne-gifts-for-brother","perfume-gifts-for-best-friend","perfume-gifts-for-mother-in-law")
+HOME_GIFT_SLUGS=("for-him","for-her","under-50","perfume-gifts-for-her-under-50","best-mens-cologne-under-40","holiday-gift-sets","fragrance-gifts-for-teens","fragrance-gifts-for-coworkers-under-40","fragrance-gifts-for-teachers-under-40","fragrance-gifts-for-college-students","stocking-stuffer-fragrances","perfume-gifts-for-wife","cologne-gifts-for-husband","perfume-gifts-for-grandma","cologne-gifts-for-grandpa","perfume-gifts-for-sister","perfume-gifts-for-daughter","cologne-gifts-for-brother","cologne-gifts-for-son","perfume-gifts-for-best-friend","perfume-gifts-for-mother-in-law","cologne-gifts-for-father-in-law")
 def register_gift_subpage(slug, title):
     if not slug or not str(title or "").strip():
         raise SystemExit("gift guide missing a slug or page title")
@@ -617,7 +617,9 @@ def register_gift_subpage(slug, title):
         raise SystemExit(f"gift guide registered twice: {slug}")
     GIFT_SUBPAGES.append((slug, str(title).strip()))
 use_sid("home")
-page("index.html",fit([f"Perfume & Cologne Deals Today: Up to {max(d['pct_off'] for d in deals)}% Off | {NAME}",f"Fragrance Deals Today: Up to {max(d['pct_off'] for d in deals)}% Off | {NAME}"]),
+_home_lo=min(d["price"] for d in deals)
+_home_mx=max(d["pct_off"] for d in deals)
+page("index.html",fit([f"Fragrance Deals Today: From ${_home_lo:.2f} ({_home_mx}% Off) | {NAME}",f"Fragrance Deals Today: From ${_home_lo:.2f} ({_home_mx}% Off)",f"Fragrance Deals Today: Up to {_home_mx}% Off | {NAME}"]),
  f"{len(deals)} verified deals on authentic designer perfume & cologne from ${min(d['price'] for d in deals):.2f}, up to {max(d['pct_off'] for d in deals)}% off at authorized retailers. Checked {upd:%b %-d}, plus the best dupes.",
  f"<h1>Today's best designer fragrance deals</h1><p class='sub'>{len(deals)} live deals on authentic bottles · last checked {upd_h} · sorted by % off</p>"
  +BREVO_FORM
@@ -660,7 +662,8 @@ for g,label in [("men","Men's Cologne"),("women","Women's Perfume"),("unisex","U
     tb=", ".join(dict.fromkeys(canon(d['brand']) for d in ds))
     tb=tb if len(tb)<50 else tb[:tb.rfind(",",0,50)]+" & more"
     mx=max(d['pct_off'] for d in ds)
-    lo_p=min(d['price'] for d in ds)
+    lo=min(ds, key=lambda d:d['price'])
+    lo_p=lo['price']
     if len(ds)<=3:
         named=", ".join(f"{d['name']} ${d['price']:.2f}" for d in sorted(ds, key=lambda d:d['price']))
         gdesc=fit([
@@ -669,8 +672,12 @@ for g,label in [("men","Men's Cologne"),("women","Women's Perfume"),("unisex","U
             f"{len(ds)} authentic {label.lower()} deals from ${lo_p:.2f}, up to {mx}% off: {tb}. Checked {upd:%b %-d}.",
         ],160)
     else:
-        gdesc=f"{len(ds)} authentic {label.lower()} deals from ${lo_p:.2f}, up to {mx}% off at authorized retailers: {tb}. Checked {upd:%b %-d}."
-    page(f"{g}/index.html",fit([f"{label} Deals Today ({upd:%b %-d}): Up to {mx}% Off | {NAME}",f"{label} Deals: Up to {mx}% Off Today | {NAME}",f"{label} Deals Today ({upd:%b %-d}): Up to {mx}% Off"]),
+        gdesc=fit([
+            f"{len(ds)} authentic {label.lower()} deals from ${lo_p:.2f} ({fullname(lo)}), up to {mx}% off: {tb}. Checked {upd:%b %-d, %Y}.",
+            f"{len(ds)} authentic {label.lower()} deals from ${lo_p:.2f} ({fullname(lo)}), up to {mx}% off. Checked {upd:%b %-d, %Y}.",
+            f"{len(ds)} authentic {label.lower()} deals from ${lo_p:.2f}, up to {mx}% off: {tb}. Checked {upd:%b %-d}.",
+        ],160)
+    page(f"{g}/index.html",fit([f"{label} Deals: From ${lo_p:.2f} ({mx}% Off) | {NAME}",f"{label} Deals: From ${lo_p:.2f} ({mx}% Off)",f"{label} Deals: Up to {mx}% Off Today | {NAME}",f"{label} Deals Today ({upd:%b %-d}): Up to {mx}% Off"]),
       gdesc,
       f"<h1>{label} deals</h1><p class='sub'>{len(ds)} live · checked {upd_h}</p><div class='grid'>{''.join(card(d) for d in ds)}</div>{BREVO_FORM}{bestchips()}"+(f"<p class='chips'>{gchip}</p>" if gchip else ""),[itemlist(ds,label+" deals")])
 brands=sorted({canon(d["brand"]) for d in deals})
@@ -712,7 +719,7 @@ page("sponsor/index.html",f"Advertise on {NAME}: Featured Fragrance Deals","Reac
 <li><b>Newsletter sponsor</b> — one slot in the Friday deals email.</li><li><b>Dupe spotlight</b> — your house featured on the dupes directory (must be an original composition, not a counterfeit).</li></ul>
 <p>Rules: authentic products only, every sponsored placement labeled, no fake reviews.</p>
 <p>Contact: <a href="mailto:hello@scentdealsdaily.com">hello@scentdealsdaily.com</a> (pricing on request).</p></div>""")
-page("disclosure/index.html",f"Affiliate Disclosure | {NAME}","How ScentDealsDaily earns money: retailer affiliate commissions at no extra cost to you and clearly labeled sponsored spots. Deals are always ranked by % off.",
+page("disclosure/index.html",fit(["Affiliate Disclosure: Commissions at No Extra Cost",f"Affiliate Disclosure | {NAME}"]),"How ScentDealsDaily earns money: retailer affiliate commissions at no extra cost to you and clearly labeled sponsored spots. Deals are always ranked by % off.",
  """<h1>Affiliate disclosure</h1><div class='box'><p>We may earn a commission when you buy through our links, at no extra cost to you.</p>
 <p>Some links on this site are affiliate links, including links to Perfumania and FragranceShop. If you buy through them, we may earn a commission at no extra cost to you. This never changes which deals we list or how they're ranked (by % off). When the same sealed bottle is in stock at both stores, the buy button goes to the lower price we checked, and the other store is noted beside it.</p>
 <p>As an Amazon Associate we may earn from qualifying purchases (once enrolled). Sponsored placements are always labeled "Sponsored".</p>
@@ -1081,10 +1088,12 @@ for h in HUBS:
     il={"@context":"https://schema.org","@type":"ItemList","name":h['title'],"numberOfItems":len(pr),"itemListElement":[{"@type":"ListItem","position":i+1,"item":offer_item(x, x['dupe'], x['dupe'].split()[0])} for i,x in enumerate(pr)]}
     FR=(f" From ${cheapest['price']:.2f}" if cheapest else "")
     names=", ".join(nohouse(x['dupe']) for x in ms)
-    noted="; ".join(f"{nohouse(x['dupe'])} ({x['notes'].split(';')[0].rstrip('.')})" for x in ms)
+    note_bits=[f"{nohouse(x['dupe'])} ({x['notes'].split(';')[0].rstrip('.')})" for x in ms]
     priced=(f" Prices from ${cheapest['price']:.2f}." if cheapest else " No live price verified yet.")
+    # Longest note list that still fits 160. A names-only line is the fallback.
+    note_cands=[f"{len(ms)} {T} dupes: {'; '.join(note_bits[:k])}.{priced} Checked {upd:%b %-d, %Y}." for k in range(len(note_bits),0,-1)]
     page(f"dupes/{h['slug']}/index.html",fit([f"{h['title']} {upd.year}: {len(ms)} Clones Compared{FR} | {NAME}",f"{h['title']} {upd.year}: {len(ms)} Clones Compared{FR}",f"{h['title']} {upd.year}: {len(ms)} Clones{FR}",f"{h['title']} {upd.year}"]),
-      fit([f"{len(ms)} {T} dupes: {noted}.{priced} Checked {upd:%b %-d, %Y}.",
+      fit(note_cands+[
            f"{len(ms)} {T} dupes: {names}.{priced} Checked {upd:%b %-d, %Y}.",
            f"{len(ms)} {T} dupes from {houses}.{priced} Profiles and cited sources, checked {upd:%b %-d, %Y}.",
            f"{len(ms)} {T} dupes from {houses} compared: scent profiles, cited sources and verified prices"+(f" from ${cheapest['price']:.2f}" if cheapest else "")+"."],160),body,([il] if pr else [])+[faqld(qs)])

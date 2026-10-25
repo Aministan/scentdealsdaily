@@ -672,6 +672,17 @@
    "intro": "Two fresh daytime eaux de parfum, both at Perfumania today. Clinique Happy is a 1.0 oz citrus-fruit floral. Elizabeth Arden Green Tea is a 3.4 oz citrus-and-tea scent. The stickers are not the same amount of juice, so read the per-ounce row before you treat the lower price as the only difference.",
    "difference": "Happy opens with orange, blood grapefruit, Indian mandarin, bergamot, apple and plum, then lily of the valley, freesia, orchid and rose, and dries down to mimosa, lily, magnolia, musk and amber, per Perfumania's product copy checked Oct 24, 2026. Green Tea opens with lemon, bergamot, orange zest and rhubarb, puts green tea, jasmine and celery in the heart, and finishes on musk, amber and oakmoss. Happy is the fruitier floral. Green Tea is the lighter tea.",
    "pick": "Pick Green Tea for the tea-and-citrus scent and the much larger bottle at the lower sticker. Pick Happy if you want the fruitier floral and you are fine with a 1.0 oz bottle."
+  },
+  {
+   "slug": "h24-vs-legend-spirit",
+   "title": "H24 vs Legend Spirit",
+   "a": "h24-eau-de-toilette",
+   "b": "legend-spirit-eau-de-toilette-spray-for-men-by-montblanc",
+   "a_notes": "Clary sage; narcissus, rosewood; sclarene",
+   "b_notes": "Pink peppercorn, grapefruit, bergamot; lavender, cardamom, aquatic accord; white woods, oakmoss, white musks",
+   "intro": "Two eaux de toilette in the same 1.7 oz size, both at Perfumania today. Hermès H24 is $64.95. Montblanc Legend Spirit is $61.95. H24's notes are from Perfumania's product page checked Oct 25, 2026: clary sage, then narcissus and rosewood, then sclarene. Legend Spirit's notes are the ones already stored from Montblanc's product page: pink peppercorn, grapefruit, and bergamot, then lavender, cardamom, and an aquatic accord, then white woods. The stickers are close, so read the per-ounce row and the note lines.",
+   "difference": "H24 opens on clary sage, puts narcissus and rosewood in the heart, and finishes on sclarene, per Perfumania. Legend Spirit opens on pink peppercorn, grapefruit, and bergamot, moves through lavender, cardamom, and an aquatic accord, and settles on white woods, oakmoss, and white musks, per Montblanc. H24 is the sage and rosewood bottle. Legend Spirit is the grapefruit and aquatic bottle. Neither page is a wear-time test.",
+   "pick": "Pick Legend Spirit for grapefruit, lavender, and the aquatic accord at the lower sticker. Pick H24 for clary sage, narcissus, and rosewood. Both are 1.7 oz eaux de toilette, so the size is the same."
   }
  ],
  "roundups": [
@@ -935,10 +946,10 @@
    "slug": "woody-amber-cologne-deals",
    "title": "Best Woody & Amber Cologne Deals",
    "noun": "woody cologne",
-   "who": "men's",
+   "who": "men's and unisex",
    "scope": "on sale",
-   "rule": "cedar, oak, sandalwood, vetiver, amberwood or woodsy notes must be a named heart or base note in the retailer's description, and that description must agree with the published pyramid",
-   "lead": "Cedar, sandalwood and amber colognes for cooler days and evenings, from a woody aromatic under $20 to a niche bottle, all authentic and discounted at authorized retailers today. The note line on each pick is the wood or amber the retailer actually publishes, so a dry cedar scent is easy to separate from a sweeter amber one.",
+   "rule": "cedar, oak, sandalwood, vetiver, amberwood, rosewood, or woodsy notes must be a named heart or base note in the retailer's description, and that description must agree with the published pyramid",
+   "lead": "Cedar, sandalwood, rosewood and amber colognes for cooler days and evenings, from a woody aromatic under $20 to a niche bottle, all authentic and discounted at authorized retailers today. The note line on each pick is the wood or amber the retailer actually publishes, so a dry cedar scent is easy to separate from a sweeter amber one. Hermès H24 is here because Perfumania's product page, checked Oct 25, 2026, names rosewood in the heart, with clary sage up top and sclarene in the base.",
    "items": [
     {
      "id": "calvin-klein-free-mens-eau-de-toilette-spray",
@@ -963,12 +974,16 @@
     {
      "id": "casamorati-mefisto-cologne",
      "notes": "Citrus woody: grapefruit, bergamot, lemon, lavender, sandalwood, cedar, amber"
+    },
+    {
+     "id": "h24-eau-de-toilette",
+     "notes": "Aromatic woody: clary sage, narcissus, rosewood, sclarene"
     }
    ],
    "faq": [
     [
      "What counts as a woody or amber cologne?",
-     "Woody colognes name cedar, sandalwood, vetiver, oak or a woodsy accord in the heart or base. Amber and amberwood add a warmer, resinous side. A fresh citrus that only mentions musk does not qualify, and a bottle whose retailer description disagrees with the published pyramid is left off."
+     "Woody colognes name cedar, sandalwood, vetiver, oak, rosewood, or a woodsy accord in the heart or base. Amber and amberwood add a warmer, resinous side. A fresh citrus that only mentions musk does not qualify, and a bottle whose retailer description disagrees with the published pyramid is left off."
     ],
     [
      "Are woody colognes better in cold weather?",
@@ -1147,7 +1162,7 @@
    "scope": "under $50",
    "max_price": 50,
    "rule": "the bottle must be a women's eau de parfum of at least 3 oz, the checked price must be under $50, and the retailer's description must name the notes",
-   "lead": "Women's eaux de parfum in a 3 oz bottle or larger, each under $50 today. The same concentration rule as the men's long-lasting cologne page, plus a size floor so a 1 oz bottle is not listed as the long-wearing gift. This is not a wear-time test. A 1 oz eau de parfum stays on the other perfume pages. Eilish No. 2 is a 3.4 oz eau de parfum under $50 and is left off: it is not on a notes roundup, so this page does not describe how it smells. Every note line is one already stored from the retailer's product description.",
+   "lead": "Women's eaux de parfum in a 3 oz bottle or larger, each under $50 today. The same concentration rule as the men's long-lasting cologne page, plus a size floor so a 1 oz bottle is not listed as the long-wearing gift. This is not a wear-time test. A 1 oz eau de parfum stays on the other perfume pages. Eilish No. 2 is a 3.4 oz eau de parfum under $50, so it is included. Perfumania's product page, checked Oct 25, 2026, names bergamot and apple blossom, black pepper and papyrus, and palo santo, ebony, and vanilla. Every note line is one already stored from the retailer's product description.",
    "items": [
     {
      "id": "peace-love-juicy-couture-by-juicy-couture-for-women-edp-spray",
@@ -1172,6 +1187,10 @@
     {
      "id": "elizabeth-arden-green-tea-scent-women-eau-de-parfum-spray",
      "notes": "Citrus tea: lemon, bergamot, rhubarb, green tea, jasmine, oakmoss"
+    },
+    {
+     "id": "billie-eilish-no-2-eau-de-parfum-perfume-for-women",
+     "notes": "Woody floral: bergamot, apple blossom, black pepper, papyrus, palo santo, ebony, vanilla"
     }
    ],
    "faq": [
@@ -1192,8 +1211,8 @@
    "who": "women's",
    "scope": "under $50",
    "max_price": 50,
-   "rule": "sandalwood or cedar must be a named note in the retailer's description, the bottle is a women's perfume, and the checked price must be under $50",
-   "lead": "Women's perfumes under $50 whose stored retailer notes name sandalwood or cedar. The flower or the fruit can still lead the opening. A bottle is here because a wood is named, not because the scent is only wood. The men's woody and amber cologne page is a different list. Olympea names sandalwood and is over $50 today, so it stays off until a checked price is under $50 and it is added here. Every note line is one already stored from the retailer's product description.",
+   "rule": "sandalwood, cedar, palo santo, or ebony must be a named note in the retailer's description, the bottle is a women's perfume, and the checked price must be under $50",
+   "lead": "Women's perfumes under $50 whose stored retailer notes name sandalwood, cedar, palo santo, or ebony. The flower or the fruit can still lead the opening. A bottle is here because a wood is named, not because the scent is only wood. The men's woody and amber cologne page is a different list. Olympea names sandalwood and is over $50 today, so it stays off until a checked price is under $50 and it is added here. Eilish No. 2 names palo santo and ebony. Those notes are from Perfumania's product page checked Oct 25, 2026. Every note line is one already stored from the retailer's product description.",
    "items": [
     {
      "id": "burberry-london-perfume-eau-de-parfum-for-women",
@@ -1210,16 +1229,20 @@
     {
      "id": "calvin-klein-eternity-womens-eau-de-parfum-spray",
      "notes": "Green floral: freesia, mandarin, sage, lily, rose, sandalwood"
+    },
+    {
+     "id": "billie-eilish-no-2-eau-de-parfum-perfume-for-women",
+     "notes": "Woody floral: bergamot, apple blossom, black pepper, papyrus, palo santo, ebony, vanilla"
     }
    ],
    "faq": [
     [
      "What counts as woody here?",
-     "The stored retailer note has to name sandalwood or cedar. A fresh citrus with only musk does not qualify. Oakmoss alone does not qualify, so Green Tea stays on the fresh perfume page."
+     "The stored retailer note has to name sandalwood, cedar, palo santo, or ebony. A fresh citrus with only musk does not qualify. Oakmoss alone does not qualify, so Green Tea stays on the fresh perfume page."
     ],
     [
      "Are these only wood scents?",
-     "No. London, Eternity, and Boss Woman open on flowers or fruit and name a wood in the base. CK Beauty names jasmine and Virginia cedar. Read the note line on the card. It is the retailer's, not a ranking of which is woodier."
+     "No. London, Eternity, and Boss Woman open on flowers or fruit and name a wood in the base. CK Beauty names jasmine and Virginia cedar. Eilish No. 2 opens on bergamot and apple blossom and names palo santo and ebony. Read the note line on the card. It is the retailer's, not a ranking of which is woodier."
     ]
    ]
   }
@@ -1640,13 +1663,13 @@
     "casamorati-mefisto-cologne"
    ],
    "filled_label": "cologne gifts for a husband",
-   "intro": "A short spouse list of men's colognes and unisex bottles, lowest checked price first. The names are ones people recognize as gifts, from a fresh daytime bottle through a sweeter evening one to a niche bottle. Cologne gifts for boyfriend keeps sweet and fresh men's colognes from $30 up to $150 and leaves unisex bottles off. Cologne gifts for dad is every men's cologne at $50 and up. We do not call a scent a husband cologne, and we do not rank bottles by the wearer's age. None of these listings do. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes. Burberry Hero and Hermès H24 are on this list with no note line, because the deal data does not store one.",
+   "intro": "A short spouse list of men's colognes and unisex bottles, lowest checked price first. The names are ones people recognize as gifts, from a fresh daytime bottle through a sweeter evening one to a niche bottle. Cologne gifts for boyfriend keeps sweet and fresh men's colognes from $30 up to $150 and leaves unisex bottles off. Cologne gifts for dad is every men's cologne at $50 and up. We do not call a scent a husband cologne, and we do not rank bottles by the wearer's age. None of these listings do. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes. Burberry Hero is on this list with no note line, because the retailer copy names no notes. Hermès H24's note line is clary sage, narcissus, rosewood, and sclarene, from Perfumania's product page checked Oct 25, 2026.",
    "empty": "None of the men's or unisex bottles on this spouse list are in the deals we checked, so this page has no list. These guides have bottles we priced.",
    "empty_desc": "Cologne gifts for husband: none of the curated men's or unisex bottles are in the deals we checked. Other gift guides list bottles we did price.",
    "choose": [
     "Split the list by when he would wear it. Burberry Weekend, Versace Pour Homme, Acqua di Gio, Valentino Uomo Born in Roma, CK One, and CK Everyone read fresh in the retailer notes: citrus, aquatic, mineral, or tea. Eros, Le Beau, and Stronger With You Intensely are the sweeter evening bottles: tonka, vanilla, coconut, or toffee. Mefisto is a fresh citrus too, and it is the prestige bottle. When you have never smelled what he wears, the fresh group is the lower-risk daily gift. When his current cologne is already sweet, stay with the evening group. The note line is the retailer's. This is not a quality ranking.",
-    "Use the stickers as a budget ladder, then read the size on the card. A small bottle with a middling sticker can cost more per ounce than a larger one. When the name links to a bottle page, that page shows the price per ounce from the checked price and the size. CK One, CK Everyone, and Hermès H24 are the unisex bottles. CK One and CK Everyone are the shared fresh scents. H24 is the designer unisex option, and this page does not add a smell description for it.",
-    "Burberry Hero is on the list with no note line, same as H24, so do not guess a smell from the name. Cologne gifts for boyfriend is the longer sweet-and-fresh men's list from $30 up to $150, and it leaves unisex bottles off. Cologne gifts for dad is every men's cologne at $50 and up, with no scent filter. A bottle can appear on more than one of those pages when it meets each rule. We do not call any of these a husband cologne."
+    "Use the stickers as a budget ladder, then read the size on the card. A small bottle with a middling sticker can cost more per ounce than a larger one. When the name links to a bottle page, that page shows the price per ounce from the checked price and the size. CK One and CK Everyone are the shared fresh unisex bottles. Hermès H24 is the designer bottle on this list. Its note line is clary sage, narcissus, and rosewood.",
+    "Burberry Hero is on the list with no note line, so do not guess a smell from the name. H24's note line is on the card. Cologne gifts for boyfriend is the longer sweet-and-fresh men's list from $30 up to $150, and it leaves unisex bottles off. Cologne gifts for dad is every men's cologne at $50 and up, with no scent filter. A bottle can appear on more than one of those pages when it meets each rule. We do not call any of these a husband cologne."
    ],
    "faq": [
     [
@@ -1663,7 +1686,7 @@
     ],
     [
      "Which bottle is the safer gift when I do not know what he wears?",
-     "Start with a fresh daytime bottle and read the note line. Burberry Weekend, Versace Pour Homme, and Acqua di Gio are the familiar fresh ones on this page. Eros and Le Beau are louder and sweeter, so they fit better when you already know he likes a night-out scent. Hero and H24 have no note line here, so smell those in a store if you can before you rely on the name."
+     "Start with a fresh daytime bottle and read the note line. Burberry Weekend, Versace Pour Homme, and Acqua di Gio are the familiar fresh ones on this page. Eros and Le Beau are louder and sweeter, so they fit better when you already know he likes a night-out scent. Hero has no note line here, so smell it in a store if you can before you rely on the name. H24's card names clary sage, narcissus, and rosewood."
     ]
    ],
    "links": [
@@ -1845,6 +1868,7 @@
    ],
    "links": [
     {"href": "/gifts/perfume-gifts-for-girlfriend/", "label": "Perfume gifts for girlfriend"},
+    {"href": "/gifts/perfume-gifts-for-daughter/", "label": "Perfume gifts for daughter"},
     {"href": "/gifts/perfume-gifts-for-best-friend/", "label": "Perfume gifts for best friend"},
     {"href": "/gifts/perfume-gifts-for-mother-in-law/", "label": "Perfume gifts for mother-in-law"},
     {"href": "/gifts/perfume-gifts-for-wife/", "label": "Perfume gifts for wife"},
@@ -1905,6 +1929,7 @@
    ],
    "links": [
     {"href": "/gifts/cologne-gifts-for-boyfriend/", "label": "Cologne gifts for boyfriend"},
+    {"href": "/gifts/cologne-gifts-for-son/", "label": "Cologne gifts for son"},
     {"href": "/gifts/cologne-gifts-for-husband/", "label": "Cologne gifts for husband"},
     {"href": "/gifts/cologne-gifts-for-dad/", "label": "Cologne gifts for dad"},
     {"href": "/gifts/cologne-gifts-for-grandpa/", "label": "Cologne gifts for grandpa"},
@@ -2037,6 +2062,7 @@
     {"href": "/gifts/perfume-gifts-for-girlfriend/", "label": "Perfume gifts for girlfriend"},
     {"href": "/gifts/perfume-gifts-for-sister/", "label": "Perfume gifts for sister"},
     {"href": "/gifts/perfume-gifts-for-best-friend/", "label": "Perfume gifts for best friend"},
+    {"href": "/gifts/cologne-gifts-for-father-in-law/", "label": "Cologne gifts for father-in-law"},
     {"href": "/gifts/for-her/", "label": "All fragrance gifts for her"},
     {"href": "/gifts/perfume-gifts-for-her-under-50/", "label": "Perfume gifts for her under $50"},
     {"href": "/gifts/perfume-gifts-for-her-under-40/", "label": "Perfume gifts for her under $40"},
@@ -2078,6 +2104,7 @@
    ],
    "links": [
     {"href": "/gifts/secret-santa-fragrances-under-30/", "label": "Secret Santa fragrances under $30"},
+    {"href": "/gifts/fragrance-gifts-for-teachers-under-40/", "label": "Fragrance gifts for teachers under $40"},
     {"href": "/gifts/fragrance-gifts-for-teens/", "label": "Fragrance gifts for teens under $40"},
     {"href": "/gifts/fragrance-gifts-for-college-students/", "label": "Fragrance gifts for college students"},
     {"href": "/best/fresh-citrus-cologne-deals/", "label": "Fresh and citrus cologne deals"},
@@ -2117,6 +2144,7 @@
    ],
    "links": [
     {"href": "/gifts/fragrance-gifts-for-coworkers-under-40/", "label": "Fragrance gifts for coworkers under $40"},
+    {"href": "/gifts/fragrance-gifts-for-teachers-under-40/", "label": "Fragrance gifts for teachers under $40"},
     {"href": "/gifts/fragrance-gifts-for-teens/", "label": "Fragrance gifts for teens under $40"},
     {"href": "/gifts/secret-santa-fragrances-under-30/", "label": "Secret Santa fragrances under $30"},
     {"href": "/best/fresh-citrus-cologne-deals/", "label": "Fresh and citrus cologne deals"},
@@ -2124,6 +2152,226 @@
     {"href": "/best/long-lasting-perfume-deals-under-50/", "label": "Long-lasting perfumes under $50"},
     {"href": "/best/woody-perfume-deals-under-50/", "label": "Woody perfumes under $50"},
     {"href": "/best/warm-spicy-cologne-deals/", "label": "Warm and spicy cologne deals"},
+    {"href": "/gifts/under-50/", "label": "Fragrance gifts under $50"}
+   ]
+  },
+  {
+   "slug": "cologne-gifts-for-father-in-law",
+   "title": "Cologne gifts for father-in-law",
+   "chip": "Gifts for father-in-law",
+   "genders": ["men", "unisex"],
+   "ids": [
+    "hugo-boss-in-motion-mens-eau-de-toilette-spray",
+    "versace-pour-homme-cologne-mens-eau-de-toilette",
+    "bvlgari-man-wood-neroli-cologne-eau-de-parfum",
+    "legend-spirit-eau-de-toilette-spray-for-men-by-montblanc",
+    "h24-eau-de-toilette",
+    "giorgio-armani-acqua-di-gio-eau-de-toilette-cologne-for-men",
+    "coach-for-men-eau-de-toilette",
+    "valentino-uomo-born-in-roma-cologne-eau-de-toilette-for-men"
+   ],
+   "filled_label": "cologne gifts for a father-in-law",
+   "intro": "A short list of polished colognes for someone buying a Christmas gift for their father-in-law, lowest checked price first. It pairs with perfume gifts for mother-in-law, which is the classic women's list. This page keeps fresh citrus, one spicy woody, Coach, Born in Roma, and Hermès H24. It leaves off the cheapest citrus bottles and Mefisto, which cologne gifts for grandpa keeps, and it leaves off Eros, Le Beau, and Stronger With You Intensely, which cologne gifts for husband keeps. Cologne gifts for dad is every men's cologne at $50 and up, with no scent filter. We do not call a scent a father-in-law cologne, and we do not rank bottles by the wearer's age. None of these listings do. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes. H24's note line is clary sage, narcissus, rosewood, and sclarene, from Perfumania's product page checked Oct 25, 2026.",
+   "empty": "None of the men's or unisex bottles on this father-in-law list are in the deals we checked, so this page has no list. These guides have bottles we priced.",
+   "empty_desc": "Cologne gifts for father-in-law: none of the curated men's or unisex bottles are in the deals we checked. Other gift guides list bottles we did price.",
+   "choose": [
+    "Read the note line before you match a bottle. Versace Pour Homme is lemon, bergamot, and neroli. Bvlgari Man Wood Neroli is neroli, bergamot, and cedar. Montblanc Legend Spirit is grapefruit, lavender, and white woods. Acqua di Gio is lime, bergamot, and marine notes. Those are the fresh daytime bottles. Boss In Motion is orange, cardamom, and cinnamon. Coach is pear, bergamot, and grapefruit. Uomo Born in Roma is a salt accord, violet leaf, and ginger. Hermès H24 is clary sage, narcissus, and rosewood. When you do not know what he wears, a fresh note line is the easier daily gift. The note line is the retailer's. This is not a quality ranking.",
+    "Use the stickers as a budget ladder, then read the size on the card. Boss In Motion is 3.0 oz. Pour Homme is the 1.0 oz bottle, so a mid sticker can still be a small amount of juice. Wood Neroli and Acqua di Gio are 3.4 oz. Legend Spirit, H24, and Born in Roma are 1.7 oz. Coach is 2.0 oz. When the name links to a bottle page, that page shows the price per ounce from the checked price and the size.",
+    "Cologne gifts for grandpa keeps Burberry Weekend, CK One, Boss Bottled Unlimited, and Mefisto, which this page leaves off. The two pages share Pour Homme, Wood Neroli, Legend Spirit, and Acqua di Gio. Cologne gifts for husband keeps the sweeter evening bottles and Burberry Hero, which has no note line. This page keeps Boss In Motion, Wood Neroli, Legend Spirit, and Coach, which the husband list does not. Perfume gifts for mother-in-law is the matching women's list. We do not call any of these a father-in-law cologne."
+   ],
+   "faq": [
+    [
+     "How is this different from cologne gifts for grandpa?",
+     "Cologne gifts for grandpa keeps Burberry Weekend, CK One, Boss Bottled Unlimited, and Mefisto. This page leaves those off. It keeps Boss In Motion, Hermès H24, Coach, and Uomo Born in Roma, which the grandpa list does not. The two pages share Versace Pour Homme, Bvlgari Man Wood Neroli, Montblanc Legend Spirit, and Acqua di Gio."
+    ],
+    [
+     "How is this different from cologne gifts for dad?",
+     "Cologne gifts for dad lists every men's cologne we checked at $50 or more. This page is a shorter list. It keeps bottles under $50, it keeps Hermès H24, and it leaves off men's colognes that are not on the list. A bottle can appear on both pages when it is on this list and its checked price is $50 or more."
+    ],
+    [
+     "How is this different from perfume gifts for mother-in-law?",
+     "Perfume gifts for mother-in-law is the women's list: classic florals, a soft musk, a citrus tea, one fruity floral, and a vanilla. This page is the men's and unisex list. The two pages do not share a bottle. They are the pair of in-law gift guides."
+    ],
+    [
+     "Do you call these father-in-law colognes?",
+     "No. None of these listings say that. The page is a gift list of men's colognes and one Hermès bottle whose retailer notes are citrus, spice, wood, or sage. It is not a ranking of who wears them."
+    ],
+    [
+     "Which bottle is the safer gift when I do not know what he wears?",
+     "Start with a fresh daytime bottle and read the note line. Versace Pour Homme, Acqua di Gio, and Montblanc Legend Spirit are the familiar fresh ones. Pour Homme is a 1.0 oz bottle, so check the size on the card. H24's card names clary sage, narcissus, and rosewood."
+    ]
+   ],
+   "links": [
+    {"href": "/gifts/perfume-gifts-for-mother-in-law/", "label": "Perfume gifts for mother-in-law"},
+    {"href": "/gifts/cologne-gifts-for-grandpa/", "label": "Cologne gifts for grandpa"},
+    {"href": "/gifts/cologne-gifts-for-dad/", "label": "Cologne gifts for dad"},
+    {"href": "/gifts/cologne-gifts-for-husband/", "label": "Cologne gifts for husband"},
+    {"href": "/gifts/cologne-gifts-for-brother/", "label": "Cologne gifts for brother"},
+    {"href": "/gifts/for-him/", "label": "All fragrance gifts for him"},
+    {"href": "/gifts/cologne-gifts-for-him-under-50/", "label": "Cologne gifts for him under $50"},
+    {"href": "/best/fresh-citrus-cologne-deals/", "label": "Fresh and citrus cologne deals"},
+    {"href": "/best/woody-amber-cologne-deals/", "label": "Woody and amber cologne deals"},
+    {"href": "/best/warm-spicy-cologne-deals/", "label": "Warm and spicy cologne deals"},
+    {"href": "/men/", "label": "All men's deals"},
+    {"href": "/unisex/", "label": "Unisex deals"}
+   ]
+  },
+  {
+   "slug": "cologne-gifts-for-son",
+   "title": "Cologne gifts for son",
+   "chip": "Gifts for son",
+   "gender": "men",
+   "max_price": 80,
+   "ids": [
+    "azzaro-chrome-legend-mens-eau-de-toilette-spray",
+    "burberry-weekend-mens-eau-de-toilette-spray",
+    "boss-bottled-unlimited-by-hugo-boss-for-men-eau-de-toilette-spray",
+    "hugo-boss-in-motion-mens-eau-de-toilette-spray",
+    "versace-eros-flame-eau-de-parfum-for-men",
+    "versace-pour-homme-cologne-mens-eau-de-toilette",
+    "versace-eros-cologne-eau-de-toilette-for-men",
+    "coach-for-men-eau-de-toilette",
+    "le-beau-eau-de-toilette-spray-for-men-by-jean-paul-gaultier"
+   ],
+   "filled_label": "cologne gifts for a son",
+   "intro": "A short starter list of men's colognes under $80 for someone buying a Christmas gift for their son, lowest checked price first. It keeps the cheaper fresh bottles and a few sweet ones people already know. Cologne gifts for brother keeps The Most Wanted, Acqua di Gio, Stronger With You Intensely, and Uomo Born in Roma, which this page leaves off. This page keeps Chrome Legend, Burberry Weekend, Boss Bottled Unlimited, and Versace Pour Homme, which the brother list does not. A checked price of $80 or more drops off on the next rebuild. We do not call a scent a son cologne, and we do not rank bottles by the wearer's age. None of these listings do. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes.",
+   "empty": "None of the men's bottles on this son list are under $80 in the deals we checked, so this page has no list. These guides have bottles we priced.",
+   "empty_desc": "Cologne gifts for son: none of the curated men's bottles are under $80 in the deals we checked. Other gift guides list bottles we did price.",
+   "choose": [
+    "Split the list by the retailer note line. Chrome Legend is green apple and tea. Burberry Weekend is lemon, grapefruit, and mandarin. Boss Bottled Unlimited is mint, grapefruit, and sandalwood. Versace Pour Homme is lemon, bergamot, and neroli. Coach is pear, bergamot, and grapefruit. Those are the fresher daily bottles. Boss In Motion is orange, cardamom, and cinnamon. Eros is mint, green apple, and tonka. Eros Flame is lemon, black pepper, and vanilla. Le Beau is coconut and tonka. Those are the sweeter or spicier bottles. When you have never smelled what he wears, Chrome Legend, Weekend, or Pour Homme is the lower-risk daily gift. When his current cologne is already sweet, stay with Eros or Le Beau. The note line is the retailer's. This is not a quality ranking.",
+    "The cap is under $80. Read the size on the card before you treat two stickers as the same gift. Chrome Legend and Le Beau are 4.2 oz. Weekend and Eros Flame and Eros are 1.7 oz. Pour Homme is the 1.0 oz bottle. Bottled Unlimited is 3.3 oz. Boss In Motion is 3.0 oz. Coach is 2.0 oz. When the name links to a bottle page, that page shows the price per ounce.",
+    "Cologne gifts for brother keeps The Most Wanted, Acqua di Gio, Stronger With You Intensely, and Uomo Born in Roma. This page leaves those off and keeps the cheaper fresh starters. The two pages share Boss In Motion, Eros Flame, Eros, Coach, and Le Beau. We do not call any of these a son cologne."
+   ],
+   "faq": [
+    [
+     "How is this different from cologne gifts for brother?",
+     "Cologne gifts for brother keeps The Most Wanted, Acqua di Gio, Stronger With You Intensely, and Uomo Born in Roma. This page leaves those off. It keeps Chrome Legend, Burberry Weekend, Boss Bottled Unlimited, and Versace Pour Homme, which the brother list does not. A bottle can appear on both pages when it is on both lists, including Boss In Motion, Eros Flame, Eros, Coach, and Le Beau."
+    ],
+    [
+     "Why is the cap $80?",
+     "The page is a starter gift list. A checked price of $80 or more drops off on the next rebuild. Cologne gifts for brother is the list that keeps the pricier bottles."
+    ],
+    [
+     "Do you call these son colognes?",
+     "No. None of these listings say that. The page is a gift list of men's colognes under $80 whose retailer notes are fresh, spicy, or sweet. It is not a ranking of who wears them."
+    ],
+    [
+     "Which bottle is the safer gift when I do not know what he wears?",
+     "Start with a fresh daytime bottle and read the note line. Chrome Legend and Burberry Weekend are the lower stickers. Versace Pour Homme is familiar too, and it is a 1.0 oz bottle, so check the size on the card. Eros and Le Beau are sweeter."
+    ]
+   ],
+   "links": [
+    {"href": "/gifts/cologne-gifts-for-brother/", "label": "Cologne gifts for brother"},
+    {"href": "/gifts/cologne-gifts-for-boyfriend/", "label": "Cologne gifts for boyfriend"},
+    {"href": "/gifts/cologne-gifts-for-dad/", "label": "Cologne gifts for dad"},
+    {"href": "/gifts/cologne-gifts-for-father-in-law/", "label": "Cologne gifts for father-in-law"},
+    {"href": "/gifts/perfume-gifts-for-daughter/", "label": "Perfume gifts for daughter"},
+    {"href": "/gifts/for-him/", "label": "All fragrance gifts for him"},
+    {"href": "/gifts/cologne-gifts-for-him-under-50/", "label": "Cologne gifts for him under $50"},
+    {"href": "/best/fresh-citrus-cologne-deals/", "label": "Fresh and citrus cologne deals"},
+    {"href": "/best/vanilla-sweet-fragrance-deals/", "label": "Vanilla and sweet fragrance deals"},
+    {"href": "/men/", "label": "All men's deals"}
+   ]
+  },
+  {
+   "slug": "perfume-gifts-for-daughter",
+   "title": "Perfume gifts for daughter",
+   "chip": "Gifts for daughter",
+   "gender": "women",
+   "ids": [
+    "billie-eilish-no-2-eau-de-parfum-perfume-for-women",
+    "olympea-eau-de-parfum-spray-for-women-by-paco-rabanne",
+    "dylan-blue-eau-de-parfum-spray-for-women-by-versace",
+    "billie-eilish-perfume-eau-de-parfum-for-women",
+    "bright-crystal-absolu-by-versace-for-women-eau-de-parfum-spray",
+    "lancome-la-vie-est-belle-perfume-eau-de-parfum-for-women",
+    "valentino-donna-born-in-roma-perfume-eau-de-parfum-for-women"
+   ],
+   "filled_label": "perfume gifts for a daughter",
+   "intro": "A short list of fruity and sweet perfumes for someone buying a Christmas gift for their daughter, lowest checked price first. It keeps the two Eilish bottles, the fruity Versace eaux de parfum, and the vanilla florals. Perfume gifts for sister keeps Peace Love & Juicy Couture, Eternity Air, Boss Woman, Green Tea, and Clinique Happy, which this page leaves off. This page keeps Eilish No. 2 and La Vie Est Belle, which the sister list does not. We do not call a scent a daughter perfume, and we do not rank bottles by the wearer's age. None of these listings do. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes. Eilish No. 2's note line is bergamot, apple blossom, black pepper, papyrus, palo santo, ebony, and vanilla, from Perfumania's product page checked Oct 25, 2026.",
+   "empty": "None of the women's bottles on this daughter list are in the deals we checked, so this page has no list. These guides have bottles we priced.",
+   "empty_desc": "Perfume gifts for daughter: none of the curated women's bottles are in the deals we checked. Other gift guides list bottles we did price.",
+   "choose": [
+    "Read the note line before you match a bottle to her. Eilish No. 2 is bergamot, apple blossom, black pepper, and palo santo. Dylan Blue Pour Femme is green apple, peach, and rose. Bright Crystal Absolu is yuzu, raspberry, and peony. Those are the fruitier bottles. Olympea is mandarin, vanilla, and a salt accord. Eilish is sugar, red berries, and vanilla. La Vie Est Belle is pear, iris, and praline. Donna Born in Roma is jasmine and bourbon vanilla. Those are the sweeter ones. When you do not know what she wears, a fruity note line is the easier daily gift, and Eilish or La Vie Est Belle is the sweeter evening one. That is a wear split from the note lines. It is not a quality ranking.",
+    "Read the size on the card. Eilish No. 2, Dylan Blue Pour Femme, and Eilish are 3.4 oz. Bright Crystal Absolu is 3.0 oz. Olympea and Donna Born in Roma are 1.7 oz. La Vie Est Belle is the 1.0 oz bottle, so do not treat that sticker as a full-size gift. When the name links to a bottle page, that page shows the price per ounce from the checked price and the size.",
+    "Perfume gifts for sister keeps the under-$35 fresh and fruity bottles: Peace Love & Juicy Couture, Eternity Air, Boss Woman, Green Tea, and Clinique Happy. This page leaves those off. The two pages share Olympea, Dylan Blue Pour Femme, Eilish, Bright Crystal Absolu, and Donna Born in Roma. We do not call any of these a daughter perfume."
+   ],
+   "faq": [
+    [
+     "How is this different from perfume gifts for sister?",
+     "Perfume gifts for sister keeps Peace Love & Juicy Couture, Eternity Air, Boss Woman, Green Tea, and Clinique Happy. This page leaves those off. It keeps Eilish No. 2 and La Vie Est Belle, which the sister list does not. A bottle can appear on both pages when it is on both lists, including Olympea, Dylan Blue Pour Femme, Eilish, Bright Crystal Absolu, and Donna Born in Roma."
+    ],
+    [
+     "How is this different from Christmas perfume gifts for mom?",
+     "Christmas perfume gifts for mom lists every women's perfume we checked at $50 or more. This page is a shorter fruity and sweet list. It keeps Eilish No. 2, which is under $50, and it leaves off bottles that are not on the list. A bottle can appear on both pages when it is on this list and its checked price is $50 or more."
+    ],
+    [
+     "Do you call these daughter perfumes?",
+     "No. None of these listings say that. The page is a gift list of women's perfumes whose retailer notes are fruity, woody floral, or sweet. It is not a ranking of who wears them."
+    ],
+    [
+     "Which bottle is the safer gift when I do not know what she wears?",
+     "Stay with a familiar fruity bottle and read the note line. Dylan Blue Pour Femme and Bright Crystal Absolu are the fruity florals, and both are 3 oz or larger. Eilish No. 2 is the woodier Eilish, and it is also 3.4 oz. La Vie Est Belle is sweeter, and it is the 1.0 oz bottle, so check the size on the card."
+    ]
+   ],
+   "links": [
+    {"href": "/gifts/perfume-gifts-for-sister/", "label": "Perfume gifts for sister"},
+    {"href": "/gifts/perfume-gifts-for-girlfriend/", "label": "Perfume gifts for girlfriend"},
+    {"href": "/gifts/perfume-gifts-for-best-friend/", "label": "Perfume gifts for best friend"},
+    {"href": "/gifts/christmas-perfume-gifts-for-mom/", "label": "Christmas perfume gifts for mom"},
+    {"href": "/gifts/cologne-gifts-for-son/", "label": "Cologne gifts for son"},
+    {"href": "/gifts/for-her/", "label": "All fragrance gifts for her"},
+    {"href": "/gifts/perfume-gifts-for-her-under-50/", "label": "Perfume gifts for her under $50"},
+    {"href": "/gifts/perfume-gifts-for-her-under-40/", "label": "Perfume gifts for her under $40"},
+    {"href": "/best/floral-perfume-deals/", "label": "Floral perfume deals"},
+    {"href": "/best/vanilla-sweet-fragrance-deals/", "label": "Vanilla and sweet fragrance deals"},
+    {"href": "/best/woody-perfume-deals-under-50/", "label": "Woody perfumes under $50"},
+    {"href": "/women/", "label": "All women's deals"}
+   ]
+  },
+  {
+   "slug": "fragrance-gifts-for-teachers-under-40",
+   "title": "Fragrance gifts for teachers under $40",
+   "chip": "Teacher gifts under $40",
+   "max_price": 40,
+   "exclude_mini": true,
+   "ids": [
+    "calvin-klein-free-mens-eau-de-toilette-spray",
+    "peace-love-juicy-couture-by-juicy-couture-for-women-edp-spray",
+    "burberry-london-perfume-eau-de-parfum-for-women",
+    "calvin-klein-beauty-perfume-eau-de-parfum-for-women",
+    "calvin-klein-eternity-womens-eau-de-parfum-spray"
+   ],
+   "filled_label": "fragrance gifts for teachers under $40",
+   "intro": "A holiday list for someone buying a fragrance for a teacher, lowest checked price first. The cap is under $40. A bottle is on this list only when it is a floral perfume or CK Free, the woody aromatic. Fragrance gifts for coworkers under $40 is a different list: fresh citrus, tea, and aquatic bottles, and it does not include these five. The two pages do not share a bottle. We do not call a scent a teacher fragrance, and we do not rank bottles by who wears them to a classroom. None of these listings do. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes.",
+   "empty": "None of the floral perfumes or CK Free on this teacher list are under $40 in the deals we checked, so this page has no list. These guides have bottles we priced.",
+   "empty_desc": "Fragrance gifts for teachers under $40: none of the curated bottles are under $40 in the deals we checked. Other gift guides list bottles we did price.",
+   "choose": [
+    "Read the note line on the card. Peace Love & Juicy Couture is red apple, cassis, and jasmine. Burberry London is honeysuckle, rose, and jasmine, and it is a 1.0 oz bottle. CK Beauty is jasmine and Virginia cedar. Eternity is freesia, lily, and rose. Those are the florals. CK Free is juniper, coffee, and Virginia cedar, the one men's cologne on this page. When you do not know what they wear, a floral note line is the bottle on this page, and CK Free is the woody one. That is a split from the retailer notes. It is not a claim about a classroom.",
+    "The cap is under $40. A checked price of $40 or more drops off on the next rebuild. Coworker gifts under $40 keep Eternity Air, Green Tea, Boss Woman, Chrome Legend, Burberry Weekend, CK One, CK Everyone, and Boss Bottled Unlimited. None of those are on this list. We do not call any of these a teacher fragrance."
+   ],
+   "faq": [
+    [
+     "How is this different from fragrance gifts for coworkers under $40?",
+     "Coworker gifts keep the fresh cologne roundup and the fresh perfume roundup, and they stop below $40. This page keeps five different bottles: CK Free and four floral perfumes. The two lists do not share a bottle. A bottle that climbs to $40 or more drops off this page on the next rebuild."
+    ],
+    [
+     "How is this different from Secret Santa fragrances under $30?",
+     "Secret Santa lists every regular bottle under $30, including the fresh coworker bottles and ones with no note line. This page stops under $40 and keeps only the five bottles on this list."
+    ],
+    [
+     "Do you call these teacher fragrances or classroom-safe?",
+     "No. None of these listings say that. The page is a gift list of floral perfumes and one woody aromatic cologne under $40. It is not a ranking of who wears them."
+    ]
+   ],
+   "links": [
+    {"href": "/gifts/fragrance-gifts-for-coworkers-under-40/", "label": "Fragrance gifts for coworkers under $40"},
+    {"href": "/gifts/fragrance-gifts-for-college-students/", "label": "Fragrance gifts for college students"},
+    {"href": "/gifts/secret-santa-fragrances-under-30/", "label": "Secret Santa fragrances under $30"},
+    {"href": "/gifts/fragrance-gifts-for-teens/", "label": "Fragrance gifts for teens under $40"},
+    {"href": "/best/floral-perfume-deals/", "label": "Floral perfume deals"},
+    {"href": "/best/woody-amber-cologne-deals/", "label": "Woody and amber cologne deals"},
+    {"href": "/best/woody-perfume-deals-under-50/", "label": "Woody perfumes under $50"},
     {"href": "/gifts/under-50/", "label": "Fragrance gifts under $50"}
    ]
   }
