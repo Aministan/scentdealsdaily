@@ -609,7 +609,7 @@ VS_PAGES=[]
 # (relative path, deal) for each /fragrance/ page this build wrote.
 FRAGRANCE_PAGES=[]
 # Compact homepage set. Titles come from GIFT_SUBPAGES, not from this tuple.
-HOME_GIFT_SLUGS=("for-him","for-her","under-50","perfume-gifts-for-her-under-50","best-mens-cologne-under-40","holiday-gift-sets","fragrance-gifts-for-teens","fragrance-gifts-for-coworkers-under-40","fragrance-gifts-for-college-students","stocking-stuffer-fragrances","perfume-gifts-for-wife","cologne-gifts-for-husband","perfume-gifts-for-grandma","cologne-gifts-for-grandpa","perfume-gifts-for-sister","cologne-gifts-for-brother")
+HOME_GIFT_SLUGS=("for-him","for-her","under-50","perfume-gifts-for-her-under-50","best-mens-cologne-under-40","holiday-gift-sets","fragrance-gifts-for-teens","fragrance-gifts-for-coworkers-under-40","fragrance-gifts-for-college-students","stocking-stuffer-fragrances","perfume-gifts-for-wife","cologne-gifts-for-husband","perfume-gifts-for-grandma","cologne-gifts-for-grandpa","perfume-gifts-for-sister","cologne-gifts-for-brother","perfume-gifts-for-best-friend","perfume-gifts-for-mother-in-law")
 def register_gift_subpage(slug, title):
     if not slug or not str(title or "").strip():
         raise SystemExit("gift guide missing a slug or page title")
