@@ -31,6 +31,7 @@ NEWSLETTER_ENDPOINT=os.environ.get("NEWSLETTER_ENDPOINT","#newsletter-placeholde
 NAME="ScentDealsDaily"
 D=json.load(open(f"{ROOT}/data/deals.json"))
 CFG=json.load(open(f"{ROOT}/data/config.json"))
+BRAND_GUIDES=json.load(open(f"{ROOT}/data/brand_guides.json"))
 e=html.escape
 CJ_PM="https://www.tkqlhce.com/click-101905413-15733833"
 CJ_FS="https://www.anrdoezrs.net/click-101905413-16941523"
@@ -680,9 +681,125 @@ for g,label in [("men","Men's Cologne"),("women","Women's Perfume"),("unisex","U
     page(f"{g}/index.html",fit([f"{label} Deals: From ${lo_p:.2f} ({mx}% Off) | {NAME}",f"{label} Deals: From ${lo_p:.2f} ({mx}% Off)",f"{label} Deals: Up to {mx}% Off Today | {NAME}",f"{label} Deals Today ({upd:%b %-d}): Up to {mx}% Off"]),
       gdesc,
       f"<h1>{label} deals</h1><p class='sub'>{len(ds)} live · checked {upd_h}</p><div class='grid'>{''.join(card(d) for d in ds)}</div>{BREVO_FORM}{bestchips()}"+(f"<p class='chips'>{gchip}</p>" if gchip else ""),[itemlist(ds,label+" deals")])
+def _guide_bits(guide):
+    bits=list(guide["intro"])+list(guide["choose"])
+    for item in guide["known"]:
+        bits.extend((item["name"], item["text"]))
+    for faq in guide["faqs"]:
+        bits.extend((faq["q"], faq["a"]))
+    return bits
+def _reject_invented_prices(label, bits):
+    blob="\n".join(bits)
+    if re.search(r"[$£€]", blob):
+        raise SystemExit(f"{label}: copy contains a currency sign; prices have to come from the deal grid")
+    if re.search(r"\b\d+\s*%", blob):
+        raise SystemExit(f"{label}: copy contains a percent off; discounts have to come from the deal grid")
+def _brand_guide_or_die(b):
+    guide=(BRAND_GUIDES.get("brands") or {}).get(b)
+    if not guide:
+        raise SystemExit(f"brand guide missing for {b}; add it to data/brand_guides.json")
+    for key in ("intro","choose","known","faqs"):
+        if not isinstance(guide.get(key), list) or not guide[key]:
+            raise SystemExit(f"{b}: brand guide needs a non-empty {key} list")
+    if len(guide["known"])<3:
+        raise SystemExit(f"{b}: brand guide needs at least 3 best-known fragrances")
+    if not 3<=len(guide["faqs"])<=4:
+        raise SystemExit(f"{b}: brand guide needs 3 or 4 FAQs")
+    for item in guide["known"]:
+        if not str(item.get("name") or "").strip() or not str(item.get("text") or "").strip():
+            raise SystemExit(f"{b}: a best-known fragrance is missing a name or text")
+    for faq in guide["faqs"]:
+        if not str(faq.get("q") or "").strip() or not str(faq.get("a") or "").strip():
+            raise SystemExit(f"{b}: an FAQ is missing a question or answer")
+    _reject_invented_prices(b, _guide_bits(guide))
+    return guide
+def _dept_line(ds):
+    order=(("men","men's cologne deals"),("women","women's perfume deals"),("unisex","unisex fragrance deals"))
+    have={d.get("gender") for d in ds}
+    links=[f"<a href='{PREFIX}/{g}/'>{e(label)}</a>" for g,label in order if g in have]
+    if not links: return ""
+    if len(links)==1: return f"<p>The same check feeds the {links[0]}.</p>"
+    if len(links)==2: return f"<p>The same check feeds the {links[0]} and the {links[1]}.</p>"
+    return f"<p>The same check feeds the {links[0]}, the {links[1]}, and the {links[2]}.</p>"
+def _known_html(b, ds, guide):
+    by_id={d["id"]:d for d in ds}
+    seen=set()
+    parts=["<section class='box'><h2 style='margin-top:0'>Best-known fragrances to look for</h2>",
+           "<p>Only the bottles in the grid have a price we checked. The other fragrances below are here so you can tell them apart. This page does not assign them a price.</p>"]
+    for item in guide["known"]:
+        title=e(item["name"])
+        did=(item.get("deal_id") or "").strip()
+        if did:
+            owner=next((canon(d["brand"]) for d in deals if d["id"]==did), None)
+            if owner and owner!=b:
+                raise SystemExit(f"{b}: {did} belongs to {owner}")
+            d=by_id.get(did)
+            if d is None:
+                print(f"brand guide: {b} names {did}, which is not in today's deals")
+            else:
+                if did in seen:
+                    raise SystemExit(f"{b}: {did} is listed twice")
+                seen.add(did)
+                href=f"{PREFIX}/fragrance/{slug(d['brand']+' '+d['name'])}/"
+                title=f"<a href='{href}'>{e(item['name'])}</a>"
+        parts.append(f"<h3>{title}</h3><p>{e(item['text'])}</p>")
+    parts.append("</section>")
+    return "".join(parts)
+def _related_html(b, ds):
+    seen=set(); rounds=[]
+    for d in ds:
+        for r in roundups_of(d):
+            if r["slug"] in seen: continue
+            seen.add(r["slug"]); rounds.append(r)
+    seen=set(); comps=[]
+    for d in ds:
+        for v in vs_of(d):
+            if v["slug"] in seen: continue
+            seen.add(v["slug"]); comps.append(v)
+    if not rounds and not comps: return ""
+    parts=["<section class='box'><h2 style='margin-top:0'>Comparisons and roundups</h2>",
+           f"<p>These pages already include a {e(b)} bottle from the deals we checked.</p>"]
+    if comps:
+        parts.append("<h3>Side-by-side comparisons</h3><div class='chips'>"+"".join(
+            f"<a href='{PREFIX}/vs/{v['slug']}/'>{e(v['title'])}</a>" for v in comps)+"</div>")
+    if rounds:
+        parts.append("<h3>Roundups that include this brand</h3><div class='chips'>"+"".join(
+            f"<a href='{PREFIX}/best/{r['slug']}/'>{e(r['title'])}</a>" for r in rounds)+"</div>")
+    parts.append("</section>")
+    return "".join(parts)
+def _faq_parts(faqs):
+    qs=[(f["q"].strip(), f["a"].strip()) for f in faqs]
+    html_s="<section class='box'><h2 style='margin-top:0'>FAQ</h2>"+"".join(
+        f"<h3>{e(q)}</h3><p>{e(a)}</p>" for q,a in qs)+"</section>"
+    ld={"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+        {"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":a}} for q,a in qs]}
+    return html_s, ld
+def _hub_links(spec):
+    best={r["slug"] for r in ROUNDUPS}
+    out=[]
+    for link in spec.get("links") or []:
+        href=link.get("href") or ""
+        label=link.get("label") or ""
+        if not href.startswith("/") or not label.strip():
+            raise SystemExit(f"brand hub link needs an href and a label: {href}")
+        if href.startswith("/best/"):
+            slug_s=href.strip("/").split("/")[-1]
+            if slug_s not in best:
+                print(f"brand hub: skipping {href}, that roundup is not in this build")
+                continue
+        elif href.strip("/") in ("men","women","unisex"):
+            if not any(d.get("gender")==href.strip("/") for d in deals):
+                continue
+        out.append((href, label.strip()))
+    return out
 brands=sorted({canon(d["brand"]) for d in deals})
+_hub_spec=BRAND_GUIDES.get("hub") or {}
+if not isinstance(_hub_spec.get("paragraphs"), list) or len(_hub_spec["paragraphs"])<2:
+    raise SystemExit("brand hub guide needs at least two paragraphs")
+_reject_invented_prices("brands hub", _hub_spec["paragraphs"])
 for b in brands:
     ds=[d for d in deals if canon(d["brand"])==b]
+    guide=_brand_guide_or_die(b)
     use_sid("brand", bslug(b))
     def short_nm(d):
         n=fullname(d).replace(b+" ","",1)
@@ -703,16 +820,27 @@ for b in brands:
             f"{len(ds)} verified {b} deals from ${lo_p:.2f} ({nm}), up to {mx}% off. Checked {upd:%b %-d, %Y}.",
             f"{len(ds)} verified {b} fragrance deals from ${lo_p:.2f} ({nm}). Authentic, price-checked {upd:%b %-d, %Y}.",
         ],160)
+    faq_html, faq_ld=_faq_parts(guide["faqs"])
+    body=(f"<h1>{e(b)} deals</h1><p class='sub'>checked {upd_h}</p>"
+          +f"<section class='box'><h2 style='margin-top:0'>The house and its scent style</h2>{''.join(f'<p>{e(p)}</p>' for p in guide['intro'])}</section>"
+          +f"<div class='grid'>{''.join(card(d) for d in ds)}</div>"
+          +_known_html(b, ds, guide)
+          +f"<section class='box'><h2 style='margin-top:0'>Which one to gift</h2>{''.join(f'<p>{e(p)}</p>' for p in guide['choose'])}{_dept_line(ds)}</section>"
+          +BRAND_GIFT_MARK+_related_html(b, ds)+faq_html+BREVO_FORM)
     page(f"brands/{bslug(b)}/index.html",fit([f"{b} {kind} Deals: Up to {mx}% Off Today | {NAME}",f"{b} {kind} Deals: Up to {mx}% Off Today",f"{b} {kind} Deals: Up to {mx}% Off",f"{b} Fragrance Deals: Up to {mx}% Off"]),
-      bm,
-      f"<h1>{e(b)} deals</h1><p class='sub'>checked {upd_h}</p><div class='grid'>{''.join(card(d) for d in ds)}</div>{BRAND_GIFT_MARK}{BREVO_FORM}",[itemlist(ds,b+" deals")])
+      bm, body, [itemlist(ds,b+" deals"), faq_ld])
 _brand_mx=max(d["pct_off"] for d in deals)
 _brand_lo=min(d["price"] for d in deals)
+_hub_paras="".join(f"<p>{e(p)}</p>" for p in _hub_spec["paragraphs"])
+_hub_chips="".join(f"<a href='{PREFIX}{href}'>{e(label)}</a>" for href,label in _hub_links(_hub_spec))
+_hub_body=(f"<h1>Deals by brand</h1><section class='box'><h2 style='margin-top:0'>How to use this list</h2>{_hub_paras}"
+           +(f"<p class='chips'>{_hub_chips}</p>" if _hub_chips else "")
+           +"</section><div class='chips'>"+"".join(f"<a href='{PREFIX}/brands/{bslug(b)}/'>{e(b)}</a>" for b in brands)+"</div>")
 page("brands/index.html",fit([f"Fragrance Deals by Brand: {len(brands)} Brands, Up to {_brand_mx}% Off | {NAME}",f"Fragrance Deals by Brand: Up to {_brand_mx}% Off Today",f"{len(brands)} Brands on Sale: Up to {_brand_mx}% Off"]),
  fit([f"{len(brands)} designer brands with checked deals from ${_brand_lo:.2f}, up to {_brand_mx}% off, including {', '.join(brands[:3])}. Authorized retailers. Checked {upd:%b %-d, %Y}.",
       f"{len(brands)} designer brands on sale, from ${_brand_lo:.2f}, up to {_brand_mx}% off. Including {', '.join(brands[:3])}. Checked {upd:%b %-d, %Y}.",
       f"{len(brands)} designer brands with checked perfume and cologne deals, including {', '.join(brands[:3])}. Authorized retailers only, prices checked daily."],160),
- "<h1>Deals by brand</h1><div class='chips'>"+"".join(f"<a href='{PREFIX}/brands/{bslug(b)}/'>{e(b)}</a>" for b in brands)+"</div>")
+ _hub_body)
 page("sponsor/index.html",f"Advertise on {NAME}: Featured Fragrance Deals","Reach shoppers ready to buy designer perfume and cologne: featured deal spots, Friday newsletter sponsorships and dupe spotlights, always labeled Sponsored.",
  f"""<h1>Feature your fragrance brand</h1><p class='sub'>Put your scent in front of shoppers who are ready to buy.</p>
 <div class='box'><h2 style='margin-top:0'>Options</h2><ul><li><b>Featured deal</b> — pinned at the top of the homepage for 7 days, clearly labeled "Sponsored".</li>
@@ -3181,6 +3309,92 @@ def audit_gift_aliases():
         for line in bad[:40]: print(" ", line)
         raise SystemExit(f"gift alias check failed ({len(bad)} problems)")
     print(f"gift aliases: {len(ALIAS_RELS)} old URLs, noindex,follow, canonicalized, absent from sitemap, unlinked")
+def _visible_words(html_text):
+    class _T(html.parser.HTMLParser):
+        def __init__(self):
+            super().__init__(convert_charrefs=True)
+            self.parts=[]; self.skip=0
+        def handle_starttag(self, tag, attrs):
+            if tag in ("script","style","noscript"): self.skip+=1
+        def handle_endtag(self, tag):
+            if tag in ("script","style","noscript") and self.skip: self.skip-=1
+        def handle_data(self, data):
+            if not self.skip: self.parts.append(data)
+    parser=_T(); parser.feed(html_text)
+    return re.sub(r"\s+"," "," ".join(parser.parts)).strip().split()
+def audit_brand_pages():
+    """Brand pages keep their URLs and gain house, gift, and FAQ copy from data/brand_guides.json.
+    Prices stay in the deal grid. FAQPage JSON-LD matches the visible questions."""
+    import html.parser
+    bad=[]
+    counts=[]
+    guide_brands=BRAND_GUIDES.get("brands") or {}
+    for b in brands:
+        rel=f"brands/{bslug(b)}/index.html"
+        fp=f"{OUT}/{rel}"
+        if not os.path.isfile(fp):
+            bad.append(f"{rel}: missing"); continue
+        text=open(fp, encoding="utf-8").read()
+        for heading in ("The house and its scent style","Best-known fragrances to look for","Which one to gift","FAQ"):
+            if text.count(f">{heading}</h2>")!=1:
+                bad.append(f"{rel}: heading {heading!r} count is {text.count('>'+heading+'</h2>')}")
+        if "Only the bottles in the grid have a price we checked." not in text:
+            bad.append(f"{rel}: missing the no-invented-price line")
+        ds=[d for d in deals if canon(d["brand"])==b]
+        if any(roundups_of(d) or vs_of(d) for d in ds) and text.count(">Comparisons and roundups</h2>")!=1:
+            bad.append(f"{rel}: missing comparisons and roundups")
+        blocks=[]
+        for raw in re.findall(r'<script type="application/ld\+json">(.*?)</script>', text, re.S):
+            try: blocks.append(json.loads(raw))
+            except json.JSONDecodeError as ex:
+                bad.append(f"{rel}: JSON-LD did not parse ({ex})")
+        faqs=[block for block in blocks if isinstance(block, dict) and block.get("@type")=="FAQPage"]
+        if len(faqs)!=1:
+            bad.append(f"{rel}: expected one FAQPage, found {len(faqs)}")
+            continue
+        entities=faqs[0].get("mainEntity") or []
+        if not 3<=len(entities)<=4:
+            bad.append(f"{rel}: FAQPage has {len(entities)} questions")
+        if faqs[0].get("@context")!="https://schema.org":
+            bad.append(f"{rel}: FAQPage @context")
+        ld_pairs=[]
+        for ent in entities:
+            if ent.get("@type")!="Question":
+                bad.append(f"{rel}: FAQ entity is not a Question"); continue
+            ans=(ent.get("acceptedAnswer") or {})
+            if ans.get("@type")!="Answer" or not str(ans.get("text") or "").strip():
+                bad.append(f"{rel}: FAQ answer missing for {ent.get('name')}")
+            ld_pairs.append((ent.get("name"), ans.get("text")))
+        vis=re.findall(r"<h2 style='margin-top:0'>FAQ</h2>(.*?)</section>", text, re.S)
+        if len(vis)!=1:
+            bad.append(f"{rel}: FAQ section missing")
+        else:
+            shown=[(html.unescape(q), html.unescape(a)) for q,a in re.findall(r"<h3>(.*?)</h3><p>(.*?)</p>", vis[0], re.S)]
+            if shown!=ld_pairs:
+                bad.append(f"{rel}: visible FAQ does not match FAQPage JSON-LD")
+        guide=guide_brands[b]
+        for item in guide["known"]:
+            did=(item.get("deal_id") or "").strip()
+            d=next((x for x in ds if x["id"]==did), None)
+            if not d: continue
+            href=f"/fragrance/{slug(d['brand']+' '+d['name'])}/"
+            if href not in text:
+                bad.append(f"{rel}: missing link to {href}")
+        counts.append((b, len(_visible_words(text))))
+    hub_fp=f"{OUT}/brands/index.html"
+    hub=open(hub_fp, encoding="utf-8").read() if os.path.isfile(hub_fp) else ""
+    if "How to use this list" not in hub:
+        bad.append("brands hub: missing the intro")
+    if "Gift guides featuring" in hub:
+        bad.append("brands hub: per-brand gift list leaked onto the index")
+    hub_words=len(_visible_words(hub)) if hub else 0
+    if bad:
+        print("brand page check failed:")
+        for line in bad[:40]: print(" ", line)
+        raise SystemExit(f"brand page check failed ({len(bad)} problems)")
+    print(f"brand pages: {len(counts)} guides, hub {hub_words} visible words")
+    for b,n in counts:
+        print(f"  {b}: {n} visible words")
 apply_breadcrumbs()
 audit_breadcrumbs()
 audit_affiliate_output()
