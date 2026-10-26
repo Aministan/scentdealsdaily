@@ -610,7 +610,7 @@ VS_PAGES=[]
 # (relative path, deal) for each /fragrance/ page this build wrote.
 FRAGRANCE_PAGES=[]
 # Compact homepage set. Titles come from GIFT_SUBPAGES, not from this tuple.
-HOME_GIFT_SLUGS=("for-him","for-her","under-50","perfume-gifts-for-her-under-50","best-mens-cologne-under-40","holiday-gift-sets","fragrance-gifts-for-teens","fragrance-gifts-for-coworkers-under-40","fragrance-gifts-for-teachers-under-40","fragrance-gifts-for-college-students","stocking-stuffer-fragrances","perfume-gifts-for-wife","cologne-gifts-for-husband","perfume-gifts-for-grandma","cologne-gifts-for-grandpa","perfume-gifts-for-sister","perfume-gifts-for-daughter","cologne-gifts-for-brother","cologne-gifts-for-son","perfume-gifts-for-best-friend","perfume-gifts-for-mother-in-law","cologne-gifts-for-father-in-law")
+HOME_GIFT_SLUGS=("for-him","for-her","under-50","perfume-gifts-for-her-under-50","perfume-gifts-for-her-under-30","best-mens-cologne-under-40","holiday-gift-sets","fragrance-gifts-for-teens","fragrance-gifts-for-coworkers-under-40","fragrance-gifts-for-teachers-under-40","fragrance-gifts-for-college-students","fragrance-gifts-for-boss","stocking-stuffer-fragrances","perfume-gifts-for-wife","cologne-gifts-for-husband","perfume-gifts-for-grandma","perfume-gifts-for-aunt","cologne-gifts-for-grandpa","cologne-gifts-for-uncle","perfume-gifts-for-sister","perfume-gifts-for-daughter","cologne-gifts-for-brother","cologne-gifts-for-son","perfume-gifts-for-best-friend","perfume-gifts-for-mother-in-law","cologne-gifts-for-father-in-law")
 def register_gift_subpage(slug, title):
     if not slug or not str(title or "").strip():
         raise SystemExit("gift guide missing a slug or page title")
@@ -827,7 +827,8 @@ for b in brands:
           +_known_html(b, ds, guide)
           +f"<section class='box'><h2 style='margin-top:0'>Which one to gift</h2>{''.join(f'<p>{e(p)}</p>' for p in guide['choose'])}{_dept_line(ds)}</section>"
           +BRAND_GIFT_MARK+_related_html(b, ds)+faq_html+BREVO_FORM)
-    page(f"brands/{bslug(b)}/index.html",fit([f"{b} {kind} Deals: Up to {mx}% Off Today | {NAME}",f"{b} {kind} Deals: Up to {mx}% Off Today",f"{b} {kind} Deals: Up to {mx}% Off",f"{b} Fragrance Deals: Up to {mx}% Off"]),
+    lo_price=min(d["price"] for d in ds)
+    page(f"brands/{bslug(b)}/index.html",fit([f"{b} {kind} Deals: From ${lo_price:.2f} ({mx}% Off) | {NAME}",f"{b} {kind} Deals: From ${lo_price:.2f} ({mx}% Off)",f"{b} {kind} Deals: From ${lo_price:.2f}",f"{b} {kind} Deals: Up to {mx}% Off Today | {NAME}",f"{b} {kind} Deals: Up to {mx}% Off Today",f"{b} {kind} Deals: Up to {mx}% Off",f"{b} Fragrance Deals: Up to {mx}% Off"]),
       bm, body, [itemlist(ds,b+" deals"), faq_ld])
 _brand_mx=max(d["pct_off"] for d in deals)
 _brand_lo=min(d["price"] for d in deals)
@@ -836,7 +837,7 @@ _hub_chips="".join(f"<a href='{PREFIX}{href}'>{e(label)}</a>" for href,label in 
 _hub_body=(f"<h1>Deals by brand</h1><section class='box'><h2 style='margin-top:0'>How to use this list</h2>{_hub_paras}"
            +(f"<p class='chips'>{_hub_chips}</p>" if _hub_chips else "")
            +"</section><div class='chips'>"+"".join(f"<a href='{PREFIX}/brands/{bslug(b)}/'>{e(b)}</a>" for b in brands)+"</div>")
-page("brands/index.html",fit([f"Fragrance Deals by Brand: {len(brands)} Brands, Up to {_brand_mx}% Off | {NAME}",f"Fragrance Deals by Brand: Up to {_brand_mx}% Off Today",f"{len(brands)} Brands on Sale: Up to {_brand_mx}% Off"]),
+page("brands/index.html",fit([f"Fragrance Deals by Brand: From ${_brand_lo:.2f} ({_brand_mx}% Off) | {NAME}",f"Fragrance Deals by Brand: From ${_brand_lo:.2f} ({_brand_mx}% Off)",f"Fragrance Deals by Brand: From ${_brand_lo:.2f}",f"Fragrance Deals by Brand: Up to {_brand_mx}% Off Today",f"{len(brands)} Brands on Sale: Up to {_brand_mx}% Off"]),
  fit([f"{len(brands)} designer brands with checked deals from ${_brand_lo:.2f}, up to {_brand_mx}% off, including {', '.join(brands[:3])}. Authorized retailers. Checked {upd:%b %-d, %Y}.",
       f"{len(brands)} designer brands on sale, from ${_brand_lo:.2f}, up to {_brand_mx}% off. Including {', '.join(brands[:3])}. Checked {upd:%b %-d, %Y}.",
       f"{len(brands)} designer brands with checked perfume and cologne deals, including {', '.join(brands[:3])}. Authorized retailers only, prices checked daily."],160),
