@@ -52,6 +52,8 @@ META = {
     "fragrance-gifts-for-college-students": ("COLLEGE", "Noted bottles for a student gift."),
     "stocking-stuffer-fragrances": ("STOCKING", "Bottles, minis, and travel sizes."),
     "luxury-fragrance-gifts": ("LUXURY", "Prestige bottles for a big gift."),
+    "luxury-cologne-gifts-for-him": ("FOR HIM", "Designer and niche colognes for a big gift."),
+    "luxury-perfume-gifts-for-her": ("FOR HER", "Designer and niche perfumes for a big gift."),
     "secret-santa-fragrances-under-30": ("SECRET SANTA", "A list for a gift exchange."),
     "christmas-perfume-gifts-for-mom": ("FOR MOM", "Women's perfumes for mom."),
     "cologne-gifts-for-dad": ("FOR DAD", "Men's colognes for dad."),
