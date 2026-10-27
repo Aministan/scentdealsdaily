@@ -1,5 +1,5 @@
 # ScentDealsDaily
-> Daily-checked discounts on authentic designer fragrances at reputable retailers, plus a cited dupes directory. Last updated 2026-10-26T17:22:35Z.
+> Daily-checked discounts on authentic designer fragrances at reputable retailers, plus a cited dupes directory. Last updated 2026-10-27T13:05:55Z.
 
 ## Today's deals (price USD, size, retailer, % off listed compare-at)
 - Juicy Couture Peace Love & Juicy Couture Perfume 3.4 oz.: $20.95 (was $89.00, -76%) at FragranceShop: https://www.fragranceshop.com/product/peace-love-juicy-couture-perfume-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz
@@ -24,7 +24,6 @@
 - Ralph Lauren Romance Perfume 1.0 oz.: $28.95 (was $53.00, -45%) at FragranceShop: https://www.fragranceshop.com/product/romance-for-women/?attribute_pa_size=eau-de-parfum-spray-1-0-oz
 - Xerjoff Casamorati Mefisto Cologne 3.4 oz.: $189.95 (was $330.00, -42%) at Perfumania: https://www.perfumania.com/products/casamorati-mefisto-cologne?variant=41547243225221
 - Jean Paul Gaultier Le Beau Cologne 4.2 oz.: $75.95 (was $130.00, -42%) at FragranceShop: https://www.fragranceshop.com/product/jean-paul-gaultier-le-beau-cologne-for-men/?attribute_pa_size=eau-de-toilette-spray-4-2-oz
-- Hermes H24 Eau de Toilette 1.7 oz.: $64.95 (was $110.00, -41%) at Perfumania: https://www.perfumania.com/products/h24-eau-de-toilette?variant=41173414412421
 - Hugo Boss Boss In Motion Cologne 3.0 oz.: $44.95 (was $76.00, -41%) at Perfumania: https://www.perfumania.com/products/hugo-boss-in-motion-mens-eau-de-toilette-spray?variant=31838659510405
 - Elizabeth Arden Green Tea Scent Perfume 3.4 oz.: $31.95 (was $51.00, -37%) at Perfumania: https://www.perfumania.com/products/elizabeth-arden-green-tea-scent-women-eau-de-parfum-spray?variant=31839020253317
 - Versace Bright Crystal Absolu Perfume 3.0 oz.: $69.95 (was $110.00, -36%) at FragranceShop: https://www.fragranceshop.com/product/versace-bright-crystal-absolu-for-women/?attribute_pa_size=eau-de-parfum-spray-3-0-oz
@@ -56,7 +55,7 @@
 - MFK Baccarat Rouge 540 Extrait -> Armaf Club de Nuit Untold: $42.95 3.6 oz at Perfumania https://www.perfumania.com/products/club-de-nuit-untold-unisex-fragrance?variant=41264895918213 (sources: https://altscent.app/clone-list/)
 - Dior Sauvage Elixir -> Lattafa Asad: $39.99 3.4 oz. at Perfumania https://www.perfumania.com/products/lattafa-asad-cologne-eau-de-parfum-for-men?variant=41094013976709 (sources: https://perfumania.com/blogs/articles/top-6-luxury-fragrance-dupes-in-2026)
 - Creed Silver Mountain Water -> Armaf Club de Nuit Sillage: $34.95 3.6 oz. at Perfumania https://www.perfumania.com/products/club-de-nuit-sillage-unisex-fragrance?variant=41266471370885 (sources: https://perfumania.com/blogs/articles/top-6-luxury-fragrance-dupes-in-2026, https://altscent.app/clone-list/)
-- Jean Paul Gaultier Ultra Male -> Afnan 9PM (sources: https://perfumania.com/blogs/articles/top-6-luxury-fragrance-dupes-in-2026)
+- Jean Paul Gaultier Ultra Male -> Afnan 9PM: $39.99 3.4 oz. at Perfumania https://www.perfumania.com/products/9pm-cologne?variant=41284110418053 (sources: https://perfumania.com/blogs/articles/top-6-luxury-fragrance-dupes-in-2026)
 - Creed Millésime Impérial -> Armaf Club de Nuit Milestone: $27.95 3.6 oz. at FragranceShop https://www.fragranceshop.com/product/armaf-club-de-nuit-milestone-for-unisex/?attribute_pa_size=eau-de-parfum-spray-3-6-oz (sources: https://scentfile.com/clone-list.csv, https://altscent.app/clone-list/)
 - YSL Y Eau de Parfum -> Lattafa Fakhar Black: $39.99 3.4 oz. at Perfumania https://www.perfumania.com/products/fakhar-eau-de-parfum-1?variant=41052514484357 (sources: https://altscent.app/clone-list/)
 - Mugler Angel Nova -> Lattafa Mayar: $20.95 3.4 oz. at FragranceShop https://www.fragranceshop.com/product/lattafa-mayar-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz (sources: https://altscent.app/clone-list/)
@@ -92,7 +91,6 @@ https://scentdealsdaily.com/fragrance/versace-dylan-blue-pour-femme-perfume/
 https://scentdealsdaily.com/fragrance/ralph-lauren-romance-perfume/
 https://scentdealsdaily.com/fragrance/xerjoff-casamorati-mefisto-cologne/
 https://scentdealsdaily.com/fragrance/jean-paul-gaultier-le-beau-cologne/
-https://scentdealsdaily.com/fragrance/hermes-h24-eau-de-toilette/
 https://scentdealsdaily.com/fragrance/hugo-boss-boss-in-motion-cologne/
 https://scentdealsdaily.com/fragrance/elizabeth-arden-green-tea-scent-perfume/
 https://scentdealsdaily.com/fragrance/versace-bright-crystal-absolu-perfume/
@@ -165,7 +163,7 @@ https://scentdealsdaily.com/vs/legend-spirit-vs-acqua-di-gio/
 https://scentdealsdaily.com/vs/le-beau-vs-versace-eros/
 https://scentdealsdaily.com/vs/most-wanted-vs-stronger-with-you/
 https://scentdealsdaily.com/vs/clinique-happy-vs-green-tea/
-https://scentdealsdaily.com/vs/h24-vs-legend-spirit/
+https://scentdealsdaily.com/vs/eilish-vs-la-vie-est-belle/
 https://scentdealsdaily.com/gifts/
 https://scentdealsdaily.com/gifts/for-him/
 https://scentdealsdaily.com/gifts/for-her/
@@ -205,4 +203,9 @@ https://scentdealsdaily.com/gifts/fragrance-gifts-for-boss/
 https://scentdealsdaily.com/gifts/perfume-gifts-for-her-under-30/
 https://scentdealsdaily.com/gifts/luxury-cologne-gifts-for-him/
 https://scentdealsdaily.com/gifts/luxury-perfume-gifts-for-her/
+https://scentdealsdaily.com/gifts/perfume-gifts-for-niece/
+https://scentdealsdaily.com/gifts/cologne-gifts-for-nephew/
+https://scentdealsdaily.com/gifts/his-and-hers-fragrance-gifts/
+https://scentdealsdaily.com/gifts/hanukkah-fragrance-gifts/
+https://scentdealsdaily.com/gifts/fragrance-gifts-for-new-mom/
 https://scentdealsdaily.com/black-friday-fragrance-deals/
