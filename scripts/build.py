@@ -1175,7 +1175,13 @@ for r in ROUNDUPS:
         (f"Which {N} {SC} has the biggest discount?",f"{fullname(big)}: {big['pct_off']}% off, ${big['price']:.2f} versus ${big['was']:.2f} {('at '+big['was_label']) if big.get('was_label') else 'listed compare-at'}."),
         (f"Are these {N} deals authentic?","Yes. We only list authorized, long-established retailers (Perfumania and FragranceShop, both US fragrance shops selling genuine designer brands) and exclude marketplace sellers, testers and unboxed bottles."),
         ("How often are these prices updated?",f"Every day. Each price, compare-at price and stock status is re-checked from the retailer's live product data; anything that drops below 15% off or sells out is removed automatically. Last check: {upd_h}.")]+[tuple(x) for x in r.get('faq',[])]
+    gift_split=""
+    if r["slug"]=="luxury-fragrance-deals":
+        gift_split=(f"<p>Gift lists in this range: <a href='{PREFIX}/gifts/luxury-cologne-gifts-for-him/'>luxury cologne gifts for him</a>, "
+                    f"<a href='{PREFIX}/gifts/luxury-perfume-gifts-for-her/'>luxury perfume gifts for her</a>, and "
+                    f"<a href='{PREFIX}/gifts/luxury-fragrance-gifts/'>luxury fragrance gifts</a>.</p>")
     body=(f"<h1>{e(r['title'])} ({upd:%b %-d, %Y})</h1><p class='sub'>{n} authentic {r['who']} fragrances {SC}, each at least 15% below its listed price · checked {upd_h}</p>"+(f"<p>{e(r['lead'])}</p>" if r.get('lead') else "")
+      +gift_split
       +"<div class='box'><h2 style='margin-top:0'>Quick picks</h2><ul>"+picks(cheap,val,big)+"</ul>"
       +"<p class='meta'>How we pick: "+e(r['rule'])+", at least 15% below the retailer's listed compare-at price (or another authorized retailer's price, where shown), in stock, and sold by an authorized retailer. Sorted by price per ounce so bigger bottles get credit for real value, not just a low sticker.</p></div>"
       +f"<table><thead><tr><th>Fragrance</th><th>Size</th><th>Price</th><th>Per oz</th><th>Off</th><th></th></tr></thead><tbody>{rows}</tbody></table>"
@@ -1444,6 +1450,7 @@ for path,sid_slug,title,short,intro,picks,list_name in gift_pages:
         ld=None
         titles=fit([f"{title} ({upd:%b %Y}) | {NAME}", f"{title} | {NAME}", title])
     hub_extra=""
+    who_extra=""
     top_mark=""
     bot_mark=""
     if path=="gifts/index.html":
@@ -1453,9 +1460,13 @@ for path,sid_slug,title,short,intro,picks,list_name in gift_pages:
         register_gift_subpage(sid_slug, title)
         GIFT_PAGE_PICKS.append((sid_slug, title, list(picks)))
         bot_mark=GIFT_MORE_MARK
+    if sid_slug=="for-him":
+        who_extra=f"<p>Higher compare-at bottles for him are on <a href='{PREFIX}/gifts/luxury-cologne-gifts-for-him/'>luxury cologne gifts for him</a>.</p>"
+    elif sid_slug=="for-her":
+        who_extra=f"<p>Higher compare-at bottles for her are on <a href='{PREFIX}/gifts/luxury-perfume-gifts-for-her/'>luxury perfume gifts for her</a>.</p>"
     page(path, titles,
       desc,
-      f"<h1>{e(title)}</h1><p class='sub'>{e(intro)} Checked {upd_h}.</p>{gift_nav()}{hub_extra}{top_mark}{GIFT_DISC}{listing}{bot_mark}<p class='meta'>Each name links to that bottle's price comparison. We do not list testers, decants, or Amazon.</p>",
+      f"<h1>{e(title)}</h1><p class='sub'>{e(intro)} Checked {upd_h}.</p>{gift_nav()}{hub_extra}{who_extra}{top_mark}{GIFT_DISC}{listing}{bot_mark}<p class='meta'>Each name links to that bottle's price comparison. We do not list testers, decants, or Amazon.</p>",
       ld, image=image, feed=bool(picks))
     extra=short.lower()
     KW+=[title.lower(), extra if "fragrance" in extra else f"fragrance {extra}"]
