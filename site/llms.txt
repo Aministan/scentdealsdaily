@@ -1,5 +1,5 @@
 # ScentDealsDaily
-> Daily-checked discounts on authentic designer fragrances at reputable retailers, plus a cited dupes directory. Last updated 2026-10-27T13:05:55Z.
+> Daily-checked discounts on authentic designer fragrances at reputable retailers, plus a cited dupes directory. Last updated 2026-10-27T16:37:34Z.
 
 ## Today's deals (price USD, size, retailer, % off listed compare-at)
 - Juicy Couture Peace Love & Juicy Couture Perfume 3.4 oz.: $20.95 (was $89.00, -76%) at FragranceShop: https://www.fragranceshop.com/product/peace-love-juicy-couture-perfume-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz
@@ -12,8 +12,8 @@
 - Calvin Klein CK One 1.7 oz.: $24.95 (was $59.00, -58%) at Perfumania: https://www.perfumania.com/products/calvin-klein-ck-one-eau-de-toilette-unisex-fragrance?variant=31838794711173
 - Hugo Boss Woman Perfume 3.0 oz.: $25.95 (was $60.00, -57%) at FragranceShop: https://www.fragranceshop.com/product/boss-woman-for-women/?attribute_pa_size=eau-de-parfum-spray-3-0-oz
 - Bvlgari Bvlgari Man Wood Neroli Cologne 3.4 oz.: $46.95 (was $107.00, -56%) at FragranceShop: https://www.fragranceshop.com/product/bvlgari-man-wood-neroli-for-men/?attribute_pa_size=eau-de-parfum-spray-3-4-oz
+- Azzaro Azzaro Cologne 1.7 oz.: $17.95 (was $40.00, -55%) at FragranceShop: https://www.fragranceshop.com/product/azzaro-for-men/?attribute_pa_size=eau-de-toilette-spray-1-7-oz
 - Azzaro The Most Wanted Parfum Cologne 1.7 oz.: $53.95 (was $120.00, -55%) at FragranceShop: https://www.fragranceshop.com/product/azzaro-the-most-wanted-cologne-for-men/?attribute_pa_size=parfum-spray-1-7-oz
-- Azzaro Azzaro Cologne 3.4 oz.: $25.95 (was $55.00, -53%) at FragranceShop: https://www.fragranceshop.com/product/azzaro-for-men/?attribute_pa_size=eau-de-toilette-spray-3-4-oz
 - Hugo Boss Boss Bottled Unlimited Cologne 3.3 oz.: $31.95 (was $65.00, -51%) at FragranceShop: https://www.fragranceshop.com/product/boss-bottled-unlimited-for-men/?attribute_pa_size=eau-de-toilette-spray-3-3-oz
 - Billie Eilish Eilish No.2 Perfume 3.4 oz.: $34.95 (was $72.00, -51%) at FragranceShop: https://www.fragranceshop.com/product/billie-eilish-no-2-perfume-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz
 - Burberry Touch Perfume 1.7 oz.: $27.95 (was $55.00, -49%) at FragranceShop: https://www.fragranceshop.com/product/burberry-touch-for-women/?attribute_pa_size=eau-de-parfum-spray-1-7-oz
@@ -28,13 +28,12 @@
 - Elizabeth Arden Green Tea Scent Perfume 3.4 oz.: $31.95 (was $51.00, -37%) at Perfumania: https://www.perfumania.com/products/elizabeth-arden-green-tea-scent-women-eau-de-parfum-spray?variant=31839020253317
 - Versace Bright Crystal Absolu Perfume 3.0 oz.: $69.95 (was $110.00, -36%) at FragranceShop: https://www.fragranceshop.com/product/versace-bright-crystal-absolu-for-women/?attribute_pa_size=eau-de-parfum-spray-3-0-oz
 - Valentino Donna Born In Roma Perfume 1.7 oz.: $94.95 (was $145.00, -35%) at FragranceShop: https://www.fragranceshop.com/product/valentino-donna-born-in-roma-perfume-for-women/?attribute_pa_size=eau-de-parfum-spray-1-7-oz
-- Tom Ford Cafe Rose Perfume 3.4 oz.: $196.95 (was $300.00, -34%) at Perfumania: https://www.perfumania.com/products/cafe-rose-eau-de-parfum-spray-for-women-by-tom-ford?variant=31839362711685
-- Versace Versace Pour Homme Cologne 1.0 oz.: $45.95 (was $69.00, -33%) at Perfumania: https://www.perfumania.com/products/versace-pour-homme-cologne-mens-eau-de-toilette?variant=31838887182469
 - Lancome Poeme Perfume 3.4 oz.: $83.95 (was $126.00, -33%) at Perfumania: https://www.perfumania.com/products/lancome-poeme-perfume-for-women-eau-de-parfum-spray?variant=31838974476421
 - Azzaro Wanted Cologne 3.4 oz.: $60.95 (was $90.00, -32%) at FragranceShop: https://www.fragranceshop.com/product/azzaro-wanted-night-for-men/?attribute_pa_size=eau-de-parfum-spray-3-4-oz
 - Giorgio Armani Acqua Di Gio Cologne 3.4 oz.: $66.95 (was $99.00, -32%) at FragranceShop: https://www.fragranceshop.com/product/acqua-di-gio-for-men/?attribute_pa_size=eau-de-toilette-spray-3-4-oz
 - Hugo Boss Bottled No. 6 Cologne 3.4 oz.: $95.95 (was $139.00, -31%) at Perfumania: https://www.perfumania.com/products/bottled-no-6-cologne-for-men?variant=40886186803333
 - Mont Blanc Mont Blanc Legend Spirit Cologne 1.7 oz.: $61.95 (was $89.00, -30%) at Perfumania: https://www.perfumania.com/products/legend-spirit-eau-de-toilette-spray-for-men-by-montblanc?variant=31839381225605
+- Versace Versace Pour Homme Cologne 1.0 oz.: $49.99 (was $69.00, -28%) at Perfumania: https://www.perfumania.com/products/versace-pour-homme-cologne-mens-eau-de-toilette?variant=31838887182469
 - Burberry Hero Cologne 3.4 oz.: $99.95 (was $137.00, -27%) at Perfumania: https://www.perfumania.com/products/burberry-hero-cologne-eau-de-toilette-for-men?variant=40725795930245
 - Paco Rabanne Olympea Perfume 1.7 oz.: $59.95 (was $82.00, -27%) at Perfumania: https://www.perfumania.com/products/olympea-eau-de-parfum-spray-for-women-by-paco-rabanne?variant=31839144083589
 - Coach Coach Cologne 2.0 oz.: $68.95 (was $94.00, -27%) at Perfumania: https://www.perfumania.com/products/coach-for-men-eau-de-toilette?variant=31839425462405
@@ -42,6 +41,7 @@
 - Clinique Happy Perfume 1.0 oz.: $49.95 (was $67.00, -25%) at Perfumania: https://www.perfumania.com/products/clinique-happy-women-eau-de-parfum-spray?variant=31839000658053
 - Lancôme La Vie Est Belle Perfume 1.0 oz.: $70.95 (was $95.00, -25%) at FragranceShop: https://www.fragranceshop.com/product/lancome-la-vie-est-belle-for-women/?attribute_pa_size=eau-de-parfum-spray-1-0-oz
 - Giorgio Armani Stronger With You Intensely Cologne 1.7 oz.: $70.95 (was $94.00, -25%) at FragranceShop: https://www.fragranceshop.com/product/stronger-with-you-intensely-for-men/?attribute_pa_size=eau-de-parfum-spray-1-7-oz
+- Tom Ford Cafe Rose Perfume 3.4 oz.: $199.99 (was $240.00, -17%) at Perfumania: https://www.perfumania.com/products/cafe-rose-eau-de-parfum-spray-for-women-by-tom-ford?variant=31839362711685
 - Billie Eilish Eilish Perfume 3.4 oz.: $68.95 (was $82.00, -16%) at Perfumania: https://www.perfumania.com/products/billie-eilish-perfume-eau-de-parfum-for-women?variant=40211488931973
 - Valentino Uomo Born In Roma Cologne 1.7 oz.: $91.95 (was $110.00, -16%) at Perfumania: https://www.perfumania.com/products/valentino-uomo-born-in-roma-cologne-eau-de-toilette-for-men?variant=40908118196357
 - Versace Eros Cologne 1.7 oz.: $51.95 (was $62.00, -16%) at FragranceShop: https://www.fragranceshop.com/product/versace-eros-for-men/?attribute_pa_size=eau-de-toilette-spray-1-7-oz
@@ -79,8 +79,8 @@ https://scentdealsdaily.com/fragrance/calvin-klein-eternity-perfume/
 https://scentdealsdaily.com/fragrance/calvin-klein-ck-one/
 https://scentdealsdaily.com/fragrance/hugo-boss-woman-perfume/
 https://scentdealsdaily.com/fragrance/bvlgari-bvlgari-man-wood-neroli-cologne/
-https://scentdealsdaily.com/fragrance/azzaro-the-most-wanted-parfum-cologne/
 https://scentdealsdaily.com/fragrance/azzaro-azzaro-cologne/
+https://scentdealsdaily.com/fragrance/azzaro-the-most-wanted-parfum-cologne/
 https://scentdealsdaily.com/fragrance/hugo-boss-boss-bottled-unlimited-cologne/
 https://scentdealsdaily.com/fragrance/billie-eilish-eilish-no-2-perfume/
 https://scentdealsdaily.com/fragrance/burberry-touch-perfume/
@@ -95,13 +95,12 @@ https://scentdealsdaily.com/fragrance/hugo-boss-boss-in-motion-cologne/
 https://scentdealsdaily.com/fragrance/elizabeth-arden-green-tea-scent-perfume/
 https://scentdealsdaily.com/fragrance/versace-bright-crystal-absolu-perfume/
 https://scentdealsdaily.com/fragrance/valentino-donna-born-in-roma-perfume/
-https://scentdealsdaily.com/fragrance/tom-ford-cafe-rose-perfume/
-https://scentdealsdaily.com/fragrance/versace-versace-pour-homme-cologne/
 https://scentdealsdaily.com/fragrance/lancome-poeme-perfume/
 https://scentdealsdaily.com/fragrance/azzaro-wanted-cologne/
 https://scentdealsdaily.com/fragrance/giorgio-armani-acqua-di-gio-cologne/
 https://scentdealsdaily.com/fragrance/hugo-boss-bottled-no-6-cologne/
 https://scentdealsdaily.com/fragrance/mont-blanc-mont-blanc-legend-spirit-cologne/
+https://scentdealsdaily.com/fragrance/versace-versace-pour-homme-cologne/
 https://scentdealsdaily.com/fragrance/burberry-hero-cologne/
 https://scentdealsdaily.com/fragrance/paco-rabanne-olympea-perfume/
 https://scentdealsdaily.com/fragrance/coach-coach-cologne/
@@ -109,6 +108,7 @@ https://scentdealsdaily.com/fragrance/valentino-uomo-born-in-roma-intense-cologn
 https://scentdealsdaily.com/fragrance/clinique-happy-perfume/
 https://scentdealsdaily.com/fragrance/lanc-me-la-vie-est-belle-perfume/
 https://scentdealsdaily.com/fragrance/giorgio-armani-stronger-with-you-intensely-cologne/
+https://scentdealsdaily.com/fragrance/tom-ford-cafe-rose-perfume/
 https://scentdealsdaily.com/fragrance/billie-eilish-eilish-perfume/
 https://scentdealsdaily.com/fragrance/valentino-uomo-born-in-roma-cologne/
 https://scentdealsdaily.com/fragrance/versace-eros-cologne/
@@ -203,6 +203,7 @@ https://scentdealsdaily.com/gifts/fragrance-gifts-for-boss/
 https://scentdealsdaily.com/gifts/perfume-gifts-for-her-under-30/
 https://scentdealsdaily.com/gifts/luxury-cologne-gifts-for-him/
 https://scentdealsdaily.com/gifts/luxury-perfume-gifts-for-her/
+https://scentdealsdaily.com/gifts/luxury-fragrance-gifts-under-100/
 https://scentdealsdaily.com/gifts/perfume-gifts-for-niece/
 https://scentdealsdaily.com/gifts/cologne-gifts-for-nephew/
 https://scentdealsdaily.com/gifts/his-and-hers-fragrance-gifts/
