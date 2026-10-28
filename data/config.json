@@ -1395,7 +1395,7 @@
    "chip": "Luxury fragrance gifts",
    "min_was": 120,
    "filled_label": "luxury fragrance gifts listed at $120 or more",
-   "intro": "Single bottles whose checked compare-at price is in prestige territory, for a holiday gift when the name and the markdown both matter. Sorted by today's price, lowest first. No boxed set is included. The luxury deals roundup ranks these same bottles by price per ounce. For shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes.",
+   "intro": "Single bottles whose checked compare-at price is in prestige territory, for a holiday gift when the name and the markdown both matter. Sorted by today's price, lowest first. No boxed set is included. The luxury deals roundup ranks these same bottles by price per ounce. Single bottles from this list whose checked price is under $100 are on luxury fragrance gifts under $100. A checked price of $100 or more stays on this page. For shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes.",
    "empty": "No bottle we checked today has a compare-at price of $120 or more, so this page has no list. These guides have bottles we priced.",
    "empty_desc": "Luxury fragrance gifts: no bottle we checked today has a compare-at price of $120 or more. Other gift guides list bottles we did price.",
    "faq": [
@@ -1406,10 +1406,15 @@
     [
      "Are these gift sets?",
      "No. They are single bottles. A boxed set is listed only on the gift-set pages, and only after we check that product."
+    ],
+    [
+     "What if the gift has to stay under $100?",
+     "Luxury fragrance gifts under $100 keeps the single bottles on this page whose checked price is under $100. A bottle at $100 or more stays here and drops off that page on the next rebuild. The $110 compare-at bottles stay on the luxury cologne and luxury perfume pages."
     ]
    ],
    "links": [
     {"href": "/best/luxury-fragrance-deals/", "label": "Luxury fragrance deals"},
+    {"href": "/gifts/luxury-fragrance-gifts-under-100/", "label": "Luxury fragrance gifts under $100"},
     {"href": "/gifts/luxury-cologne-gifts-for-him/", "label": "Luxury cologne gifts for him"},
     {"href": "/gifts/luxury-perfume-gifts-for-her/", "label": "Luxury perfume gifts for her"},
     {"href": "/gifts/for-him/", "label": "Fragrance gifts for him"},
@@ -2652,13 +2657,17 @@
    "empty_desc": "Luxury cologne gifts for him: no men's or unisex bottle we checked today has a compare-at of $110 or more. Other gift guides list bottles we did price.",
    "choose": [
     "Why each bottle is a gift pick: The Most Wanted Parfum is the sweet designer evening cologne, ginger and bourbon vanilla. Le Beau is the coconut-and-tonka designer bottle, and the card shows 4.2 oz, so read the size before you treat two stickers as the same gift. Uomo Born in Roma is the fresh mineral daytime Valentino, salt and ginger. Uomo Born in Roma Intense is the sweeter vanilla version of that line. Mefisto is the niche gift, a fresh Xerjoff citrus, for someone who already owns the designer names. H24 is the unisex Hermès, clary sage and rosewood, when the gift can be worn by either of you. Bottled No. 6 and Burberry Hero are designer names with no note line. Give those when he already knows the bottle. Do not guess a smell from the name.",
-    "The floor is a checked compare-at of $110 or more. Luxury fragrance gifts stays at $120 and leaves H24 and Uomo Born in Roma off. Fragrance gifts for him is the 12 largest men's discounts and has no compare-at floor. Cologne gifts for husband is a shorter spouse list and keeps cheaper bottles. A bottle can sit on more than one of those pages when it meets each rule. We do not call any of these a husband cologne, or a luxury cologne beyond the compare-at.",
+    "The floor is a checked compare-at of $110 or more. Luxury fragrance gifts stays at $120 and leaves H24 and Uomo Born in Roma off. Luxury fragrance gifts under $100 uses that $120 floor and also requires today's price to be under $100, so a bottle at $100 or more stays on this page. Fragrance gifts for him is the 12 largest men's discounts and has no compare-at floor. Cologne gifts for husband is a shorter spouse list and keeps cheaper bottles. A bottle can sit on more than one of those pages when it meets each rule. We do not call any of these a husband cologne, or a luxury cologne beyond the compare-at.",
     "Read the size on the card. Most Wanted, H24, and Uomo Born in Roma are 1.7 oz. Le Beau is 4.2 oz. Bottled No. 6, Hero, Intense, and Mefisto are 3.4 oz. A 1.7 oz bottle and a 3.4 oz bottle are different amounts of juice. When the name links to a bottle page, that page shows the price per ounce from the checked price and the size."
    ],
    "faq": [
     [
      "How is this different from luxury fragrance gifts?",
      "Luxury fragrance gifts lists every single bottle whose checked compare-at is $120 or more, men's and women's together. This page is men's cologne and unisex only, and the floor is a checked compare-at of $110 or more, so Uomo Born in Roma and Hermès H24 can appear here and stay off that page."
+    ],
+    [
+     "How is this different from luxury fragrance gifts under $100?",
+     "That page lists every single bottle whose checked compare-at is $120 or more and whose checked price is under $100, men's and women's together. This page is men's cologne and unisex only. It keeps a $110 compare-at, and it keeps bottles at $100 and up."
     ],
     [
      "How is this different from fragrance gifts for him?",
@@ -2671,6 +2680,7 @@
    ],
    "links": [
     {"href": "/gifts/luxury-fragrance-gifts/", "label": "Luxury fragrance gifts"},
+    {"href": "/gifts/luxury-fragrance-gifts-under-100/", "label": "Luxury fragrance gifts under $100"},
     {"href": "/best/luxury-fragrance-deals/", "label": "Luxury fragrance deals"},
     {"href": "/gifts/luxury-perfume-gifts-for-her/", "label": "Luxury perfume gifts for her"},
     {"href": "/gifts/for-him/", "label": "Fragrance gifts for him"},
@@ -2693,13 +2703,17 @@
    "empty_desc": "Luxury perfume gifts for her: no women's or unisex bottle we checked today has a compare-at of $110 or more. Other gift guides list bottles we did price.",
    "choose": [
     "Why each bottle is a gift pick: Dylan Blue Pour Femme is the familiar Versace fruity floral, green apple and rose. Bright Crystal Absolu is the other Versace floral, yuzu and peony. Poême is the classic Lancôme floral, jasmine and tuberose. Donna Born in Roma is the vanilla floral, jasmine and bourbon vanilla. Café Rose is the niche rose, Turkish and Bulgarian rose with coffee, the splurge when she already wears a designer floral. H24 is not a women's perfume. It is the unisex Hermès, clary sage and rosewood, for a gift she can share.",
-    "The floor is a checked compare-at of $110 or more. Luxury fragrance gifts stays at $120 and leaves Bright Crystal Absolu and H24 off. Fragrance gifts for her is the 12 largest women's discounts and has no compare-at floor. Christmas perfume gifts for mom is every women's perfume at $50 and up, so it keeps bottles under this compare-at and leaves H24 off. A women's bottle can sit on both this page and the mom page when its compare-at is $110 or more. We do not call any of these a mom perfume, or a luxury perfume beyond the compare-at.",
+    "The floor is a checked compare-at of $110 or more. Luxury fragrance gifts stays at $120 and leaves Bright Crystal Absolu and H24 off. Luxury fragrance gifts under $100 uses that $120 floor and also requires today's price to be under $100, so a bottle at $100 or more stays on this page. Fragrance gifts for her is the 12 largest women's discounts and has no compare-at floor. Christmas perfume gifts for mom is every women's perfume at $50 and up, so it keeps bottles under this compare-at and leaves H24 off. A women's bottle can sit on both this page and the mom page when its compare-at is $110 or more. We do not call any of these a mom perfume, or a luxury perfume beyond the compare-at.",
     "Read the size on the card. Dylan Blue, Poême, and Café Rose are 3.4 oz. Bright Crystal Absolu is 3.0 oz. Donna Born in Roma and H24 are 1.7 oz. A 1.7 oz bottle and a 3.4 oz bottle are different amounts of juice. When the name links to a bottle page, that page shows the price per ounce from the checked price and the size."
    ],
    "faq": [
     [
      "How is this different from luxury fragrance gifts?",
      "Luxury fragrance gifts lists every single bottle whose checked compare-at is $120 or more, men's and women's together. This page is women's perfume and unisex only, and the floor is a checked compare-at of $110 or more, so Bright Crystal Absolu and Hermès H24 can appear here and stay off that page."
+    ],
+    [
+     "How is this different from luxury fragrance gifts under $100?",
+     "That page lists every single bottle whose checked compare-at is $120 or more and whose checked price is under $100, men's and women's together. This page is women's perfume and unisex only. It keeps a $110 compare-at, and it keeps bottles at $100 and up."
     ],
     [
      "How is this different from fragrance gifts for her?",
@@ -2712,6 +2726,7 @@
    ],
    "links": [
     {"href": "/gifts/luxury-fragrance-gifts/", "label": "Luxury fragrance gifts"},
+    {"href": "/gifts/luxury-fragrance-gifts-under-100/", "label": "Luxury fragrance gifts under $100"},
     {"href": "/best/luxury-fragrance-deals/", "label": "Luxury fragrance deals"},
     {"href": "/gifts/luxury-cologne-gifts-for-him/", "label": "Luxury cologne gifts for him"},
     {"href": "/gifts/for-her/", "label": "Fragrance gifts for her"},
@@ -2719,6 +2734,45 @@
     {"href": "/gifts/perfume-gifts-for-wife/", "label": "Perfume gifts for wife"},
     {"href": "/women/", "label": "All women's deals"},
     {"href": "/unisex/", "label": "Unisex deals"}
+   ]
+  },
+  {
+   "slug": "luxury-fragrance-gifts-under-100",
+   "title": "Luxury fragrance gifts under $100",
+   "chip": "Luxury gifts under $100",
+   "min_was": 120,
+   "max_price": 100,
+   "exclude_set": true,
+   "filled_label": "luxury fragrance gifts under $100",
+   "intro": "Single bottles for a luxury gift when today's price has to stay under $100, lowest checked price first. A bottle is listed only when the compare-at we checked is $120 or more, the same prestige floor as luxury fragrance gifts, and the checked price is under $100. Luxury fragrance gifts keeps that floor and also keeps bottles at $100 and up. Luxury cologne gifts for him and luxury perfume gifts for her use a $110 compare-at and do not use this cap, so those pages can list a bottle this one leaves off. No boxed set is included. We do not call a scent a luxury fragrance beyond the compare-at rule. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes. Bottled No. 6 and Burberry Hero can appear here on price alone, with no note line, because the retailer copy names no notes.",
+   "empty": "No single bottle we checked today has a compare-at of $120 or more and a price under $100, so this page has no list. These guides have bottles we priced.",
+   "empty_desc": "Luxury fragrance gifts under $100: no single bottle we checked has a compare-at of $120 or more and a price under $100. Other gift guides list bottles we did price.",
+   "choose": [
+    "Why each bottle is a gift pick, when it is on the list: The Most Wanted Parfum is the sweet designer evening cologne, ginger and bourbon vanilla. Le Beau is the coconut-and-tonka designer bottle. Dylan Blue Pour Femme is the Versace fruity floral, green apple and rose. Poême is the classic Lancôme floral, jasmine and tuberose. Donna Born in Roma is the vanilla floral, jasmine and bourbon vanilla. Bottled No. 6 and Burberry Hero are designer names with no note line. Give those when the person already knows the bottle. Do not guess a smell from the name.",
+    "The floor is a checked compare-at of $120 or more, the same rule as luxury fragrance gifts. The cap is today's price under $100. A bottle at $100 or more stays on luxury fragrance gifts and drops off this page on the next rebuild. Luxury cologne gifts for him and luxury perfume gifts for her also keep the $110 compare-at bottles and do not use this cap. Uomo Born in Roma and Bright Crystal Absolu can sit on those pages and stay off this one while their compare-at is $110. We do not call any of these a luxury fragrance beyond the compare-at.",
+    "Read the size on the card before you treat two stickers as the same gift. A 1.7 oz bottle and a 3.4 oz bottle are different amounts of juice. When the name links to a bottle page, that page shows the price per ounce from the checked price and the size."
+   ],
+   "faq": [
+    [
+     "How is this different from luxury fragrance gifts?",
+     "Luxury fragrance gifts lists every single bottle whose checked compare-at is $120 or more, including bottles at $100 and up. This page uses that same compare-at floor and keeps a bottle only when the checked price is under $100."
+    ],
+    [
+     "How is this different from the luxury cologne and luxury perfume pages?",
+     "Those pages split men's and women's bottles and use a compare-at floor of $110, with no cap on today's price. This page is the mixed list. The floor stays at $120, and today's price has to be under $100."
+    ],
+    [
+     "Does a price of exactly $100 count?",
+     "No. The price we checked has to be under $100. A bottle at $100 or more drops off on the next rebuild. We do not round a higher price down to make it fit."
+    ]
+   ],
+   "links": [
+    {"href": "/gifts/luxury-fragrance-gifts/", "label": "Luxury fragrance gifts"},
+    {"href": "/gifts/luxury-cologne-gifts-for-him/", "label": "Luxury cologne gifts for him"},
+    {"href": "/gifts/luxury-perfume-gifts-for-her/", "label": "Luxury perfume gifts for her"},
+    {"href": "/best/luxury-fragrance-deals/", "label": "Luxury fragrance deals"},
+    {"href": "/gifts/for-him/", "label": "Fragrance gifts for him"},
+    {"href": "/gifts/for-her/", "label": "Fragrance gifts for her"}
    ]
   },
   {

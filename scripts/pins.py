@@ -32,7 +32,7 @@ SANS_REG = os.path.join(FONT_DIR, "SourceSans3-Regular.ttf")
 KEEP = (
     "for mother-in-law", "for father-in-law", "for best friend", "for boyfriend", "for girlfriend", "for husband", "for wife", "for grandma", "for grandpa", "for teachers", "for daughter", "for new mom", "for niece", "for nephew", "for sister", "for brother", "for teens", "for uncle", "for aunt", "for boss", "for son", "his and hers", "for him", "for her", "for mom", "for dad",
     "stocking stuffers", "stocking stuffer", "travel sizes", "gift sets",
-    "under $15", "under $20", "under $25", "under $30", "under $40", "under $50", "under $75",
+    "under $100", "under $15", "under $20", "under $25", "under $30", "under $40", "under $50", "under $75",
 )
 # (eyebrow, hook). The hook is a caption, not a price.
 META = {
@@ -52,6 +52,7 @@ META = {
     "fragrance-gifts-for-college-students": ("COLLEGE", "Noted bottles for a student gift."),
     "stocking-stuffer-fragrances": ("STOCKING", "Bottles, minis, and travel sizes."),
     "luxury-fragrance-gifts": ("LUXURY", "Prestige bottles for a big gift."),
+    "luxury-fragrance-gifts-under-100": ("LUXURY", "Prestige bottles in this budget."),
     "luxury-cologne-gifts-for-him": ("FOR HIM", "Designer and niche colognes for a big gift."),
     "luxury-perfume-gifts-for-her": ("FOR HER", "Designer and niche perfumes for a big gift."),
     "secret-santa-fragrances-under-30": ("SECRET SANTA", "A list for a gift exchange."),

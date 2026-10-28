@@ -1179,7 +1179,9 @@ for r in ROUNDUPS:
     if r["slug"]=="luxury-fragrance-deals":
         gift_split=(f"<p>Gift lists in this range: <a href='{PREFIX}/gifts/luxury-cologne-gifts-for-him/'>luxury cologne gifts for him</a>, "
                     f"<a href='{PREFIX}/gifts/luxury-perfume-gifts-for-her/'>luxury perfume gifts for her</a>, and "
-                    f"<a href='{PREFIX}/gifts/luxury-fragrance-gifts/'>luxury fragrance gifts</a>.</p>")
+                    f"<a href='{PREFIX}/gifts/luxury-fragrance-gifts/'>luxury fragrance gifts</a>. "
+                    f"The bottles here whose checked price is under $100 are on "
+                    f"<a href='{PREFIX}/gifts/luxury-fragrance-gifts-under-100/'>luxury fragrance gifts under $100</a>.</p>")
     body=(f"<h1>{e(r['title'])} ({upd:%b %-d, %Y})</h1><p class='sub'>{n} authentic {r['who']} fragrances {SC}, each at least 15% below its listed price · checked {upd_h}</p>"+(f"<p>{e(r['lead'])}</p>" if r.get('lead') else "")
       +gift_split
       +"<div class='box'><h2 style='margin-top:0'>Quick picks</h2><ul>"+picks(cheap,val,big)+"</ul>"
