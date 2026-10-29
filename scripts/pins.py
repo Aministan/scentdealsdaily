@@ -30,7 +30,7 @@ SANS = os.path.join(FONT_DIR, "SourceSans3-Semibold.ttf")
 SANS_REG = os.path.join(FONT_DIR, "SourceSans3-Regular.ttf")
 # Phrases that stay on one line. Longest first so "for boyfriend" wins over "for".
 KEEP = (
-    "for mother-in-law", "for father-in-law", "for best friend", "for boyfriend", "for girlfriend", "for husband", "for wife", "for grandma", "for grandpa", "for teachers", "for daughter", "for new mom", "for niece", "for nephew", "for sister", "for brother", "for teens", "for uncle", "for aunt", "for boss", "for son", "his and hers", "for him", "for her", "for mom", "for dad",
+    "for mother-in-law", "for father-in-law", "for granddaughter", "for best friend", "for boyfriend", "for girlfriend", "for grandson", "for husband", "for wife", "for grandma", "for grandpa", "for teachers", "for daughter", "for new dad", "for new mom", "for niece", "for nephew", "for sister", "for brother", "for teens", "for uncle", "for aunt", "for boss", "for son", "his and hers", "for him", "for her", "for mom", "for dad",
     "stocking stuffers", "stocking stuffer", "travel sizes", "gift sets",
     "under $100", "under $15", "under $20", "under $25", "under $30", "under $40", "under $50", "under $75",
 )
@@ -81,6 +81,10 @@ META = {
     "his-and-hers-fragrance-gifts": ("COUPLES", "Matched pairs from the same house."),
     "hanukkah-fragrance-gifts": ("HANUKKAH", "A list for eight nights."),
     "fragrance-gifts-for-new-mom": ("NEW MOM", "Lighter bottles for a new parent."),
+    "perfume-gifts-for-granddaughter": ("GRANDDAUGHTER", "Florals and sweet perfumes for a younger gift."),
+    "cologne-gifts-for-grandson": ("GRANDSON", "Fresh and sweet colognes for a younger gift."),
+    "cologne-gifts-for-new-dad": ("NEW DAD", "Lighter bottles for a new parent."),
+    "perfume-gifts-for-mom-under-50": ("FOR MOM", "Women's perfumes in this gift budget."),
     "fragrance-stocking-stuffers-under-25": ("STOCKING", "Bottles, minis, and travel sizes."),
 }
 DEFAULT_EYEBROW = "GIFT GUIDE"
