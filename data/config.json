@@ -1461,7 +1461,7 @@
    "gender": "women",
    "min_price": 50,
    "filled_label": "Christmas perfume gifts for mom",
-   "intro": "Women's perfumes at $50 and up, for someone buying a Christmas gift for their mom or wife. Lowest checked price first. Bottles under $50 stay on the under-$50 and under-$40 perfume gift guides, so this page does not repeat that budget list. We do not call a scent a mom perfume. None of these listings do. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes.",
+   "intro": "Women's perfumes at $50 and up, for someone buying a Christmas gift for their mom or wife. Lowest checked price first. Bottles under $50 stay on perfume gifts for mom under $50 and on the under-$50 and under-$40 perfume gift guides, so this page does not repeat that budget list. We do not call a scent a mom perfume. None of these listings do. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes.",
    "empty": "No women's perfume we checked today is $50 or more, so this page has no list. These guides have bottles we priced.",
    "empty_desc": "Christmas perfume gifts for mom: no women's perfume we checked today is $50 or more. The under-$50 guide lists bottles we did price.",
    "faq": [
@@ -1471,7 +1471,7 @@
     ],
     [
      "Why isn't a $30 perfume on this page?",
-     "Bottles under $50 are on the perfume gifts for her under $40 and under $50. This page starts at $50 so the two lists do not share a bottle."
+     "Bottles under $50 are on perfume gifts for mom under $50, and on perfume gifts for her under $40 and under $50. This page starts at $50 so it does not share a bottle with those lists."
     ]
    ],
    "links": [
@@ -1481,6 +1481,7 @@
     {"href": "/best/vanilla-sweet-fragrance-deals/", "label": "Vanilla and sweet fragrance deals"},
     {"href": "/gifts/for-her/", "label": "All fragrance gifts for her"},
     {"href": "/gifts/fragrance-gifts-for-new-mom/", "label": "Fragrance gifts for new mom"},
+    {"href": "/gifts/perfume-gifts-for-mom-under-50/", "label": "Perfume gifts for mom under $50"},
     {"href": "/gifts/luxury-fragrance-gifts/", "label": "Luxury fragrance gifts"},
     {"href": "/gifts/perfume-gifts-for-girlfriend/", "label": "Perfume gifts for girlfriend"},
     {"href": "/gifts/perfume-gifts-for-wife/", "label": "Perfume gifts for wife"},
@@ -1513,6 +1514,7 @@
    ],
    "links": [
     {"href": "/gifts/cologne-gifts-for-him-under-50/", "label": "Cologne gifts for him under $50"},
+    {"href": "/gifts/cologne-gifts-for-new-dad/", "label": "Cologne gifts for new dad"},
     {"href": "/best/warm-spicy-cologne-deals/", "label": "Warm and spicy cologne deals"},
     {"href": "/best/woody-amber-cologne-deals/", "label": "Woody and amber cologne deals"},
     {"href": "/best/fresh-citrus-cologne-deals/", "label": "Fresh and citrus cologne deals"},
@@ -2296,6 +2298,7 @@
     ]
    ],
    "links": [
+    {"href": "/gifts/cologne-gifts-for-grandson/", "label": "Cologne gifts for grandson"},
     {"href": "/gifts/cologne-gifts-for-brother/", "label": "Cologne gifts for brother"},
     {"href": "/gifts/cologne-gifts-for-nephew/", "label": "Cologne gifts for nephew"},
     {"href": "/gifts/cologne-gifts-for-boyfriend/", "label": "Cologne gifts for boyfriend"},
@@ -2351,6 +2354,7 @@
     ]
    ],
    "links": [
+    {"href": "/gifts/perfume-gifts-for-granddaughter/", "label": "Perfume gifts for granddaughter"},
     {"href": "/gifts/perfume-gifts-for-sister/", "label": "Perfume gifts for sister"},
     {"href": "/gifts/perfume-gifts-for-niece/", "label": "Perfume gifts for niece"},
     {"href": "/gifts/perfume-gifts-for-girlfriend/", "label": "Perfume gifts for girlfriend"},
@@ -2819,6 +2823,10 @@
    ],
    "links": [
     {
+     "href": "/gifts/perfume-gifts-for-granddaughter/",
+     "label": "Perfume gifts for granddaughter"
+    },
+    {
      "href": "/gifts/perfume-gifts-for-sister/",
      "label": "Perfume gifts for sister"
     },
@@ -2906,6 +2914,10 @@
     ]
    ],
    "links": [
+    {
+     "href": "/gifts/cologne-gifts-for-grandson/",
+     "label": "Cologne gifts for grandson"
+    },
     {
      "href": "/gifts/cologne-gifts-for-son/",
      "label": "Cologne gifts for son"
@@ -3184,6 +3196,14 @@
      "label": "Christmas perfume gifts for mom"
     },
     {
+     "href": "/gifts/perfume-gifts-for-mom-under-50/",
+     "label": "Perfume gifts for mom under $50"
+    },
+    {
+     "href": "/gifts/cologne-gifts-for-new-dad/",
+     "label": "Cologne gifts for new dad"
+    },
+    {
      "href": "/gifts/perfume-gifts-for-aunt/",
      "label": "Perfume gifts for aunt"
     },
@@ -3223,6 +3243,225 @@
      "href": "/unisex/",
      "label": "Unisex deals"
     }
+   ]
+  },
+  {
+   "slug": "perfume-gifts-for-granddaughter",
+   "title": "Perfume gifts for granddaughter",
+   "chip": "Gifts for granddaughter",
+   "gender": "women",
+   "ids": [
+    "burberry-london-perfume-eau-de-parfum-for-women",
+    "woman-eau-de-parfum-spray-for-women-by-hugo-boss",
+    "billie-eilish-no-2-eau-de-parfum-perfume-for-women",
+    "olympea-eau-de-parfum-spray-for-women-by-paco-rabanne",
+    "billie-eilish-perfume-eau-de-parfum-for-women",
+    "lancome-la-vie-est-belle-perfume-eau-de-parfum-for-women",
+    "lancome-poeme-perfume-for-women-eau-de-parfum-spray"
+   ],
+   "filled_label": "perfume gifts for a granddaughter",
+   "intro": "A short list of florals and sweeter perfumes for someone buying a Christmas gift for their granddaughter, lowest checked price first. The note line under each card is copied from that retailer's product copy. Perfume gifts for niece keeps Peace Love & Juicy Couture, Eternity Air, CK Beauty, Eternity, and Dylan Blue Pour Femme, which this page leaves off. This page keeps Boss Woman, Olympea, Eilish, and La Vie Est Belle, which the niece list does not. Perfume gifts for daughter keeps Dylan Blue Pour Femme, Bright Crystal Absolu, and Donna Born in Roma, which this page leaves off. This page keeps Burberry London, Boss Woman, and Poême, which the daughter list does not. We do not call a scent a granddaughter perfume, and we do not rank bottles by the wearer's age. None of these listings do. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes.",
+   "empty": "None of the women's bottles on this granddaughter list are in the deals we checked, so this page has no list. These guides have bottles we priced.",
+   "empty_desc": "Perfume gifts for granddaughter: none of the curated women's bottles are in the deals we checked. Other gift guides list bottles we did price.",
+   "choose": [
+    "Read the note line before you match a bottle to her. Burberry London is honeysuckle, rose, and jasmine. Boss Woman is mango, mandarin, and freesia. Eilish No. 2 is bergamot, apple blossom, and palo santo. Those are the lighter daytime bottles. Olympea is mandarin, vanilla, and a salt accord. Eilish is sugar, red berries, and vanilla. La Vie Est Belle is pear, iris, and praline. Poême is mimosa, jasmine, and tuberose. Those are the sweeter bottles. When you do not know what she wears, London or Boss Woman is the familiar floral, and Eilish or La Vie Est Belle is the sweeter one. That is a wear split from the note lines. It is not a quality ranking.",
+    "Use the stickers as a budget ladder, then read the size on the card. Boss Woman is 3.0 oz. Eilish No. 2, Eilish, and Poême are 3.4 oz. Olympea is 1.7 oz. Burberry London and La Vie Est Belle are 1.0 oz bottles, so a lower sticker can still be a small amount of juice. When the name links to a bottle page, that page shows the price per ounce from the checked price and the size.",
+    "Perfume gifts for aunt shares London, Boss Woman, Olympea, and Poême. This page leaves off CK Beauty, Eternity, Green Tea, Clinique Happy, and Bright Crystal Absolu. It keeps Eilish No. 2, Eilish, and La Vie Est Belle, which the aunt list does not. Perfume gifts for sister shares Boss Woman, Olympea, and Eilish. This page keeps London, Eilish No. 2, La Vie Est Belle, and Poême, which the sister list does not. We do not call any of these a granddaughter perfume."
+   ],
+   "faq": [
+    [
+     "How is this different from perfume gifts for niece?",
+     "Perfume gifts for niece keeps Peace Love & Juicy Couture, Eternity Air, CK Beauty, Eternity, and Dylan Blue Pour Femme. This page leaves those off. It keeps Boss Woman, Olympea, Eilish, and La Vie Est Belle, which the niece list does not. The two pages share Burberry London, Eilish No. 2, and Poême."
+    ],
+    [
+     "How is this different from perfume gifts for daughter?",
+     "Perfume gifts for daughter keeps Dylan Blue Pour Femme, Bright Crystal Absolu, and Donna Born in Roma. This page leaves those off. It keeps Burberry London, Boss Woman, and Poême, which the daughter list does not. The two pages share Eilish No. 2, Olympea, Eilish, and La Vie Est Belle."
+    ],
+    [
+     "Do you call these granddaughter perfumes?",
+     "No. None of these listings say that. The page is a gift list of women's perfumes whose retailer notes are floral, fruity, or sweet. It is not a ranking of who wears them."
+    ],
+    [
+     "Which bottle is the safer gift when I do not know what she wears?",
+     "Stay with a familiar floral and read the note line. Boss Woman is 3.0 oz. Burberry London is familiar too, and it is a 1.0 oz bottle, so check the size on the card. Eilish is the sweeter bottle, and it is 3.4 oz."
+    ]
+   ],
+   "links": [
+    {"href": "/gifts/perfume-gifts-for-niece/", "label": "Perfume gifts for niece"},
+    {"href": "/gifts/perfume-gifts-for-daughter/", "label": "Perfume gifts for daughter"},
+    {"href": "/gifts/perfume-gifts-for-sister/", "label": "Perfume gifts for sister"},
+    {"href": "/gifts/perfume-gifts-for-aunt/", "label": "Perfume gifts for aunt"},
+    {"href": "/gifts/cologne-gifts-for-grandson/", "label": "Cologne gifts for grandson"},
+    {"href": "/gifts/perfume-gifts-for-girlfriend/", "label": "Perfume gifts for girlfriend"},
+    {"href": "/gifts/for-her/", "label": "All fragrance gifts for her"},
+    {"href": "/best/floral-perfume-deals/", "label": "Floral perfume deals"},
+    {"href": "/best/vanilla-sweet-fragrance-deals/", "label": "Vanilla and sweet fragrance deals"},
+    {"href": "/women/", "label": "All women's deals"}
+   ]
+  },
+  {
+   "slug": "cologne-gifts-for-grandson",
+   "title": "Cologne gifts for grandson",
+   "chip": "Gifts for grandson",
+   "gender": "men",
+   "ids": [
+    "calvin-klein-free-mens-eau-de-toilette-spray",
+    "azzaro-chrome-legend-mens-eau-de-toilette-spray",
+    "burberry-weekend-mens-eau-de-toilette-spray",
+    "hugo-boss-in-motion-mens-eau-de-toilette-spray",
+    "the-most-wanted-parfum-cologne",
+    "stronger-with-you-intensely-cologne-for-men",
+    "uomo-intense-by-valentino-for-men-eau-de-parfum-spray"
+   ],
+   "filled_label": "cologne gifts for a grandson",
+   "intro": "A short list of fresh daytime colognes and a few sweeter evening bottles for someone buying a Christmas gift for their grandson, lowest checked price first. The note line under each card is copied from that retailer's product copy. Cologne gifts for nephew keeps CK One, CK Everyone, Eros Flame, Eros, and Le Beau, which this page leaves off. This page keeps CK Free, Burberry Weekend, Boss In Motion, and Uomo Born in Roma Intense, which the nephew list does not. Cologne gifts for grandpa keeps CK One, Bottled Unlimited, Versace Pour Homme, Legend Spirit, Acqua di Gio, and Mefisto, which this page leaves off. The two pages share Burberry Weekend. We do not call a scent a grandson cologne, and we do not rank bottles by the wearer's age. None of these listings do. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes.",
+   "empty": "None of the bottles on this grandson list are in the deals we checked, so this page has no list. These guides have bottles we priced.",
+   "empty_desc": "Cologne gifts for grandson: none of the curated bottles are in the deals we checked. Other gift guides list bottles we did price.",
+   "choose": [
+    "Split the list by the retailer note line. CK Free is juniper, coffee, and Virginia cedar. Chrome Legend is green apple and tea. Burberry Weekend is lemon, grapefruit, and mandarin. Boss In Motion is orange, cardamom, and cinnamon. Those are the daytime bottles. The Most Wanted Parfum is ginger, woods, and bourbon vanilla. Stronger With You Intensely is toffee, cinnamon, and vanilla. Uomo Born in Roma Intense is vanilla, lavender, and vetiver. Those are the sweeter bottles. When you have never smelled what he wears, Chrome Legend or Weekend is the lower-risk daily gift. Most Wanted or Stronger With You Intensely fits when you already know he likes a sweeter scent. The note line is the retailer's. This is not a quality ranking.",
+    "Use the stickers as a budget ladder, then read the size on the card. CK Free and Uomo Born in Roma Intense are 3.4 oz. Chrome Legend is 4.2 oz. Boss In Motion is 3.0 oz. Burberry Weekend, The Most Wanted, and Stronger With You Intensely are 1.7 oz, so a mid sticker can still be a small amount of juice. When the name links to a bottle page, that page shows the price per ounce from the checked price and the size.",
+    "Cologne gifts for son shares Chrome Legend, Weekend, and In Motion. This page leaves off Bottled Unlimited, Eros Flame, Pour Homme, Eros, Coach, and Le Beau. It keeps CK Free, The Most Wanted, Stronger With You Intensely, and Uomo Born in Roma Intense, which the son list does not. We do not call any of these a grandson cologne."
+   ],
+   "faq": [
+    [
+     "How is this different from cologne gifts for nephew?",
+     "Cologne gifts for nephew keeps CK One, CK Everyone, Eros Flame, Eros, and Le Beau. This page leaves those off. It keeps CK Free, Burberry Weekend, Boss In Motion, and Uomo Born in Roma Intense, which the nephew list does not. The two pages share Chrome Legend, The Most Wanted Parfum, and Stronger With You Intensely."
+    ],
+    [
+     "How is this different from cologne gifts for grandpa?",
+     "Cologne gifts for grandpa keeps CK One, Bottled Unlimited, Versace Pour Homme, Legend Spirit, Acqua di Gio, and Mefisto. This page leaves those off. It keeps CK Free, Chrome Legend, Boss In Motion, The Most Wanted, Stronger With You Intensely, and Uomo Born in Roma Intense. The two pages share Burberry Weekend."
+    ],
+    [
+     "Do you call these grandson colognes?",
+     "No. None of these listings say that. The page is a gift list of men's colognes whose retailer notes are fresh, spicy, or sweet. It is not a ranking of who wears them."
+    ],
+    [
+     "Which bottle is the safer gift when I do not know what he wears?",
+     "Start with a fresh daytime bottle and read the note line. Chrome Legend is 4.2 oz. Burberry Weekend is familiar too, and it is 1.7 oz, so check the size on the card. The Most Wanted Parfum is sweeter, and it is also 1.7 oz."
+    ]
+   ],
+   "links": [
+    {"href": "/gifts/cologne-gifts-for-nephew/", "label": "Cologne gifts for nephew"},
+    {"href": "/gifts/cologne-gifts-for-son/", "label": "Cologne gifts for son"},
+    {"href": "/gifts/cologne-gifts-for-grandpa/", "label": "Cologne gifts for grandpa"},
+    {"href": "/gifts/cologne-gifts-for-brother/", "label": "Cologne gifts for brother"},
+    {"href": "/gifts/perfume-gifts-for-granddaughter/", "label": "Perfume gifts for granddaughter"},
+    {"href": "/gifts/cologne-gifts-for-new-dad/", "label": "Cologne gifts for new dad"},
+    {"href": "/gifts/for-him/", "label": "All fragrance gifts for him"},
+    {"href": "/gifts/cologne-gifts-for-him-under-50/", "label": "Cologne gifts for him under $50"},
+    {"href": "/best/fresh-citrus-cologne-deals/", "label": "Fresh and citrus cologne deals"},
+    {"href": "/best/vanilla-sweet-fragrance-deals/", "label": "Vanilla and sweet fragrance deals"},
+    {"href": "/men/", "label": "All men's deals"}
+   ]
+  },
+  {
+   "slug": "cologne-gifts-for-new-dad",
+   "title": "Cologne gifts for new dad",
+   "chip": "Gifts for new dad",
+   "genders": [
+    "men",
+    "unisex"
+   ],
+   "ids": [
+    "calvin-klein-free-mens-eau-de-toilette-spray",
+    "calvin-klein-ck-one-eau-de-toilette-unisex-fragrance",
+    "ck-everyone-unisex-fragrance",
+    "boss-bottled-unlimited-by-hugo-boss-for-men-eau-de-toilette-spray",
+    "coach-for-men-eau-de-toilette",
+    "uomo-intense-by-valentino-for-men-eau-de-parfum-spray"
+   ],
+   "filled_label": "cologne gifts for a new dad",
+   "intro": "A short list of lighter daytime colognes for someone buying a Christmas gift for a new dad, lowest checked price first. It keeps men's colognes and two unisex bottles. Cologne gifts for dad is every men's cologne at a checked price of $50 or more, including Eros, Acqua di Gio, Le Beau, and Mefisto. This page leaves those off. It keeps CK Free, CK One, CK Everyone, and Bottled Unlimited, which are under that floor. We do not call a scent a new-dad cologne, and we do not rank bottles by who just had a baby. None of these listings do. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes.",
+   "empty": "None of the bottles on this new-dad list are in the deals we checked, so this page has no list. These guides have bottles we priced.",
+   "empty_desc": "Cologne gifts for new dad: none of the curated bottles are in the deals we checked. Other gift guides list bottles we did price.",
+   "choose": [
+    "Read the note line before you match a bottle. CK Free is juniper, coffee, and Virginia cedar. CK One is lemon, bergamot, and green tea, and it is unisex. CK Everyone is orange oil, ginger, and tea, and it is unisex. Bottled Unlimited is mint, grapefruit, and sandalwood. Coach is pear, bergamot, and grapefruit. Uomo Born in Roma Intense is vanilla, lavender, and vetiver. When you do not know what he wears, CK One or Bottled Unlimited is the lighter daily bottle, and Coach is the fresh fruity one. The note line is the retailer's. This is not a quality ranking.",
+    "There is no price cap written on the guide. The list is these six ids, and a bottle that leaves the deals drops off on the next rebuild. Read the size on the card. CK Free and Uomo Born in Roma Intense are 3.4 oz. CK Everyone and Bottled Unlimited are 3.3 oz. Coach is 2.0 oz. CK One is 1.7 oz, so a modest sticker can still be a small amount of juice. When the name links to a bottle page, that page shows the price per ounce from the checked price and the size.",
+    "Cologne gifts for uncle shares CK Free and Bottled Unlimited. This page leaves off Chrome Legend, Weekend, Pour Homme, Legend Spirit, and Acqua di Gio. It keeps CK One, CK Everyone, Coach, and Uomo Born in Roma Intense, which the uncle list does not. Cologne gifts for grandson shares CK Free and Uomo Born in Roma Intense. This page keeps CK One, CK Everyone, Bottled Unlimited, and Coach, which the grandson list does not. We do not call any of these a new-dad cologne."
+   ],
+   "faq": [
+    [
+     "How is this different from cologne gifts for dad?",
+     "Cologne gifts for dad lists every men's cologne at $50 or more. This page leaves most of that list off, including Eros, Acqua di Gio, Le Beau, and Mefisto. It keeps CK Free, CK One, CK Everyone, and Bottled Unlimited, which are under that floor. Coach and Uomo Born in Roma Intense can sit on both pages while their checked prices stay at $50 or more."
+    ],
+    [
+     "How is this different from cologne gifts for uncle?",
+     "Cologne gifts for uncle keeps Chrome Legend, Burberry Weekend, Versace Pour Homme, Legend Spirit, and Acqua di Gio. This page leaves those off. It keeps CK One, CK Everyone, Coach, and Uomo Born in Roma Intense, which the uncle list does not. The two pages share CK Free and Bottled Unlimited."
+    ],
+    [
+     "Do you call these new-dad colognes?",
+     "No. None of these listings say that. The page is a gift list of lighter men's colognes and two unisex bottles whose retailer notes are citrus, tea, or fresh. It is not a ranking of who wears them."
+    ],
+    [
+     "Which bottle is the safer gift when I do not know what he wears?",
+     "Start with a light daytime bottle and read the note line. Bottled Unlimited is 3.3 oz. CK One is the unisex citrus, and it is 1.7 oz, so check the size on the card. Coach is the fresh fruity bottle, and it is 2.0 oz."
+    ]
+   ],
+   "links": [
+    {"href": "/gifts/cologne-gifts-for-dad/", "label": "Cologne gifts for dad"},
+    {"href": "/gifts/fragrance-gifts-for-new-mom/", "label": "Fragrance gifts for new mom"},
+    {"href": "/gifts/cologne-gifts-for-uncle/", "label": "Cologne gifts for uncle"},
+    {"href": "/gifts/cologne-gifts-for-grandson/", "label": "Cologne gifts for grandson"},
+    {"href": "/gifts/cologne-gifts-for-husband/", "label": "Cologne gifts for husband"},
+    {"href": "/gifts/cologne-gifts-for-him-under-50/", "label": "Cologne gifts for him under $50"},
+    {"href": "/best/fresh-citrus-cologne-deals/", "label": "Fresh and citrus cologne deals"},
+    {"href": "/gifts/for-him/", "label": "All fragrance gifts for him"},
+    {"href": "/men/", "label": "All men's deals"},
+    {"href": "/unisex/", "label": "Unisex deals"}
+   ]
+  },
+  {
+   "slug": "perfume-gifts-for-mom-under-50",
+   "title": "Perfume gifts for mom under $50",
+   "chip": "Mom gifts under $50",
+   "gender": "women",
+   "max_price": 50,
+   "ids": [
+    "eternity-air-eau-de-parfum-spray-for-women-by-calvin-klein",
+    "calvin-klein-beauty-perfume-eau-de-parfum-for-women",
+    "calvin-klein-eternity-womens-eau-de-parfum-spray",
+    "elizabeth-arden-green-tea-scent-women-eau-de-parfum-spray",
+    "billie-eilish-no-2-eau-de-parfum-perfume-for-women",
+    "clinique-happy-women-eau-de-parfum-spray"
+   ],
+   "filled_label": "perfume gifts for mom under $50",
+   "intro": "Women's perfumes under $50 for someone buying a Christmas gift for their mom, lowest checked price first. Christmas perfume gifts for mom starts at a checked price of $50 and keeps Olympea, Dylan Blue Pour Femme, Eilish, La Vie Est Belle, and the other women's bottles at that floor. None of those are on this list. Fragrance gifts for new mom keeps Burberry London, Boss Woman, CK One, and CK Everyone, which this page leaves off. This page keeps Eternity and Eilish No. 2, which the new-mom list does not. Perfume gifts for her under $50 is every women's perfume under $50, including Burberry Touch and Romance, which have no note line. This page leaves those off. We do not call a scent a mom perfume. None of these listings do. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes.",
+   "empty": "None of the bottles on this mom list are under $50 in the deals we checked, so this page has no list. These guides have bottles we priced.",
+   "empty_desc": "Perfume gifts for mom under $50: none of the curated women's bottles are under $50 in the deals we checked. Other gift guides list bottles we did price.",
+   "choose": [
+    "Read the note line before you match a bottle. Eternity Air is grapefruit, black currant, and peony. CK Beauty is jasmine and Virginia cedar. Eternity is freesia, lily, and rose. Green Tea is lemon, bergamot, and green tea. Eilish No. 2 is bergamot, apple blossom, and palo santo. Clinique Happy is blood grapefruit and lily of the valley. When you do not know what she wears, Green Tea or Eternity is the familiar daily bottle, and Eternity Air is the lighter fruity one. The note line is the retailer's. This is not a quality ranking.",
+    "The cap is a checked price under $50. A bottle at $50 or more drops off on the next rebuild and stays on Christmas perfume gifts for mom. Read the size on the card. Eternity Air, CK Beauty, Eternity, Green Tea, and Eilish No. 2 are 3.4 oz. Clinique Happy is the 1.0 oz bottle, so a higher sticker can still be a small amount of juice. When the name links to a bottle page, that page shows the price per ounce from the checked price and the size.",
+    "Perfume gifts for aunt shares CK Beauty, Eternity, Green Tea, and Clinique Happy, and it also keeps bottles at $50 and up. This page leaves off London, Boss Woman, Olympea, Bright Crystal Absolu, and Poême. It keeps Eternity Air and Eilish No. 2, which the aunt list does not. We do not call any of these a mom perfume."
+   ],
+   "faq": [
+    [
+     "How is this different from Christmas perfume gifts for mom?",
+     "Christmas perfume gifts for mom lists women's perfumes at $50 or more, including Olympea, Dylan Blue Pour Femme, Eilish, and La Vie Est Belle. This page leaves those off. It keeps women's perfumes under $50. The two pages do not share a bottle."
+    ],
+    [
+     "How is this different from fragrance gifts for new mom?",
+     "Fragrance gifts for new mom keeps Burberry London, Boss Woman, CK One, and CK Everyone. This page leaves those off. It keeps Eternity and Eilish No. 2, which the new-mom list does not. The two pages share Eternity Air, CK Beauty, Green Tea, and Clinique Happy."
+    ],
+    [
+     "How is this different from perfume gifts for her under $50?",
+     "That page lists every women's perfume we checked under $50, including Burberry Touch and Romance, which have no note line. This page is the shorter noted list and leaves those two off, along with Peace Love & Juicy Couture, London, and Boss Woman."
+    ],
+    [
+     "Do you call these mom perfumes?",
+     "No. None of these listings say that. The page is a gift list of women's perfumes under $50 whose retailer notes are citrus, tea, or floral. It is not a ranking of who wears them."
+    ]
+   ],
+   "links": [
+    {"href": "/gifts/christmas-perfume-gifts-for-mom/", "label": "Christmas perfume gifts for mom"},
+    {"href": "/gifts/fragrance-gifts-for-new-mom/", "label": "Fragrance gifts for new mom"},
+    {"href": "/gifts/perfume-gifts-for-her-under-50/", "label": "Perfume gifts for her under $50"},
+    {"href": "/gifts/perfume-gifts-for-her-under-40/", "label": "Perfume gifts for her under $40"},
+    {"href": "/gifts/perfume-gifts-for-her-under-30/", "label": "Perfume gifts for her under $30"},
+    {"href": "/gifts/perfume-gifts-for-grandma/", "label": "Perfume gifts for grandma"},
+    {"href": "/best/fresh-perfume-deals-under-50/", "label": "Fresh perfume deals under $50"},
+    {"href": "/best/floral-perfume-deals/", "label": "Floral perfume deals"},
+    {"href": "/gifts/for-her/", "label": "All fragrance gifts for her"},
+    {"href": "/women/", "label": "All women's deals"}
    ]
   }
  ],

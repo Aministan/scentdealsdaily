@@ -1,5 +1,5 @@
 # ScentDealsDaily
-> Daily-checked discounts on authentic designer fragrances at reputable retailers, plus a cited dupes directory. Last updated 2026-10-27T16:37:34Z.
+> Daily-checked discounts on authentic designer fragrances at reputable retailers, plus a cited dupes directory. Last updated 2026-10-28T17:09:47Z.
 
 ## Today's deals (price USD, size, retailer, % off listed compare-at)
 - Juicy Couture Peace Love & Juicy Couture Perfume 3.4 oz.: $20.95 (was $89.00, -76%) at FragranceShop: https://www.fragranceshop.com/product/peace-love-juicy-couture-perfume-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz
@@ -11,7 +11,6 @@
 - Calvin Klein Eternity Perfume 3.4 oz.: $29.95 (was $82.00, -63%) at FragranceShop: https://www.fragranceshop.com/product/eternity-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz
 - Calvin Klein CK One 1.7 oz.: $24.95 (was $59.00, -58%) at Perfumania: https://www.perfumania.com/products/calvin-klein-ck-one-eau-de-toilette-unisex-fragrance?variant=31838794711173
 - Hugo Boss Woman Perfume 3.0 oz.: $25.95 (was $60.00, -57%) at FragranceShop: https://www.fragranceshop.com/product/boss-woman-for-women/?attribute_pa_size=eau-de-parfum-spray-3-0-oz
-- Bvlgari Bvlgari Man Wood Neroli Cologne 3.4 oz.: $46.95 (was $107.00, -56%) at FragranceShop: https://www.fragranceshop.com/product/bvlgari-man-wood-neroli-for-men/?attribute_pa_size=eau-de-parfum-spray-3-4-oz
 - Azzaro Azzaro Cologne 1.7 oz.: $17.95 (was $40.00, -55%) at FragranceShop: https://www.fragranceshop.com/product/azzaro-for-men/?attribute_pa_size=eau-de-toilette-spray-1-7-oz
 - Azzaro The Most Wanted Parfum Cologne 1.7 oz.: $53.95 (was $120.00, -55%) at FragranceShop: https://www.fragranceshop.com/product/azzaro-the-most-wanted-cologne-for-men/?attribute_pa_size=parfum-spray-1-7-oz
 - Hugo Boss Boss Bottled Unlimited Cologne 3.3 oz.: $31.95 (was $65.00, -51%) at FragranceShop: https://www.fragranceshop.com/product/boss-bottled-unlimited-for-men/?attribute_pa_size=eau-de-toilette-spray-3-3-oz
@@ -78,7 +77,6 @@ https://scentdealsdaily.com/fragrance/calvin-klein-ck-everyone-unisex-fragrance/
 https://scentdealsdaily.com/fragrance/calvin-klein-eternity-perfume/
 https://scentdealsdaily.com/fragrance/calvin-klein-ck-one/
 https://scentdealsdaily.com/fragrance/hugo-boss-woman-perfume/
-https://scentdealsdaily.com/fragrance/bvlgari-bvlgari-man-wood-neroli-cologne/
 https://scentdealsdaily.com/fragrance/azzaro-azzaro-cologne/
 https://scentdealsdaily.com/fragrance/azzaro-the-most-wanted-parfum-cologne/
 https://scentdealsdaily.com/fragrance/hugo-boss-boss-bottled-unlimited-cologne/
@@ -209,4 +207,8 @@ https://scentdealsdaily.com/gifts/cologne-gifts-for-nephew/
 https://scentdealsdaily.com/gifts/his-and-hers-fragrance-gifts/
 https://scentdealsdaily.com/gifts/hanukkah-fragrance-gifts/
 https://scentdealsdaily.com/gifts/fragrance-gifts-for-new-mom/
+https://scentdealsdaily.com/gifts/perfume-gifts-for-granddaughter/
+https://scentdealsdaily.com/gifts/cologne-gifts-for-grandson/
+https://scentdealsdaily.com/gifts/cologne-gifts-for-new-dad/
+https://scentdealsdaily.com/gifts/perfume-gifts-for-mom-under-50/
 https://scentdealsdaily.com/black-friday-fragrance-deals/
