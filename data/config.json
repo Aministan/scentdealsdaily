@@ -539,7 +539,9 @@
    "b_notes": "Lemon, bergamot, neroli; hyacinth, clary sage, geranium; tonka bean, musk, amber",
    "intro": "Two of the best-known fresh designer colognes: Armani's Acqua di Gio (1996), the aquatic citrus benchmark, and Versace Pour Homme (2008), a brighter citrus-aromatic with a soft amber finish. Both are eau de toilettes and both are on sale today, in different bottle sizes, so check the per-ounce row.",
    "difference": "Acqua di Gio is an aquatic: citrus and neroli over marine notes and rosemary, drying down to white musk, cedar and patchouli. Versace Pour Homme skips the sea notes for a lemon, bergamot and neroli opening, an herbal clary sage, geranium and hyacinth heart and a smoother tonka, musk and amber base.",
-   "pick": "Pick Acqua di Gio for the classic beachy, aquatic fresh scent; pick Versace Pour Homme for a cleaner citrus-herbal scent with a slightly sweeter dry-down."
+   "pick": "Pick Acqua di Gio for the classic beachy, aquatic fresh scent; pick Versace Pour Homme for a cleaner citrus-herbal scent with a slightly sweeter dry-down.",
+   "title_tag": "Acqua di Gio vs Pour Homme",
+   "meta_hook": "Buy the aquatic classic or the citrus-herbal cologne."
   },
   {
    "slug": "stronger-with-you-intensely-vs-born-in-roma-intense",
@@ -572,7 +574,9 @@
    "b_notes": "Black currant, pink pepper, bergamot; jasmine sambac, jasmine tea; bourbon vanilla, cashmeran, guaiac wood",
    "intro": "Two best-selling sweet floral perfumes: Lancôme's La Vie Est Belle (2012), the iris-and-praline gourmand, and Valentino's Donna Born in Roma (2019), built on jasmine and bourbon vanilla. Both are eaux de parfum that open on black currant, but they're on sale today in different sizes, so check the per-ounce row.",
    "difference": "La Vie Est Belle centers on iris with jasmine and orange blossom over a sweet praline, vanilla, patchouli and tonka base, so it's the more dessert-like of the two. Donna Born in Roma adds pink pepper and bergamot up top, puts a trio of jasmines in the heart and dries down to bourbon vanilla, cashmeran and smoky guaiac wood, so it reads more floral and woody.",
-   "pick": "Pick La Vie Est Belle for the classic sweet iris-praline gourmand; pick Donna Born in Roma if you'd rather have jasmine up front and a smoother, woodier vanilla."
+   "pick": "Pick La Vie Est Belle for the classic sweet iris-praline gourmand; pick Donna Born in Roma if you'd rather have jasmine up front and a smoother, woodier vanilla.",
+   "title_tag": "La Vie Est Belle vs Donna Roma",
+   "meta_hook": "Buy the praline gourmand or the jasmine vanilla."
   },
   {
    "slug": "eros-flame-vs-the-most-wanted-parfum",
@@ -594,7 +598,9 @@
    "b_notes": "Yuzu, raspberry; peony, lotus, magnolia; musk, mahogany, amber",
    "intro": "Two Versace eaux de parfum shoppers compare when they want a bright feminine scent: Dylan Blue Pour Femme, built on green apple and rose, and Bright Crystal Absolu, the richer yuzu, peony and amber version of Bright Crystal. Both are discounted today, in different sizes, so check the per-ounce row before you decide the lower sticker is the better buy.",
    "difference": "Dylan Blue Pour Femme opens with Granny Smith apple, black currant, clover and shiso, moves through peach, rose and jasmine, and dries down to musk, white woods and patchouli, so it stays fresh and a little green. Bright Crystal Absolu opens with yuzu and raspberry, puts peony, lotus and magnolia in the heart, and finishes on musk, mahogany and amber, so it is warmer and more resinous once the fruit fades.",
-   "pick": "Pick Dylan Blue Pour Femme for a fresher, greener daytime scent in the larger bottle; pick Bright Crystal Absolu if you want peony up front and a warmer amber and mahogany dry-down."
+   "pick": "Pick Dylan Blue Pour Femme for a fresher, greener daytime scent in the larger bottle; pick Bright Crystal Absolu if you want peony up front and a warmer amber and mahogany dry-down.",
+   "title_tag": "Dylan Blue vs Crystal Absolu",
+   "meta_hook": "Buy the apple-rose perfume or the peony-amber one."
   },
   {
    "slug": "green-tea-vs-eternity-air",
@@ -772,7 +778,7 @@
   },
   {
    "slug": "vanilla-sweet-fragrance-deals",
-   "title": "Best Vanilla & Sweet Fragrance Deals",
+   "title": "Best Sweet Vanilla Deals to Buy",
    "noun": "vanilla fragrance",
    "who": "men's and women's",
    "scope": "on sale",
@@ -833,7 +839,8 @@
      "What does gourmand mean in perfume?",
      "A gourmand fragrance is built around edible-smelling notes such as vanilla, caramel, praline, toffee, cacao or coffee. Vanilla is the most common; pairing it with florals (La Vie Est Belle, Donna Born in Roma) or lavender and spice (Born in Roma Intense, Stronger With You Intensely) changes how sweet it reads."
     ]
-   ]
+   ],
+   "meta_lead": "Sweet vanilla perfume and cologne to buy."
   },
   {
    "slug": "floral-perfume-deals",
@@ -1352,6 +1359,8 @@
    "links": [
     {"href": "/best/fragrance-deals-under-30/", "label": "Fragrance deals under $30"},
     {"href": "/best/cologne-deals-under-30/", "label": "Cologne deals under $30"},
+    {"href": "/gifts/perfume-gifts-for-teen-girls/", "label": "Perfume gifts for teen girls"},
+    {"href": "/gifts/cologne-gifts-for-teen-boys/", "label": "Cologne gifts for teen boys"},
     {"href": "/best/perfume-deals-under-30/", "label": "Perfume deals under $30"},
     {"href": "/gifts/stocking-stuffer-fragrances/", "label": "Fragrance stocking stuffers under $25"},
     {"href": "/gifts/fragrance-gifts-for-coworkers-under-40/", "label": "Fragrance gifts for coworkers under $40"},
@@ -1480,6 +1489,7 @@
     {"href": "/best/floral-perfume-deals/", "label": "Floral perfume deals"},
     {"href": "/best/vanilla-sweet-fragrance-deals/", "label": "Vanilla and sweet fragrance deals"},
     {"href": "/gifts/for-her/", "label": "All fragrance gifts for her"},
+    {"href": "/gifts/christmas-cologne-gifts-for-dad/", "label": "Christmas cologne gifts for dad"},
     {"href": "/gifts/fragrance-gifts-for-new-mom/", "label": "Fragrance gifts for new mom"},
     {"href": "/gifts/perfume-gifts-for-mom-under-50/", "label": "Perfume gifts for mom under $50"},
     {"href": "/gifts/luxury-fragrance-gifts/", "label": "Luxury fragrance gifts"},
@@ -1513,6 +1523,7 @@
     ]
    ],
    "links": [
+    {"href": "/gifts/christmas-cologne-gifts-for-dad/", "label": "Christmas cologne gifts for dad"},
     {"href": "/gifts/cologne-gifts-for-him-under-50/", "label": "Cologne gifts for him under $50"},
     {"href": "/gifts/cologne-gifts-for-new-dad/", "label": "Cologne gifts for new dad"},
     {"href": "/best/warm-spicy-cologne-deals/", "label": "Warm and spicy cologne deals"},
@@ -1523,6 +1534,7 @@
     {"href": "/gifts/cologne-gifts-for-boyfriend/", "label": "Cologne gifts for boyfriend"},
     {"href": "/gifts/cologne-gifts-for-husband/", "label": "Cologne gifts for husband"},
     {"href": "/gifts/cologne-gifts-for-grandpa/", "label": "Cologne gifts for grandpa"},
+    {"href": "/gifts/cologne-gifts-for-stepdad/", "label": "Cologne gifts for stepdad"},
     {"href": "/gifts/cologne-gifts-for-brother/", "label": "Cologne gifts for brother"},
     {"href": "/men/", "label": "All men's deals"}
    ]
@@ -2237,6 +2249,7 @@
     ]
    ],
    "links": [
+    {"href": "/gifts/cologne-gifts-for-stepdad/", "label": "Cologne gifts for stepdad"},
     {"href": "/gifts/perfume-gifts-for-aunt/", "label": "Perfume gifts for aunt"},
     {"href": "/gifts/perfume-gifts-for-mother-in-law/", "label": "Perfume gifts for mother-in-law"},
     {"href": "/gifts/cologne-gifts-for-uncle/", "label": "Cologne gifts for uncle"},
@@ -2298,6 +2311,7 @@
     ]
    ],
    "links": [
+    {"href": "/gifts/cologne-gifts-for-teen-boys/", "label": "Cologne gifts for teen boys"},
     {"href": "/gifts/cologne-gifts-for-grandson/", "label": "Cologne gifts for grandson"},
     {"href": "/gifts/cologne-gifts-for-brother/", "label": "Cologne gifts for brother"},
     {"href": "/gifts/cologne-gifts-for-nephew/", "label": "Cologne gifts for nephew"},
@@ -2354,6 +2368,7 @@
     ]
    ],
    "links": [
+    {"href": "/gifts/perfume-gifts-for-teen-girls/", "label": "Perfume gifts for teen girls"},
     {"href": "/gifts/perfume-gifts-for-granddaughter/", "label": "Perfume gifts for granddaughter"},
     {"href": "/gifts/perfume-gifts-for-sister/", "label": "Perfume gifts for sister"},
     {"href": "/gifts/perfume-gifts-for-niece/", "label": "Perfume gifts for niece"},
@@ -2823,6 +2838,10 @@
    ],
    "links": [
     {
+     "href": "/gifts/perfume-gifts-for-teen-girls/",
+     "label": "Perfume gifts for teen girls"
+    },
+    {
      "href": "/gifts/perfume-gifts-for-granddaughter/",
      "label": "Perfume gifts for granddaughter"
     },
@@ -2914,6 +2933,10 @@
     ]
    ],
    "links": [
+    {
+     "href": "/gifts/cologne-gifts-for-teen-boys/",
+     "label": "Cologne gifts for teen boys"
+    },
     {
      "href": "/gifts/cologne-gifts-for-grandson/",
      "label": "Cologne gifts for grandson"
@@ -3010,6 +3033,10 @@
     ]
    ],
    "links": [
+    {
+     "href": "/gifts/fragrance-gifts-for-couples/",
+     "label": "Fragrance gifts for couples"
+    },
     {
      "href": "/gifts/perfume-gifts-for-wife/",
      "label": "Perfume gifts for wife"
@@ -3398,6 +3425,8 @@
     ]
    ],
    "links": [
+    {"href": "/gifts/cologne-gifts-for-stepdad/", "label": "Cologne gifts for stepdad"},
+    {"href": "/gifts/christmas-cologne-gifts-for-dad/", "label": "Christmas cologne gifts for dad"},
     {"href": "/gifts/cologne-gifts-for-dad/", "label": "Cologne gifts for dad"},
     {"href": "/gifts/fragrance-gifts-for-new-mom/", "label": "Fragrance gifts for new mom"},
     {"href": "/gifts/cologne-gifts-for-uncle/", "label": "Cologne gifts for uncle"},
@@ -3463,7 +3492,447 @@
     {"href": "/gifts/for-her/", "label": "All fragrance gifts for her"},
     {"href": "/women/", "label": "All women's deals"}
    ]
-  }
+  },
+ {
+  "slug": "christmas-cologne-gifts-for-dad",
+  "title": "Christmas cologne gifts for dad",
+  "chip": "Christmas gifts for dad",
+  "gender": "men",
+  "min_price": 50,
+  "ids": [
+   "legend-spirit-eau-de-toilette-spray-for-men-by-montblanc",
+   "giorgio-armani-acqua-di-gio-eau-de-toilette-cologne-for-men",
+   "le-beau-eau-de-toilette-spray-for-men-by-jean-paul-gaultier",
+   "valentino-uomo-born-in-roma-cologne-eau-de-toilette-for-men",
+   "uomo-intense-by-valentino-for-men-eau-de-parfum-spray",
+   "casamorati-mefisto-cologne"
+  ],
+  "filled_label": "Christmas cologne gifts for dad",
+  "intro": "A short list of men's colognes for someone buying a Christmas gift for their dad, lowest checked price first. Cologne gifts for dad is every men's cologne at a checked price of $50 or more. That page also keeps Eros, The Most Wanted Parfum, Coach, and Stronger With You Intensely, plus Wanted by Night, Bottled No. 6, and Burberry Hero, which have no note line. This page leaves those off. It keeps Legend Spirit, Acqua di Gio, Le Beau, Uomo Born in Roma, Uomo Born in Roma Intense, and Mefisto. Christmas perfume gifts for mom is the women's list at that same floor. This is the men's counterpart, and it is a noted list rather than every bottle at $50 or more. We do not call a scent a dad cologne. None of these listings do. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes.",
+  "empty": "None of the bottles on this Christmas dad list are at $50 or more in the deals we checked, so this page has no list. These guides have bottles we priced.",
+  "empty_desc": "Christmas cologne gifts for dad: none of the curated men's colognes are at $50 or more in the deals we checked. Other gift guides list bottles we did price.",
+  "choose": [
+   "Split the list by the retailer note line. Legend Spirit is grapefruit, bergamot, and lavender. Acqua di Gio is lime, bergamot, and neroli. Mefisto is grapefruit, bergamot, and Amalfi lemon. Those are the fresh bottles. Le Beau is bergamot, coconut, and tonka. Uomo Born in Roma is a salt accord, ginger, and sage. Uomo Born in Roma Intense is vanilla, lavender, and vetiver. Those are the warmer bottles. When you do not know what he wears, Acqua di Gio or Legend Spirit is the fresh daily gift. Le Beau is the sweeter one. The note line is the retailer's. This is not a quality ranking.",
+   "The floor is a checked price of $50 or more. A bottle that falls under $50 drops off on the next rebuild and stays on cologne gifts for him under $50. Read the size on the card. Legend Spirit and Uomo Born in Roma are 1.7 oz. Acqua di Gio, Uomo Born in Roma Intense, and Mefisto are 3.4 oz. Le Beau is 4.2 oz, so the higher sticker is also more juice. When the name links to a bottle page, that page shows the price per ounce from the checked price and the size.",
+   "Cologne gifts for father-in-law shares Legend Spirit, Acqua di Gio, and Uomo Born in Roma. This page leaves off Boss In Motion, Versace Pour Homme, and Coach. It keeps Le Beau, Uomo Born in Roma Intense, and Mefisto, which the father-in-law list does not. Cologne gifts for husband shares Acqua di Gio, Le Beau, Uomo Born in Roma, and Mefisto. This page keeps Legend Spirit and Uomo Born in Roma Intense, which the husband list does not. We do not call any of these a dad cologne."
+  ],
+  "faq": [
+   [
+    "How is this different from cologne gifts for dad?",
+    "Cologne gifts for dad lists every men's cologne at $50 or more, including Eros, The Most Wanted Parfum, Coach, Stronger With You Intensely, and three bottles with no note line. This page leaves those off. It keeps six noted bottles: Legend Spirit, Acqua di Gio, Le Beau, Uomo Born in Roma, Uomo Born in Roma Intense, and Mefisto."
+   ],
+   [
+    "How is this different from Christmas perfume gifts for mom?",
+    "Christmas perfume gifts for mom is every women's perfume at $50 or more. This page is men's cologne only. It is a noted list of six bottles, not every men's cologne at that floor. The two pages do not share a bottle."
+   ],
+   [
+    "How is this different from cologne gifts for father-in-law?",
+    "Cologne gifts for father-in-law keeps Boss In Motion, Versace Pour Homme, and Coach. This page leaves those off. It keeps Le Beau, Uomo Born in Roma Intense, and Mefisto, which the father-in-law list does not. The two pages share Legend Spirit, Acqua di Gio, and Uomo Born in Roma."
+   ],
+   [
+    "Do you call these dad colognes?",
+    "No. None of these listings say that. The page is a gift list of men's colognes at $50 or more whose retailer notes are fresh, mineral, or sweet. It is not a ranking of who wears them."
+   ]
+  ],
+  "links": [
+   {
+    "href": "/gifts/cologne-gifts-for-dad/",
+    "label": "Cologne gifts for dad"
+   },
+   {
+    "href": "/gifts/christmas-perfume-gifts-for-mom/",
+    "label": "Christmas perfume gifts for mom"
+   },
+   {
+    "href": "/gifts/cologne-gifts-for-new-dad/",
+    "label": "Cologne gifts for new dad"
+   },
+   {
+    "href": "/gifts/cologne-gifts-for-stepdad/",
+    "label": "Cologne gifts for stepdad"
+   },
+   {
+    "href": "/gifts/cologne-gifts-for-father-in-law/",
+    "label": "Cologne gifts for father-in-law"
+   },
+   {
+    "href": "/gifts/cologne-gifts-for-husband/",
+    "label": "Cologne gifts for husband"
+   },
+   {
+    "href": "/gifts/cologne-gifts-for-grandpa/",
+    "label": "Cologne gifts for grandpa"
+   },
+   {
+    "href": "/best/fresh-citrus-cologne-deals/",
+    "label": "Fresh and citrus cologne deals"
+   },
+   {
+    "href": "/gifts/for-him/",
+    "label": "All fragrance gifts for him"
+   },
+   {
+    "href": "/men/",
+    "label": "All men's deals"
+   }
+  ]
+ },
+ {
+  "slug": "cologne-gifts-for-teen-boys",
+  "title": "Cologne gifts for teen boys",
+  "chip": "Gifts for teen boys",
+  "genders": [
+   "men",
+   "unisex"
+  ],
+  "max_price": 40,
+  "ids": [
+   "calvin-klein-free-mens-eau-de-toilette-spray",
+   "azzaro-chrome-legend-mens-eau-de-toilette-spray",
+   "burberry-weekend-mens-eau-de-toilette-spray",
+   "calvin-klein-ck-one-eau-de-toilette-unisex-fragrance",
+   "ck-everyone-unisex-fragrance",
+   "boss-bottled-unlimited-by-hugo-boss-for-men-eau-de-toilette-spray"
+  ],
+  "filled_label": "cologne gifts for teen boys",
+  "intro": "A short list of fresh colognes for someone buying a Christmas gift for a teen boy, lowest checked price first. It keeps men's colognes and two unisex bottles. The cap is under $40. Fragrance gifts for teens under $40 is the mixed list and also keeps women's perfumes. This page leaves those off. Cologne gifts for son keeps Boss In Motion, Eros Flame, Versace Pour Homme, Eros, Coach, and Le Beau, which this page leaves off. This page keeps CK Free, CK One, and CK Everyone, which the son list does not. Azzaro Cologne stays off because its listing copy conflicts and names no notes. We do not call a scent a teen cologne, and we do not rank bottles by the wearer's age. None of these listings do. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes.",
+  "empty": "None of the bottles on this teen-boy list are under $40 in the deals we checked, so this page has no list. These guides have bottles we priced.",
+  "empty_desc": "Cologne gifts for teen boys: none of the curated bottles are under $40 in the deals we checked. Other gift guides list bottles we did price.",
+  "choose": [
+   "Split the list by the retailer note line. CK Free is juniper, coffee, and Virginia cedar. Chrome Legend is green apple and tea. Burberry Weekend is lemon, grapefruit, and mandarin. CK One is lemon, bergamot, and green tea, and it is unisex. CK Everyone is orange oil, ginger, and tea, and it is unisex. Bottled Unlimited is mint, grapefruit, and sandalwood. Those are all daytime bottles. When you have never smelled what he wears, Chrome Legend or Weekend is the lower-risk daily gift. CK One is the familiar unisex citrus. The note line is the retailer's. This is not a quality ranking.",
+   "The cap is a checked price under $40. A bottle at $40 or more drops off on the next rebuild. Read the size on the card. CK Free is 3.4 oz. Chrome Legend is 4.2 oz. Weekend and CK One are 1.7 oz, so a low sticker can still be a small amount of juice. CK Everyone and Bottled Unlimited are 3.3 oz. When the name links to a bottle page, that page shows the price per ounce from the checked price and the size.",
+   "Cologne gifts for nephew shares Chrome Legend, CK One, and CK Everyone. This page leaves off Eros Flame, Eros, The Most Wanted, Stronger With You Intensely, and Le Beau. It keeps CK Free, Burberry Weekend, and Bottled Unlimited, which the nephew list does not. Cologne gifts for new dad shares CK Free, CK One, CK Everyone, and Bottled Unlimited. This page keeps Chrome Legend and Weekend, which the new-dad list does not. We do not call any of these a teen cologne."
+  ],
+  "faq": [
+   [
+    "How is this different from fragrance gifts for teens?",
+    "Fragrance gifts for teens under $40 lists men's, women's, and unisex bottles together. This page is men's cologne and two unisex bottles only. It leaves the women's perfumes off. Both pages stop below $40."
+   ],
+   [
+    "How is this different from cologne gifts for son?",
+    "Cologne gifts for son keeps Boss In Motion, Eros Flame, Versace Pour Homme, Eros, Coach, and Le Beau, and it stops under $80. This page leaves those off. It keeps CK Free, CK One, and CK Everyone, which the son list does not. The two pages share Chrome Legend, Burberry Weekend, and Bottled Unlimited."
+   ],
+   [
+    "Do you call these teen colognes?",
+    "No. None of these listings say that. The page is a gift list of fresh men's colognes and two unisex bottles under $40. It is not a ranking of who wears them."
+   ],
+   [
+    "Which bottle is the safer gift when I do not know what he wears?",
+    "Start with a fresh daytime bottle and read the note line. Chrome Legend is 4.2 oz. Burberry Weekend is familiar too, and it is 1.7 oz, so check the size on the card. CK One is the unisex citrus, and it is also 1.7 oz."
+   ]
+  ],
+  "links": [
+   {
+    "href": "/gifts/fragrance-gifts-for-teens/",
+    "label": "Fragrance gifts for teens under $40"
+   },
+   {
+    "href": "/gifts/perfume-gifts-for-teen-girls/",
+    "label": "Perfume gifts for teen girls"
+   },
+   {
+    "href": "/gifts/cologne-gifts-for-son/",
+    "label": "Cologne gifts for son"
+   },
+   {
+    "href": "/gifts/cologne-gifts-for-nephew/",
+    "label": "Cologne gifts for nephew"
+   },
+   {
+    "href": "/gifts/cologne-gifts-for-grandson/",
+    "label": "Cologne gifts for grandson"
+   },
+   {
+    "href": "/gifts/cologne-gifts-for-him-under-50/",
+    "label": "Cologne gifts for him under $50"
+   },
+   {
+    "href": "/best/cologne-deals-under-30/",
+    "label": "Cologne deals under $30"
+   },
+   {
+    "href": "/best/fresh-citrus-cologne-deals/",
+    "label": "Fresh and citrus cologne deals"
+   },
+   {
+    "href": "/gifts/for-him/",
+    "label": "All fragrance gifts for him"
+   },
+   {
+    "href": "/men/",
+    "label": "All men's deals"
+   },
+   {
+    "href": "/unisex/",
+    "label": "Unisex deals"
+   }
+  ]
+ },
+ {
+  "slug": "perfume-gifts-for-teen-girls",
+  "title": "Perfume gifts for teen girls",
+  "chip": "Gifts for teen girls",
+  "gender": "women",
+  "ids": [
+   "peace-love-juicy-couture-by-juicy-couture-for-women-edp-spray",
+   "woman-eau-de-parfum-spray-for-women-by-hugo-boss",
+   "calvin-klein-eternity-womens-eau-de-parfum-spray",
+   "billie-eilish-no-2-eau-de-parfum-perfume-for-women",
+   "dylan-blue-eau-de-parfum-spray-for-women-by-versace",
+   "billie-eilish-perfume-eau-de-parfum-for-women"
+  ],
+  "filled_label": "perfume gifts for teen girls",
+  "intro": "A short list of fruity and sweet perfumes for someone buying a Christmas gift for a teen girl, lowest checked price first. Fragrance gifts for teens under $40 is the mixed budget list. It leaves off Dylan Blue Pour Femme and Eilish, which are over that cap. This page keeps those two. Perfume gifts for daughter keeps Olympea, Bright Crystal Absolu, La Vie Est Belle, and Donna Born in Roma, which this page leaves off. This page keeps Peace Love & Juicy Couture, Boss Woman, and Eternity, which the daughter list does not. We do not call a scent a teen perfume, and we do not rank bottles by the wearer's age. None of these listings do. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes.",
+  "empty": "None of the women's bottles on this teen-girl list are in the deals we checked, so this page has no list. These guides have bottles we priced.",
+  "empty_desc": "Perfume gifts for teen girls: none of the curated women's bottles are in the deals we checked. Other gift guides list bottles we did price.",
+  "choose": [
+   "Read the note line before you match a bottle to her. Peace Love & Juicy Couture is red apple, cassis, and jasmine. Boss Woman is mango, mandarin, and freesia. Eternity is freesia, lily, and rose. Those are the lighter daytime bottles. Eilish No. 2 is bergamot, apple blossom, and palo santo. Dylan Blue Pour Femme is green apple, peach, and rose. Eilish is sugar, red berries, and vanilla. Those are the sweeter bottles. When you do not know what she wears, Eternity or Boss Woman is the familiar floral, and Eilish is the sweet one. That is a wear split from the note lines. It is not a quality ranking.",
+   "There is no price cap written on the guide. The list is these six ids, and a bottle that leaves the deals drops off on the next rebuild. Read the size on the card. Peace Love & Juicy Couture, Eternity, Eilish No. 2, Dylan Blue Pour Femme, and Eilish are 3.4 oz. Boss Woman is 3.0 oz. When the name links to a bottle page, that page shows the price per ounce from the checked price and the size.",
+   "Perfume gifts for niece shares Peace Love & Juicy Couture, Eternity, Eilish No. 2, and Dylan Blue Pour Femme. This page leaves off Eternity Air, Burberry London, CK Beauty, and Poeme. It keeps Boss Woman and Eilish, which the niece list does not. Perfume gifts for sister shares Peace Love & Juicy Couture, Boss Woman, Dylan Blue Pour Femme, and Eilish. This page keeps Eternity and Eilish No. 2, which the sister list does not. We do not call any of these a teen perfume."
+  ],
+  "faq": [
+   [
+    "How is this different from fragrance gifts for teens?",
+    "Fragrance gifts for teens under $40 is men's, women's, and unisex bottles under $40. This page is women's perfume only. It keeps Dylan Blue Pour Femme and Eilish, which are over that cap and stay off the teens page."
+   ],
+   [
+    "How is this different from perfume gifts for daughter?",
+    "Perfume gifts for daughter keeps Olympea, Bright Crystal Absolu, La Vie Est Belle, and Donna Born in Roma. This page leaves those off. It keeps Peace Love & Juicy Couture, Boss Woman, and Eternity, which the daughter list does not. The two pages share Eilish No. 2, Dylan Blue Pour Femme, and Eilish."
+   ],
+   [
+    "Do you call these teen perfumes?",
+    "No. None of these listings say that. The page is a gift list of women's perfumes whose retailer notes are fruity, floral, or sweet. It is not a ranking of who wears them."
+   ],
+   [
+    "Which bottle is the safer gift when I do not know what she wears?",
+    "Stay with a familiar floral and read the note line. Eternity and Boss Woman are the daytime bottles. Boss Woman is 3.0 oz and Eternity is 3.4 oz. Eilish is the sweeter bottle, and it is 3.4 oz."
+   ]
+  ],
+  "links": [
+   {
+    "href": "/gifts/cologne-gifts-for-teen-boys/",
+    "label": "Cologne gifts for teen boys"
+   },
+   {
+    "href": "/gifts/fragrance-gifts-for-teens/",
+    "label": "Fragrance gifts for teens under $40"
+   },
+   {
+    "href": "/gifts/perfume-gifts-for-daughter/",
+    "label": "Perfume gifts for daughter"
+   },
+   {
+    "href": "/gifts/perfume-gifts-for-niece/",
+    "label": "Perfume gifts for niece"
+   },
+   {
+    "href": "/gifts/perfume-gifts-for-granddaughter/",
+    "label": "Perfume gifts for granddaughter"
+   },
+   {
+    "href": "/gifts/perfume-gifts-for-sister/",
+    "label": "Perfume gifts for sister"
+   },
+   {
+    "href": "/gifts/for-her/",
+    "label": "All fragrance gifts for her"
+   },
+   {
+    "href": "/best/floral-perfume-deals/",
+    "label": "Floral perfume deals"
+   },
+   {
+    "href": "/best/vanilla-sweet-fragrance-deals/",
+    "label": "Vanilla and sweet fragrance deals"
+   },
+   {
+    "href": "/women/",
+    "label": "All women's deals"
+   }
+  ]
+ },
+ {
+  "slug": "cologne-gifts-for-stepdad",
+  "title": "Cologne gifts for stepdad",
+  "chip": "Gifts for stepdad",
+  "genders": [
+   "men",
+   "unisex"
+  ],
+  "ids": [
+   "ck-everyone-unisex-fragrance",
+   "versace-eros-flame-eau-de-parfum-for-men",
+   "the-most-wanted-parfum-cologne",
+   "le-beau-eau-de-toilette-spray-for-men-by-jean-paul-gaultier",
+   "uomo-intense-by-valentino-for-men-eau-de-parfum-spray",
+   "casamorati-mefisto-cologne"
+  ],
+  "filled_label": "cologne gifts for a stepdad",
+  "intro": "A short list of men's colognes and one unisex bottle for someone buying a Christmas gift for a stepdad, lowest checked price first. Cologne gifts for father-in-law keeps Boss In Motion, Versace Pour Homme, Legend Spirit, Acqua di Gio, Coach, and Uomo Born in Roma. This page leaves every one of those off. It keeps CK Everyone, Eros Flame, The Most Wanted Parfum, Le Beau, Uomo Born in Roma Intense, and Mefisto. Cologne gifts for uncle is the fresh daytime list and shares none of these bottles. We do not call a scent a stepdad cologne. None of these listings do. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes.",
+  "empty": "None of the bottles on this stepdad list are in the deals we checked, so this page has no list. These guides have bottles we priced.",
+  "empty_desc": "Cologne gifts for stepdad: none of the curated bottles are in the deals we checked. Other gift guides list bottles we did price.",
+  "choose": [
+   "Read the note line before you match a bottle. CK Everyone is orange oil, ginger, and tea, and it is unisex. That is the easy daytime bottle. Eros Flame is lemon, black pepper, and vanilla. The Most Wanted Parfum is ginger, woods, and bourbon vanilla. Le Beau is bergamot, coconut, and tonka. Those are the sweeter designer bottles. Uomo Born in Roma Intense is vanilla, lavender, and vetiver. Mefisto is grapefruit, bergamot, and Amalfi lemon. When you do not know what he wears, CK Everyone or Eros Flame is the lower-risk gift. Mefisto is the fresh citrus bottle. The note line is the retailer's. This is not a quality ranking.",
+   "There is no price cap written on the guide. The list is these six ids, and a bottle that leaves the deals drops off on the next rebuild. Read the size on the card. CK Everyone is 3.3 oz. Eros Flame and The Most Wanted are 1.7 oz, so a mid sticker can still be a small amount of juice. Le Beau is 4.2 oz. Uomo Born in Roma Intense and Mefisto are 3.4 oz. When the name links to a bottle page, that page shows the price per ounce from the checked price and the size.",
+   "Christmas cologne gifts for dad shares Le Beau, Uomo Born in Roma Intense, and Mefisto. This page leaves off Legend Spirit, Acqua di Gio, and Uomo Born in Roma. It keeps CK Everyone, Eros Flame, and The Most Wanted, which the Christmas dad list does not. Cologne gifts for brother shares Eros Flame, The Most Wanted, and Le Beau. This page keeps CK Everyone, Uomo Born in Roma Intense, and Mefisto, which the brother list does not. We do not call any of these a stepdad cologne."
+  ],
+  "faq": [
+   [
+    "How is this different from cologne gifts for father-in-law?",
+    "Cologne gifts for father-in-law keeps Boss In Motion, Versace Pour Homme, Legend Spirit, Acqua di Gio, Coach, and Uomo Born in Roma. This page leaves all six of those off. It keeps CK Everyone, Eros Flame, The Most Wanted Parfum, Le Beau, Uomo Born in Roma Intense, and Mefisto. The two pages do not share a bottle."
+   ],
+   [
+    "How is this different from Christmas cologne gifts for dad?",
+    "Christmas cologne gifts for dad keeps Legend Spirit, Acqua di Gio, and Uomo Born in Roma. This page leaves those off. It keeps CK Everyone, Eros Flame, and The Most Wanted Parfum, which that list does not. The two pages share Le Beau, Uomo Born in Roma Intense, and Mefisto."
+   ],
+   [
+    "Do you call these stepdad colognes?",
+    "No. None of these listings say that. The page is a gift list of men's colognes and one unisex bottle whose retailer notes are fresh, spicy, or sweet. It is not a ranking of who wears them."
+   ],
+   [
+    "Which bottle is the safer gift when I do not know what he wears?",
+    "Start with a lighter bottle and read the note line. CK Everyone is the unisex daytime bottle, and it is 3.3 oz. Eros Flame is the brighter sweet cologne, and it is 1.7 oz, so check the size on the card. Mefisto is the fresh citrus bottle, and it is 3.4 oz."
+   ]
+  ],
+  "links": [
+   {
+    "href": "/gifts/cologne-gifts-for-father-in-law/",
+    "label": "Cologne gifts for father-in-law"
+   },
+   {
+    "href": "/gifts/christmas-cologne-gifts-for-dad/",
+    "label": "Christmas cologne gifts for dad"
+   },
+   {
+    "href": "/gifts/cologne-gifts-for-dad/",
+    "label": "Cologne gifts for dad"
+   },
+   {
+    "href": "/gifts/cologne-gifts-for-new-dad/",
+    "label": "Cologne gifts for new dad"
+   },
+   {
+    "href": "/gifts/cologne-gifts-for-uncle/",
+    "label": "Cologne gifts for uncle"
+   },
+   {
+    "href": "/gifts/cologne-gifts-for-husband/",
+    "label": "Cologne gifts for husband"
+   },
+   {
+    "href": "/gifts/for-him/",
+    "label": "All fragrance gifts for him"
+   },
+   {
+    "href": "/best/warm-spicy-cologne-deals/",
+    "label": "Warm and spicy cologne deals"
+   },
+   {
+    "href": "/best/fresh-citrus-cologne-deals/",
+    "label": "Fresh and citrus cologne deals"
+   },
+   {
+    "href": "/men/",
+    "label": "All men's deals"
+   },
+   {
+    "href": "/unisex/",
+    "label": "Unisex deals"
+   }
+  ]
+ },
+ {
+  "slug": "fragrance-gifts-for-couples",
+  "title": "Fragrance gifts for couples",
+  "chip": "Gifts for couples",
+  "genders": [
+   "men",
+   "women"
+  ],
+  "ids": [
+   "calvin-klein-free-mens-eau-de-toilette-spray",
+   "calvin-klein-eternity-womens-eau-de-parfum-spray",
+   "versace-eros-flame-eau-de-parfum-for-men",
+   "bright-crystal-absolu-by-versace-for-women-eau-de-parfum-spray"
+  ],
+  "filled_label": "fragrance gifts for couples",
+  "intro": "Two pairs of separate bottles for someone buying a Christmas gift for a couple, lowest checked price first. Each pair is two checked bottles from the same house, not a boxed set. Match them by the house in the how-to-choose notes. The grid is sorted by price, so the two halves of a pair are not next to each other. Calvin Klein is Free and Eternity. Versace is Eros Flame and Bright Crystal Absolu. His and hers fragrance gifts is the other four house pairs: Burberry Weekend with London, Boss Bottled Unlimited with Boss Woman, Versace Eros with Dylan Blue Pour Femme, and Uomo Born in Roma with Donna Born in Roma. This page leaves those eight bottles off. We do not call a scent a couple fragrance. None of these listings do. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes.",
+  "empty": "None of the bottles on these pairs are in the deals we checked, so this page has no list. These guides have bottles we priced.",
+  "empty_desc": "Fragrance gifts for couples: none of the paired bottles are in the deals we checked. Other gift guides list bottles we did price.",
+  "choose": [
+   "Buy the two bottles from one house if you want a matched gift. They are separate checked bottles. This page does not sell them as a set. CK Free is juniper, coffee, and Virginia cedar, and Eternity is freesia, lily, and rose. Eros Flame is lemon, black pepper, and vanilla, and Bright Crystal Absolu is yuzu, peony, and amber. The note line is the retailer's. This is not a quality ranking, and it is not a wear-time test.",
+   "Read the size on each card before you treat a pair as the same amount of juice. CK Free and Eternity are both 3.4 oz, the only pair here with the same size. Eros Flame is 1.7 oz and Bright Crystal Absolu is 3.0 oz. When the name links to a bottle page, that page shows the price per ounce from the checked price and the size.",
+   "His and hers fragrance gifts keeps Burberry Weekend, Burberry London, Bottled Unlimited, Boss Woman, Versace Eros, Dylan Blue Pour Femme, Uomo Born in Roma, and Donna Born in Roma. This page leaves all eight of those off. The two pages do not share a bottle. We do not call any of these a couple fragrance."
+  ],
+  "faq": [
+   [
+    "Are these sold as gift sets?",
+    "No. Each card is a single bottle we checked. A pair means two bottles from the same house that you can give together. Boxed sets are on the gift-set guides."
+   ],
+   [
+    "How is this different from his and hers fragrance gifts?",
+    "His and hers fragrance gifts is four house pairs: Burberry, Hugo Boss, Versace Eros with Dylan Blue Pour Femme, and Valentino. This page is two other pairs: Calvin Klein Free with Eternity, and Versace Eros Flame with Bright Crystal Absolu. The two pages do not share a bottle."
+   ],
+   [
+    "Do you call these couple fragrances?",
+    "No. None of these listings say that. The page is a gift list of men's and women's bottles grouped by house. It is not a ranking of who wears them."
+   ],
+   [
+    "Which pair is the safer gift when I do not know what they wear?",
+    "Start with Calvin Klein and read both note lines. Free and Eternity are both 3.4 oz. Free is the woody cologne and Eternity is the floral. The Versace pair is the sweeter evening gift, and Eros Flame is 1.7 oz, so check the size on the card."
+   ]
+  ],
+  "links": [
+   {
+    "href": "/gifts/his-and-hers-fragrance-gifts/",
+    "label": "His and hers fragrance gifts"
+   },
+   {
+    "href": "/gifts/perfume-gifts-for-wife/",
+    "label": "Perfume gifts for wife"
+   },
+   {
+    "href": "/gifts/cologne-gifts-for-husband/",
+    "label": "Cologne gifts for husband"
+   },
+   {
+    "href": "/gifts/perfume-gifts-for-girlfriend/",
+    "label": "Perfume gifts for girlfriend"
+   },
+   {
+    "href": "/gifts/cologne-gifts-for-boyfriend/",
+    "label": "Cologne gifts for boyfriend"
+   },
+   {
+    "href": "/vs/ck-eternity-vs-eternity-air/",
+    "label": "CK Eternity vs Eternity Air"
+   },
+   {
+    "href": "/vs/dylan-blue-vs-bright-crystal-absolu/",
+    "label": "Dylan Blue vs Bright Crystal Absolu"
+   },
+   {
+    "href": "/gifts/gift-sets/",
+    "label": "Designer fragrance gift sets"
+   },
+   {
+    "href": "/gifts/for-him/",
+    "label": "Fragrance gifts for him"
+   },
+   {
+    "href": "/gifts/for-her/",
+    "label": "Fragrance gifts for her"
+   },
+   {
+    "href": "/men/",
+    "label": "All men's deals"
+   },
+   {
+    "href": "/women/",
+    "label": "All women's deals"
+   }
+  ]
+ }
  ],
  "gift_catalog": [
   {

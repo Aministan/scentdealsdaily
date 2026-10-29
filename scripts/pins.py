@@ -30,7 +30,7 @@ SANS = os.path.join(FONT_DIR, "SourceSans3-Semibold.ttf")
 SANS_REG = os.path.join(FONT_DIR, "SourceSans3-Regular.ttf")
 # Phrases that stay on one line. Longest first so "for boyfriend" wins over "for".
 KEEP = (
-    "for mother-in-law", "for father-in-law", "for granddaughter", "for best friend", "for boyfriend", "for girlfriend", "for grandson", "for husband", "for wife", "for grandma", "for grandpa", "for teachers", "for daughter", "for new dad", "for new mom", "for niece", "for nephew", "for sister", "for brother", "for teens", "for uncle", "for aunt", "for boss", "for son", "his and hers", "for him", "for her", "for mom", "for dad",
+    "for mother-in-law", "for father-in-law", "for granddaughter", "for best friend", "for boyfriend", "for girlfriend", "for grandson", "for teen girls", "for teen boys", "for husband", "for wife", "for grandma", "for grandpa", "for teachers", "for daughter", "for stepdad", "for new dad", "for new mom", "for couples", "for niece", "for nephew", "for sister", "for brother", "for teens", "for uncle", "for aunt", "for boss", "for son", "his and hers", "for him", "for her", "for mom", "for dad",
     "stocking stuffers", "stocking stuffer", "travel sizes", "gift sets",
     "under $100", "under $15", "under $20", "under $25", "under $30", "under $40", "under $50", "under $75",
 )
@@ -85,6 +85,11 @@ META = {
     "cologne-gifts-for-grandson": ("GRANDSON", "Fresh and sweet colognes for a younger gift."),
     "cologne-gifts-for-new-dad": ("NEW DAD", "Lighter bottles for a new parent."),
     "perfume-gifts-for-mom-under-50": ("FOR MOM", "Women's perfumes in this gift budget."),
+    "christmas-cologne-gifts-for-dad": ("FOR DAD", "Classic colognes for a Christmas gift."),
+    "cologne-gifts-for-teen-boys": ("TEEN BOYS", "Fresh colognes for a younger gift."),
+    "perfume-gifts-for-teen-girls": ("TEEN GIRLS", "Fruity and sweet perfumes for a younger gift."),
+    "cologne-gifts-for-stepdad": ("STEPDAD", "Polished colognes for a stepdad gift."),
+    "fragrance-gifts-for-couples": ("COUPLES", "Two house pairs you can give together."),
     "fragrance-stocking-stuffers-under-25": ("STOCKING", "Bottles, minis, and travel sizes."),
 }
 DEFAULT_EYEBROW = "GIFT GUIDE"
