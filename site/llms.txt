@@ -1,5 +1,5 @@
 # ScentDealsDaily
-> Daily-checked discounts on authentic designer fragrances at reputable retailers, plus a cited dupes directory. Last updated 2026-10-29T00:16:05Z.
+> Daily-checked discounts on authentic designer fragrances at reputable retailers, plus a cited dupes directory. Last updated 2026-10-30T13:14:43Z.
 
 ## Today's deals (price USD, size, retailer, % off listed compare-at)
 - Juicy Couture Peace Love & Juicy Couture Perfume 3.4 oz.: $20.95 (was $89.00, -76%) at FragranceShop: https://www.fragranceshop.com/product/peace-love-juicy-couture-perfume-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz
@@ -25,7 +25,7 @@
 - Jean Paul Gaultier Le Beau Cologne 4.2 oz.: $75.95 (was $130.00, -42%) at FragranceShop: https://www.fragranceshop.com/product/jean-paul-gaultier-le-beau-cologne-for-men/?attribute_pa_size=eau-de-toilette-spray-4-2-oz
 - Hugo Boss Boss In Motion Cologne 3.0 oz.: $44.95 (was $76.00, -41%) at Perfumania: https://www.perfumania.com/products/hugo-boss-in-motion-mens-eau-de-toilette-spray?variant=31838659510405
 - Elizabeth Arden Green Tea Scent Perfume 3.4 oz.: $31.95 (was $51.00, -37%) at Perfumania: https://www.perfumania.com/products/elizabeth-arden-green-tea-scent-women-eau-de-parfum-spray?variant=31839020253317
-- Versace Bright Crystal Absolu Perfume 3.0 oz.: $69.95 (was $110.00, -36%) at FragranceShop: https://www.fragranceshop.com/product/versace-bright-crystal-absolu-for-women/?attribute_pa_size=eau-de-parfum-spray-3-0-oz
+- Versace Bright Crystal Absolu Perfume 3.0 oz.: $70.95 (was $110.00, -36%) at FragranceShop: https://www.fragranceshop.com/product/versace-bright-crystal-absolu-for-women/?attribute_pa_size=eau-de-parfum-spray-3-0-oz
 - Valentino Donna Born In Roma Perfume 1.7 oz.: $94.95 (was $145.00, -35%) at FragranceShop: https://www.fragranceshop.com/product/valentino-donna-born-in-roma-perfume-for-women/?attribute_pa_size=eau-de-parfum-spray-1-7-oz
 - Lancome Poeme Perfume 3.4 oz.: $83.95 (was $126.00, -33%) at Perfumania: https://www.perfumania.com/products/lancome-poeme-perfume-for-women-eau-de-parfum-spray?variant=31838974476421
 - Azzaro Wanted Cologne 3.4 oz.: $60.95 (was $90.00, -32%) at FragranceShop: https://www.fragranceshop.com/product/azzaro-wanted-night-for-men/?attribute_pa_size=eau-de-parfum-spray-3-4-oz
@@ -57,7 +57,7 @@
 - Jean Paul Gaultier Ultra Male -> Afnan 9PM: $39.99 3.4 oz. at Perfumania https://www.perfumania.com/products/9pm-cologne?variant=41284110418053 (sources: https://perfumania.com/blogs/articles/top-6-luxury-fragrance-dupes-in-2026)
 - Creed Millésime Impérial -> Armaf Club de Nuit Milestone: $27.95 3.6 oz. at FragranceShop https://www.fragranceshop.com/product/armaf-club-de-nuit-milestone-for-unisex/?attribute_pa_size=eau-de-parfum-spray-3-6-oz (sources: https://scentfile.com/clone-list.csv, https://altscent.app/clone-list/)
 - YSL Y Eau de Parfum -> Lattafa Fakhar Black: $39.99 3.4 oz. at Perfumania https://www.perfumania.com/products/fakhar-eau-de-parfum-1?variant=41052514484357 (sources: https://altscent.app/clone-list/)
-- Mugler Angel Nova -> Lattafa Mayar: $20.95 3.4 oz. at FragranceShop https://www.fragranceshop.com/product/lattafa-mayar-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz (sources: https://altscent.app/clone-list/)
+- Mugler Angel Nova -> Lattafa Mayar: $21.95 3.4 oz. at FragranceShop https://www.fragranceshop.com/product/lattafa-mayar-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz (sources: https://altscent.app/clone-list/)
 - Bleu de Chanel EDP -> Armaf Club de Nuit Iconic (Blue Iconic) (sources: https://www.thelastspritz.com/best-cologne-dupes, https://scentfile.com/clone-list.csv)
 - Chanel Coco Mademoiselle -> Armaf Club de Nuit Woman (sources: https://dupenote.com/articles/best-fragrance-dupes)
 - YSL La Nuit de L'Homme Bleu Électrique -> Lattafa Al Nashama Caprice (sources: https://scentfile.com/clone-list.csv, https://altscent.app/clone-list/)
@@ -216,4 +216,9 @@ https://scentdealsdaily.com/gifts/cologne-gifts-for-teen-boys/
 https://scentdealsdaily.com/gifts/perfume-gifts-for-teen-girls/
 https://scentdealsdaily.com/gifts/cologne-gifts-for-stepdad/
 https://scentdealsdaily.com/gifts/fragrance-gifts-for-couples/
+https://scentdealsdaily.com/gifts/perfume-gifts-for-stepmom/
+https://scentdealsdaily.com/gifts/christmas-perfume-gifts-for-wife/
+https://scentdealsdaily.com/gifts/perfume-gifts-for-daughter-in-law/
+https://scentdealsdaily.com/gifts/cologne-gifts-for-son-in-law/
+https://scentdealsdaily.com/gifts/christmas-cologne-gifts-for-husband/
 https://scentdealsdaily.com/black-friday-fragrance-deals/

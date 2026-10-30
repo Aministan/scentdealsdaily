@@ -610,7 +610,7 @@ VS_PAGES=[]
 # (relative path, deal) for each /fragrance/ page this build wrote.
 FRAGRANCE_PAGES=[]
 # Compact homepage set. Titles come from GIFT_SUBPAGES, not from this tuple.
-HOME_GIFT_SLUGS=("for-him","for-her","under-50","perfume-gifts-for-her-under-50","perfume-gifts-for-her-under-30","best-mens-cologne-under-40","holiday-gift-sets","fragrance-gifts-for-teens","fragrance-gifts-for-coworkers-under-40","fragrance-gifts-for-teachers-under-40","fragrance-gifts-for-college-students","fragrance-gifts-for-boss","stocking-stuffer-fragrances","perfume-gifts-for-wife","cologne-gifts-for-husband","perfume-gifts-for-grandma","perfume-gifts-for-aunt","cologne-gifts-for-grandpa","cologne-gifts-for-uncle","perfume-gifts-for-sister","perfume-gifts-for-niece","perfume-gifts-for-daughter","cologne-gifts-for-brother","cologne-gifts-for-nephew","cologne-gifts-for-son","perfume-gifts-for-best-friend","perfume-gifts-for-mother-in-law","cologne-gifts-for-father-in-law","his-and-hers-fragrance-gifts","hanukkah-fragrance-gifts","fragrance-gifts-for-new-mom","perfume-gifts-for-granddaughter","cologne-gifts-for-grandson","cologne-gifts-for-new-dad","perfume-gifts-for-mom-under-50","christmas-cologne-gifts-for-dad","cologne-gifts-for-teen-boys","perfume-gifts-for-teen-girls","cologne-gifts-for-stepdad","fragrance-gifts-for-couples")
+HOME_GIFT_SLUGS=("for-him","for-her","under-50","perfume-gifts-for-her-under-50","perfume-gifts-for-her-under-30","best-mens-cologne-under-40","holiday-gift-sets","fragrance-gifts-for-teens","fragrance-gifts-for-coworkers-under-40","fragrance-gifts-for-teachers-under-40","fragrance-gifts-for-college-students","fragrance-gifts-for-boss","stocking-stuffer-fragrances","perfume-gifts-for-wife","cologne-gifts-for-husband","perfume-gifts-for-grandma","perfume-gifts-for-aunt","cologne-gifts-for-grandpa","cologne-gifts-for-uncle","perfume-gifts-for-sister","perfume-gifts-for-niece","perfume-gifts-for-daughter","cologne-gifts-for-brother","cologne-gifts-for-nephew","cologne-gifts-for-son","perfume-gifts-for-best-friend","perfume-gifts-for-mother-in-law","cologne-gifts-for-father-in-law","his-and-hers-fragrance-gifts","hanukkah-fragrance-gifts","fragrance-gifts-for-new-mom","perfume-gifts-for-granddaughter","cologne-gifts-for-grandson","cologne-gifts-for-new-dad","perfume-gifts-for-mom-under-50","christmas-cologne-gifts-for-dad","cologne-gifts-for-teen-boys","perfume-gifts-for-teen-girls","cologne-gifts-for-stepdad","fragrance-gifts-for-couples","perfume-gifts-for-stepmom","christmas-perfume-gifts-for-wife","perfume-gifts-for-daughter-in-law","cologne-gifts-for-son-in-law","christmas-cologne-gifts-for-husband")
 def register_gift_subpage(slug, title):
     if not slug or not str(title or "").strip():
         raise SystemExit("gift guide missing a slug or page title")
@@ -678,7 +678,32 @@ for g,label in [("men","Men's Cologne"),("women","Women's Perfume"),("unisex","U
             f"{len(ds)} authentic {label.lower()} deals from ${lo_p:.2f} ({fullname(lo)}), up to {mx}% off. Checked {upd:%b %-d, %Y}.",
             f"{len(ds)} authentic {label.lower()} deals from ${lo_p:.2f}, up to {mx}% off: {tb}. Checked {upd:%b %-d}.",
         ],160)
-    page(f"{g}/index.html",fit([f"{label} Deals: From ${lo_p:.2f} ({mx}% Off) | {NAME}",f"{label} Deals: From ${lo_p:.2f} ({mx}% Off)",f"{label} Deals: Up to {mx}% Off Today | {NAME}",f"{label} Deals Today ({upd:%b %-d}): Up to {mx}% Off"]),
+    gtitle=fit([f"{label} Deals: From ${lo_p:.2f} ({mx}% Off) | {NAME}",f"{label} Deals: From ${lo_p:.2f} ({mx}% Off)",f"{label} Deals: Up to {mx}% Off Today | {NAME}",f"{label} Deals Today ({upd:%b %-d}): Up to {mx}% Off"])
+    if g=="men":
+        gtitle=fit([
+            f"Holiday Men's Cologne Gift Deals 2026: From ${lo_p:.2f} ({mx}% Off)",
+            f"Men's Cologne Gift Deals 2026: From ${lo_p:.2f} ({mx}% Off)",
+            f"{label} Deals: From ${lo_p:.2f} ({mx}% Off) | {NAME}",
+            f"{label} Deals: From ${lo_p:.2f} ({mx}% Off)",
+        ])
+        gdesc=fit([
+            f"{len(ds)} men's cologne gift deals for the 2026 holidays, from ${lo_p:.2f} ({fullname(lo)}), up to {mx}% off. Checked {upd:%b %-d, %Y}.",
+            f"Holiday 2026 men's cologne deals from ${lo_p:.2f} ({fullname(lo)}), up to {mx}% off. Checked {upd:%b %-d, %Y}.",
+            gdesc,
+        ],160)
+    elif g=="women":
+        gtitle=fit([
+            f"Holiday Women's Perfume Deals 2026: From ${lo_p:.2f} ({mx}% Off)",
+            f"Women's Perfume Gift Deals 2026: From ${lo_p:.2f}",
+            f"{label} Deals: From ${lo_p:.2f} ({mx}% Off) | {NAME}",
+            f"{label} Deals: From ${lo_p:.2f} ({mx}% Off)",
+        ])
+        gdesc=fit([
+            f"{len(ds)} women's perfume gift deals for the 2026 holidays, from ${lo_p:.2f} ({fullname(lo)}), up to {mx}% off. Checked {upd:%b %-d, %Y}.",
+            f"Holiday 2026 women's perfume deals from ${lo_p:.2f} ({fullname(lo)}), up to {mx}% off. Checked {upd:%b %-d, %Y}.",
+            gdesc,
+        ],160)
+    page(f"{g}/index.html",gtitle,
       gdesc,
       f"<h1>{label} deals</h1><p class='sub'>{len(ds)} live · checked {upd_h}</p><div class='grid'>{''.join(card(d) for d in ds)}</div>{BREVO_FORM}{bestchips()}"+(f"<p class='chips'>{gchip}</p>" if gchip else ""),[itemlist(ds,label+" deals")])
 def _guide_bits(guide):
@@ -1460,6 +1485,42 @@ for path,sid_slug,title,short,intro,picks,list_name in gift_pages:
         listing=gift_table(picks)+BREVO_FORM
         ld=[itemlist(picks, list_name)]
         titles=fit([f"{title}: From {P} ({upd:%b %Y}) | {NAME}", f"{title}: From {P} | {NAME}", f"{title}: From {P}", title])
+        if sid_slug=="for-him":
+            titles=fit([
+                f"2026 Holiday Cologne Gift Deals for Him: From {P}",
+                f"Holiday Cologne Gifts for Him: From {P}",
+                f"{title}: From {P} | {NAME}",
+                f"{title}: From {P}",
+            ])
+            desc=fit([
+                f"Holiday 2026 cologne gift deals for him. {len(picks)} men's bottles from {P} ({fullname(lo)}), up to {hi}% off. Checked {upd:%b %-d, %Y}.",
+                f"{len(picks)} men's cologne gift deals for him from {P}, up to {hi}% off. Holiday 2026. Checked {upd:%b %-d, %Y}.",
+                desc,
+            ],160)
+        elif sid_slug=="for-her":
+            titles=fit([
+                f"2026 Holiday Perfume Gift Deals for Her: From {P}",
+                f"Holiday Perfume Gifts for Her: From {P}",
+                f"{title}: From {P} | {NAME}",
+                f"{title}: From {P}",
+            ])
+            desc=fit([
+                f"Holiday 2026 perfume gift deals for her. {len(picks)} women's bottles from {P} ({fullname(lo)}), up to {hi}% off. Checked {upd:%b %-d, %Y}.",
+                f"{len(picks)} women's perfume gift deals for her from {P}, up to {hi}% off. Holiday 2026. Checked {upd:%b %-d, %Y}.",
+                desc,
+            ],160)
+        elif sid_slug=="under-50":
+            titles=fit([
+                f"Fragrance Gift Deals Under $50 (2026): From {P}",
+                f"Holiday Fragrance Gifts Under $50: From {P}",
+                f"{title}: From {P} | {NAME}",
+                f"{title}: From {P}",
+            ])
+            desc=fit([
+                f"Holiday 2026 fragrance gift deals under $50. {len(picks)} bottles from {P} ({fullname(lo)}), up to {hi}% off. Checked {upd:%b %-d, %Y}.",
+                f"{len(picks)} fragrance gift deals under $50 from {P}, up to {hi}% off. Holiday 2026. Checked {upd:%b %-d, %Y}.",
+                desc,
+            ],160)
     else:
         desc="Check back soon. No boxed fragrance gift set is in today's checked deals. Single bottles are on the other gift guides."
         listing=check_back_note("No boxed fragrance gift set is in today's checked deals, so this page has no list. These guides have bottles we priced.")
