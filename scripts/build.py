@@ -295,7 +295,7 @@ PAGES=[]
 FEED=[]  # (kind, title, url, plain meta description) for deal and comparison pages
 def feed_kind(path):
     if path.startswith("fragrance/"): return "deal"
-    if path.startswith("vs/") or path.startswith("best/") or path.startswith("gifts/") or path.startswith("black-friday-fragrance-deals/"): return "compare"
+    if path.startswith("vs/") or path.startswith("best/") or path.startswith("gifts/") or path.startswith("black-friday-"): return "compare"
     if path.startswith("dupes/") and path!="dupes/index.html": return "hub"
     if path.startswith("dupe/"): return "dupe"
     return None
@@ -1446,11 +1446,40 @@ def brand_chips(rows):
     return "<p class='chips'>"+"".join(f"<a href='{PREFIX}/brands/{bslug(b)}/'>{e(b)} deals</a>" for b in seen)+"</p>"
 GIFT_LINKS=[("","Holiday gifts"),("for-him","For him"),("for-her","For her"),("under-50","Under $50"),("gift-sets","Gift sets")]+SEO_GIFTS
 BF_PATH="/black-friday-fragrance-deals/"
+BF_COLOGNE_PATH="/black-friday-cologne-deals/"
+BF_PERFUME_PATH="/black-friday-perfume-deals/"
+BF_MIN_BOTTLES=6
+def bf_gender_rows(gender):
+    """Single bottles already in the price check. Sets and the other gender stay off."""
+    rows=[d for d in deals if gift_ok(d) and not is_gift_set(d) and d.get("gender")==gender]
+    return sorted(rows, key=lambda d:(-(d.get("pct_off") or 0), d["price"], d["id"]))
+def _bf_landing(path, sid, h1, title_lead, phrase, noun, who, rows, gift_slugs, chip):
+    return {"path":path,"sid":sid,"h1":h1,"title_lead":title_lead,"phrase":phrase,"noun":noun,"who":who,"rows":rows,"gift_slugs":gift_slugs,"chip":chip}
+_BF_CANDIDATES=[
+ _bf_landing(BF_COLOGNE_PATH,"cologne-deals","Black Friday cologne deals","Black Friday Cologne Deals","black friday cologne deals","men's colognes","men's cologne",bf_gender_rows("men"),("christmas-cologne-gifts-for-husband","luxury-cologne-gifts-for-him","cologne-gifts-for-husband","for-him"),"Black Friday cologne deals"),
+ _bf_landing(BF_PERFUME_PATH,"perfume-deals","Black Friday perfume deals","Black Friday Perfume Deals","black friday perfume deals","women's perfumes","women's perfume",bf_gender_rows("women"),("christmas-perfume-gifts-for-wife","luxury-perfume-gifts-for-her","perfume-gifts-for-wife","for-her"),"Black Friday perfume deals"),
+]
+BF_LANDINGS=[]
+for _spec in _BF_CANDIDATES:
+    _n=len(_spec["rows"])
+    if _n<BF_MIN_BOTTLES:
+        print(f"SKIP black friday page {_spec['path']}: only {_n} bottles, need {BF_MIN_BOTTLES}. Page was not generated.")
+        continue
+    BF_LANDINGS.append(_spec)
+    print(f"black friday page {_spec['path']}: {_n} bottles, will build")
 def gift_nav():
-    """Gift-page chips, plus the Black Friday page. The site header does not link it."""
+    """Gift-page chips, plus Black Friday pages this build is publishing. The site header does not link them."""
     chips="".join(f"<a href='{PREFIX}/gifts/{slug+'/' if slug else ''}'>{e(label)}</a>" for slug,label in GIFT_LINKS)
     chips+=f"<a href='{PREFIX}{BF_PATH}'>{e('Black Friday & Cyber Monday')}</a>"
+    for spec in BF_LANDINGS:
+        chips+=f"<a href='{PREFIX}{spec['path']}'>{e(spec['chip'])}</a>"
     return f"<p class='chips'>{chips}</p>"
+def bf_seasonal_note():
+    """Where the site already points at the mixed Black Friday page, also point at the split pages."""
+    if not BF_LANDINGS: return ""
+    bits=", ".join(f"<a href='{PREFIX}{s['path']}'>{e(s['chip'])}</a>" for s in BF_LANDINGS)
+    return ("<p>Separate lists: "+bits+". Each card uses a price we already checked. "
+            "Prices are current and checked daily, and Black Friday prices may change.</p>")
 # Guides that list checked bottles. Empty pages point here instead of at each other.
 FILLED_GIFT_SLUGS={"","for-him","for-her","under-50","perfume-gifts-for-her-under-50","best-mens-cologne-under-40"} | {g["slug"] for g in GIFT_GUIDES if g["picks"]}
 def check_back_note(sentence):
@@ -1531,7 +1560,7 @@ for path,sid_slug,title,short,intro,picks,list_name in gift_pages:
     top_mark=""
     bot_mark=""
     if path=="gifts/index.html":
-        hub_extra=f"<p>For the long weekend, <a href='{PREFIX}{BF_PATH}'>Black Friday and Cyber Monday fragrance deals</a> rebuilds from the same daily price check.</p>"
+        hub_extra=f"<p>For the long weekend, <a href='{PREFIX}{BF_PATH}'>Black Friday and Cyber Monday fragrance deals</a> rebuilds from the same daily price check.</p>{bf_seasonal_note()}"
         top_mark=GIFT_HUB_MARK
     else:
         register_gift_subpage(sid_slug, title)
@@ -2535,8 +2564,8 @@ def bf_require(rows):
         raise SystemExit("black friday page: card lacks an image or price: "+", ".join(bad[:20]))
     return rows
 bf_singles=[d for d in deals if gift_ok(d) and not is_gift_set(d)]
-bf_men=bf_require(sorted([d for d in bf_singles if d["gender"]=="men"], key=lambda d:(-(d.get("pct_off") or 0), d["price"], d["id"])))
-bf_women=bf_require(sorted([d for d in bf_singles if d["gender"]=="women"], key=lambda d:(-(d.get("pct_off") or 0), d["price"], d["id"])))
+bf_men=bf_require(bf_gender_rows("men"))
+bf_women=bf_require(bf_gender_rows("women"))
 bf_sets=bf_require(by_price(list(boxed)))
 bf_u50=bf_require(sorted([d for d in bf_singles if d["price"]<50], key=lambda d:(d["price"], -(d.get("pct_off") or 0), d["id"])))
 bf_sections=[
@@ -2593,10 +2622,101 @@ bf_faqs=[
 bf_jumps="<p class='chips'>"+"".join(f"<a href='#{anchor}'>{e(heading)}</a>" for anchor,heading,_,_,_ in bf_sections)+"</p>"
 use_sid("bfcm", "fragrance-deals")
 page("black-friday-fragrance-deals/index.html", bf_title, bf_desc,
- f"<h1>{e(bf_h1)}</h1><p class='sub'>Last updated {e(bf_when)}. Checked {upd_h}.</p><p>{e(bf_intro)}</p>{gift_nav()}{bf_jumps}{GIFT_DISC}{''.join(bf_parts)}{faqhtml(bf_faqs)}{BREVO_FORM}<p class='meta'>Prices and photos come from the deals we already checked. We do not invent a price or a photo, and we do not list testers, decants, or Amazon.</p>",
+ f"<h1>{e(bf_h1)}</h1><p class='sub'>Last updated {e(bf_when)}. Checked {upd_h}.</p><p>{e(bf_intro)}</p>{bf_seasonal_note()}{gift_nav()}{bf_jumps}{GIFT_DISC}{''.join(bf_parts)}{faqhtml(bf_faqs)}{BREVO_FORM}<p class='meta'>Prices and photos come from the deals we already checked. We do not invent a price or a photo, and we do not list testers, decants, or Amazon.</p>",
  bf_ld+[faqld(bf_faqs)], image="/media/pins/holiday-fragrance-gifts.png", feed=bool(bf_ids))
 KW+=["black friday perfume deals 2026","cyber monday cologne deals"]
 print(f"black friday page: {len(bf_ids)} unique deals, {bf_cards} cards; men {len(bf_men)}, women {len(bf_women)}, sets {len(bf_sets)}, under $50 {len(bf_u50)}")
+def bf_related_links(spec):
+    """Fragrance page, the other split page, and the gift guides shoppers use for that audience."""
+    links=[(BF_PATH,"Black Friday fragrance deals")]
+    for other in BF_LANDINGS:
+        if other["path"]!=spec["path"]:
+            links.append((other["path"], other["chip"]))
+    by_slug=dict(GIFT_SUBPAGES)
+    for slug_s in spec["gift_slugs"]:
+        if slug_s not in by_slug:
+            raise SystemExit(f"{spec['path']}: gift page /gifts/{slug_s}/ was not built")
+        links.append((f"/gifts/{slug_s}/", by_slug[slug_s]))
+    return links
+def bf_landing_desc(spec, rows, lo, when):
+    price=f"${lo['price']:.2f}"
+    lead=spec["h1"]
+    cands=[
+        f"{lead}: {len(rows)} {spec['noun']} from {price}. Prices are current and checked daily. Black Friday prices may change. Updated {when}.",
+        f"{lead}: {len(rows)} {spec['noun']} from {price}. Prices are current and checked daily. Black Friday prices may change.",
+    ]
+    desc=next((c for c in cands if 70<=len(c)<=160), None)
+    if not desc:
+        raise SystemExit(f"{spec['path']}: meta description does not fit ({[len(c) for c in cands]})")
+    low=desc.lower()
+    if spec["phrase"] not in low or "checked daily" not in low or "black friday prices may change" not in low:
+        raise SystemExit(f"{spec['path']}: meta missing a required phrase")
+    return desc
+def render_bf_landing(spec):
+    """One gender landing. Prices, photos, and buy links come from the same helpers as the other deal pages."""
+    section=bf_men if spec["path"]==BF_COLOGNE_PATH else bf_women
+    if [d["id"] for d in spec["rows"]]!=[d["id"] for d in section]:
+        raise SystemExit(f"{spec['path']}: bottles drifted from the mixed Black Friday page")
+    rows=bf_require(spec["rows"])
+    if len(rows)<BF_MIN_BOTTLES:
+        raise SystemExit(f"{spec['path']}: {len(rows)} bottles, need {BF_MIN_BOTTLES}")
+    lo=lowest_deal(rows)
+    title=f"{spec['title_lead']}: From ${lo['price']:.2f}"
+    if len(title)>60 or spec["phrase"] not in title.lower():
+        raise SystemExit(f"{spec['path']}: title is {len(title)} chars or misses the target phrase ({title})")
+    if title in TITLES:
+        raise SystemExit(f"{spec['path']}: title collides with another page ({title})")
+    desc=bf_landing_desc(spec, rows, lo, bf_when)
+    intro=(f"Black Friday 2026 is November 27 and Cyber Monday 2026 is November 30. "
+           f"This page lists {spec['who']} only, largest discount first. "
+           "Prices are current and checked daily. Black Friday prices may change. "
+           "Every card is a deal already in the price check, using that product's stored photo and price. "
+           "This page rebuilds with the daily refresh.")
+    faqs=[
+     ("When is Black Friday 2026?",
+      "Black Friday 2026 is Friday, November 27, 2026, the day after Thanksgiving."),
+     ("Are these Black Friday sale prices?",
+      f"No. Each price is the current price we checked at an authorized retailer. Prices are current and checked daily. Black Friday prices may change. Last updated {bf_when}."),
+     (f"What is the lowest {spec['who']} on this page?",
+      f"The lowest price we checked is ${lo['price']:.2f} for {fullname(lo)} ({sz(lo['size'])}) at {lo['retailer']}. {len(rows)} {spec['noun']} are on this page. That price is the one we checked, not a separate Black Friday price."),
+     ("Are other bottles included?",
+      f"No. This page is {spec['who']} only. Unisex bottles, the other gender, testers, decants, Amazon, and boxed gift sets are left off. The mixed list is on the Black Friday fragrance deals page."),
+    ]
+    use_sid("bfcm", spec["sid"])
+    related="<p class='chips'>"+"".join(f"<a href='{PREFIX}{href}'>{e(label)}</a>" for href,label in bf_related_links(spec))+"</p>"
+    page(spec["path"].strip("/")+"/index.html", title, desc,
+     f"<h1>{e(spec['h1'])}</h1><p class='sub'>Last updated {e(bf_when)}. Checked {upd_h}.</p><p>{e(intro)}</p>{related}{gift_nav()}{GIFT_DISC}{gift_table(rows)}{faqhtml(faqs)}{BREVO_FORM}<p class='meta'>Prices are current and checked daily. Black Friday prices may change. We do not invent a price or a photo, and we do not list testers, decants, or Amazon.</p>",
+     [itemlist(rows, spec["h1"]), faqld(faqs)], image="/media/pins/holiday-fragrance-gifts.png", feed=True)
+    KW.append(spec["phrase"])
+    text=open(f"{OUT}/{spec['path'].strip('/')}/index.html", encoding="utf-8").read()
+    if f"<h1>{e(spec['h1'])}</h1>" not in text:
+        raise SystemExit(f"{spec['path']}: h1 missing")
+    if text.count('<article class="card">')!=len(rows):
+        raise SystemExit(f"{spec['path']}: card count is not {len(rows)}")
+    for d in rows:
+        if f"${d['price']:.2f}" not in text:
+            raise SystemExit(f"{spec['path']}: missing the checked price for {d.get('id')}")
+    if "Prices are current and checked daily." not in text or "Black Friday prices may change." not in text:
+        raise SystemExit(f"{spec['path']}: missing the current-price note")
+    blocks=[]
+    for raw in re.findall(r'<script type="application/ld\+json">(.*?)</script>', text, re.S):
+        blocks.append(json.loads(raw))
+    faqs_ld=[b for b in blocks if isinstance(b, dict) and b.get("@type")=="FAQPage"]
+    lists_ld=[b for b in blocks if isinstance(b, dict) and b.get("@type")=="ItemList"]
+    if len(faqs_ld)!=1 or len(lists_ld)!=1:
+        raise SystemExit(f"{spec['path']}: expected one FAQPage and one ItemList")
+    if len(lists_ld[0].get("itemListElement") or [])!=len(rows):
+        raise SystemExit(f"{spec['path']}: ItemList length is not {len(rows)}")
+    shown=[(html.unescape(q), html.unescape(a)) for q,a in re.findall(r"<h3>(.*?)</h3><p>(.*?)</p>", text, re.S)]
+    ld_pairs=[(q["name"], (q.get("acceptedAnswer") or {}).get("text")) for q in faqs_ld[0].get("mainEntity") or []]
+    if shown!=ld_pairs:
+        raise SystemExit(f"{spec['path']}: visible FAQ does not match FAQPage JSON-LD")
+    for href,label in bf_related_links(spec):
+        if f"<a href='{PREFIX}{href}'>{e(label)}</a>" not in text:
+            raise SystemExit(f"{spec['path']}: missing link {label} {href}")
+    print(f"black friday page {spec['path']}: {len(rows)} bottles, from ${lo['price']:.2f}")
+for _spec in BF_LANDINGS:
+    render_bf_landing(_spec)
 # ---------- 404 (GitHub Pages serves site/404.html for any unknown path) ----------
 def write_404():
     """Branded not-found page using the same header, footer, and CSS as every other page.
@@ -2756,7 +2876,7 @@ nfeed=write_feed()
 KEY=hashlib.md5(b"scentdealsdaily-indexnow").hexdigest(); open(f"{OUT}/{KEY}.txt","w").write(KEY)
 open(f"{ROOT}/docs/keywords.txt","w").write("\n".join(KW)+"\n")
 with open(f"{OUT}/llms.txt","a") as f: f.write("\n## Per-product & per-dupe pages\n"+"\n".join(u for u in PAGES if "/fragrance/" in u or "/dupe/" in u)+"\n")
-with open(f"{OUT}/llms.txt","a") as f: f.write("\n## Buying guides & dupe comparisons\n"+"\n".join(u for u in PAGES if "/best/" in u or "/vs/" in u or "/gifts/" in u or "/black-friday-fragrance-deals/" in u or any(f"/dupes/{h['slug']}/" in u for h in HUBS))+"\n")
+with open(f"{OUT}/llms.txt","a") as f: f.write("\n## Buying guides & dupe comparisons\n"+"\n".join(u for u in PAGES if "/best/" in u or "/vs/" in u or "/gifts/" in u or "/black-friday-" in u or any(f"/dupes/{h['slug']}/" in u for h in HUBS))+"\n")
 assert_404_unlisted()
 print(len(PAGES),"pages total;",len(KW),"keywords;",nfeed,"feed items")
 if _media_tmp:
@@ -3096,7 +3216,7 @@ def _local_file(path):
     return next((c for c in cands if os.path.isfile(c)), None)
 def _photo_roundup(rel):
     """Pages whose product cards must keep a real img. A missing image fails the build."""
-    return rel.startswith("gifts/") or rel.startswith("black-friday-fragrance-deals/")
+    return rel.startswith("gifts/") or rel.startswith("black-friday-")
 def audit_cards_links_jsonld():
     """Fail when a product card has no image. Warn when the only image is the neutral placeholder.
     Parse every JSON-LD block and resolve internal links on disk. Never request a tracking URL."""
@@ -3352,7 +3472,7 @@ def audit_gift_pins():
             if rel.startswith("gifts/"): continue
             og=og_of(rel)
             if not og: continue
-            if rel=="black-friday-fragrance-deals/index.html":
+            if rel.startswith("black-friday-") and rel.endswith("/index.html"):
                 if not og.endswith("/media/pins/holiday-fragrance-gifts.png"):
                     bad.append(f"{rel}: image changed ({og})")
             elif not og.endswith(DEFAULT_SHARE):
@@ -3491,3 +3611,33 @@ audit_cards_links_jsonld()
 audit_share_meta()
 audit_gift_pins()
 audit_gift_aliases()
+def audit_bf_landings():
+    """The split Black Friday pages are in the sitemap only when they cleared the bottle minimum."""
+    sm=open(f"{OUT}/sitemap.xml", encoding="utf-8").read()
+    llms=open(f"{OUT}/llms.txt", encoding="utf-8").read()
+    feed=open(f"{OUT}/feed.xml", encoding="utf-8").read()
+    published={spec["path"] for spec in BF_LANDINGS}
+    for path in (BF_COLOGNE_PATH, BF_PERFUME_PATH):
+        loc=f"{BASE}{PREFIX}{path}"
+        rel=path.strip("/")+"/index.html"
+        exists=os.path.isfile(f"{OUT}/{rel}")
+        listed=f"<loc>{loc}</loc>" in sm
+        if path in published:
+            if not exists or not listed or loc not in llms or loc not in feed:
+                raise SystemExit(f"{path} missing from the built site, sitemap, llms.txt, or feed")
+            text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+            if text.count('<article class="card">')<BF_MIN_BOTTLES:
+                raise SystemExit(f"{path}: fewer than {BF_MIN_BOTTLES} cards")
+            if '"@type": "FAQPage"' not in text and '"@type":"FAQPage"' not in text:
+                raise SystemExit(f"{path}: FAQPage JSON-LD missing")
+        elif exists or listed:
+            raise SystemExit(f"{path} was skipped but is still published")
+    linked_from=("black-friday-fragrance-deals/index.html","gifts/index.html","gifts/for-him/index.html","gifts/for-her/index.html")
+    for rel in linked_from:
+        text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+        for spec in BF_LANDINGS:
+            needle=f"<a href='{PREFIX}{spec['path']}'>{e(spec['chip'])}</a>"
+            if needle not in text:
+                raise SystemExit(f"{rel}: missing seasonal link to {spec['path']}")
+    print(f"black friday landings: {len(BF_LANDINGS)} pages in the sitemap and cross-linked")
+audit_bf_landings()
