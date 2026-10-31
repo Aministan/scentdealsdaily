@@ -1,5 +1,5 @@
 # ScentDealsDaily
-> Daily-checked discounts on authentic designer fragrances at reputable retailers, plus a cited dupes directory. Last updated 2026-10-30T18:12:37Z.
+> Daily-checked discounts on authentic designer fragrances at reputable retailers, plus a cited dupes directory. Last updated 2026-10-31T14:34:35Z.
 
 ## Today's deals (price USD, size, retailer, % off listed compare-at)
 - Juicy Couture Peace Love & Juicy Couture Perfume 3.4 oz.: $20.95 (was $89.00, -76%) at FragranceShop: https://www.fragranceshop.com/product/peace-love-juicy-couture-perfume-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz
@@ -59,12 +59,12 @@
 - Kilian Angels' Share -> Lattafa Khamrah: $26.95 3.4 oz. at FragranceShop https://www.fragranceshop.com/product/lattafa-khamrah-for-unisex/?attribute_pa_size=eau-de-parfum-spray-3-4-oz (sources: https://www.thelastspritz.com/best-cologne-dupes)
 - Kilian Angels' Share (coffee twist) -> Lattafa Khamrah Qahwa: $25.95 3.4 oz. at FragranceShop https://www.fragranceshop.com/product/lattafa-khamrah-qahwa-perfume-for-unisex/?attribute_pa_size=eau-de-parfum-spray-3-4-oz (sources: https://perfumania.com/blogs/articles/top-6-luxury-fragrance-dupes-in-2026)
 - MFK Baccarat Rouge 540 -> Ariana Grande Cloud: $46.95 3.4 oz. at FragranceShop https://www.fragranceshop.com/product/ariana-grande-cloud-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz (sources: https://perfumania.com/blogs/articles/top-6-luxury-fragrance-dupes-in-2026)
-- MFK Baccarat Rouge 540 -> Al Haramain Amber Oud Rouge: $38.95 2.0 oz. at FragranceShop https://www.fragranceshop.com/product/al-haramain-amber-oud-rouge-for-unisex/?attribute_pa_size=eau-de-parfum-spray-2-0-oz (sources: https://scentfile.com/clone-list.csv, https://www.thelastspritz.com/best-cologne-dupes)
+- MFK Baccarat Rouge 540 -> Al Haramain Amber Oud Rouge: $57.95 4.0 oz. at FragranceShop https://www.fragranceshop.com/product/al-haramain-amber-oud-rouge-for-unisex/?attribute_pa_size=eau-de-parfum-spray-4-0-oz (sources: https://scentfile.com/clone-list.csv, https://www.thelastspritz.com/best-cologne-dupes)
 - MFK Baccarat Rouge 540 Extrait -> Armaf Club de Nuit Untold: $42.95 3.6 oz at Perfumania https://www.perfumania.com/products/club-de-nuit-untold-unisex-fragrance?variant=41264895918213 (sources: https://altscent.app/clone-list/)
 - Dior Sauvage Elixir -> Lattafa Asad: $39.99 3.4 oz. at Perfumania https://www.perfumania.com/products/lattafa-asad-cologne-eau-de-parfum-for-men?variant=41094013976709 (sources: https://perfumania.com/blogs/articles/top-6-luxury-fragrance-dupes-in-2026)
 - Creed Silver Mountain Water -> Armaf Club de Nuit Sillage: $34.95 3.6 oz. at Perfumania https://www.perfumania.com/products/club-de-nuit-sillage-unisex-fragrance?variant=41266471370885 (sources: https://perfumania.com/blogs/articles/top-6-luxury-fragrance-dupes-in-2026, https://altscent.app/clone-list/)
 - Jean Paul Gaultier Ultra Male -> Afnan 9PM: $39.99 3.4 oz. at Perfumania https://www.perfumania.com/products/9pm-cologne?variant=41284110418053 (sources: https://perfumania.com/blogs/articles/top-6-luxury-fragrance-dupes-in-2026)
-- Creed Millésime Impérial -> Armaf Club de Nuit Milestone: $27.95 3.6 oz. at FragranceShop https://www.fragranceshop.com/product/armaf-club-de-nuit-milestone-for-unisex/?attribute_pa_size=eau-de-parfum-spray-3-6-oz (sources: https://scentfile.com/clone-list.csv, https://altscent.app/clone-list/)
+- Creed Millésime Impérial -> Armaf Club de Nuit Milestone (sources: https://scentfile.com/clone-list.csv, https://altscent.app/clone-list/)
 - YSL Y Eau de Parfum -> Lattafa Fakhar Black: $39.99 3.4 oz. at Perfumania https://www.perfumania.com/products/fakhar-eau-de-parfum-1?variant=41052514484357 (sources: https://altscent.app/clone-list/)
 - Mugler Angel Nova -> Lattafa Mayar: $21.95 3.4 oz. at FragranceShop https://www.fragranceshop.com/product/lattafa-mayar-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz (sources: https://altscent.app/clone-list/)
 - Bleu de Chanel EDP -> Armaf Club de Nuit Iconic (Blue Iconic) (sources: https://www.thelastspritz.com/best-cologne-dupes, https://scentfile.com/clone-list.csv)
@@ -180,6 +180,8 @@ https://scentdealsdaily.com/vs/le-beau-vs-versace-eros/
 https://scentdealsdaily.com/vs/most-wanted-vs-stronger-with-you/
 https://scentdealsdaily.com/vs/clinique-happy-vs-green-tea/
 https://scentdealsdaily.com/vs/eilish-vs-la-vie-est-belle/
+https://scentdealsdaily.com/vs/cool-water-vs-acqua-di-gio/
+https://scentdealsdaily.com/vs/light-blue-vs-clinique-happy/
 https://scentdealsdaily.com/gifts/
 https://scentdealsdaily.com/gifts/for-him/
 https://scentdealsdaily.com/gifts/for-her/
@@ -239,6 +241,9 @@ https://scentdealsdaily.com/gifts/christmas-perfume-gifts-for-wife/
 https://scentdealsdaily.com/gifts/perfume-gifts-for-daughter-in-law/
 https://scentdealsdaily.com/gifts/cologne-gifts-for-son-in-law/
 https://scentdealsdaily.com/gifts/christmas-cologne-gifts-for-husband/
+https://scentdealsdaily.com/gifts/classic-cologne-gifts/
+https://scentdealsdaily.com/gifts/christmas-cologne-gifts-for-boyfriend/
+https://scentdealsdaily.com/gifts/christmas-perfume-gifts-for-girlfriend/
 https://scentdealsdaily.com/black-friday-fragrance-deals/
 https://scentdealsdaily.com/black-friday-cologne-deals/
 https://scentdealsdaily.com/black-friday-perfume-deals/
