@@ -1,7 +1,7 @@
 {
  "hub": {
   "paragraphs": [
-   "This is the brand index for ScentDealsDaily. Each name opens that house: the bottles we price-checked at Perfumania or FragranceShop, with the size and the compare-at price that retailer listed. A brand page also explains how the house tends to smell, which famous bottles people ask for, and which checked bottle fits a gift. We do not fill in a discount, a stock status, or a star rating that is not part of that check.",
+   "This is the brand index for ScentDealsDaily. Each name opens that house: the bottles we price-checked at Perfumania, FragranceShop, or FragranceNet, with the size and the compare-at price that retailer listed. A brand page also explains how the house tends to smell, which famous bottles people ask for, and which checked bottle fits a gift. We do not fill in a discount, a stock status, or a star rating that is not part of that check.",
    "The houses run from fresh daytime colognes to sweet gift perfumes and a few higher-priced bottles. If you already know the brand, open it. If you are shopping by person instead of by logo, the holiday gift guides group checked bottles for him, for her, and for specific recipients. Men's colognes, women's perfumes, and unisex bottles have their own lists, and the roundups below group bottles we already checked by style.",
    "A brand page only shows a price for a bottle in its grid. Other well-known fragrances are named so you can tell whether the bottle on sale is the one you meant: Terre d'Hermès versus H24, CK One versus Eternity, Eros versus Bright Crystal. Side-by-side comparisons and scent roundups are linked from a brand page only when that page's bottles are already on them. The date under the heading is the check behind the numbers in the grid."
   ],
@@ -849,7 +849,7 @@
   },
   "Burberry": {
    "intro": [
-    "Burberry fragrances are wearable British designer scents, usually fresher or softer than the sweetest mainstream lines. Weekend is the casual men's citrus. Hero is the woody men's cologne for daily wear. London for women is a white floral. Touch for women is a softer floral. Her and Mr. Burberry are the other names shoppers add when they already know the house. The four bottles we checked cover Weekend, Hero, London, and Touch."
+    "Burberry fragrances are wearable British designer scents, usually fresher or softer than the sweetest mainstream lines. Weekend is the casual men's citrus. Hero is the woody men's cologne for daily wear. London for women is a white floral. Touch for women is a softer floral, and Touch for men is a separate fresh cologne. Her and Mr. Burberry are the other names shoppers add when they already know the house. The grid is the bottles we checked."
    ],
    "known": [
     {
@@ -871,11 +871,16 @@
      "name": "Touch",
      "text": "A Burberry bottle with a checked price here. A softer women's floral, lighter in mood than London. Use it when they want Burberry and do not want a big white-floral bouquet.",
      "deal_id": "burberry-touch-women-eau-de-parfum-spray"
+    },
+    {
+     "name": "Touch for Men",
+     "text": "A Burberry bottle with a checked price here. A fresh men's cologne, not the women's Touch floral. Artemisia, violet leaf, mandarin, nutmeg, and white musk.",
+     "deal_id": "burberry-touch-cologne-eau-de-toilette"
     }
    ],
    "choose": [
     "Weekend is the men's gift for fresh citrus and an easy daytime cologne. Hero is the men's gift when they want wood and something a bit more dressed than Weekend. London is the women's gift for a white floral with rose and jasmine. Touch is the women's gift when London would be too much flower.",
-    "Her is the fruity-floral women's Burberry many people mean, and Mr. Burberry is the aromatic men's one. Neither is in this grid. Match Weekend versus Hero, and London versus Touch, before you buy. The four prices above are the only Burberry prices on this page."
+    "Her is the fruity-floral women's Burberry many people mean, and Mr. Burberry is the aromatic men's one. Neither is in this grid. Match Weekend versus Hero, and London versus women's Touch, before you buy. Men's Touch is a different cologne from the women's floral, and it is in the grid when we have checked a price."
    ],
    "faqs": [
     {
@@ -892,13 +897,13 @@
     },
     {
      "q": "London or Touch for a woman?",
-     "a": "London for a fuller white floral. Touch for a softer, lighter floral. Both are priced in the grid. Her, the fruity-floral Burberry, is a different perfume and is not priced here."
+     "a": "London for a fuller white floral. Touch for a softer, lighter floral. Both are priced in the grid. Men's Touch is a separate cologne, also priced when it is in the grid. Her, the fruity-floral Burberry, is a different perfume and is not priced here."
     }
    ]
   },
   "Calvin Klein": {
    "intro": [
-    "Calvin Klein made its fragrance name on clean, shareable scents. CK One is the citrus aromatic worn by anyone. Eternity is the women's green floral, and Eternity Air is the lighter flanker. The grid is that fresh, floral part of the house. Obsession and Euphoria, the spicier and sweeter classics, are not in it."
+    "Calvin Klein made its fragrance name on clean, shareable scents. CK One is the citrus aromatic worn by anyone. Eternity is the women's green floral, and Eternity Air is the lighter flanker. Eternity for men is a separate cologne. Obsession is the spicy classic and Euphoria is the sweeter one. A name is in the grid only when that bottle has a checked price."
    ],
    "known": [
     {
@@ -930,11 +935,26 @@
      "name": "Beauty",
      "text": "Soft floral musk: ambrette, jasmine, and cedar. Quieter than Eternity.",
      "deal_id": "calvin-klein-beauty-perfume-eau-de-parfum-for-women"
+    },
+    {
+     "name": "Eternity for Men",
+     "text": "A separate cologne from the women's Eternity floral. Lavender, mandarin, coriander, lily, and sandalwood. It is in the grid when we have checked a price.",
+     "deal_id": "calvin-klein-eternity-cologne-eau-de-toilette"
+    },
+    {
+     "name": "Obsession",
+     "text": "The spicy women's classic: mandarin, peach, basil, and vanilla. Not the fresh citrus of CK One, and not Eternity.",
+     "deal_id": "calvin-klein-obsession-eau-de-parfum"
+    },
+    {
+     "name": "Euphoria",
+     "text": "The sweeter Calvin Klein floral: pomegranate, orchid, and amber. A night-leaning perfume, not the daytime Eternity.",
+     "deal_id": "calvin-klein-euphoria-eau-de-parfum"
     }
    ],
    "choose": [
     "CK One when the gift should be fresh citrus for anyone. CK Everyone when you want that clean idea with tea instead of sharp citrus. Eternity for a women's floral with lily and rose. Eternity Air when they want grapefruit and peony. Free for a woody men's cologne. Beauty for a quiet jasmine musk.",
-    "Look for Obsession or Euphoria if you wanted the spicier or sweeter Calvin Klein classics. This page prices the six bottles above. One versus Everyone, the two Eternitys, and Eternity Air versus Green Tea are linked below."
+    "Obsession is the spicy musk classic. Euphoria is the sweeter floral. Men's Eternity is not the women's floral. One versus Everyone, the two women's Eternitys, and Eternity Air versus Green Tea are linked below. The grid is every Calvin Klein bottle with a checked price."
    ],
    "faqs": [
     {
@@ -950,8 +970,8 @@
      "a": "Juniper, star anise, coffee, Virginia cedar, oak, and patchouli. An aromatic woody men's cologne, not a sweet vanilla. The checked bottle is in the grid."
     },
     {
-     "q": "Where are Obsession and Euphoria?",
-     "a": "They are the spicier and sweeter Calvin Klein classics. This page does not price them. The grid is CK One, Everyone, Eternity, Eternity Air, Free, and Beauty."
+     "q": "What do Obsession and Euphoria smell like?",
+     "a": "Obsession is the spicy musk classic, with mandarin, peach, and vanilla. Euphoria is sweeter, with pomegranate, orchid, and amber. Checked bottles of either one are in the grid. They are not CK One or Eternity."
     }
    ]
   },
@@ -1055,6 +1075,100 @@
     {
      "q": "Bright Crystal Absolu or Dylan Blue Pour Femme?",
      "a": "Both are women's fruity florals with checked prices here. Absolu is yuzu, raspberry, peony, and amber. Dylan Blue Pour Femme is apple, peach, rose, and jasmine. The original Bright Crystal and men's Dylan Blue are not in the grid."
+    }
+   ]
+  },
+  "Dolce & Gabbana": {
+   "intro": [
+    "Dolce & Gabbana fragrances are built as sunny, recognizable designer scents. Light Blue is the one most people mean: a fresh women's eau de toilette with apple, lemon, and cedar, light enough for daytime. The house also makes The One, a warmer amber, and a men's Light Blue that is a different bottle.",
+    "Shoppers who say Light Blue usually want the women's eau de toilette. Light Blue Eau Intense is a flanker, fuller than the original. The grid only prices a bottle after we have checked it."
+   ],
+   "known": [
+    {
+     "name": "Light Blue",
+     "text": "The Dolce & Gabbana bottle with a checked price on this page. Women's eau de toilette: apple, Sicilian lemon, cedar, and white rose. A fresh daytime perfume.",
+     "deal_id": "dolce-gabbana-light-blue-eau-de-toilette"
+    },
+    {
+     "name": "Light Blue for Men",
+     "text": "A fresh men's cologne in the same family, not the women's bottle. It is not priced on this page."
+    },
+    {
+     "name": "Light Blue Eau Intense",
+     "text": "A flanker of Light Blue, fuller and less sheer than the original eau de toilette. A different bottle, and not the one in the grid unless the grid says so."
+    },
+    {
+     "name": "The One",
+     "text": "The warmer Dolce & Gabbana, amber and floral rather than the citrus of Light Blue. It is a different gift, and this page does not price it."
+    }
+   ],
+   "choose": [
+    "Light Blue is the gift for someone who wants a fresh, citrusy women's perfume they can wear in the daytime. It is a poor match for someone who asked for The One, or for the men's Light Blue.",
+    "Confirm women's Light Blue before you buy. The only Dolce & Gabbana price on this page is the bottle in the grid."
+   ],
+   "faqs": [
+    {
+     "q": "What does Dolce & Gabbana Light Blue smell like?",
+     "a": "A fresh women's eau de toilette: apple, Sicilian lemon, cedar, and white rose. It is a daytime perfume. The checked bottle is the one in the grid."
+    },
+    {
+     "q": "Is Light Blue for men the same bottle?",
+     "a": "No. Light Blue for men is a separate cologne. The bottle on this page is the women's eau de toilette."
+    },
+    {
+     "q": "Is Light Blue Eau Intense the same as Light Blue?",
+     "a": "Eau Intense is a flanker, fuller than the original. The grid prices the original women's eau de toilette, not the intense flanker, unless the name in the grid says otherwise."
+    },
+    {
+     "q": "Who should skip Light Blue?",
+     "a": "Someone who wants a sweet vanilla, a heavy evening perfume, or the men's cologne. Light Blue is for a person who likes fresh citrus."
+    }
+   ]
+  },
+  "Davidoff": {
+   "intro": [
+    "Davidoff is known first for Cool Water, the fresh men's cologne that has been a default gift for decades. It is aquatic and minty, built for daytime rather than a sweet night out. The house has other Cool Water flankers and a women's Cool Water, and they are not the same bottle.",
+    "If someone says Davidoff and does not name a flanker, they almost always mean the original men's Cool Water. The grid prices only the bottle we checked."
+   ],
+   "known": [
+    {
+     "name": "Cool Water",
+     "text": "The Davidoff bottle with a checked price on this page. Men's eau de toilette: mint, sea water, sandalwood, and cedar. Fresh and aquatic.",
+     "deal_id": "davidoff-cool-water-eau-de-toilette"
+    },
+    {
+     "name": "Cool Water for Women",
+     "text": "A separate perfume, fruity and floral, not the men's cologne. This page does not price it."
+    },
+    {
+     "name": "Cool Water Intense and other flankers",
+     "text": "Later versions of the Cool Water idea, fuller or sweeter than the original. They are not the original men's bottle unless the grid name says so."
+    },
+    {
+     "name": "The Game",
+     "text": "A different Davidoff cologne, not Cool Water. It is not priced here."
+    }
+   ],
+   "choose": [
+    "Cool Water is the men's gift for someone who likes a fresh, aquatic cologne and does not want vanilla or a heavy evening scent. It is a familiar bottle, which is useful when you do not know their collection.",
+    "Skip it for someone who asked for a women's perfume or for a flanker by name. The only Davidoff price on this page is the Cool Water bottle in the grid."
+   ],
+   "faqs": [
+    {
+     "q": "What does Davidoff Cool Water smell like?",
+     "a": "A fresh men's eau de toilette: mint, sea water, sandalwood, and cedar. It is a daytime cologne. The checked bottle is the one in the grid."
+    },
+    {
+     "q": "Is there a women's Cool Water?",
+     "a": "Yes. Cool Water for women is a different perfume. The bottle on this page is the men's cologne."
+    },
+    {
+     "q": "Is Cool Water Intense the same bottle?",
+     "a": "No. Intense and the other flankers are later versions. The grid prices the original men's Cool Water unless the name says otherwise."
+    },
+    {
+     "q": "Who should skip Cool Water?",
+     "a": "Someone who wants a sweet gourmand or a heavy evening cologne. Cool Water is for a person who likes fresh and aquatic."
     }
    ]
   }

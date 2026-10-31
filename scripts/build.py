@@ -35,6 +35,8 @@ BRAND_GUIDES=json.load(open(f"{ROOT}/data/brand_guides.json"))
 e=html.escape
 CJ_PM="https://www.tkqlhce.com/click-101905413-15733833"
 CJ_FS="https://www.anrdoezrs.net/click-101905413-16941523"
+# Rakuten Advertising deep link. id is the publisher tracking id; do not encode the asterisk.
+RAKUTEN_DEEPLINK="https://click.linksynergy.com/deeplink?id=cED93qTW*cI&mid=216"
 def _host(url):
     return (urllib.parse.urlparse(url).hostname or "").lower()
 def is_perfumania(url):
@@ -47,11 +49,19 @@ def is_fragranceshop(url):
     if "anrdoezrs.net/click-101905413-16941523" in url: return True
     h=_host(url)
     return h=="fragranceshop.com" or h.endswith(".fragranceshop.com")
+def is_fragrancenet(url):
+    if not isinstance(url,str) or not url: return False
+    h=_host(url)
+    return h=="fragrancenet.com" or h.endswith(".fragrancenet.com")
+def is_rakuten(url):
+    if not isinstance(url,str) or not url: return False
+    h=_host(url)
+    return h=="click.linksynergy.com" or h.endswith(".linksynergy.com")
 def is_cj(url):
     """Any CJ click URL for this publisher (click-101905413-<adid>), whatever the domain or ad id."""
     return isinstance(url,str) and "click-101905413-" in url
 def is_affiliate(url):
-    return is_perfumania(url) or is_fragranceshop(url) or is_cj(url)
+    return is_perfumania(url) or is_fragranceshop(url) or is_fragrancenet(url) or is_cj(url) or is_rakuten(url)
 # Page context for the CJ shopper id. Set with use_sid() before a page's HTML is built.
 CTX={"type":"site","slug":""}
 def _sid_part(s):
@@ -83,10 +93,13 @@ def add_sid(url, sid):
     parts=[p for p in query.split("&") if p and not p.startswith("sid=")]
     return base+"?sid="+sid_q+(("&"+("&".join(parts))) if parts else "")+frag
 def affiliate_url(url, placement="link"):
-    """CJ deep link for Perfumania and FragranceShop, with a shopper id. Other retailers stay as-is."""
+    """CJ deep link for Perfumania and FragranceShop. Rakuten deep link for FragranceNet."""
     if not isinstance(url,str) or not url: return url
     sid=make_sid(placement)
     if is_cj(url): return add_sid(url, sid)
+    if is_rakuten(url): return url
+    if is_fragrancenet(url):
+        return RAKUTEN_DEEPLINK+"&murl="+urllib.parse.quote(url, safe="")
     cj = CJ_PM if is_perfumania(url) else CJ_FS if is_fragranceshop(url) else None
     if not cj: return url
     p=urllib.parse.urlparse(url)
@@ -101,6 +114,11 @@ def ext_a(url, inner, cls="", style="", placement="link"):
         return f'<a{extra} rel="nofollow sponsored noopener" target="_blank" href="{href}">{inner}</a>'
     return f"<a{extra} rel='nofollow sponsored noopener' target=_blank href='{href}'>{inner}</a>"
 def slug(s): return re.sub(r"[^a-z0-9]+","-",s.lower()).strip("-")
+def frag_slug(d):
+    """Fragrance URL. A second size of a name already on the site gets the size in the path."""
+    base=slug(f"{d['brand']} {d['name']}")
+    if d.get("url_size"): return slug(f"{d['brand']} {d['name']} {d.get('size') or ''}")
+    return base
 import unicodedata
 BRAND_CANON={"Lancome":"Lancôme","Mont Blanc":"Montblanc","Hermes":"Hermès"}  # retailer spellings -> the brand's own; one brand page
 def canon(b): return BRAND_CANON.get(b,b)
@@ -139,6 +157,12 @@ def clip(t,n=160):
     return t+"."
 upd=datetime.datetime.strptime(D["updated"],"%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=datetime.timezone.utc)
 upd_h=upd.astimezone(datetime.timezone(datetime.timedelta(hours=-4))).strftime("%b %-d, %Y %-I:%M %p ET")
+def checked_h(raw):
+    """Price-check time for one row. Same ET format as the file timestamp."""
+    m=re.match(r"(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})Z", str(raw or ""))
+    if not m: return str(raw) if raw and "T" not in str(raw) else upd_h
+    dt=datetime.datetime.strptime(m.group(1), "%Y-%m-%dT%H:%M:%S").replace(tzinfo=datetime.timezone.utc)
+    return dt.astimezone(datetime.timezone(datetime.timedelta(hours=-4))).strftime("%b %-d, %Y %-I:%M %p ET")
 CSS="""*{box-sizing:border-box}body{margin:0;font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#1d1b20;background:#faf8f5}
 a{color:#6b2d5c}header{background:#1d1b20;color:#fff;padding:14px 16px}header a{color:#fff;text-decoration:none}
 .logo{font-weight:800;font-size:20px;letter-spacing:-.5px}.logo span{color:#e7b75f}nav{display:flex;gap:14px;flex-wrap:wrap;margin-top:6px;font-size:14px}
@@ -281,7 +305,7 @@ def page(path,title,desc,body,jsonld=None,index=True,image=None,feed=True,canoni
 <link rel="alternate" type="application/rss+xml" title="ScentDealsDaily" href="{FEED_HREF}">
 {social}<link rel="preconnect" href="https://cdn.shopify.com"><style>{CSS}</style>{brevo_head}{ld}</head><body>
 <header><a class="logo" href="{p}/">Scent<span>Deals</span>Daily</a><nav><a href="{p}/">Today's deals</a><a href="{p}/dupes/">Dupes</a><a href="{p}/men/">Men</a><a href="{p}/women/">Women</a><a href="{p}/brands/">Brands</a><a href="{p}/sponsor/">Sponsor</a></nav></header>
-<main>{body}</main><footer>{NL_FOOT}<p>We may earn a commission when you buy through our links, at no extra cost to you. Affiliate links go to Perfumania and FragranceShop.</p>
+<main>{body}</main><footer>{NL_FOOT}<p>We may earn a commission when you buy through our links, at no extra cost to you. Affiliate links go to Perfumania, FragranceShop, and FragranceNet.</p>
 <p><b>Affiliate disclosure:</b> some links may earn us a commission at no cost to you. <a href="{p}/disclosure/">Details</a>.
 We list only authorized or long-established retailers, never gray-market marketplaces. Prices change fast; each deal shows when we last checked it. Not affiliated with any brand.</p>
 <p>© {upd.year} {NAME} · <a href="{p}/gifts/">Holiday gifts</a> · <a href="{p}/llms.txt">llms.txt</a> · <a href="{p}/sitemap.xml">sitemap</a></p>
@@ -300,9 +324,20 @@ def feed_kind(path):
     if path.startswith("dupe/"): return "dupe"
     return None
 def also_line(d):
-    a=d.get("also")
-    if not a or a.get("price") is None or not a.get("url"): return ""
-    return f"<div class='also'>also at {ext_a(a['url'], e(a['retailer']), placement='also')} · ${a['price']:.2f}</div>"
+    rows=[]
+    seen=set()
+    def add(a):
+        if not a or a.get("price") is None or not a.get("url"): return
+        if a.get("retailer")==d.get("retailer"): return
+        key=(a.get("retailer"), round(float(a["price"]),2))
+        if key in seen: return
+        seen.add(key)
+        rows.append(a)
+    add(d.get("also"))
+    for c in d.get("comps") or []:
+        if c.get("retailer")=="FragranceNet": add(c)
+    if not rows: return ""
+    return "".join(f"<div class='also'>also at {ext_a(a['url'], e(a['retailer']), placement='also')} · ${float(a['price']):.2f}</div>" for a in rows)
 # Neutral stand-in when the retailer data has no photo. Not a product picture.
 _PLACEHOLDER_SVG='<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400"><rect width="400" height="400" fill="#f4f1ec"/><rect x="168" y="88" width="64" height="16" rx="3" fill="#d5cfc7"/><path d="M156 110h88v188a30 30 0 0 1-30 30h-28a30 30 0 0 1-30-30V110z" fill="#e6e0d8" stroke="#c8c2ba" stroke-width="3"/><text x="200" y="358" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" fill="#7a7480">No photo</text></svg>'
 PLACEHOLDER_SRC="data:image/svg+xml,"+urllib.parse.quote(_PLACEHOLDER_SVG)
@@ -334,9 +369,9 @@ def card_img(d, eager=False, alt=None):
     return f'<img {ld} decoding="async" src="{e(src)}" alt="{e(alt)}" width="400" height="400">'
 def card(d,eager=False):
     return f"""<article class="card">{card_img(d, eager, alt=fullname(d))}
-<div><span class="badge">-{d['pct_off']}%</span></div><div class="brand">{e(canon(d['brand']))}</div><div class="nm"><a href="{PREFIX}/fragrance/{slug(d['brand']+' '+d['name'])}/">{e(d['name'])}</a> · {e(d['size'])}</div>
+<div><span class="badge">-{d['pct_off']}%</span></div><div class="brand">{e(canon(d['brand']))}</div><div class="nm"><a href="{PREFIX}/fragrance/{frag_slug(d)}/">{e(d['name'])}</a> · {e(d['size'])}</div>
 <div><span class="price">${d['price']:.2f}</span><span class="was">${d['was']:.2f}</span></div>
-<div class="meta">at {e(d['retailer'])} · checked {upd_h} · {('crossed-out = price at '+e(d['was_label'])) if d.get('was_label') else '"was" = retailer\'s listed compare-at price'}</div>
+<div class="meta">at {e(d['retailer'])} · checked {checked_h(d.get('checked'))} · {('crossed-out = price at '+e(d['was_label'])) if d.get('was_label') else '"was" = retailer\'s listed compare-at price'}</div>
 {also_line(d)}
 {ext_a(d['url'], f"Buy at {e(d['retailer'])}", cls="btn", placement="grid")}</article>"""
 def conc_name(t):
@@ -765,7 +800,7 @@ def _known_html(b, ds, guide):
                 if did in seen:
                     raise SystemExit(f"{b}: {did} is listed twice")
                 seen.add(did)
-                href=f"{PREFIX}/fragrance/{slug(d['brand']+' '+d['name'])}/"
+                href=f"{PREFIX}/fragrance/{frag_slug(d)}/"
                 title=f"<a href='{href}'>{e(item['name'])}</a>"
         parts.append(f"<h3>{title}</h3><p>{e(item['text'])}</p>")
     parts.append("</section>")
@@ -875,7 +910,7 @@ page("sponsor/index.html",f"Advertise on {NAME}: Featured Fragrance Deals","Reac
 <p>Contact: <a href="mailto:hello@scentdealsdaily.com">hello@scentdealsdaily.com</a> (pricing on request).</p></div>""")
 page("disclosure/index.html",fit(["Affiliate Disclosure: Commissions at No Extra Cost",f"Affiliate Disclosure | {NAME}"]),"How ScentDealsDaily earns money: retailer affiliate commissions at no extra cost to you and clearly labeled sponsored spots. Deals are always ranked by % off.",
  """<h1>Affiliate disclosure</h1><div class='box'><p>We may earn a commission when you buy through our links, at no extra cost to you.</p>
-<p>Some links on this site are affiliate links, including links to Perfumania and FragranceShop. If you buy through them, we may earn a commission at no extra cost to you. This never changes which deals we list or how they're ranked (by % off). When the same sealed bottle is in stock at both stores, the buy button goes to the lower price we checked, and the other store is noted beside it.</p>
+<p>Some links on this site are affiliate links, including links to Perfumania, FragranceShop, and FragranceNet. If you buy through them, we may earn a commission at no extra cost to you. This never changes which deals we list or how they're ranked (by % off). When the same sealed bottle is in stock at more than one of these stores, the buy button goes to the lower price we checked, and the other stores are noted beside it.</p>
 <p>As an Amazon Associate we may earn from qualifying purchases (once enrolled). Sponsored placements are always labeled "Sponsored".</p>
 <p>"Was" prices are the retailer's own listed compare-at / retail price at the time we checked. Prices and stock change; always confirm at checkout.</p></div>""")
 open(f"{OUT}/style.css","w").write(CSS)
@@ -899,7 +934,7 @@ print(len(PAGES),"pages ->",OUT)
 def comprows(d):
     cs=d.get('comps') or [{"retailer":d['retailer'],"price":d['price'],"url":d['url'],"checked":upd_h}]
     cs=sorted(cs,key=lambda c:c['price'])
-    return "".join(f"<tr><td>{ext_a(c['url'], e(c['retailer']), placement='table')}{' <span class=badge>lowest</span>' if i==0 else ''}</td><td>{e(d.get('size') or '')}</td><td><b>${c['price']:.2f}</b></td><td class=meta>{e(c['checked'] if 'T' not in str(c['checked']) else upd_h)}</td></tr>" for i,c in enumerate(cs))
+    return "".join(f"<tr><td>{ext_a(c['url'], e(c['retailer']), placement='table')}{' <span class=badge>lowest</span>' if i==0 else ''}</td><td>{e(c.get('size') or d.get('size') or '')}</td><td><b>${c['price']:.2f}</b></td><td class=meta>{e(checked_h(c.get('checked')))}</td></tr>" for i,c in enumerate(cs))
 # ---------- SEO landing pages: one per fragrance deal + one per dupe pair ----------
 import hashlib
 def faqld(qs): return {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":a}} for q,a in qs]}
@@ -907,7 +942,7 @@ def faqhtml(qs): return "<section class='box'><h2 style='margin-top:0'>FAQ</h2>"
 def buy(url,ret): return ext_a(url, f"Buy at {e(ret)} →", cls="btn", style="max-width:340px", placement="cta")
 KW=[]
 for d in deals:
-    full=fullname(d); s=slug(f"{d['brand']} {d['name']}"); use_sid("deal", s); KW+= [f"{full.lower()} cheapest price",f"{full.lower()} sale",f"{full.lower()} {sz(d['size']).lower()} deal"]
+    full=fullname(d); s=frag_slug(d); use_sid("deal", s); KW+= [f"{full.lower()} cheapest price",f"{full.lower()} sale",f"{full.lower()} {sz(d['size']).lower()} deal"]
     gl={"men":"men's cologne","women":"women's perfume","unisex":"unisex fragrance"}[d['gender']]
     others=[x for x in deals if x['gender']==d['gender'] and x['id']!=d['id']][:4]
     qs=[(f"What is the cheapest price for {full} right now?",f"As of {upd_h}, the lowest price we verified is ${d['price']:.2f} for {d['size']} at {d['retailer']}, {d['pct_off']}% below {('the $%.2f at %s' % (d['was'],d['was_label'])) if d.get('was_label') else ('its listed $%.2f' % d['was'])}."),
@@ -915,7 +950,7 @@ for d in deals:
         (f"Is the {d['retailer']} {full} authentic?",f"{d['retailer']} is a long-established US fragrance chain selling genuine designer brands. We exclude marketplace sellers and tester listings."),
         (f"How much does {full} cost per ounce?",(f"At ${d['price']:.2f} for {d['size']} it works out to ${per_oz(d):.2f} per ounce, and you save ${d['was']-d['price']:.2f} versus the ${d['was']:.2f} listed price." if per_oz(d) else f"At ${d['price']:.2f} you save ${d['was']-d['price']:.2f} versus the ${d['was']:.2f} listed price."))]
     rus=roundups_of(d)
-    body=(f"<h1>{e(full)} {e(sz(d['size']))}: cheapest price today</h1><p class='sub'>Lowest verified price: <b class='price'>${d['price']:.2f}</b> <span class='was'>${d['was']:.2f}</span> <span class='badge'>-{d['pct_off']}%</span> at {e(d['retailer'])} · checked {upd_h}</p>"
+    body=(f"<h1>{e(full)} {e(sz(d['size']))}: cheapest price today</h1><p class='sub'>Lowest verified price: <b class='price'>${d['price']:.2f}</b> <span class='was'>${d['was']:.2f}</span> <span class='badge'>-{d['pct_off']}%</span> at {e(d['retailer'])} · checked {checked_h(d.get('checked'))}</p>"
       +buy(d['url'],d['retailer'])+also_line(d)
       +f"<div class='box' style='display:flex;gap:16px;flex-wrap:wrap'><img src='{e(d['image'] or '')}' alt='{e(full)}' width=220 height=220 fetchpriority=high decoding=async style='object-fit:contain'><div style='flex:1;min-width:220px'><h2 style='margin-top:0'>Price comparison</h2><table><thead><tr><th>Retailer</th><th>Size</th><th>Price</th><th>Checked</th></tr></thead><tbody>{comprows(d)}</tbody></table><p class=meta>More retailers are added as we verify them. We never list unverified prices.</p></div></div>"
       +BREVO_FORM
@@ -1186,7 +1221,7 @@ def picks(cheap,val,big):
         hit=next((o for o in out if o[1] is d),None)
         if hit: hit[0].append(lab); hit[2].append(extra)
         else: out.append(([lab],d,[extra]))
-    return "".join(f"<li><b>{e(' + '.join(l).capitalize())}:</b> <a href='{PREFIX}/fragrance/{slug(d['brand']+' '+d['name'])}/'>{e(fullname(d))}</a> ({e(', '.join(x))})</li>" for l,d,x in out)
+    return "".join(f"<li><b>{e(' + '.join(l).capitalize())}:</b> <a href='{PREFIX}/fragrance/{frag_slug(d)}/'>{e(fullname(d))}</a> ({e(', '.join(x))})</li>" for l,d,x in out)
 # ---------- buying-guide roundups (/best/<slug>/) ----------
 def offer_item(d, name, brand):
     x=prod_ld(d, name=name, brand=brand); x.pop("@context",None); return x
@@ -1197,11 +1232,11 @@ for r in ROUNDUPS:
     SC=r['scope']; KW+=[r['title'].lower().replace('best ','best cheap ').replace(' deals',''),r['title'].lower(),f"designer {N} {SC}"]
     others=[x for x in ROUNDUPS if x is not r]
     NT=r.get('notes') or {}
-    rows="".join(f"<tr><td><a href='{PREFIX}/fragrance/{slug(d['brand']+' '+d['name'])}/'>{e(fullname(d))}</a><div class=meta>{e(d['type'] or '')}{(' · '+e(NT[d['id']])) if d['id'] in NT else ''}</div></td><td>{e(d['size'])}</td><td><b>${d['price']:.2f}</b> <span class=was>${d['was']:.2f}</span></td><td>{('$%.2f' % per_oz(d)) if per_oz(d) else '—'}</td><td><span class=badge>-{d['pct_off']}%</span></td><td>{ext_a(d['url'], 'Buy at '+e(d['retailer']), placement='table')}</td></tr>" for d in ds)
+    rows="".join(f"<tr><td><a href='{PREFIX}/fragrance/{frag_slug(d)}/'>{e(fullname(d))}</a><div class=meta>{e(d['type'] or '')}{(' · '+e(NT[d['id']])) if d['id'] in NT else ''}</div></td><td>{e(d['size'])}</td><td><b>${d['price']:.2f}</b> <span class=was>${d['was']:.2f}</span></td><td>{('$%.2f' % per_oz(d)) if per_oz(d) else '—'}</td><td><span class=badge>-{d['pct_off']}%</span></td><td>{ext_a(d['url'], 'Buy at '+e(d['retailer']), placement='table')}</td></tr>" for d in ds)
     qs=[(f"What is the cheapest {N} deal {SC} today?",f"As of {upd_h}, the lowest verified price is {fullname(cheap)} {cheap['size']} at ${cheap['price']:.2f} from {cheap['retailer']} ({cheap['pct_off']}% off ${cheap['was']:.2f})."),
         (f"Which {N} {SC} is the best value per ounce?",f"{fullname(val)} at ${per_oz(val):.2f} per ounce (${val['price']:.2f} for {val['size']})." if per_oz(val) else f"{fullname(val)} at ${val['price']:.2f}."),
         (f"Which {N} {SC} has the biggest discount?",f"{fullname(big)}: {big['pct_off']}% off, ${big['price']:.2f} versus ${big['was']:.2f} {('at '+big['was_label']) if big.get('was_label') else 'listed compare-at'}."),
-        (f"Are these {N} deals authentic?","Yes. We only list authorized, long-established retailers (Perfumania and FragranceShop, both US fragrance shops selling genuine designer brands) and exclude marketplace sellers, testers and unboxed bottles."),
+        (f"Are these {N} deals authentic?","Yes. We only list authorized, long-established retailers (Perfumania, FragranceShop, and FragranceNet, all US fragrance shops selling genuine designer brands) and exclude marketplace sellers, testers and unboxed bottles."),
         ("How often are these prices updated?",f"Every day. Each price, compare-at price and stock status is re-checked from the retailer's live product data; anything that drops below 15% off or sells out is removed automatically. Last check: {upd_h}.")]+[tuple(x) for x in r.get('faq',[])]
     gift_split=""
     if r["slug"]=="luxury-fragrance-deals":
@@ -1293,10 +1328,10 @@ for v in VS:
     qs=[(f"Which is cheaper, {fa} or {fb}?",f"As of {upd_h}, {fullname(cheaper)} is the lower price at ${cheaper['price']:.2f} for {sz(cheaper['size'])} ({cheaper['retailer']})."+(f" Per ounce, {fullname(value)} is the better value at ${per_oz(value):.2f}/oz." if per_oz(value) else "")),
         (f"What is the difference between {fa} and {fb}?",v['difference']),
         (f"Is {fa} or {fb} stronger?",(f"Both are sold as {ca}, so concentration alone doesn't separate them; performance depends on the composition and your skin." if same_conc else f"{fa} is {an(ca)} and {fb} is {an(cb)}. {hi[1]} has a higher concentration of fragrance oils than {lo[1].lower()}, so {fullname(hi[0])} usually lasts longer and projects more, though skin chemistry matters.")),
-        ("Are these bottles authentic?","Yes. We only link to authorized, long-established fragrance retailers (Perfumania and FragranceShop) and exclude marketplace sellers, testers and unboxed bottles. Prices are re-checked daily.")]
+        ("Are these bottles authentic?","Yes. We only link to authorized, long-established fragrance retailers (Perfumania, FragranceShop, and FragranceNet) and exclude marketplace sellers, testers and unboxed bottles. Prices are re-checked daily.")]
     KW+=[T.lower(),f"{T.lower()} which is better",f"{fa.lower()} or {fb.lower()}"]
     body=(f"<h1>{e(T)}: price, size and notes compared</h1><p class='sub'>Both on sale today · checked {upd_h}</p><p>{e(v['intro'])}</p>"
-      +f"<div class='box'><h2 style='margin-top:0'>Side by side</h2><table><thead><tr><th></th><th><a href='{PREFIX}/fragrance/{slug(A['brand']+' '+A['name'])}/'>{e(fa)}</a></th><th><a href='{PREFIX}/fragrance/{slug(B['brand']+' '+B['name'])}/'>{e(fb)}</a></th></tr></thead><tbody>{rows}</tbody></table>"
+      +f"<div class='box'><h2 style='margin-top:0'>Side by side</h2><table><thead><tr><th></th><th><a href='{PREFIX}/fragrance/{frag_slug(A)}/'>{e(fa)}</a></th><th><a href='{PREFIX}/fragrance/{frag_slug(B)}/'>{e(fb)}</a></th></tr></thead><tbody>{rows}</tbody></table>"
       +"<p class='meta'>Prices come from each retailer's live product data. Key notes summarize the brand's published notes; how a scent wears is personal.</p></div>"
       +BREVO_FORM
       +f"<div class='box'><h2 style='margin-top:0'>Which should you buy?</h2><ul><li><b>Lower price today:</b> {e(fullname(cheaper))} at ${cheaper['price']:.2f}.</li>"
@@ -1394,12 +1429,15 @@ def brand_link(d):
     return e(b)
 def fragrance_href(d):
     """Deal page only when that page is the same bottle size. A 1 oz row must not point at a 3.4 oz deal."""
-    s=slug(d["brand"]+" "+d["name"])
-    match=next((x for x in deals if slug(x["brand"]+" "+x["name"])==s), None)
+    base=slug(d["brand"]+" "+d["name"])
+    cands=[x for x in deals if slug(x["brand"]+" "+x["name"])==base]
+    if d.get("id"):
+        exact=next((x for x in cands if x.get("id")==d.get("id")), None)
+        if exact: return f"{PREFIX}/fragrance/{frag_slug(exact)}/"
+    do=oz(d.get("size"))
+    match=next((x for x in cands if do and oz(x.get("size")) and abs(oz(x.get("size"))-do)<=0.05), None)
     if not match: return None
-    mo, do=oz(match.get("size")), oz(d.get("size"))
-    if mo and do and abs(mo-do)>0.05: return None
-    return f"{PREFIX}/fragrance/{s}/"
+    return f"{PREFIX}/fragrance/{frag_slug(match)}/"
 def gift_card(d, notes=None):
     """Roundup card markup, plus the set contents line gift guides already show."""
     notes=notes or {}
@@ -1640,7 +1678,7 @@ render_seo_gift("perfume-gifts-for-her-under-50","Perfume gifts for her under $5
     ("Are these prices estimated?",
      f"No. Each price is the price we checked at that row's retailer. Checked {upd_h}."),
     ("Do you include testers?",
-     "No. These are sealed bottles at Perfumania or FragranceShop. Testers, decants, and Amazon are left out."),
+     "No. These are sealed bottles at Perfumania, FragranceShop, or FragranceNet. Testers, decants, and Amazon are left out."),
   ] if her_under_50 else [
     ("Are there perfume gifts for her under $50 today?",
      "Not in the deals we checked. No women's perfume we priced today is under $50."),
@@ -1682,7 +1720,7 @@ render_seo_gift("stocking-stuffer-minis","Fragrance minis and travel sizes",
   "Travel sprays and minis from 0.3 oz to 1.0 oz for a stocking, lowest price first. A 1.7 oz bottle stays on the other gift guides.",
   mini_picks,([
     ("What counts as a stocking stuffer here?",
-     "A travel spray, mini, or rollerball from about 0.3 oz to 1.0 oz, priced at Perfumania or FragranceShop. Bottles of 1.7 oz and larger stay on the other gift guides."+roller_line),
+     "A travel spray, mini, or rollerball from about 0.3 oz to 1.0 oz, priced at Perfumania, FragranceShop, or FragranceNet. Bottles of 1.7 oz and larger stay on the other gift guides."+roller_line),
     ("What is the lowest travel size you checked?",
      f"{fullname(mini_lo)} is ${mini_lo['price']:.2f} for {sz(mini_lo['size'])} at {mini_lo['retailer']}. {len(mini_picks)} travel sizes are on this page, from ${mini_lo['price']:.2f} to ${max(d['price'] for d in mini_picks):.2f}."),
     ("Are these prices estimated?",
@@ -1773,7 +1811,7 @@ for spec in GIFT_GUIDES:
         faqs.append(("Are these prices estimated?",
             f"No. Every price is copied from a deal we checked. Checked {upd_h}. We do not invent a price."))
         faqs.append(("Do you list testers, decants, or Amazon?",
-            "No. These are sealed bottles at Perfumania or FragranceShop. Testers, decants, and Amazon are left out."))
+            "No. These are sealed bottles at Perfumania, FragranceShop, or FragranceNet. Testers, decants, and Amazon are left out."))
     else:
         faqs.append((f"Do you have {h1.lower()} today?",
             "Not in the deals we checked. This page stays up so the address does not disappear, and it fills in when a matching bottle is on sale."))
@@ -2492,7 +2530,7 @@ def audit_dupe_deal_cards():
             pm, wm=price_re.search(body), was_re.search(body)
             if not pm or pm.group(1)!=key[1] or not wm or wm.group(1)!=key[2]:
                 raise SystemExit(f"{rel}: card price drifted from deals.json for {deal.get('id')}")
-            frag=f"/fragrance/{slug(deal['brand']+' '+deal['name'])}/"
+            frag=f"/fragrance/{frag_slug(deal)}/"
             if frag not in body or f"Buy at {e(deal['retailer'])}" not in body:
                 raise SystemExit(f"{rel}: card for {deal.get('id')} is missing its deal link or button")
         if text.count(">Related dupes</h2>")!=1 or text.count(">Gift guides</h2>")!=1:
@@ -3586,7 +3624,7 @@ def audit_brand_pages():
             did=(item.get("deal_id") or "").strip()
             d=next((x for x in ds if x["id"]==did), None)
             if not d: continue
-            href=f"/fragrance/{slug(d['brand']+' '+d['name'])}/"
+            href=f"/fragrance/{frag_slug(d)}/"
             if href not in text:
                 bad.append(f"{rel}: missing link to {href}")
         counts.append((b, len(_visible_words(text))))

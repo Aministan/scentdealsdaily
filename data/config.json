@@ -4543,5 +4543,166 @@
    "handle": "her-2-piece-gift-set",
    "kind": "set"
   }
+ ],
+ "fragrancenet": [
+  {
+   "url": "https://www.fragrancenet.com/cologne/calvin-klein/ck-free/edt",
+   "size": "3.4 oz",
+   "match_id": "calvin-klein-free-mens-eau-de-toilette-spray"
+  },
+  {
+   "url": "https://www.fragrancenet.com/fragrances/calvin-klein/ck-everyone/edt",
+   "size": "3.3 oz",
+   "match_id": "ck-everyone-unisex-fragrance"
+  },
+  {
+   "url": "https://www.fragrancenet.com/fragrances/calvin-klein/ck-one/edt",
+   "size": "1.6 oz",
+   "match_id": "calvin-klein-ck-one-eau-de-toilette-unisex-fragrance"
+  },
+  {
+   "url": "https://www.fragrancenet.com/perfume/calvin-klein/eternity/eau-de-parfum",
+   "size": "3.3 oz",
+   "match_id": "calvin-klein-eternity-womens-eau-de-parfum-spray"
+  },
+  {
+   "url": "https://www.fragrancenet.com/perfume/calvin-klein/calvin-klein-beauty/eau-de-parfum",
+   "size": "3.3 oz",
+   "match_id": "calvin-klein-beauty-perfume-eau-de-parfum-for-women"
+  },
+  {
+   "url": "https://www.fragrancenet.com/cologne/gianni-versace/versace-eros/edt",
+   "size": "1.7 oz",
+   "match_id": "versace-eros-cologne-eau-de-toilette-for-men"
+  },
+  {
+   "url": "https://www.fragrancenet.com/cologne/giorgio-armani/acqua-di-gio/edt",
+   "size": "3.4 oz",
+   "match_id": "giorgio-armani-acqua-di-gio-eau-de-toilette-cologne-for-men"
+  },
+  {
+   "url": "https://www.fragrancenet.com/perfume/valentino/valentino-donna-born-in-roma/eau-de-parfum",
+   "size": "1.7 oz",
+   "match_id": "valentino-donna-born-in-roma-perfume-eau-de-parfum-for-women"
+  },
+  {
+   "url": "https://www.fragrancenet.com/perfume/gianni-versace/versace-bright-crystal-absolu/eau-de-parfum",
+   "size": "3 oz",
+   "match_id": "bright-crystal-absolu-by-versace-for-women-eau-de-parfum-spray"
+  },
+  {
+   "url": "https://www.fragrancenet.com/perfume/clinique/happy/eau-de-parfum",
+   "size": "1 oz",
+   "match_id": "clinique-happy-women-eau-de-parfum-spray"
+  },
+  {
+   "url": "https://www.fragrancenet.com/fragrances/calvin-klein/ck-one/edt",
+   "size": "6.7 oz",
+   "standalone": {
+    "id": "calvin-klein-ck-one-eau-de-toilette-6-7-oz",
+    "brand": "Calvin Klein",
+    "name": "CK One",
+    "gender": "unisex",
+    "type": "Eau de Toilette",
+    "image": "https://cdn.fragrancenet.com/images/photos/250x250/115760.png",
+    "url_size": true
+   }
+  },
+  {
+   "url": "https://www.fragrancenet.com/fragrances/calvin-klein/ck-everyone/edt",
+   "size": "6.7 oz",
+   "standalone": {
+    "id": "calvin-klein-ck-everyone-eau-de-toilette-6-7-oz",
+    "brand": "Calvin Klein",
+    "name": "CK Everyone",
+    "gender": "unisex",
+    "type": "Eau de Toilette"
+   }
+  },
+  {
+   "url": "https://www.fragrancenet.com/cologne/burberry/burberry-touch/edt",
+   "size": "3.3 oz",
+   "standalone": {
+    "id": "burberry-touch-cologne-eau-de-toilette",
+    "brand": "Burberry",
+    "name": "Touch Cologne",
+    "gender": "men",
+    "type": "Eau de Toilette",
+    "image": "https://cdn.fragrancenet.com/images/photos/250x250/340160.png"
+   }
+  },
+  {
+   "url": "https://www.fragrancenet.com/perfume/dolce-and-gabbana/d-and-g-light-blue/edt",
+   "size": "3.3 oz",
+   "standalone": {
+    "id": "dolce-gabbana-light-blue-eau-de-toilette",
+    "brand": "Dolce & Gabbana",
+    "name": "Light Blue Perfume",
+    "gender": "women",
+    "type": "Eau de Toilette",
+    "image": "https://cdn.fragrancenet.com/images/photos/250x250/120682.png"
+   }
+  },
+  {
+   "url": "https://www.fragrancenet.com/cologne/davidoff/cool-water/edt",
+   "size": "4.2 oz",
+   "standalone": {
+    "id": "davidoff-cool-water-eau-de-toilette",
+    "brand": "Davidoff",
+    "name": "Cool Water Cologne",
+    "gender": "men",
+    "type": "Eau de Toilette",
+    "image": "https://cdn.fragrancenet.com/images/photos/250x250/115948.png"
+   }
+  },
+  {
+   "url": "https://www.fragrancenet.com/perfume/clinique/happy/eau-de-parfum",
+   "size": "3.4 oz",
+   "standalone": {
+    "id": "clinique-happy-eau-de-parfum-3-4-oz",
+    "brand": "Clinique",
+    "name": "Happy Perfume",
+    "gender": "women",
+    "type": "Eau de Parfum",
+    "image": "https://cdn.fragrancenet.com/images/photos/250x250/120800.png",
+    "url_size": true
+   }
+  },
+  {
+   "url": "https://www.fragrancenet.com/perfume/calvin-klein/obsession/eau-de-parfum",
+   "size": "3.3 oz",
+   "standalone": {
+    "id": "calvin-klein-obsession-eau-de-parfum",
+    "brand": "Calvin Klein",
+    "name": "Obsession Perfume",
+    "gender": "women",
+    "type": "Eau de Parfum",
+    "image": "https://cdn.fragrancenet.com/images/photos/250x250/120689.png"
+   }
+  },
+  {
+   "url": "https://www.fragrancenet.com/cologne/calvin-klein/eternity/edt",
+   "size": "3.3 oz",
+   "standalone": {
+    "id": "calvin-klein-eternity-cologne-eau-de-toilette",
+    "brand": "Calvin Klein",
+    "name": "Eternity Cologne",
+    "gender": "men",
+    "type": "Eau de Toilette",
+    "image": "https://cdn.fragrancenet.com/images/photos/250x250/412684.png"
+   }
+  },
+  {
+   "url": "https://www.fragrancenet.com/perfume/calvin-klein/euphoria/eau-de-parfum",
+   "size": "3.3 oz",
+   "standalone": {
+    "id": "calvin-klein-euphoria-eau-de-parfum",
+    "brand": "Calvin Klein",
+    "name": "Euphoria Perfume",
+    "gender": "women",
+    "type": "Eau de Parfum",
+    "image": "https://cdn.fragrancenet.com/images/photos/250x250/139842.png"
+   }
+  }
  ]
 }
