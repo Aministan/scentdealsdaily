@@ -70,6 +70,13 @@
      "price": 17.95,
      "url": "https://www.fragranceshop.com/product/ck-free-for-men/?attribute_pa_size=eau-de-toilette-spray-3-4-oz",
      "checked": "2026-10-30T18:12:37Z"
+    },
+    {
+     "retailer": "FragranceNet",
+     "price": 30.99,
+     "url": "https://www.fragrancenet.com/cologne/calvin-klein/ck-free/edt",
+     "checked": "2026-10-31T14:31:54Z",
+     "size": "3.4 oz"
     }
    ],
    "also": {
@@ -83,6 +90,12 @@
     "url": "https://www.fragranceshop.com/product/ck-free-for-men/?attribute_pa_size=eau-de-toilette-spray-3-4-oz",
     "name": "Ck Free Cologne for Men",
     "variation": "size: Eau de Toilette Spray 3.4 oz"
+   },
+   "fn": {
+    "price": 30.99,
+    "was": 89.0,
+    "url": "https://www.fragrancenet.com/cologne/calvin-klein/ck-free/edt",
+    "size": "3.4 oz"
    }
   },
   {
@@ -112,6 +125,13 @@
      "price": 23.95,
      "url": "https://www.fragranceshop.com/product/beauty-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz",
      "checked": "2026-10-30T18:12:37Z"
+    },
+    {
+     "retailer": "FragranceNet",
+     "price": 45.99,
+     "url": "https://www.fragrancenet.com/perfume/calvin-klein/calvin-klein-beauty/eau-de-parfum",
+     "checked": "2026-10-31T14:31:54Z",
+     "size": "3.3 oz"
     }
    ],
    "also": {
@@ -125,6 +145,12 @@
     "url": "https://www.fragranceshop.com/product/beauty-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz",
     "name": "Beauty Perfume for Women",
     "variation": "size: Eau de Parfum Spray 3.4 oz"
+   },
+   "fn": {
+    "price": 45.99,
+    "was": 100.0,
+    "url": "https://www.fragrancenet.com/perfume/calvin-klein/calvin-klein-beauty/eau-de-parfum",
+    "size": "3.3 oz"
    }
   },
   {
@@ -239,8 +265,21 @@
      "price": 84.0,
      "url": "https://www.ulta.com/p/ck-everyone-eau-de-toilette-pimprod2016486?sku=2568120",
      "checked": "2026-10-15 14:48 ET (via Muse.ai)"
+    },
+    {
+     "retailer": "FragranceNet",
+     "price": 41.99,
+     "url": "https://www.fragrancenet.com/fragrances/calvin-klein/ck-everyone/edt",
+     "checked": "2026-10-31T14:31:54Z",
+     "size": "3.3 oz"
     }
-   ]
+   ],
+   "fn": {
+    "price": 41.99,
+    "was": null,
+    "url": "https://www.fragrancenet.com/fragrances/calvin-klein/ck-everyone/edt",
+    "size": "3.3 oz"
+   }
   },
   {
    "id": "calvin-klein-eternity-womens-eau-de-parfum-spray",
@@ -275,6 +314,13 @@
      "price": 123.0,
      "url": "https://www.ulta.com/p/eternity-eau-de-parfum-2505?sku=2011350",
      "checked": "2026-10-15 14:48 ET (via Muse.ai)"
+    },
+    {
+     "retailer": "FragranceNet",
+     "price": 52.99,
+     "url": "https://www.fragrancenet.com/perfume/calvin-klein/eternity/eau-de-parfum",
+     "checked": "2026-10-31T14:31:54Z",
+     "size": "3.3 oz"
     }
    ],
    "also": {
@@ -288,7 +334,75 @@
     "url": "https://www.fragranceshop.com/product/eternity-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz",
     "name": "Eternity Perfume for Women",
     "variation": "size: Eau de Parfum Spray 3.4 oz"
+   },
+   "fn": {
+    "price": 52.99,
+    "was": 114.0,
+    "url": "https://www.fragrancenet.com/perfume/calvin-klein/eternity/eau-de-parfum",
+    "size": "3.3 oz"
    }
+  },
+  {
+   "id": "davidoff-cool-water-eau-de-toilette",
+   "brand": "Davidoff",
+   "name": "Cool Water Cologne",
+   "size": "4.2 oz",
+   "type": "Eau de Toilette",
+   "gender": "men",
+   "price": 39.99,
+   "was": 103.0,
+   "pct_off": 61,
+   "retailer": "FragranceNet",
+   "url": "https://www.fragrancenet.com/cologne/davidoff/cool-water/edt",
+   "image": "https://cdn.fragrancenet.com/images/photos/250x250/115948.png",
+   "checked": "2026-10-31T14:31:54Z",
+   "in_stock": true,
+   "fn": {
+    "price": 39.99,
+    "was": 103.0,
+    "url": "https://www.fragrancenet.com/cologne/davidoff/cool-water/edt",
+    "size": "4.2 oz"
+   },
+   "comps": [
+    {
+     "retailer": "FragranceNet",
+     "price": 39.99,
+     "url": "https://www.fragrancenet.com/cologne/davidoff/cool-water/edt",
+     "checked": "2026-10-31T14:31:54Z",
+     "size": "4.2 oz"
+    }
+   ]
+  },
+  {
+   "id": "calvin-klein-obsession-eau-de-parfum",
+   "brand": "Calvin Klein",
+   "name": "Obsession Perfume",
+   "size": "3.3 oz",
+   "type": "Eau de Parfum",
+   "gender": "women",
+   "price": 40.99,
+   "was": 100.0,
+   "pct_off": 59,
+   "retailer": "FragranceNet",
+   "url": "https://www.fragrancenet.com/perfume/calvin-klein/obsession/eau-de-parfum",
+   "image": "https://cdn.fragrancenet.com/images/photos/250x250/120689.png",
+   "checked": "2026-10-31T14:31:54Z",
+   "in_stock": true,
+   "fn": {
+    "price": 40.99,
+    "was": 100.0,
+    "url": "https://www.fragrancenet.com/perfume/calvin-klein/obsession/eau-de-parfum",
+    "size": "3.3 oz"
+   },
+   "comps": [
+    {
+     "retailer": "FragranceNet",
+     "price": 40.99,
+     "url": "https://www.fragrancenet.com/perfume/calvin-klein/obsession/eau-de-parfum",
+     "checked": "2026-10-31T14:31:54Z",
+     "size": "3.3 oz"
+    }
+   ]
   },
   {
    "id": "calvin-klein-ck-one-eau-de-toilette-unisex-fragrance",
@@ -304,7 +418,28 @@
    "url": "https://www.perfumania.com/products/calvin-klein-ck-one-eau-de-toilette-unisex-fragrance?variant=31838794711173",
    "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/products/Calvin-Klein-Ck-One-Womens-Eau-de-Toilette-Spray-3.4-Best-Price-Fragrance-Parfume-FragranceOutlet.com-Details.jpg?v=1773158330",
    "checked": "2026-10-30T18:12:37Z",
-   "in_stock": true
+   "in_stock": true,
+   "comps": [
+    {
+     "retailer": "Perfumania",
+     "price": 24.95,
+     "url": "https://www.perfumania.com/products/calvin-klein-ck-one-eau-de-toilette-unisex-fragrance?variant=31838794711173",
+     "checked": "2026-10-30T18:12:37Z"
+    },
+    {
+     "retailer": "FragranceNet",
+     "price": 29.99,
+     "url": "https://www.fragrancenet.com/fragrances/calvin-klein/ck-one/edt",
+     "checked": "2026-10-31T14:31:54Z",
+     "size": "1.6 oz"
+    }
+   ],
+   "fn": {
+    "price": 29.99,
+    "was": null,
+    "url": "https://www.fragrancenet.com/fragrances/calvin-klein/ck-one/edt",
+    "size": "1.6 oz"
+   }
   },
   {
    "id": "woman-eau-de-parfum-spray-for-women-by-hugo-boss",
@@ -439,6 +574,55 @@
    }
   },
   {
+   "id": "clinique-happy-women-eau-de-parfum-spray",
+   "brand": "Clinique",
+   "name": "Happy Perfume",
+   "size": "1.0 oz.",
+   "type": "Eau de Parfum",
+   "gender": "women",
+   "price": 31.99,
+   "was": 67.0,
+   "was_label": "Ulta",
+   "pct_off": 52,
+   "retailer": "FragranceNet",
+   "url": "https://www.fragrancenet.com/perfume/clinique/happy/eau-de-parfum",
+   "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/products/Clinique-Happy-Women-Eau-de-Parfume-Spray-3.4-Best-Price-Fragrance-Parfume-Details.jpg?v=1579125130",
+   "checked": "2026-10-31T14:31:54Z",
+   "in_stock": true,
+   "comps": [
+    {
+     "retailer": "Perfumania",
+     "price": 49.95,
+     "url": "https://www.perfumania.com/products/clinique-happy-women-eau-de-parfum-spray?variant=31839000658053",
+     "checked": "2026-10-30T18:12:37Z"
+    },
+    {
+     "retailer": "Ulta",
+     "price": 67.0,
+     "url": "https://www.ulta.com/p/clinique-happy-eau-de-parfum-spray-VP11390?sku=2135390",
+     "checked": "2026-10-15 14:48 ET (via Muse.ai)"
+    },
+    {
+     "retailer": "FragranceNet",
+     "price": 31.99,
+     "url": "https://www.fragrancenet.com/perfume/clinique/happy/eau-de-parfum",
+     "checked": "2026-10-31T14:31:54Z",
+     "size": "1 oz"
+    }
+   ],
+   "fn": {
+    "price": 31.99,
+    "was": null,
+    "url": "https://www.fragrancenet.com/perfume/clinique/happy/eau-de-parfum",
+    "size": "1 oz"
+   },
+   "also": {
+    "retailer": "Perfumania",
+    "price": 49.95,
+    "url": "https://www.perfumania.com/products/clinique-happy-women-eau-de-parfum-spray?variant=31839000658053"
+   }
+  },
+  {
    "id": "boss-bottled-unlimited-by-hugo-boss-for-men-eau-de-toilette-spray",
    "brand": "Hugo Boss",
    "name": "Boss Bottled Unlimited Cologne",
@@ -527,6 +711,37 @@
     "name": "Billie Eilish No.2 Perfume for Women",
     "variation": "size: Eau de Parfum Spray 3.4 oz"
    }
+  },
+  {
+   "id": "calvin-klein-eternity-cologne-eau-de-toilette",
+   "brand": "Calvin Klein",
+   "name": "Eternity Cologne",
+   "size": "3.3 oz",
+   "type": "Eau de Toilette",
+   "gender": "men",
+   "price": 51.99,
+   "was": 105.0,
+   "pct_off": 50,
+   "retailer": "FragranceNet",
+   "url": "https://www.fragrancenet.com/cologne/calvin-klein/eternity/edt",
+   "image": "https://cdn.fragrancenet.com/images/photos/250x250/412684.png",
+   "checked": "2026-10-31T14:31:54Z",
+   "in_stock": true,
+   "fn": {
+    "price": 51.99,
+    "was": 105.0,
+    "url": "https://www.fragrancenet.com/cologne/calvin-klein/eternity/edt",
+    "size": "3.3 oz"
+   },
+   "comps": [
+    {
+     "retailer": "FragranceNet",
+     "price": 51.99,
+     "url": "https://www.fragrancenet.com/cologne/calvin-klein/eternity/edt",
+     "checked": "2026-10-31T14:31:54Z",
+     "size": "3.3 oz"
+    }
+   ]
   },
   {
    "id": "burberry-touch-women-eau-de-parfum-spray",
@@ -751,6 +966,38 @@
    }
   },
   {
+   "id": "clinique-happy-eau-de-parfum-3-4-oz",
+   "brand": "Clinique",
+   "name": "Happy Perfume",
+   "size": "3.4 oz",
+   "type": "Eau de Parfum",
+   "gender": "women",
+   "price": 57.99,
+   "was": 108.0,
+   "pct_off": 46,
+   "retailer": "FragranceNet",
+   "url": "https://www.fragrancenet.com/perfume/clinique/happy/eau-de-parfum",
+   "image": "https://cdn.fragrancenet.com/images/photos/250x250/120800.png",
+   "checked": "2026-10-31T14:31:54Z",
+   "in_stock": true,
+   "fn": {
+    "price": 57.99,
+    "was": 108.0,
+    "url": "https://www.fragrancenet.com/perfume/clinique/happy/eau-de-parfum",
+    "size": "3.4 oz"
+   },
+   "comps": [
+    {
+     "retailer": "FragranceNet",
+     "price": 57.99,
+     "url": "https://www.fragrancenet.com/perfume/clinique/happy/eau-de-parfum",
+     "checked": "2026-10-31T14:31:54Z",
+     "size": "3.4 oz"
+    }
+   ],
+   "url_size": true
+  },
+  {
    "id": "ralph-lauren-romance-perfume-for-women-eau-de-parfum",
    "brand": "Ralph Lauren",
    "name": "Romance Perfume",
@@ -797,6 +1044,69 @@
     "name": "Romance Perfume for Women",
     "variation": "size: Eau de Parfum Spray 1.0 oz"
    }
+  },
+  {
+   "id": "burberry-touch-cologne-eau-de-toilette",
+   "brand": "Burberry",
+   "name": "Touch Cologne",
+   "size": "3.3 oz",
+   "type": "Eau de Toilette",
+   "gender": "men",
+   "price": 57.99,
+   "was": 105.0,
+   "pct_off": 45,
+   "retailer": "FragranceNet",
+   "url": "https://www.fragrancenet.com/cologne/burberry/burberry-touch/edt",
+   "image": "https://cdn.fragrancenet.com/images/photos/250x250/340160.png",
+   "checked": "2026-10-31T14:31:54Z",
+   "in_stock": true,
+   "fn": {
+    "price": 57.99,
+    "was": 105.0,
+    "url": "https://www.fragrancenet.com/cologne/burberry/burberry-touch/edt",
+    "size": "3.3 oz"
+   },
+   "comps": [
+    {
+     "retailer": "FragranceNet",
+     "price": 57.99,
+     "url": "https://www.fragrancenet.com/cologne/burberry/burberry-touch/edt",
+     "checked": "2026-10-31T14:31:54Z",
+     "size": "3.3 oz"
+    }
+   ]
+  },
+  {
+   "id": "calvin-klein-ck-one-eau-de-toilette-6-7-oz",
+   "brand": "Calvin Klein",
+   "name": "CK One",
+   "size": "6.7 oz",
+   "type": "Eau de Toilette",
+   "gender": "unisex",
+   "price": 50.99,
+   "was": 89.0,
+   "pct_off": 43,
+   "retailer": "FragranceNet",
+   "url": "https://www.fragrancenet.com/fragrances/calvin-klein/ck-one/edt",
+   "image": "https://cdn.fragrancenet.com/images/photos/250x250/115760.png",
+   "checked": "2026-10-31T14:31:54Z",
+   "in_stock": true,
+   "fn": {
+    "price": 50.99,
+    "was": 89.0,
+    "url": "https://www.fragrancenet.com/fragrances/calvin-klein/ck-one/edt",
+    "size": "6.7 oz"
+   },
+   "comps": [
+    {
+     "retailer": "FragranceNet",
+     "price": 50.99,
+     "url": "https://www.fragrancenet.com/fragrances/calvin-klein/ck-one/edt",
+     "checked": "2026-10-31T14:31:54Z",
+     "size": "6.7 oz"
+    }
+   ],
+   "url_size": true
   },
   {
    "id": "casamorati-mefisto-cologne",
@@ -879,6 +1189,37 @@
    "in_stock": true
   },
   {
+   "id": "dolce-gabbana-light-blue-eau-de-toilette",
+   "brand": "Dolce & Gabbana",
+   "name": "Light Blue Perfume",
+   "size": "3.3 oz",
+   "type": "Eau de Toilette",
+   "gender": "women",
+   "price": 91.99,
+   "was": 150.0,
+   "pct_off": 39,
+   "retailer": "FragranceNet",
+   "url": "https://www.fragrancenet.com/perfume/dolce-and-gabbana/d-and-g-light-blue/edt",
+   "image": "https://cdn.fragrancenet.com/images/photos/250x250/120682.png",
+   "checked": "2026-10-31T14:31:54Z",
+   "in_stock": true,
+   "fn": {
+    "price": 91.99,
+    "was": 150.0,
+    "url": "https://www.fragrancenet.com/perfume/dolce-and-gabbana/d-and-g-light-blue/edt",
+    "size": "3.3 oz"
+   },
+   "comps": [
+    {
+     "retailer": "FragranceNet",
+     "price": 91.99,
+     "url": "https://www.fragrancenet.com/perfume/dolce-and-gabbana/d-and-g-light-blue/edt",
+     "checked": "2026-10-31T14:31:54Z",
+     "size": "3.3 oz"
+    }
+   ]
+  },
+  {
    "id": "elizabeth-arden-green-tea-scent-women-eau-de-parfum-spray",
    "brand": "Elizabeth Arden",
    "name": "Green Tea Scent Perfume",
@@ -927,6 +1268,13 @@
      "price": 158.0,
      "url": "https://www.ulta.com/p/bright-crystal-absolu-eau-de-parfum-xlsImpprod6440485?sku=2273060",
      "checked": "2026-10-15 14:48 ET (via Muse.ai)"
+    },
+    {
+     "retailer": "FragranceNet",
+     "price": 126.99,
+     "url": "https://www.fragrancenet.com/perfume/gianni-versace/versace-bright-crystal-absolu/eau-de-parfum",
+     "checked": "2026-10-31T14:31:54Z",
+     "size": "3 oz"
     }
    ],
    "also": {
@@ -940,7 +1288,44 @@
     "url": "https://www.fragranceshop.com/product/versace-bright-crystal-absolu-for-women/?attribute_pa_size=eau-de-parfum-spray-3-0-oz",
     "name": "Versace Bright Crystal Absolu Perfume for Women",
     "variation": "size: Eau de Parfum Spray 3.0 oz"
+   },
+   "fn": {
+    "price": 126.99,
+    "was": null,
+    "url": "https://www.fragrancenet.com/perfume/gianni-versace/versace-bright-crystal-absolu/eau-de-parfum",
+    "size": "3 oz"
    }
+  },
+  {
+   "id": "calvin-klein-ck-everyone-eau-de-toilette-6-7-oz",
+   "brand": "Calvin Klein",
+   "name": "CK Everyone",
+   "size": "6.7 oz",
+   "type": "Eau de Toilette",
+   "gender": "unisex",
+   "price": 56.99,
+   "was": 89.0,
+   "pct_off": 36,
+   "retailer": "FragranceNet",
+   "url": "https://www.fragrancenet.com/fragrances/calvin-klein/ck-everyone/edt",
+   "image": "",
+   "checked": "2026-10-31T14:31:54Z",
+   "in_stock": true,
+   "fn": {
+    "price": 56.99,
+    "was": 89.0,
+    "url": "https://www.fragrancenet.com/fragrances/calvin-klein/ck-everyone/edt",
+    "size": "6.7 oz"
+   },
+   "comps": [
+    {
+     "retailer": "FragranceNet",
+     "price": 56.99,
+     "url": "https://www.fragrancenet.com/fragrances/calvin-klein/ck-everyone/edt",
+     "checked": "2026-10-31T14:31:54Z",
+     "size": "6.7 oz"
+    }
+   ]
   },
   {
    "id": "valentino-donna-born-in-roma-perfume-eau-de-parfum-for-women",
@@ -975,6 +1360,13 @@
      "price": 145.0,
      "url": "https://www.ulta.com/p/donna-born-in-roma-eau-de-parfum-with-bourbon-vanilla-jasmine-pimprod2016295?sku=2568846",
      "checked": "2026-10-15 14:48 ET (via Muse.ai)"
+    },
+    {
+     "retailer": "FragranceNet",
+     "price": 154.99,
+     "url": "https://www.fragrancenet.com/perfume/valentino/valentino-donna-born-in-roma/eau-de-parfum",
+     "checked": "2026-10-31T14:31:54Z",
+     "size": "1.7 oz"
     }
    ],
    "also": {
@@ -988,6 +1380,12 @@
     "url": "https://www.fragranceshop.com/product/valentino-donna-born-in-roma-perfume-for-women/?attribute_pa_size=eau-de-parfum-spray-1-7-oz",
     "name": "Valentino Donna Born In Roma Perfume for Women",
     "variation": "size: Eau de Parfum Spray 1.7 oz"
+   },
+   "fn": {
+    "price": 154.99,
+    "was": null,
+    "url": "https://www.fragrancenet.com/perfume/valentino/valentino-donna-born-in-roma/eau-de-parfum",
+    "size": "1.7 oz"
    }
   },
   {
@@ -1081,6 +1479,13 @@
      "price": 130.0,
      "url": "https://www.ulta.com/p/acqua-di-gio-eau-de-toilette-fs356346?sku=2023509",
      "checked": "2026-10-15 14:48 ET (via Muse.ai)"
+    },
+    {
+     "retailer": "FragranceNet",
+     "price": 129.99,
+     "url": "https://www.fragrancenet.com/cologne/giorgio-armani/acqua-di-gio/edt",
+     "checked": "2026-10-31T14:31:54Z",
+     "size": "3.4 oz"
     }
    ],
    "also": {
@@ -1094,6 +1499,12 @@
     "url": "https://www.fragranceshop.com/product/acqua-di-gio-for-men/?attribute_pa_size=eau-de-toilette-spray-3-4-oz",
     "name": "Acqua Di Gio Cologne for Men",
     "variation": "size: Eau de Toilette Spray 3.4 oz"
+   },
+   "fn": {
+    "price": 129.99,
+    "was": 130.0,
+    "url": "https://www.fragrancenet.com/cologne/giorgio-armani/acqua-di-gio/edt",
+    "size": "3.4 oz"
    }
   },
   {
@@ -1271,33 +1682,33 @@
    }
   },
   {
-   "id": "clinique-happy-women-eau-de-parfum-spray",
-   "brand": "Clinique",
-   "name": "Happy Perfume",
-   "size": "1.0 oz.",
+   "id": "calvin-klein-euphoria-eau-de-parfum",
+   "brand": "Calvin Klein",
+   "name": "Euphoria Perfume",
+   "size": "3.3 oz",
    "type": "Eau de Parfum",
    "gender": "women",
-   "price": 49.95,
-   "was": 67.0,
-   "was_label": "Ulta",
-   "pct_off": 25,
-   "retailer": "Perfumania",
-   "url": "https://www.perfumania.com/products/clinique-happy-women-eau-de-parfum-spray?variant=31839000658053",
-   "image": "https://cdn.shopify.com/s/files/1/0269/7763/2389/products/Clinique-Happy-Women-Eau-de-Parfume-Spray-3.4-Best-Price-Fragrance-Parfume-Details.jpg?v=1579125130",
-   "checked": "2026-10-30T18:12:37Z",
+   "price": 83.99,
+   "was": 114.0,
+   "pct_off": 26,
+   "retailer": "FragranceNet",
+   "url": "https://www.fragrancenet.com/perfume/calvin-klein/euphoria/eau-de-parfum",
+   "image": "https://cdn.fragrancenet.com/images/photos/250x250/139842.png",
+   "checked": "2026-10-31T14:31:54Z",
    "in_stock": true,
+   "fn": {
+    "price": 83.99,
+    "was": 114.0,
+    "url": "https://www.fragrancenet.com/perfume/calvin-klein/euphoria/eau-de-parfum",
+    "size": "3.3 oz"
+   },
    "comps": [
     {
-     "retailer": "Perfumania",
-     "price": 49.95,
-     "url": "https://www.perfumania.com/products/clinique-happy-women-eau-de-parfum-spray?variant=31839000658053",
-     "checked": "2026-10-30T18:12:37Z"
-    },
-    {
-     "retailer": "Ulta",
-     "price": 67.0,
-     "url": "https://www.ulta.com/p/clinique-happy-eau-de-parfum-spray-VP11390?sku=2135390",
-     "checked": "2026-10-15 14:48 ET (via Muse.ai)"
+     "retailer": "FragranceNet",
+     "price": 83.99,
+     "url": "https://www.fragrancenet.com/perfume/calvin-klein/euphoria/eau-de-parfum",
+     "checked": "2026-10-31T14:31:54Z",
+     "size": "3.3 oz"
     }
    ]
   },
@@ -1509,6 +1920,13 @@
      "price": 105.0,
      "url": "https://www.ulta.com/p/eros-eau-de-toilette-xlsImpprod5800032?sku=2265447",
      "checked": "2026-10-15 14:48 ET (via Muse.ai)"
+    },
+    {
+     "retailer": "FragranceNet",
+     "price": 83.99,
+     "url": "https://www.fragrancenet.com/cologne/gianni-versace/versace-eros/edt",
+     "checked": "2026-10-31T14:31:54Z",
+     "size": "1.7 oz"
     }
    ],
    "also": {
@@ -1522,6 +1940,12 @@
     "url": "https://www.fragranceshop.com/product/versace-eros-for-men/?attribute_pa_size=eau-de-toilette-spray-1-7-oz",
     "name": "Versace Eros Cologne for Men",
     "variation": "size: Eau de Toilette Spray 1.7 oz"
+   },
+   "fn": {
+    "price": 83.99,
+    "was": null,
+    "url": "https://www.fragrancenet.com/cologne/gianni-versace/versace-eros/edt",
+    "size": "1.7 oz"
    }
   }
  ],

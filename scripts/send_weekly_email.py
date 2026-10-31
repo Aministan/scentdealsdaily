@@ -33,7 +33,10 @@ def fullname(d):
     return f"{brand} {name}"
 
 def deal_page(d):
-    return f"{SITE}/fragrance/{slug(d['brand'] + ' ' + d['name'])}/?utm_source=newsletter&utm_medium=email&utm_campaign=weekly"
+    path = slug(d["brand"] + " " + d["name"])
+    if d.get("url_size"):
+        path = slug(f"{d['brand']} {d['name']} {d.get('size') or ''}")
+    return f"{SITE}/fragrance/{path}/?utm_source=newsletter&utm_medium=email&utm_campaign=weekly"
 
 def money(n):
     return f"${n:,.2f}"

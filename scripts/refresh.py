@@ -213,9 +213,18 @@ def main():
           "gender":gender(p),"price":round(pr,2),"was":ref["price"],"was_label":ref["retailer"],"pct_off":round((1-pr/ref["price"])*100),
           "retailer":"Perfumania","url":comps[0]["url"],"image":(p.get("image") or {}).get("src"),"checked":now,"in_stock":True,"comps":comps})
     # FragranceShop is a second CJ retailer. A miss leaves the deal Perfumania-only.
+    # FragranceNet is Rakuten. A blocked fetch keeps the last checked FragranceNet price.
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     from fragranceshop import attach as attach_fragranceshop
     attach_fragranceshop(deals)
+    from fragrancenet import attach as attach_fragrancenet, restore as restore_fragrancenet
+    fn=attach_fragrancenet(deals, now)
+    if fn.get("blocked"):
+        try:
+            prev_fn=json.load(open(f"{ROOT}/data/deals.json"))
+        except Exception:
+            prev_fn={}
+        restore_fragrancenet(deals, prev_fn.get("deals") or [], fn["blocked"])
     # only true 15%+ discounts get published, whichever store ends up selling it
     for d in [d for d in deals if (d.get("pct_off") or 0)<15]:
         deals.remove(d); dropped.append(d["id"]+f" (only {d.get('pct_off')}% off after store merge)")

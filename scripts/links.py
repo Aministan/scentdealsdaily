@@ -4,7 +4,8 @@
 Automation may validate a tracking link by string format only. It must never
 request a Commission Junction (or other network) click URL, or an internal
 /go /out /redirect /r path that forwards to one. A check fetches the plain
-retailer product URL instead (perfumania.com, fragranceshop.com, and the like).
+retailer product URL instead (perfumania.com, fragranceshop.com, fragrancenet.com,
+and the like).
 """
 import re
 import urllib.parse
@@ -115,7 +116,7 @@ def retailer_url(url):
 
     def rank(item):
         host = host_of(item)
-        if host_is(host, "perfumania.com") or host_is(host, "fragranceshop.com"):
+        if host_is(host, "perfumania.com") or host_is(host, "fragranceshop.com") or host_is(host, "fragrancenet.com"):
             return 0
         return 1
 
@@ -153,6 +154,18 @@ def affiliate_link_ok(url):
         return False
     query = urllib.parse.parse_qs(parsed.query)
     inner = (query.get("url") or query.get("murl") or [None])[0]
+    if host_is(host, "linksynergy.com"):
+        # Rakuten Advertising deep link for FragranceNet. Checked as text only.
+        if (parsed.path or "").rstrip("/") != "/deeplink":
+            return False
+        ident = (query.get("id") or [None])[0]
+        mid = (query.get("mid") or [None])[0]
+        if ident != "cED93qTW*cI" or mid != "216":
+            return False
+        if not inner:
+            return False
+        if not host_is(host_of(inner), "fragrancenet.com"):
+            return False
     if inner is None:
         return True
     inner_parsed = urllib.parse.urlparse(inner)
