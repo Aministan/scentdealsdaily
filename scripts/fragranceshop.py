@@ -580,7 +580,12 @@ def attach(deals, dupes=None):
 
 
 def _apply(d, offer):
-    """Point the deal at the lower live price and keep the other store as also-at."""
+    """Point the deal at the buy-button store and keep the other store as also-at.
+
+    The lower price wins, except when the two affiliate prices are within 5%.
+    Then the higher-commission store is the buy button. See scripts/merchants.py.
+    """
+    import merchants
     ours = {
         "retailer": d.get("retailer") or "Perfumania",
         "price": d.get("price"),
@@ -591,10 +596,13 @@ def _apply(d, offer):
     }
     if ours["price"] is None or not ours["url"]:
         primary, other = offer, None
-    elif offer["price"] < float(ours["price"]):
-        primary, other = offer, ours
     else:
-        primary, other = ours, offer
+        chosen = merchants.prefer([
+            {"retailer": ours["retailer"], "price": ours["price"], "url": ours["url"], "_src": ours},
+            {"retailer": offer["retailer"], "price": offer["price"], "url": offer["url"], "_src": offer},
+        ])
+        primary = chosen["_src"] if chosen else ours
+        other = offer if primary is ours else ours
     comps = [c for c in (d.get("comps") or []) if c.get("retailer") not in (RETAILER, ours["retailer"])]
     # rebuild comps from the two live affiliate offers plus any third-party reference (Ulta, etc.)
     base = []

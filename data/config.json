@@ -734,6 +734,19 @@
    "pick": "Pick Light Blue when you want the apple and cedar eau de toilette. Pick the 3.4 oz Happy when you want the citrus floral eau de parfum. Read the per-ounce row before you treat the lower sticker as the only difference. The 1.0 oz Happy stays on Clinique Happy vs Green Tea.",
    "title_tag": "Buy Light Blue or Happy",
    "meta_hook": "Buy the apple-cedar perfume or the citrus floral."
+  },
+  {
+   "slug": "eros-vs-acqua-di-gio",
+   "title": "Eros vs Acqua di Gio",
+   "a": "versace-eros-cologne-eau-de-toilette-for-men",
+   "b": "giorgio-armani-acqua-di-gio-eau-de-toilette-cologne-for-men",
+   "a_notes": "Mint, green apple, lemon; tonka bean, ambroxan; vanilla, cedar, vetiver",
+   "b_notes": "Lime, lemon, bergamot, neroli; marine notes, rosemary, jasmine; white musk, cedar, patchouli",
+   "intro": "Two eaux de toilette men still ask for by name. Versace Eros is the mint and green-apple cologne. Giorgio Armani Acqua di Gio is the citrus and marine cologne. Eros's note line is the one already stored on Le Beau vs Versace Eros. Acqua di Gio's note line is the one already stored on Acqua di Gio vs Versace Pour Homme. The bottles are different sizes, so read the size row and the per-ounce row. This is not a wear-time test. Best-selling colognes 2026 lists both of these with other names people still ask for. It is not a sales chart.",
+   "difference": "Eros opens with mint, green apple, and lemon, adds tonka bean and ambroxan, and dries down to vanilla, cedar, and vetiver, so it is sweet and fresh. Acqua di Gio opens on lime, lemon, bergamot, and neroli, puts marine notes, rosemary, and jasmine in the heart, and finishes on white musk, cedar, and patchouli, so the citrus sits on a sea note. Both are eaux de toilette. Neither line is a wear-time test.",
+   "pick": "Pick Eros when you want mint, green apple, and vanilla. Pick Acqua di Gio when you want citrus and a marine note. Read the size row before you treat the two stickers as the same amount of juice.",
+   "title_tag": "Buy Eros or Acqua di Gio",
+   "meta_hook": "Buy the mint-apple cologne or the citrus marine one."
   }
  ],
  "roundups": [
@@ -4610,6 +4623,7 @@
  {
   "slug": "christmas-cologne-gifts-for-him",
   "title": "Christmas cologne gifts for him",
+  "title_tag": "Buy Christmas Cologne for Him 2026",
   "chip": "Christmas cologne gifts for him",
   "gender": "men",
   "exclude_set": true,
@@ -4647,6 +4661,7 @@
  {
   "slug": "christmas-perfume-gifts-for-her",
   "title": "Christmas perfume gifts for her",
+  "title_tag": "Buy Christmas Perfume for Her 2026",
   "chip": "Christmas perfume gifts for her",
   "gender": "women",
   "exclude_set": true,
@@ -4679,6 +4694,114 @@
    {"href": "/gifts/christmas-perfume-gifts-for-wife/", "label": "Christmas perfume gifts for wife"},
    {"href": "/gifts/christmas-perfume-gifts-for-girlfriend/", "label": "Christmas perfume gifts for girlfriend"},
    {"href": "/gifts/for-her/", "label": "Fragrance gifts for her"}
+  ]
+ },
+ {
+  "slug": "best-selling-colognes-2026",
+  "title": "Best-selling colognes 2026",
+  "title_tag": "Buy Best-Selling Colognes 2026",
+  "chip": "Best-selling colognes 2026",
+  "gender": "men",
+  "ids": [
+   "davidoff-cool-water-eau-de-toilette",
+   "versace-eros-flame-eau-de-parfum-for-men",
+   "versace-eros-cologne-eau-de-toilette-for-men",
+   "the-most-wanted-parfum-cologne",
+   "giorgio-armani-acqua-di-gio-eau-de-toilette-cologne-for-men",
+   "le-beau-eau-de-toilette-spray-for-men-by-jean-paul-gaultier"
+  ],
+  "filled_label": "colognes people still ask for by name",
+  "intro": "Six men's colognes people still ask for by the original name, lowest checked price first. This is not a sales ranking. The site does not have unit sales, so nothing here is ordered by how many bottles sold. Classic cologne gifts keeps the 1.7 oz CK One, the 6.7 oz CK One, Versace Pour Homme, and men's Eternity, which this page leaves off. The two pages share Cool Water and Acqua di Gio. Cologne gifts for husband keeps Burberry Weekend, CK One, CK Everyone, Versace Pour Homme, and Uomo Born in Roma, which this page leaves off. The two pages share Eros, Acqua di Gio, and Le Beau. Christmas cologne gifts for husband keeps Boss In Motion, Stronger With You Intensely, Uomo Born in Roma Intense, and Mefisto, which this page leaves off. The two pages share The Most Wanted Parfum and Le Beau. We do not call a scent a bestseller. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes. Cool Water is on this list with no note line, because the FragranceNet excerpt names the size and the price and does not name notes. Cool Water vs Acqua di Gio uses the note line already on the Davidoff brand guide.",
+  "empty": "None of the bottles on this name list are in the deals we checked, so this page has no list. These guides have bottles we priced.",
+  "empty_desc": "Best-selling colognes 2026: none of the curated colognes are in the deals we checked. Other gift guides list bottles we did price.",
+  "choose": [
+   "Read this as a name list, not a chart. Cool Water, Acqua di Gio, Eros, Eros Flame, The Most Wanted Parfum, and Le Beau are the bottles on the list. The order is the lowest checked price. It is not a rank of who bought more.",
+   "Eros Flame, Eros, The Most Wanted Parfum, Acqua di Gio, and Le Beau already have retailer note lines on the scent roundups. Cool Water does not, so that card does not invent a smell. Eros vs Acqua di Gio uses the note lines already stored for those two bottles. When you do not know what he wears, Acqua di Gio is the citrus marine bottle and Eros is the mint and apple one. That is a wear split from the note lines we have. It is not a quality ranking.",
+   "Read the size on the card. Cool Water is 4.2 oz. Eros Flame and Eros and The Most Wanted Parfum are 1.7 oz, so a mid sticker can still be a smaller bottle. Acqua di Gio is 3.4 oz. Le Beau is 4.2 oz. When the name links to a bottle page, that page shows the price per ounce from the checked price and the size."
+  ],
+  "faq": [
+   [
+    "Are these ranked by units sold?",
+    "No. We do not have unit sales for 2026 or any other year. The page is six long-running names from the bottles we priced, lowest checked price first."
+   ],
+   [
+    "How is this different from classic cologne gifts?",
+    "Classic cologne gifts keeps the 1.7 oz CK One, Versace Pour Homme, the 6.7 oz CK One, and men's Eternity. This page leaves those off. The two pages share Cool Water and Acqua di Gio."
+   ],
+   [
+    "How is this different from cologne gifts for husband?",
+    "Cologne gifts for husband keeps Burberry Weekend, CK One, CK Everyone, Versace Pour Homme, and Uomo Born in Roma. This page leaves those off. It keeps Cool Water, Eros Flame, and The Most Wanted Parfum, which that list does not. The two pages share Eros, Acqua di Gio, and Le Beau."
+   ],
+   [
+    "Do you call these best-selling colognes?",
+    "The page uses the name people search. It is not a sales chart, and it does not say who should wear them."
+   ]
+  ],
+  "links": [
+   {"href": "/gifts/classic-cologne-gifts/", "label": "Classic cologne gifts"},
+   {"href": "/gifts/christmas-cologne-gifts-for-him/", "label": "Christmas cologne gifts for him"},
+   {"href": "/gifts/cologne-gifts-for-husband/", "label": "Cologne gifts for husband"},
+   {"href": "/gifts/christmas-cologne-gifts-for-husband/", "label": "Christmas cologne gifts for husband"},
+   {"href": "/vs/eros-vs-acqua-di-gio/", "label": "Eros vs Acqua di Gio"},
+   {"href": "/vs/le-beau-vs-versace-eros/", "label": "Le Beau vs Versace Eros"},
+   {"href": "/vs/cool-water-vs-acqua-di-gio/", "label": "Cool Water vs Acqua di Gio"},
+   {"href": "/best/vanilla-sweet-fragrance-deals/", "label": "Vanilla and sweet fragrance deals"},
+   {"href": "/best/fresh-citrus-cologne-deals/", "label": "Fresh and citrus cologne deals"},
+   {"href": "/men/", "label": "All men's deals"}
+  ]
+ },
+ {
+  "slug": "best-selling-perfumes-2026",
+  "title": "Best-selling perfumes 2026",
+  "title_tag": "Buy Best-Selling Perfumes 2026",
+  "chip": "Best-selling perfumes 2026",
+  "gender": "women",
+  "ids": [
+   "peace-love-juicy-couture-by-juicy-couture-for-women-edp-spray",
+   "calvin-klein-eternity-womens-eau-de-parfum-spray",
+   "dylan-blue-eau-de-parfum-spray-for-women-by-versace",
+   "billie-eilish-perfume-eau-de-parfum-for-women",
+   "lancome-la-vie-est-belle-perfume-eau-de-parfum-for-women",
+   "dolce-gabbana-light-blue-eau-de-toilette"
+  ],
+  "filled_label": "perfumes people still ask for by name",
+  "intro": "Six women's perfumes people still ask for by the original name, lowest checked price first. This is not a sales ranking. The site does not have unit sales, so nothing here is ordered by how many bottles sold. Perfume gifts for wife keeps CK One, Romance, Green Tea, the 1.0 oz Clinique Happy, Olympea, Bright Crystal Absolu, Poeme, Donna Born in Roma, and Cafe Rose, which this page leaves off. The two pages share Eternity and La Vie Est Belle. Christmas perfume gifts for girlfriend keeps Burberry Touch for women, Green Tea, Obsession, the 3.4 oz Clinique Happy, and Euphoria, which this page leaves off. The two pages share Light Blue. Perfume gifts for daughter keeps Eilish No. 2, Olympea, Bright Crystal Absolu, and Donna Born in Roma, which this page leaves off. The two pages share Dylan Blue Pour Femme, Eilish, and La Vie Est Belle. We do not call a scent a bestseller. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes. Light Blue is on this list with no note line, because the FragranceNet excerpt names the size and the price and does not name notes. Light Blue vs Clinique Happy uses the note line already on the Dolce and Gabbana brand guide.",
+  "empty": "None of the bottles on this name list are in the deals we checked, so this page has no list. These guides have bottles we priced.",
+  "empty_desc": "Best-selling perfumes 2026: none of the curated perfumes are in the deals we checked. Other gift guides list bottles we did price.",
+  "choose": [
+   "Read this as a name list, not a chart. Peace Love and Juicy Couture, Eternity, Dylan Blue Pour Femme, Eilish, La Vie Est Belle, and Light Blue are the bottles on the list. The order is the lowest checked price. It is not a rank of who bought more.",
+   "Juicy Couture, Eternity, Dylan Blue Pour Femme, Eilish, and La Vie Est Belle already have retailer note lines on the scent roundups. Light Blue does not, so that card does not invent a smell. The apple, lemon, cedar, and white rose line for Light Blue is the one already on the Dolce and Gabbana brand guide, and it is used on Light Blue vs Clinique Happy. When you do not know what she wears, Eternity is the green floral and Eilish is the berry and vanilla one. That is a wear split from the note lines we have. It is not a quality ranking.",
+   "Read the size on the card. Juicy Couture, Eternity, Dylan Blue Pour Femme, and Eilish are 3.4 oz. La Vie Est Belle is 1.0 oz, so a higher sticker can still be a small bottle. Light Blue is 3.3 oz. When the name links to a bottle page, that page shows the price per ounce from the checked price and the size."
+  ],
+  "faq": [
+   [
+    "Are these ranked by units sold?",
+    "No. We do not have unit sales for 2026 or any other year. The page is six long-running names from the bottles we priced, lowest checked price first."
+   ],
+   [
+    "How is this different from perfume gifts for wife?",
+    "Perfume gifts for wife keeps CK One, Romance, Green Tea, the 1.0 oz Clinique Happy, Olympea, Bright Crystal Absolu, Poeme, Donna Born in Roma, and Cafe Rose. This page leaves those off. It keeps Peace Love and Juicy Couture, Dylan Blue Pour Femme, Eilish, and Light Blue, which that list does not. The two pages share Eternity and La Vie Est Belle."
+   ],
+   [
+    "How is this different from Christmas perfume gifts for girlfriend?",
+    "Christmas perfume gifts for girlfriend keeps Burberry Touch for women, Green Tea, Obsession, the 3.4 oz Clinique Happy, and Euphoria. This page leaves those off. The two pages share Light Blue."
+   ],
+   [
+    "Do you call these best-selling perfumes?",
+    "The page uses the name people search. It is not a sales chart, and it does not say who should wear them."
+   ]
+  ],
+  "links": [
+   {"href": "/gifts/christmas-perfume-gifts-for-her/", "label": "Christmas perfume gifts for her"},
+   {"href": "/gifts/perfume-gifts-for-wife/", "label": "Perfume gifts for wife"},
+   {"href": "/gifts/christmas-perfume-gifts-for-girlfriend/", "label": "Christmas perfume gifts for girlfriend"},
+   {"href": "/gifts/perfume-gifts-for-daughter/", "label": "Perfume gifts for daughter"},
+   {"href": "/gifts/best-selling-colognes-2026/", "label": "Best-selling colognes 2026"},
+   {"href": "/vs/eilish-vs-la-vie-est-belle/", "label": "Eilish vs La Vie Est Belle"},
+   {"href": "/vs/light-blue-vs-clinique-happy/", "label": "Light Blue vs Clinique Happy"},
+   {"href": "/best/floral-perfume-deals/", "label": "Floral perfume deals"},
+   {"href": "/best/vanilla-sweet-fragrance-deals/", "label": "Vanilla and sweet fragrance deals"},
+   {"href": "/women/", "label": "All women's deals"}
   ]
  }
  ],

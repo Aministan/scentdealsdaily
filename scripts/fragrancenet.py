@@ -219,7 +219,14 @@ def _apply_match(deal, offer, now):
         "url": offer["url"],
         "size": offer["size"],
     }
-    if _same_bottle(deal.get("size"), offer["size"]) and offer["price"] < float(deal.get("price") or 10**9):
+    # FragranceNet is 0.10%. A CJ store within 5% keeps the buy button.
+    import merchants
+    chosen = merchants.prefer([
+        {"retailer": deal.get("retailer"), "price": deal.get("price"), "url": deal.get("url")},
+        {"retailer": RETAILER, "price": offer["price"], "url": offer["url"]},
+    ])
+    fn_wins = bool(chosen and chosen.get("retailer") == RETAILER and offer["price"] < float(deal.get("price") or 10**9))
+    if _same_bottle(deal.get("size"), offer["size"]) and fn_wins:
         was = offer.get("was")
         was_label = None
         if not was:
