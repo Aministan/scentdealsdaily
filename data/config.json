@@ -4606,6 +4606,80 @@
    {"href": "/gifts/for-her/", "label": "All fragrance gifts for her"},
    {"href": "/women/", "label": "All women's deals"}
   ]
+ },
+ {
+  "slug": "christmas-cologne-gifts-for-him",
+  "title": "Christmas cologne gifts for him",
+  "chip": "Christmas cologne gifts for him",
+  "gender": "men",
+  "exclude_set": true,
+  "min_bottles": 6,
+  "filled_label": "Christmas cologne gifts for him",
+  "intro": "Every men's cologne in today's price check, lowest checked price first, for someone buying a Christmas gift for him. Christmas cologne gifts for dad, Christmas cologne gifts for husband, and Christmas cologne gifts for boyfriend are shorter lists with their own rules. This page is the full men's list. Unisex bottles are not listed here. Fragrance gifts for him is a shorter men's list, largest discount first. We do not call a scent a Christmas cologne. None of these listings do. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes.",
+  "empty": "No men's cologne we checked fits this Christmas list, so this page has no list. These guides have bottles we priced.",
+  "empty_desc": "Christmas cologne gifts for him: no men's cologne we checked fits this list. Other gift guides list bottles we did price.",
+  "choose": [
+   "Start with a shorter list when you know who the gift is for. Christmas cologne gifts for dad, for husband, and for boyfriend are linked on this page. This page keeps every men's cologne in the price check, including bottles those lists leave off.",
+   "The order is the lowest checked price first. Read the size on the card before the sticker. A lower price can still be a smaller bottle. When the name links to a bottle page, that page shows the price per ounce from the checked price and the size.",
+   "We do not rank these by who should wear them. Unisex bottles stay off this page. Boxed sets stay off this page. Fragrance gifts for him is the other broad men's list."
+  ],
+  "faq": [
+   [
+    "How is this different from Christmas cologne gifts for dad, husband, and boyfriend?",
+    "Those three pages are shorter lists with their own rules. This page is every men's cologne in the price check. A bottle can sit here and on one of those pages."
+   ],
+   [
+    "How is this different from fragrance gifts for him?",
+    "Fragrance gifts for him is a shorter men's list, largest discount first. This page lists every men's cologne we checked, lowest price first, for Christmas shopping."
+   ],
+   [
+    "Do you call these Christmas colognes?",
+    "No. None of these listings say that. The page is a Christmas shopping list of men's colognes we already priced. It is not a ranking of who wears them."
+   ]
+  ],
+  "links": [
+   {"href": "/gifts/christmas-cologne-gifts-for-dad/", "label": "Christmas cologne gifts for dad"},
+   {"href": "/gifts/christmas-cologne-gifts-for-husband/", "label": "Christmas cologne gifts for husband"},
+   {"href": "/gifts/christmas-cologne-gifts-for-boyfriend/", "label": "Christmas cologne gifts for boyfriend"},
+   {"href": "/gifts/for-him/", "label": "Fragrance gifts for him"}
+  ]
+ },
+ {
+  "slug": "christmas-perfume-gifts-for-her",
+  "title": "Christmas perfume gifts for her",
+  "chip": "Christmas perfume gifts for her",
+  "gender": "women",
+  "exclude_set": true,
+  "min_bottles": 6,
+  "filled_label": "Christmas perfume gifts for her",
+  "intro": "Every women's perfume in today's price check, lowest checked price first, for someone buying a Christmas gift for her. Christmas perfume gifts for mom, Christmas perfume gifts for wife, and Christmas perfume gifts for girlfriend are shorter lists with their own rules. This page is the full women's list. Men's colognes are not listed here. Fragrance gifts for her is a shorter women's list, largest discount first. We do not call a scent a Christmas perfume. None of these listings do. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description names the notes.",
+  "empty": "No women's perfume we checked fits this Christmas list, so this page has no list. These guides have bottles we priced.",
+  "empty_desc": "Christmas perfume gifts for her: no women's perfume we checked fits this list. Other gift guides list bottles we did price.",
+  "choose": [
+   "Start with a shorter list when you know who the gift is for. Christmas perfume gifts for mom, for wife, and for girlfriend are linked on this page. This page keeps every women's perfume in the price check, including bottles those lists leave off.",
+   "The order is the lowest checked price first. Read the size on the card before the sticker. A lower price can still be a smaller bottle. When the name links to a bottle page, that page shows the price per ounce from the checked price and the size.",
+   "We do not rank these by who should wear them. Men's colognes stay off this page. Boxed sets stay off this page. Fragrance gifts for her is the other broad women's list."
+  ],
+  "faq": [
+   [
+    "How is this different from Christmas perfume gifts for mom, wife, and girlfriend?",
+    "Those three pages are shorter lists with their own rules. This page is every women's perfume in the price check. A bottle can sit here and on one of those pages."
+   ],
+   [
+    "How is this different from fragrance gifts for her?",
+    "Fragrance gifts for her is a shorter women's list, largest discount first. This page lists every women's perfume we checked, lowest price first, for Christmas shopping."
+   ],
+   [
+    "Do you call these Christmas perfumes?",
+    "No. None of these listings say that. The page is a Christmas shopping list of women's perfumes we already priced. It is not a ranking of who wears them."
+   ]
+  ],
+  "links": [
+   {"href": "/gifts/christmas-perfume-gifts-for-mom/", "label": "Christmas perfume gifts for mom"},
+   {"href": "/gifts/christmas-perfume-gifts-for-wife/", "label": "Christmas perfume gifts for wife"},
+   {"href": "/gifts/christmas-perfume-gifts-for-girlfriend/", "label": "Christmas perfume gifts for girlfriend"},
+   {"href": "/gifts/for-her/", "label": "Fragrance gifts for her"}
+  ]
  }
  ],
  "gift_catalog": [
