@@ -668,12 +668,30 @@ def register_gift_subpage(slug, title):
     if any(s==slug for s,_ in GIFT_SUBPAGES):
         raise SystemExit(f"gift guide registered twice: {slug}")
     GIFT_SUBPAGES.append((slug, str(title).strip()))
+def lead_offer(rows):
+    """Checked price and one Buy button before the rest of the page.
+
+    Same block on gift guides and the homepage. A phone shows the price,
+    the store, and the button without scrolling past the newsletter or the chip list.
+    The row is the lowest checked price. Merchant order is already applied
+    to these deals by merchants.apply_rows.
+    """
+    if not rows: return ""
+    d=min(rows, key=lambda row:(row["price"], -(row.get("pct_off") or 0), row["id"]))
+    size=sz(d.get("size") or "")
+    size_bit=f" · {e(size)}" if size else ""
+    label="Buy at "+e(d["retailer"])+" →"
+    return (f"<div class='lead-offer'><p class='meta'>Best price on this page · checked {e(upd_h)}</p>"
+            f"<p class='lead-name'><b>{e(fullname(d))}</b>{size_bit}</p>"
+            f"<p class='lead-price'><span class='price'>${d['price']:.2f}</span> <span class='meta'>at {e(d['retailer'])}</span></p>"
+            f"{ext_a(d['url'], label, cls='btn', style='max-width:340px', placement='cta')}</div>")
 use_sid("home")
 _home_lo=min(d["price"] for d in deals)
 _home_mx=max(d["pct_off"] for d in deals)
 page("index.html",fit([f"Fragrance Deals Today: From ${_home_lo:.2f} ({_home_mx}% Off) | {NAME}",f"Fragrance Deals Today: From ${_home_lo:.2f} ({_home_mx}% Off)",f"Fragrance Deals Today: Up to {_home_mx}% Off | {NAME}"]),
  f"{len(deals)} verified deals on authentic designer perfume & cologne from ${min(d['price'] for d in deals):.2f}, up to {max(d['pct_off'] for d in deals)}% off at authorized retailers. Checked {upd:%b %-d}, plus the best dupes.",
  f"<h1>Today's best designer fragrance deals</h1><p class='sub'>{len(deals)} live deals on authentic bottles · last checked {upd_h} · sorted by % off</p>"
+ +lead_offer(deals)
  +BREVO_FORM
  +f"<div class='grid'>{''.join(card(d,i<2) for i,d in enumerate(deals))}</div><p class='chips'><a href='{PREFIX}/gifts/'>Holiday fragrance gifts</a>"
  +"".join(f"<a href='{PREFIX}/gifts/{slug}/'>{e(label)}</a>" for slug,label in SEO_GIFTS)+"</p>"+GIFT_HOME_MARK+bestchips()
@@ -1593,17 +1611,6 @@ def check_back_note(sentence):
 GIFT_DISC="<p>Affiliate disclosure: some links on this page earn us a commission if you buy, at no extra cost to you. Prices are the ones we checked at authorized retailers.</p>"
 eligible=[d for d in deals if gift_ok(d)]
 by_off=sorted(eligible, key=lambda d:(-(d.get("pct_off") or 0), d["price"], d["id"]))
-def lead_offer(rows):
-    """Price and Buy before the chip list, so a phone shows them without scrolling."""
-    if not rows: return ""
-    d=min(rows, key=lambda row:(row["price"], -(row.get("pct_off") or 0), row["id"]))
-    size=sz(d.get("size") or "")
-    size_bit=f" · {e(size)}" if size else ""
-    label="Buy at "+e(d["retailer"])+" →"
-    return (f"<div class='lead-offer'><p class='meta'>Best price on this page · checked {e(upd_h)}</p>"
-            f"<p class='lead-name'><b>{e(fullname(d))}</b>{size_bit}</p>"
-            f"<p class='lead-price'><span class='price'>${d['price']:.2f}</span> <span class='meta'>at {e(d['retailer'])}</span></p>"
-            f"{ext_a(d['url'], label, cls='btn', style='max-width:340px', placement='cta')}</div>")
 gift_pages=[
  ("gifts/index.html","","Holiday fragrance gifts","Fragrance gifts from checked deals",
   "Single bottles on sale now, for November and December. Largest checked discount first.",
@@ -1736,13 +1743,16 @@ def seo_meta_filled(n_label, picks, tail="Sealed bottles only."):
         f"{len(picks)} {n_label}, starting at {price} for {who}. Checked {when}.",
         f"{len(picks)} {n_label}, starting at {price} at {lo['retailer']}. Checked {when}.",
     ],160)
-def render_seo_gift(slug_s, h1, intro, picks, faqs, empty_html, empty_desc, filled_label, notes=None, extra_html="", extra="", group_by_brand=False, tail="Sealed bottles only.", title_tag=None):
+def render_seo_gift(slug_s, h1, intro, picks, faqs, empty_html, empty_desc, filled_label, notes=None, extra_html="", extra="", group_by_brand=False, tail="Sealed bottles only.", title_tag=None, desc_override=None):
     use_sid("gifts", slug_s)
     image=write_gift_pin(slug_s, h1)
     register_gift_subpage(slug_s, h1)
     GIFT_PAGE_PICKS.append((slug_s, h1, list(picks or [])))
     title=seo_title(h1, picks, title_tag)
-    desc=seo_meta_filled(filled_label, picks, tail) if picks else empty_desc
+    if desc_override:
+        desc=desc_override
+    else:
+        desc=seo_meta_filled(filled_label, picks, tail) if picks else empty_desc
     if picks:
         listing=(gift_sections(picks) if group_by_brand else gift_table(picks, notes))+brand_chips(picks)
     else:
@@ -1923,6 +1933,38 @@ if any(g["slug"]=="best-selling-colognes-2026" for g in GIFT_GUIDES):
 if any(g["slug"]=="best-selling-perfumes-2026" for g in GIFT_GUIDES):
     for _slug in ("christmas-perfume-gifts-for-her","perfume-gifts-for-girlfriend","christmas-perfume-gifts-for-girlfriend","perfume-gifts-for-wife"):
         _prepend_gift_link(_slug, "/gifts/best-selling-perfumes-2026/", "Best-selling perfumes 2026")
+# Indexed luxury guides. /gifts/luxury-unisex-fragrance-gifts/ is not one of them:
+# the deals file does not have six unisex bottles at the luxury compare-at, and this pass adds no page.
+LUXURY_GIFT_SLUGS=frozenset({
+    "luxury-fragrance-gifts",
+    "luxury-cologne-gifts-for-him",
+    "luxury-perfume-gifts-for-her",
+    "luxury-fragrance-gifts-under-100",
+})
+def luxury_ctr_meta(h1, picks):
+    """Search snippet for a luxury gift guide. Price, count, and store come from the picks."""
+    lo=lowest_deal(picks)
+    price=f"${lo['price']:.2f}"
+    when=f"{upd:%b %-d, %Y}"
+    year=upd.year
+    off=max((d.get("pct_off") or 0) for d in picks)
+    n=len(picks)
+    name=fullname(lo)
+    store=lo["retailer"]
+    size=sz(lo.get("size") or "")
+    size_bit=f" ({size})" if size else ""
+    off_bit=f" Up to {off}% off." if off else ""
+    label=h1.lower()
+    cands=[
+        f"{year} {label} from {price}. {n} bottles, {name}{size_bit} at {store}.{off_bit} Checked {when}.",
+        f"{year} {label} from {price}. {n} bottles, {name} at {store}.{off_bit} Checked {when}.",
+        f"{year} {label} from {price}. {n} bottles at {store}.{off_bit} Checked {when}.",
+        f"Buy {year} {label} from {price}. {n} bottles.{off_bit} Checked {when}.",
+    ]
+    desc=next((c for c in cands if 70<=len(c)<=160), None)
+    if not desc or "gift" not in desc.lower() or str(year) not in desc or f"from {price}" not in desc:
+        raise SystemExit(f"luxury meta for {h1} does not fit ({[len(c) for c in cands]})")
+    return desc
 for spec in GIFT_GUIDES:
     picks=spec["picks"]
     h1=spec["title"]
@@ -1969,8 +2011,9 @@ for spec in GIFT_GUIDES:
     choose_html=""
     if choose:
         choose_html="<section class='box'><h2 style='margin-top:0'>How to choose</h2>"+"".join(f"<p>{e(p)}</p>" for p in choose if isinstance(p, str) and p.strip())+"</section>"
+    desc_override=luxury_ctr_meta(h1, picks) if spec["slug"] in LUXURY_GIFT_SLUGS and picks else None
     render_seo_gift(spec["slug"], h1, intro, picks, faqs,
-        check_back_note(spec["empty"]), spec["empty_desc"], spec["filled_label"], notes=notes, extra_html=extra, extra=choose_html, title_tag=spec.get("title_tag"))
+        check_back_note(spec["empty"]), spec["empty_desc"], spec["filled_label"], notes=notes, extra_html=extra, extra=choose_html, title_tag=spec.get("title_tag"), desc_override=desc_override)
 def write_gift_aliases():
     """Keep an old gift URL, but send search and readers to the guide that replaced it.
 
@@ -4080,3 +4123,70 @@ def audit_holiday_additions():
                 raise SystemExit(f"{gpath}: title or meta description matches /gifts/{back}/")
         print(f"{gpath}: {n} bottles, on the gifts hub, linked to the Christmas pages")
 audit_holiday_additions()
+def _buy_button(tag):
+    """One Buy anchor. rel must include sponsored and nofollow. Link format stays the existing affiliate wrapper."""
+    if not re.search(r"""rel\s*=\s*["'][^"']*\bnofollow\b[^"']*\bsponsored\b|rel\s*=\s*["'][^"']*\bsponsored\b[^"']*\bnofollow\b""", tag):
+        return False
+    inner=re.search(r">([^<]*)</a>", tag, re.S)
+    text=html.unescape(inner.group(1)).strip() if inner else ""
+    return text.startswith("Buy at ") and len(text)>len("Buy at ")
+def audit_luxury_and_home_buy():
+    """Luxury guides and the homepage deals: lead Buy block, and every card has price, store, and one Buy button.
+
+    Merchant order is merchants.apply_rows, already run on this deal list. The card price
+    and store are that row's checked price and retailer. No price is typed in here.
+    """
+    card_re=re.compile(r'<article class="card">(.*?)</article>', re.S)
+    btn_re=re.compile(r"<a\b[^>]*class=\"btn\"[^>]*>.*?</a>", re.S)
+    by_slug={slug: picks for slug, _h1, picks in GIFT_PAGE_PICKS}
+    pages=[("index.html", deals, False)]
+    for slug in LUXURY_GIFT_SLUGS:
+        rel=f"gifts/{slug}/index.html"
+        if slug not in by_slug:
+            raise SystemExit(f"/gifts/{slug}/ was not built")
+        pages.append((rel, by_slug[slug], True))
+    if os.path.isfile(f"{OUT}/gifts/luxury-unisex-fragrance-gifts/index.html"):
+        raise SystemExit("luxury unisex page was generated; this pass does not add pages")
+    for rel, rows, luxury in pages:
+        text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+        lead=re.search(r"<div class='lead-offer'>(.*?)</div>", text, re.S)
+        if not lead:
+            raise SystemExit(f"{rel}: missing the above-the-fold buy block")
+        lead_btns=btn_re.findall(lead.group(1))
+        if len(lead_btns)!=1 or not _buy_button(lead_btns[0]):
+            raise SystemExit(f"{rel}: lead block needs one Buy button with rel sponsored nofollow")
+        if not rows:
+            raise SystemExit(f"{rel}: no deals to buy")
+        lo=lowest_deal(rows)
+        price=f"${lo['price']:.2f}"
+        if price not in lead.group(1) or f"at {e(lo['retailer'])}" not in lead.group(1):
+            raise SystemExit(f"{rel}: lead block is not the lowest checked price at its store")
+        cards=card_re.findall(text)
+        if len(cards)!=len(rows):
+            raise SystemExit(f"{rel}: {len(cards)} cards for {len(rows)} bottles")
+        for i, body in enumerate(cards, 1):
+            if not re.search(r'class="price">\$\d+\.\d{2}<', body):
+                raise SystemExit(f"{rel}: card {i} missing the current price")
+            btns=btn_re.findall(body)
+            if len(btns)!=1 or not _buy_button(btns[0]):
+                raise SystemExit(f"{rel}: card {i} needs one Buy button with rel sponsored nofollow")
+            store=html.unescape(re.search(r">Buy at ([^<]+)</a>", btns[0]).group(1)).strip()
+            if f"at {e(store)}" not in body and f"at {store}" not in body:
+                raise SystemExit(f"{rel}: card {i} buy button store is not on the card")
+        for d in rows:
+            price=f"${d['price']:.2f}"
+            buy=f"Buy at {e(d['retailer'])}"
+            if price not in text or buy not in text:
+                raise SystemExit(f"{rel}: missing checked {price} at {d['retailer']} for {d.get('id')}")
+        if luxury:
+            title=html.unescape(re.search(r"<title>(.*?)</title>", text, re.S).group(1))
+            desc=html.unescape(re.search(r'<meta name="description" content="([^"]*)"', text).group(1))
+            low=f"${lo['price']:.2f}"
+            if len(title)>60 or "2026" not in title or "gift" not in title.lower() or f"From {low}" not in title:
+                raise SystemExit(f"{rel}: title is {len(title)} chars or misses 2026, gift, or From {low} ({title})")
+            if not (70<=len(desc)<=160) or "2026" not in desc or "gift" not in desc.lower() or f"from {low}" not in desc:
+                raise SystemExit(f"{rel}: meta is {len(desc)} chars or misses 2026, gift, or from {low}")
+            print(f"{rel}: title {len(title)} chars, meta {len(desc)} chars, {len(cards)} cards, lead {low} at {lo['retailer']}")
+        else:
+            print(f"homepage top deals: lead ${lo['price']:.2f} at {lo['retailer']}, {len(cards)} cards with price, store, and one Buy button")
+audit_luxury_and_home_buy()

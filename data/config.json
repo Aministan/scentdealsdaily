@@ -1448,6 +1448,7 @@
   {
    "slug": "luxury-fragrance-gifts",
    "title": "Luxury fragrance gifts",
+   "title_tag": "Buy Luxury Fragrance Gifts 2026",
    "chip": "Luxury fragrance gifts",
    "min_was": 120,
    "filled_label": "luxury fragrance gifts listed at $120 or more",
@@ -2745,6 +2746,7 @@
   {
    "slug": "luxury-cologne-gifts-for-him",
    "title": "Luxury cologne gifts for him",
+   "title_tag": "Buy Luxury Cologne Gifts for Him 2026",
    "chip": "Luxury cologne for him",
    "genders": ["men", "unisex"],
    "min_was": 110,
@@ -2791,6 +2793,7 @@
   {
    "slug": "luxury-perfume-gifts-for-her",
    "title": "Luxury perfume gifts for her",
+   "title_tag": "Buy Luxury Perfume Gifts for Her 2026",
    "chip": "Luxury perfume for her",
    "genders": ["women", "unisex"],
    "min_was": 110,
@@ -2837,6 +2840,7 @@
   {
    "slug": "luxury-fragrance-gifts-under-100",
    "title": "Luxury fragrance gifts under $100",
+   "title_tag": "Buy Luxury Fragrance Gifts Under $100 2026",
    "chip": "Luxury gifts under $100",
    "min_was": 120,
    "max_price": 100,
