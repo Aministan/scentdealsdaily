@@ -30,7 +30,7 @@ SANS = os.path.join(FONT_DIR, "SourceSans3-Semibold.ttf")
 SANS_REG = os.path.join(FONT_DIR, "SourceSans3-Regular.ttf")
 # Phrases that stay on one line. Longest first so "for boyfriend" wins over "for".
 KEEP = (
-    "for daughter-in-law", "for son-in-law", "for mother-in-law", "for father-in-law", "for granddaughter", "for best friend", "for boyfriend", "for girlfriend", "for grandson", "for teen girls", "for teen boys", "for husband", "for wife", "for grandma", "for grandpa", "for teachers", "for daughter", "for stepmom", "for stepdad", "for new dad", "for new mom", "for couples", "for niece", "for nephew", "for sister", "for brother", "for teens", "for uncle", "for aunt", "for boss", "for son", "his and hers", "for him", "for her", "for mom", "for dad",
+    "for brother-in-law", "for sister-in-law", "for a hostess", "for hostess", "for daughter-in-law", "for son-in-law", "for mother-in-law", "for father-in-law", "for granddaughter", "for best friend", "for boyfriend", "for girlfriend", "for grandson", "for teen girls", "for teen boys", "for husband", "for wife", "for grandma", "for grandpa", "for teachers", "for daughter", "for stepmom", "for stepdad", "for new dad", "for new mom", "for couples", "for niece", "for nephew", "for sister", "for brother", "for teens", "for uncle", "for aunt", "for boss", "for son", "his and hers", "for him", "for her", "for mom", "for dad",
     "stocking stuffers", "stocking stuffer", "travel sizes", "gift sets",
     "under $100", "under $15", "under $20", "under $25", "under $30", "under $40", "under $50", "under $75",
 )
@@ -95,6 +95,9 @@ META = {
     "perfume-gifts-for-daughter-in-law": ("DAUGHTER-IN-LAW", "Polite bottles, not the daughter list."),
     "cologne-gifts-for-son-in-law": ("SON-IN-LAW", "Fresh bottles, not the father-in-law list."),
     "christmas-cologne-gifts-for-husband": ("FOR HUSBAND", "Warmer colognes for a Christmas gift."),
+    "cologne-gifts-for-brother-in-law": ("BROTHER-IN-LAW", "Daytime colognes for a family dinner."),
+    "perfume-gifts-for-sister-in-law": ("SISTER-IN-LAW", "Daytime and sweet perfumes for an in-law."),
+    "perfume-gifts-for-hostess": ("HOSTESS", "A bottle to hand someone who is hosting."),
     "fragrance-stocking-stuffers-under-25": ("STOCKING", "Bottles, minis, and travel sizes."),
 }
 DEFAULT_EYEBROW = "GIFT GUIDE"
