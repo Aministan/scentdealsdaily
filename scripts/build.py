@@ -652,14 +652,15 @@ def bestchips(): return ("<section class='box'><h2 style='margin-top:0'>Shop by 
     +"".join(f"<a href='{PREFIX}/dupes/{h['slug']}/'>{e(h['title'])}</a>" for h in HUBS)
     +"".join(f"<a href='{PREFIX}/vs/{v['slug']}/'>{e(v['title'])}</a>" for v in VS)+"</div></section>") if (ROUNDUPS or HUBS or VS) else ""
 # New holiday landings lead the chip row. A guide that missed its bottle minimum is already gone.
-_PRIORITY_GIFT_SLUGS=("christmas-cologne-gift-sets","christmas-perfume-gift-sets","white-elephant-fragrances-under-25","fragrance-gifts-for-him-under-25")
+_NEW_GIFT_SLUGS=("christmas-cologne-gifts-for-son","christmas-cologne-gifts-for-brother","christmas-perfume-gifts-for-sister","winter-cologne-gifts","black-friday-gift-sets")
+_PRIORITY_GIFT_SLUGS=_NEW_GIFT_SLUGS+("christmas-cologne-gift-sets","christmas-perfume-gift-sets","white-elephant-fragrances-under-25","fragrance-gifts-for-him-under-25")
 _guide_chip={g["slug"]: (g.get("chip") or g["title"]) for g in GIFT_GUIDES}
-SEO_GIFTS=[
+SEO_GIFTS=[(slug, _guide_chip[slug]) for slug in _NEW_GIFT_SLUGS if slug in _guide_chip]+[
  ("perfume-gifts-for-her-under-50","Perfume gifts for her under $50"),
  ("best-mens-cologne-under-40","Best men's cologne under $40"),
  ("stocking-stuffer-minis","Stocking stuffer fragrance minis & travel sizes"),
  ("holiday-gift-sets","Fragrance gift sets for the holidays"),
-]+[(slug, _guide_chip[slug]) for slug in _PRIORITY_GIFT_SLUGS if slug in _guide_chip]+[(g["slug"], g.get("chip") or g["title"]) for g in GIFT_GUIDES if g["slug"] not in _PRIORITY_GIFT_SLUGS]
+]+[(slug, _guide_chip[slug]) for slug in _PRIORITY_GIFT_SLUGS if slug in _guide_chip and slug not in _NEW_GIFT_SLUGS]+[(g["slug"], g.get("chip") or g["title"]) for g in GIFT_GUIDES if g["slug"] not in _PRIORITY_GIFT_SLUGS]
 # Filled as each gift subpage is written, then spliced into the hub, homepage,
 # and sibling pages. The sitemap is the same page() pass, so a new guide is linked
 # from the build that adds it.
@@ -680,7 +681,7 @@ VS_PAGES=[]
 # (relative path, deal) for each /fragrance/ page this build wrote.
 FRAGRANCE_PAGES=[]
 # Compact homepage set. Titles come from GIFT_SUBPAGES, not from this tuple.
-HOME_GIFT_SLUGS=("for-him","for-her","under-50","perfume-gifts-for-her-under-50","perfume-gifts-for-her-under-30","best-mens-cologne-under-40","holiday-gift-sets","christmas-gift-sets-under-50","christmas-cologne-gift-sets","christmas-perfume-gift-sets","white-elephant-fragrances-under-25","fragrance-gifts-for-him-under-25","fragrance-gifts-for-teens","fragrance-gifts-for-coworkers-under-40","fragrance-gifts-for-teachers-under-40","fragrance-gifts-for-college-students","fragrance-gifts-for-boss","stocking-stuffer-fragrances","perfume-gifts-for-wife","cologne-gifts-for-husband","perfume-gifts-for-grandma","perfume-gifts-for-aunt","cologne-gifts-for-grandpa","cologne-gifts-for-uncle","perfume-gifts-for-sister","perfume-gifts-for-niece","perfume-gifts-for-daughter","cologne-gifts-for-brother","cologne-gifts-for-nephew","cologne-gifts-for-son","perfume-gifts-for-best-friend","perfume-gifts-for-mother-in-law","cologne-gifts-for-father-in-law","his-and-hers-fragrance-gifts","hanukkah-fragrance-gifts","fragrance-gifts-for-new-mom","perfume-gifts-for-granddaughter","cologne-gifts-for-grandson","cologne-gifts-for-new-dad","perfume-gifts-for-mom-under-50","christmas-cologne-gifts-for-dad","cologne-gifts-for-teen-boys","perfume-gifts-for-teen-girls","cologne-gifts-for-stepdad","fragrance-gifts-for-couples","perfume-gifts-for-stepmom","christmas-perfume-gifts-for-wife","perfume-gifts-for-daughter-in-law","cologne-gifts-for-son-in-law","christmas-cologne-gifts-for-husband","classic-cologne-gifts","christmas-cologne-gifts-for-boyfriend","christmas-perfume-gifts-for-girlfriend","christmas-cologne-gifts-for-him","christmas-perfume-gifts-for-her","best-selling-colognes-2026","best-selling-perfumes-2026","cologne-gifts-for-brother-in-law","perfume-gifts-for-sister-in-law","perfume-gifts-for-hostess")
+HOME_GIFT_SLUGS=("for-him","for-her","under-50","holiday-gift-sets","christmas-cologne-gifts-for-son","christmas-cologne-gifts-for-brother","christmas-perfume-gifts-for-sister","winter-cologne-gifts","black-friday-gift-sets","perfume-gifts-for-her-under-50","perfume-gifts-for-her-under-30","best-mens-cologne-under-40","christmas-gift-sets-under-50","christmas-cologne-gift-sets","christmas-perfume-gift-sets","white-elephant-fragrances-under-25","fragrance-gifts-for-him-under-25","fragrance-gifts-for-teens","fragrance-gifts-for-coworkers-under-40","fragrance-gifts-for-teachers-under-40","fragrance-gifts-for-college-students","fragrance-gifts-for-boss","stocking-stuffer-fragrances","perfume-gifts-for-wife","cologne-gifts-for-husband","perfume-gifts-for-grandma","perfume-gifts-for-aunt","cologne-gifts-for-grandpa","cologne-gifts-for-uncle","perfume-gifts-for-sister","perfume-gifts-for-niece","perfume-gifts-for-daughter","cologne-gifts-for-brother","cologne-gifts-for-nephew","cologne-gifts-for-son","perfume-gifts-for-best-friend","perfume-gifts-for-mother-in-law","cologne-gifts-for-father-in-law","his-and-hers-fragrance-gifts","hanukkah-fragrance-gifts","fragrance-gifts-for-new-mom","perfume-gifts-for-granddaughter","cologne-gifts-for-grandson","cologne-gifts-for-new-dad","perfume-gifts-for-mom-under-50","christmas-cologne-gifts-for-dad","cologne-gifts-for-teen-boys","perfume-gifts-for-teen-girls","cologne-gifts-for-stepdad","fragrance-gifts-for-couples","perfume-gifts-for-stepmom","christmas-perfume-gifts-for-wife","perfume-gifts-for-daughter-in-law","cologne-gifts-for-son-in-law","christmas-cologne-gifts-for-husband","classic-cologne-gifts","christmas-cologne-gifts-for-boyfriend","christmas-perfume-gifts-for-girlfriend","christmas-cologne-gifts-for-him","christmas-perfume-gifts-for-her","best-selling-colognes-2026","best-selling-perfumes-2026","cologne-gifts-for-brother-in-law","perfume-gifts-for-sister-in-law","perfume-gifts-for-hostess")
 def register_gift_subpage(slug, title):
     if not slug or not str(title or "").strip():
         raise SystemExit("gift guide missing a slug or page title")
@@ -1617,8 +1618,8 @@ def bf_gender_rows(gender):
 def _bf_landing(path, sid, h1, title_lead, phrase, noun, who, rows, gift_slugs, chip):
     return {"path":path,"sid":sid,"h1":h1,"title_lead":title_lead,"phrase":phrase,"noun":noun,"who":who,"rows":rows,"gift_slugs":gift_slugs,"chip":chip}
 _BF_CANDIDATES=[
- _bf_landing(BF_COLOGNE_PATH,"cologne-deals","Black Friday cologne deals","Black Friday Cologne Deals 2026","black friday cologne deals","men's colognes","men's cologne",bf_gender_rows("men"),("christmas-cologne-gifts-for-husband","luxury-cologne-gifts-for-him","cologne-gifts-for-husband","for-him"),"Black Friday cologne deals"),
- _bf_landing(BF_PERFUME_PATH,"perfume-deals","Black Friday perfume deals","Black Friday Perfume Deals 2026","black friday perfume deals","women's perfumes","women's perfume",bf_gender_rows("women"),("christmas-perfume-gifts-for-wife","luxury-perfume-gifts-for-her","perfume-gifts-for-wife","for-her"),"Black Friday perfume deals"),
+ _bf_landing(BF_COLOGNE_PATH,"cologne-deals","Black Friday cologne deals","Black Friday Cologne Deals 2026 Now","black friday cologne deals","men's colognes","men's cologne",bf_gender_rows("men"),("christmas-cologne-gifts-for-husband","luxury-cologne-gifts-for-him","cologne-gifts-for-husband","for-him","winter-cologne-gifts","christmas-cologne-gifts-for-son"),"Black Friday cologne deals"),
+ _bf_landing(BF_PERFUME_PATH,"perfume-deals","Black Friday perfume deals","Black Friday Perfume Deals 2026 Now","black friday perfume deals","women's perfumes","women's perfume",bf_gender_rows("women"),("christmas-perfume-gifts-for-wife","luxury-perfume-gifts-for-her","perfume-gifts-for-wife","for-her","christmas-perfume-gifts-for-sister"),"Black Friday perfume deals"),
 ]
 BF_LANDINGS=[]
 for _spec in _BF_CANDIDATES:
@@ -1676,6 +1677,10 @@ def _gender_set_sentence():
     if men: bits.append(f"Men's cologne sets are on {men}.")
     if women: bits.append(f"Women's perfume sets are on {women}.")
     return (" "+" ".join(bits)) if bits else ""
+def _bf_set_sentence():
+    link=_filled_guide_link("black-friday-gift-sets")
+    if not link: return ""
+    return f" Every boxed set under $100, for Black Friday, is on {link}."
 gift_pages=[
  ("gifts/index.html","","Holiday fragrance gifts","Fragrance gifts from checked deals",
   "Single bottles on sale now, for November and December. Largest checked discount first.",
@@ -1772,7 +1777,7 @@ for path,sid_slug,title,short,intro,picks,list_name in gift_pages:
         who_extra=f"<p>Higher compare-at bottles for him are on <a href='{PREFIX}/gifts/luxury-cologne-gifts-for-him/'>luxury cologne gifts for him</a>.</p>"
         if any(g["slug"]=="christmas-cologne-gifts-for-him" for g in GIFT_GUIDES):
             who_extra+=f"<p>Every men's cologne we checked for Christmas is on <a href='{PREFIX}/gifts/christmas-cologne-gifts-for-him/'>Christmas cologne gifts for him</a>.</p>"
-        _him_new=[_filled_guide_link(s) for s in ("fragrance-gifts-for-him-under-25","christmas-cologne-gift-sets")]
+        _him_new=[_filled_guide_link(s) for s in ("christmas-cologne-gifts-for-son","christmas-cologne-gifts-for-brother","winter-cologne-gifts","black-friday-gift-sets","fragrance-gifts-for-him-under-25","christmas-cologne-gift-sets")]
         _him_new=[x for x in _him_new if x]
         if _him_new:
             who_extra+="<p>"+" ".join(_him_new)+".</p>"
@@ -1780,9 +1785,10 @@ for path,sid_slug,title,short,intro,picks,list_name in gift_pages:
         who_extra=f"<p>Higher compare-at bottles for her are on <a href='{PREFIX}/gifts/luxury-perfume-gifts-for-her/'>luxury perfume gifts for her</a>.</p>"
         if any(g["slug"]=="christmas-perfume-gifts-for-her" for g in GIFT_GUIDES):
             who_extra+=f"<p>Every women's perfume we checked for Christmas is on <a href='{PREFIX}/gifts/christmas-perfume-gifts-for-her/'>Christmas perfume gifts for her</a>.</p>"
-        _her_new=_filled_guide_link("christmas-perfume-gift-sets")
+        _her_new=[_filled_guide_link(s) for s in ("christmas-perfume-gifts-for-sister","christmas-perfume-gift-sets","black-friday-gift-sets")]
+        _her_new=[x for x in _her_new if x]
         if _her_new:
-            who_extra+=f"<p>{_her_new}.</p>"
+            who_extra+="<p>"+" ".join(_her_new)+".</p>"
     lead_html=lead_offer(picks)+(NEW_HOLIDAY_MARK if path=="gifts/index.html" else "")
     page(path, titles,
       desc,
@@ -1940,7 +1946,7 @@ render_seo_gift("holiday-gift-sets","Holiday fragrance gift sets",
   check_back_note("No fragrance gift set under $75 is in the products we checked, so this page has no list. These guides have products we priced."),
   "Check back soon. No fragrance gift set under $75 is in the products we checked.",
   "boxed fragrance sets under $75",
-  extra=(("<p>Sets under $50 are on <a href='/gifts/christmas-gift-sets-under-50/'>Christmas gift sets under $50</a>. " if len([d for d in boxed if d["price"]<50])>=3 else "<p>")+"Sets at $75 and up, grouped by brand, are on <a href='/gifts/gift-sets/'>gift sets</a>. Travel sprays are on <a href='/gifts/stocking-stuffer-minis/'>stocking stuffer minis</a>."+_gender_set_sentence()+"</p>"),
+  extra=(("<p>Sets under $50 are on <a href='/gifts/christmas-gift-sets-under-50/'>Christmas gift sets under $50</a>. " if len([d for d in boxed if d["price"]<50])>=3 else "<p>")+"Sets at $75 and up, grouped by brand, are on <a href='/gifts/gift-sets/'>gift sets</a>. Travel sprays are on <a href='/gifts/stocking-stuffer-minis/'>stocking stuffer minis</a>."+_gender_set_sentence()+_bf_set_sentence()+"</p>"),
   tail="Boxed sets only.")
 set_under_50=by_price([d for d in boxed if d["price"]<50])
 if len(set_under_50)>=3:
@@ -1959,7 +1965,7 @@ if len(set_under_50)>=3:
       check_back_note("No fragrance gift set under $50 is in the products we checked, so this page has no list. These guides have products we priced."),
       "Check back soon. No fragrance gift set under $50 is in the products we checked.",
       "boxed fragrance sets under $50",
-      extra="<p>Every boxed set under $75, including these, is on <a href='/gifts/holiday-gift-sets/'>holiday gift sets</a>. Sets at $75 and up are on <a href='/gifts/gift-sets/'>gift sets</a>."+_gender_set_sentence()+"</p>",
+      extra="<p>Every boxed set under $75, including these, is on <a href='/gifts/holiday-gift-sets/'>holiday gift sets</a>. Sets at $75 and up are on <a href='/gifts/gift-sets/'>gift sets</a>."+_gender_set_sentence()+_bf_set_sentence()+"</p>",
       tail="Boxed sets only.",
       title_tag="Buy Christmas Gift Sets Under $50")
     print(f"gift guide christmas-gift-sets-under-50: {len(set_under_50)} sets, from ${set_lo['price']:.2f}")
@@ -2027,6 +2033,21 @@ if any(g["slug"]=="white-elephant-fragrances-under-25" and g.get("picks") for g 
 if any(g["slug"]=="fragrance-gifts-for-him-under-25" and g.get("picks") for g in GIFT_GUIDES):
     for _slug in ("cologne-gifts-for-him-under-50","cologne-gifts-for-teen-boys","stocking-stuffer-fragrances","secret-santa-fragrances-under-30","christmas-cologne-gifts-for-boyfriend","cologne-gifts-for-son"):
         _prepend_gift_link(_slug, "/gifts/fragrance-gifts-for-him-under-25/", "Fragrance gifts for him under $25")
+if any(g["slug"]=="christmas-cologne-gifts-for-son" and g.get("picks") for g in GIFT_GUIDES):
+    for _slug in ("cologne-gifts-for-son","cologne-gifts-for-teen-boys","christmas-cologne-gifts-for-him","cologne-gifts-for-brother"):
+        _prepend_gift_link(_slug, "/gifts/christmas-cologne-gifts-for-son/", "Christmas cologne gifts for son")
+if any(g["slug"]=="christmas-cologne-gifts-for-brother" and g.get("picks") for g in GIFT_GUIDES):
+    for _slug in ("cologne-gifts-for-brother","christmas-cologne-gifts-for-boyfriend","christmas-cologne-gifts-for-husband","christmas-cologne-gifts-for-dad","cologne-gifts-for-son"):
+        _prepend_gift_link(_slug, "/gifts/christmas-cologne-gifts-for-brother/", "Christmas cologne gifts for brother")
+if any(g["slug"]=="christmas-perfume-gifts-for-sister" and g.get("picks") for g in GIFT_GUIDES):
+    for _slug in ("perfume-gifts-for-sister","christmas-perfume-gifts-for-girlfriend","christmas-perfume-gifts-for-wife","christmas-perfume-gifts-for-mom","perfume-gifts-for-daughter"):
+        _prepend_gift_link(_slug, "/gifts/christmas-perfume-gifts-for-sister/", "Christmas perfume gifts for sister")
+if any(g["slug"]=="winter-cologne-gifts" and g.get("picks") for g in GIFT_GUIDES):
+    for _slug in ("cologne-gifts-for-husband","classic-cologne-gifts","christmas-cologne-gifts-for-him","christmas-cologne-gifts-for-husband"):
+        _prepend_gift_link(_slug, "/gifts/winter-cologne-gifts/", "Winter cologne gifts")
+if any(g["slug"]=="black-friday-gift-sets" and g.get("picks") for g in GIFT_GUIDES):
+    for _slug in ("christmas-cologne-gift-sets","christmas-perfume-gift-sets","white-elephant-fragrances-under-25"):
+        _prepend_gift_link(_slug, "/gifts/black-friday-gift-sets/", "Black Friday fragrance gift sets")
 # Indexed luxury guides. /gifts/luxury-unisex-fragrance-gifts/ is not one of them:
 # the deals file does not have six unisex bottles at the luxury compare-at, and this pass adds no page.
 LUXURY_GIFT_SLUGS=frozenset({
@@ -2926,15 +2947,23 @@ bf_lo=min(bf_rows, key=lambda d:d["price"])
 bf_mx=max(d["pct_off"] for d in bf_rows)
 bf_h1="Black Friday perfume deals 2026"
 bf_title=fit([
+    f"Buy Black Friday Perfume Deals 2026 Now: From ${bf_lo['price']:.2f}",
     f"Buy Black Friday Perfume Deals 2026: From ${bf_lo['price']:.2f}",
     f"Black Friday Perfume Deals 2026: From ${bf_lo['price']:.2f}",
 ])
-bf_desc=f"Black Friday perfume deals 2026 and Cyber Monday cologne deals: {len(bf_ids)} {bf_noun} from ${bf_lo['price']:.2f}, up to {bf_mx}% off. Updated {bf_when}."
+bf_desc_cands=[
+    f"Black Friday perfume deals 2026 and Cyber Monday cologne deals: {len(bf_ids)} {bf_noun} from ${bf_lo['price']:.2f}, up to {bf_mx}% off. Shop now for November 27. Updated {bf_when}.",
+    f"Shop now for Nov 27, 2026. Black Friday perfume deals 2026 and Cyber Monday cologne deals from ${bf_lo['price']:.2f}, up to {bf_mx}% off. Updated {bf_when}.",
+    f"Black Friday perfume deals 2026 and Cyber Monday cologne deals: {len(bf_ids)} {bf_noun} from ${bf_lo['price']:.2f}, up to {bf_mx}% off. Updated {bf_when}.",
+]
+bf_desc=next((c for c in bf_desc_cands if 70<=len(c)<=160), None)
+if not bf_desc:
+    raise SystemExit(f"black friday meta does not fit ({[len(c) for c in bf_desc_cands]})")
 if len(bf_title)>60 or "black friday perfume deals 2026" not in bf_title.lower():
     raise SystemExit(f"black friday title is {len(bf_title)} chars or misses the target phrase")
 if not (70<=len(bf_desc)<=160) or "cyber monday cologne deals" not in bf_desc.lower() or "black friday perfume deals 2026" not in bf_desc.lower():
     raise SystemExit(f"black friday meta is {len(bf_desc)} chars or misses a target phrase")
-bf_intro=("Black Friday 2026 is November 27 and Cyber Monday 2026 is November 30. "
+bf_intro=("Shop now for Black Friday. Black Friday 2026 is November 27 and Cyber Monday 2026 is November 30. "
  "Cyber Monday cologne deals sit with the men's cologne and the under-$50 rows. "
  "Every card is a deal already in the price check, using that product's stored photo and price. "
  "This page rebuilds with the daily refresh.")
@@ -2981,6 +3010,9 @@ def bf_landing_desc(spec, rows, lo, when):
     price=f"${lo['price']:.2f}"
     lead=spec["h1"]
     cands=[
+        f"Shop now for November 27, 2026. {lead}: {len(rows)} {spec['noun']} from {price}. Checked daily. Black Friday prices may change. Updated {when}.",
+        f"Shop now for Nov 27, 2026. {lead}: {len(rows)} {spec['noun']} from {price}. Checked daily. Black Friday prices may change.",
+        f"{lead}: {len(rows)} {spec['noun']} from {price}. Shop now for November 27, 2026. Checked daily. Black Friday prices may change.",
         f"{lead}: {len(rows)} {spec['noun']} from {price}. Prices are current and checked daily. Black Friday prices may change. Updated {when}.",
         f"{lead}: {len(rows)} {spec['noun']} from {price}. Prices are current and checked daily. Black Friday prices may change.",
     ]
@@ -3009,7 +3041,7 @@ def render_bf_landing(spec):
     if title in TITLES:
         raise SystemExit(f"{spec['path']}: title collides with another page ({title})")
     desc=bf_landing_desc(spec, rows, lo, bf_when)
-    intro=(f"Black Friday 2026 is November 27 and Cyber Monday 2026 is November 30. "
+    intro=(f"Shop now for Black Friday. Black Friday 2026 is November 27 and Cyber Monday 2026 is November 30. "
            f"This page lists {spec['who']} only, largest discount first. "
            "Prices are current and checked daily. Black Friday prices may change. "
            "Every card is a deal already in the price check, using that product's stored photo and price. "
@@ -3324,7 +3356,11 @@ def render_bf_under_30():
         return
     rows=list(BF_U30)
     lo=lowest_deal(rows)
-    title=f"Black Friday Deals Under $30: From ${lo['price']:.2f}"
+    title=fit([
+        f"Buy Black Friday Deals Under $30 Now: From ${lo['price']:.2f}",
+        f"Buy Black Friday Deals Under $30: From ${lo['price']:.2f}",
+        f"Black Friday Deals Under $30: From ${lo['price']:.2f}",
+    ])
     if len(title)>60 or "under $30" not in title.lower() or "black friday" not in title.lower():
         raise SystemExit(f"{BF_U30_PATH}: title is {len(title)} chars or misses a phrase ({title})")
     if title in TITLES:
@@ -3333,6 +3369,8 @@ def render_bf_under_30():
     price=f"${lo['price']:.2f}"
     when=f"{upd:%b %-d, %Y}"
     cands=[
+        f"Shop now for Nov 27, 2026. Black Friday fragrance deals under $30: {len(rows)} bottles from {price}, up to {off}% off. Prices we already checked. Updated {when}.",
+        f"Shop now for November 27, 2026. Black Friday deals under $30: {len(rows)} bottles from {price}, up to {off}% off. Updated {when}.",
         f"Black Friday fragrance deals under $30 for November 27, 2026. {len(rows)} bottles from {price}, up to {off}% off. Prices we already checked. Updated {when}.",
         f"Black Friday 2026 deals under $30: {len(rows)} bottles from {price}, up to {off}% off. Checked daily. Updated {when}.",
     ]
@@ -3340,7 +3378,7 @@ def render_bf_under_30():
     if not desc:
         raise SystemExit(f"{BF_U30_PATH}: meta does not fit ({[len(c) for c in cands]})")
     h1="Black Friday fragrance deals under $30"
-    intro=("Black Friday 2026 is November 27 and Cyber Monday 2026 is November 30. "
+    intro=("Shop now for Black Friday. Black Friday 2026 is November 27 and Cyber Monday 2026 is November 30. "
            "This page is every single bottle we checked under $30, largest discount first. "
            "Men's cologne, women's perfume, and unisex bottles are in one list. "
            "Secret Santa fragrances under $30 is the same budget sorted by the lowest price, for a gift exchange. "
