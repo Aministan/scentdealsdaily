@@ -610,3 +610,47 @@ The four existing Black Friday landings already use "Buy … 2026 Now" and were 
 **Checks:** local build on the 2026-11-05T18:44:39Z deals file. Sitemap 224 URLs (was 219). 227 HTML files (224 in the sitemap plus noindex /subscribed/, noindex 404, and noindex gift alias). 0 broken internal links. 677 JSON-LD blocks parsed. 0 github.io links. Every canonical is on https://scentdealsdaily.com. CNAME is scentdealsdaily.com. Both Google site-verification meta tags stay on every page. data/deals.json and muse_deals.json were not edited. No request was made to a CJ, Awin, Rakuten, or /go tracking URL. The build string-checked 3,449 affiliate hrefs.
 
 **Deploy:** this push triggers daily-refresh (refresh + build + IndexNow + Pages). Live 200s are the workflow's job after the push.
+
+## 2026-11-07 (Sat) — holiday buying pages
+
+**Refresh status:** origin/main at the start of this pass was 10207de "daily refresh" (2026-11-06). data/deals.json is stamped 2026-11-06T17:57:04Z (Nov 6, 2026 1:57 PM ET): 52 live deals. The extra bottle versus the Nov 6 optimizer is Hermès H24 eau de toilette, 1.7 oz, $64.95 at Perfumania. This pass did not edit data/deals.json and did not re-fetch prices. The push triggers daily-refresh, which owns the next price check. Rebuilding on this file also publishes the Hermès brand page, the H24 deal page, and H24 vs Legend Spirit, which were already in config and were not in the HTML committed before that refresh.
+
+**Muse result:** muse_deals.json is identical to the attached file (56 rows, sha1 26cbc2509317eb00083be99cb218afc8c4359a31). Nothing merged. Still skipped: every eBay row, Walmart/PerfumesAmerica, Nordstrom Rack, and the Sephora reference row. Ulta stays compare-only. No Amazon rows. No HeavenScent. No prices were invented.
+
+**Skipped as already covered:** stocking-stuffer fragrances under $25 (full bottles and minis together) and the minis page at any price. A minis-only cut at $25 has 2 catalog rows, under the 6-bottle floor. Christmas cologne for husband, dad, boyfriend, and him, and Christmas perfume for wife, mom, girlfriend, and her, already exist. Best-selling colognes 2026 and best-selling perfumes 2026 already exist. A second full Black Friday catalog would repeat /black-friday-fragrance-deals/. Cyber Monday cologne under $30 is still 4 men's bottles.
+
+**Merchant order:** scripts/merchants.py was not changed. On this file the build logged "no buy button moved (no two affiliate prices within 5%)". Order stays Perfumania, then FragranceShop, then FragranceNet.
+
+**Conversion**
+- Christmas cologne for dad, husband, and boyfriend, and Christmas perfume for mom, wife, and girlfriend, now use Buy titles with the from-price. The lead block already sat above the cards. It now says "Price checked" next to the Buy button.
+- Best-selling colognes 2026 and best-selling perfumes 2026 keep "Buy … From $…" titles. Their metas now lead with Buy and the from-price.
+- Calvin Klein, Versace, Giorgio Armani, Juicy Couture, Burberry, and Hugo Boss open with the lowest checked price and a Buy button, then the cards, then the house copy. Titles lead with Buy and the from-price. No new JavaScript. Card images stay lazy. The lead block has no image.
+
+**New pages (4, config `gift_guides`, so they survive the rebuild). Prices are the Nov 6 deals.json prices.**
+- /gifts/early-black-friday-fragrance-deals/: sealed bottles at 50% off or more, minis and sets excluded, lowest price first, 17 bottles from $17.95 (CK Free 3.4 oz $17.95 at FragranceShop through The Most Wanted Parfum 1.7 oz $55.95). Black Friday fragrance deals keeps every bottle, including discounts under 50%, and sorts by the discount. Azzaro Cologne and Cool Water have no note line. Title: "Buy Early Black Friday Fragrance Deals: From $17.95" (51).
+- /gifts/last-minute-christmas-fragrance-gifts/: 3 oz or larger, checked price from $25 up to under $40, minis and sets excluded, 7 bottles from $25.95 (Boss Woman 3.0 oz $25.95 at FragranceShop, CK Everyone 3.3 oz $29.95, Eternity 3.4 oz $29.95, Bottled Unlimited 3.3 oz $31.95, Green Tea 3.4 oz $31.95, Eilish No. 2 3.4 oz $34.95, Cool Water 4.2 oz $39.99 at FragranceNet). White elephant gifts are the full-size bottles under $25, so the two pages share no bottle. Cool Water has no note line. Title: "Buy Last-Minute Christmas Fragrance Gifts: From $25.95" (54).
+- /gifts/christmas-vanilla-fragrance-gifts/: bottles already on the vanilla roundup, minis and sets excluded, 11 bottles from $45.95 (Eros Flame 1.7 oz $45.95 at FragranceShop through Uomo Born in Roma Intense 3.4 oz $117.95). Winter cologne gifts is the warm and woody men's list. This page can share Eros Flame, The Most Wanted, and Stronger With You Intensely with that list and leaves CK Free, Boss In Motion, Coach, and Mefisto off. Title: "Buy Christmas Vanilla Fragrance Gifts: From $45.95" (50).
+- /gifts/christmas-minis-under-40/: travel sizes only, checked price under $40, 7 minis from $14.95 (Fantasy 1.0 oz $14.95 at Perfumania, Brit 1.0 oz $23.85, Amor Amor 1.0 oz $25.69, Oscar 1.0 oz $28.99, Cool Water for women 1.0 oz $32.95, Pleasures 1.0 oz $33.95, Chrome 1.0 oz $39.99, all at Perfumania). The all-minis page keeps travel sizes at $40 and up. Stocking stuffers under $25 keep full bottles. No rollerball is in the catalog. Title: "Buy Christmas Fragrance Minis Under $40: From $14.95" (52).
+
+Each page has ItemList (Product with AggregateOffer) and FAQPage JSON-LD, a canonical on https://scentdealsdaily.com/gifts/<slug>/, a 1000×1500 pin, and a lead price plus Buy button before the cards. The homepage chip row, the /gifts/ hub, for him, for her, and the Black Friday and Cyber Monday pages link the four guides. Sitemap (231 URLs), llms.txt, and feed.xml (142 items) include the four URLs.
+
+**Titles/meta**
+- Christmas perfume for wife: "Buy Christmas Perfume for Wife: From $31.95" (43).
+- Christmas cologne for dad: "Buy Christmas Cologne for Dad: From $61.95" (42).
+- Christmas cologne for husband: "Buy Christmas Cologne for Husband: From $44.95" (46).
+- Christmas perfume for girlfriend: "Buy Christmas Perfume for Girlfriend: From $27.95" (49).
+- Christmas perfume for mom: "Buy Christmas Perfume for Mom: From $57.99" (42).
+- Christmas cologne for boyfriend: "Buy Christmas Cologne for Boyfriend: From $17.95" (48).
+- Best-selling colognes 2026 stays "Buy Best-Selling Colognes 2026: From $39.99" (43). Meta 156.
+- Best-selling perfumes 2026 stays "Buy Best-Selling Perfumes 2026: From $20.95" (43). Meta 149.
+- Calvin Klein: "Buy Calvin Klein Perfume & Cologne: From $17.95" (47).
+- Versace: "Buy Versace Perfume & Cologne: From $45.95" (42).
+- Giorgio Armani: "Buy Giorgio Armani Cologne: From $66.95" (39).
+- Juicy Couture: "Buy Juicy Couture Perfume: From $20.95" (38).
+- Burberry: "Buy Burberry Perfume & Cologne: From $21.95" (43).
+- Hugo Boss: "Buy Hugo Boss Perfume & Cologne: From $25.95" (44).
+The four new titles are 51, 54, 50, and 52 characters. All titles are ≤60. All metas are 70–160. No duplicate titles or descriptions.
+
+**Checks:** local build on the 2026-11-06T17:57:04Z deals file. Sitemap 231 URLs (was 224 before H24 and these four guides). 234 HTML files (231 in the sitemap plus noindex /subscribed/, noindex 404, and noindex gift alias). 0 broken internal links. 700 JSON-LD blocks parsed. 0 github.io links. Every canonical is on https://scentdealsdaily.com. CNAME is scentdealsdaily.com. Both Google site-verification meta tags stay on every page. data/deals.json and muse_deals.json were not edited. No request was made to a CJ, Awin, Rakuten, or /go tracking URL. The build string-checked 3,558 affiliate hrefs.
+
+**Deploy:** this push triggers daily-refresh (refresh + build + IndexNow + Pages). Live 200s are the workflow's job after the push.

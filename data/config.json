@@ -1314,6 +1314,184 @@
  ],
  "gift_guides": [
 {
+  "slug": "early-black-friday-fragrance-deals",
+  "title": "Early Black Friday fragrance deals",
+  "title_tag": "Buy Early Black Friday Fragrance Deals",
+  "buy_meta": true,
+  "chip": "Early Black Friday deals",
+  "min_pct": 50,
+  "exclude_mini": true,
+  "exclude_set": true,
+  "min_bottles": 6,
+  "filled_label": "early Black Friday fragrance deals at 50% off or more",
+  "intro": "Shop these before Black Friday 2026 on November 27. The list is every sealed bottle in today's price check whose discount is 50% off or more, lowest checked price first. This is not a separate early-bird price. Black Friday fragrance deals keeps every bottle we checked, including ones under 50% off, and it sorts by the discount. This page drops a bottle when the checked discount falls under 50%. Minis and boxed sets stay off. A 1.0 oz bottle can stay when the discount still clears 50%. We do not guess a smell the listing does not print. Azzaro Cologne and Cool Water stay on the list with no note line when they qualify, because the stored copy does not name notes.",
+  "empty": "No sealed bottle we checked is 50% off or more, so this page has no list. These guides have bottles we priced.",
+  "empty_desc": "Early Black Friday fragrance deals: no sealed bottle we checked is 50% off or more. Other gift guides list bottles we did price.",
+  "choose": [
+   "Use this page in the weeks before November 27, 2026, when you want the bottles already half off. Black Friday fragrance deals is the full list, including smaller discounts. Black Friday cologne under $40 and Black Friday perfume under $40 stop on price, not on the discount.",
+   "Read the size on the card before the sticker. A 1.0 oz bottle can clear 50% off and still be a small amount of juice. When the name links to a bottle page, that page shows the price per ounce. A mini from the travel catalog stays on the minis guide.",
+   "A note line appears only when that retailer's product description already names the notes. We do not invent a Black Friday scent. The order is the lowest checked price, then the larger discount when two stickers match."
+  ],
+  "faq": [
+   [
+    "How is this different from Black Friday fragrance deals?",
+    "Black Friday fragrance deals lists every bottle we checked, including discounts under 50%, largest discount first. This page keeps only bottles at 50% off or more and sorts by the lowest checked price. A bottle under 50% off stays on that page and drops off this one."
+   ],
+   [
+    "Are these separate early Black Friday prices?",
+    "No. Each price is the current price we checked. Black Friday 2026 is November 27. A discount that falls under 50% drops off on the next rebuild."
+   ],
+   [
+    "Do minis and gift sets count?",
+    "No. Travel sprays stay on the minis guides. Boxed sets stay on the gift-set guides. A 1.0 oz eau de parfum that is not filed as a mini can stay when its discount is 50% or more."
+   ]
+  ],
+  "links": [
+   {"href": "/black-friday-fragrance-deals/", "label": "Black Friday fragrance deals"},
+   {"href": "/black-friday-cologne-deals/", "label": "Black Friday cologne deals"},
+   {"href": "/black-friday-perfume-deals/", "label": "Black Friday perfume deals"},
+   {"href": "/gifts/black-friday-cologne-under-40/", "label": "Black Friday cologne under $40"},
+   {"href": "/gifts/black-friday-perfume-under-40/", "label": "Black Friday perfume under $40"},
+   {"href": "/gifts/black-friday-gift-sets/", "label": "Black Friday fragrance gift sets"},
+   {"href": "/cyber-monday-fragrance-deals/", "label": "Cyber Monday fragrance deals"},
+   {"href": "/gifts/best-selling-colognes-2026/", "label": "Best-selling colognes 2026"},
+   {"href": "/gifts/best-selling-perfumes-2026/", "label": "Best-selling perfumes 2026"}
+  ]
+},
+{
+  "slug": "last-minute-christmas-fragrance-gifts",
+  "title": "Last-minute Christmas fragrance gifts",
+  "title_tag": "Buy Last-Minute Christmas Fragrance Gifts",
+  "buy_meta": true,
+  "chip": "Last-minute Christmas gifts",
+  "min_price": 25,
+  "max_price": 40,
+  "min_oz": 3,
+  "exclude_mini": true,
+  "exclude_set": true,
+  "min_bottles": 6,
+  "filled_label": "last-minute Christmas fragrance gifts, 3 oz or larger, from $25 to under $40",
+  "intro": "Full-size bottles for a Christmas gift you can still order before December 25, lowest checked price first. The checked price starts at $25 and stops under $40, and the bottle is 3 oz or larger. White elephant fragrance gifts are the full-size bottles under $25, so the two pages do not share a bottle. Secret Santa fragrances under $30 keeps regular bottles under $30, including sizes under 3 oz. Stocking stuffers under $25 keep minis and the bottles this page leaves off for the floor. Minis and boxed sets stay off. We do not call a scent a last-minute fragrance. Cool Water stays on this list with no note line when it qualifies, because the FragranceNet excerpt names the size and the price and does not name notes. For Christmas shopping through December 25, 2026.",
+  "empty": "No 3 oz bottle we checked is from $25 up to under $40, so this page has no list. These guides have bottles we priced.",
+  "empty_desc": "Last-minute Christmas fragrance gifts: no 3 oz or larger bottle we checked is from $25 up to under $40. Other gift guides list bottles we did price.",
+  "choose": [
+   "Use this page when the gift has to be a real bottle, not a mini, and the sticker still has to stay under $40. The bottles under $25 that are 3 oz or larger are on the white elephant page. The 1.7 oz and 1.0 oz bottles under $30 are on Secret Santa.",
+   "The note lines already stored: Boss Woman is mango, mandarin, and freesia. CK Everyone is orange oil, tea, and cedar. Eternity is freesia, mandarin, and sage. Green Tea is lemon, bergamot, and green tea. Bottled Unlimited is mint, grapefruit, and sandalwood. Eilish No. 2 is bergamot, apple blossom, and palo santo. Cool Water has no note line on the card. We do not guess one.",
+   "Read the size on the card. Each bottle here is 3 oz or larger. A lower sticker can still be the 3.0 oz Boss Woman rather than the 4.2 oz Cool Water. When the name links to a bottle page, that page shows the price per ounce."
+  ],
+  "faq": [
+   [
+    "How is this different from white elephant gifts under $25?",
+    "White elephant gifts are full-size bottles under $25, 3 oz or larger. This page starts at $25 and stops under $40, still at 3 oz or larger. A bottle under $25 stays on that page and drops off this one."
+   ],
+   [
+    "How is this different from Secret Santa under $30?",
+    "Secret Santa lists regular bottles under $30, including sizes under 3 oz. This page keeps only 3 oz or larger bottles, and it continues from $30 up to under $40. The two pages can share a 3 oz bottle whose price is from $25 up to under $30."
+   ],
+   [
+    "Are these last-minute shipping promises?",
+    "No. The page is a short list of full bottles still under $40. It does not promise a delivery date. Each price is the one we checked."
+   ]
+  ],
+  "links": [
+   {"href": "/gifts/white-elephant-fragrances-under-25/", "label": "White elephant fragrance gifts under $25"},
+   {"href": "/gifts/secret-santa-fragrances-under-30/", "label": "Secret Santa fragrances under $30"},
+   {"href": "/gifts/stocking-stuffer-fragrances/", "label": "Fragrance stocking stuffers under $25"},
+   {"href": "/gifts/christmas-minis-under-40/", "label": "Christmas fragrance minis under $40"},
+   {"href": "/gifts/christmas-cologne-gifts-for-him/", "label": "Christmas cologne gifts for him"},
+   {"href": "/gifts/christmas-perfume-gifts-for-her/", "label": "Christmas perfume gifts for her"},
+   {"href": "/gifts/for-him/", "label": "Fragrance gifts for him"},
+   {"href": "/gifts/for-her/", "label": "Fragrance gifts for her"}
+  ]
+},
+{
+  "slug": "christmas-vanilla-fragrance-gifts",
+  "title": "Christmas vanilla fragrance gifts",
+  "title_tag": "Buy Christmas Vanilla Fragrance Gifts",
+  "buy_meta": true,
+  "chip": "Christmas vanilla gifts",
+  "exclude_mini": true,
+  "exclude_set": true,
+  "min_bottles": 6,
+  "roundups": ["vanilla-sweet-fragrance-deals"],
+  "filled_label": "Christmas vanilla fragrance gifts from the sweet roundup",
+  "intro": "Sweet vanilla perfume and cologne for a Christmas gift, lowest checked price first. A bottle is listed only when it is already on the vanilla roundup and today's deals file has a price for it. Minis and boxed sets stay off. We do not invent a Christmas vanilla note. The note line on the card is the retailer line already stored on that roundup. Winter cologne gifts is the warm-spicy and woody-amber men's list. It leaves off La Vie Est Belle, Eilish, Donna Born in Roma, Olympea, Poeme, Le Beau, and Eros. This page can share Eros Flame, The Most Wanted, and Stronger With You Intensely with that winter list, because those three are on both a warm roundup and the vanilla roundup. Best-selling perfumes 2026 is a name list and shares Eilish and La Vie Est Belle. We do not call a scent a Christmas vanilla. For Christmas shopping through December 25, 2026.",
+  "empty": "No bottle on the vanilla roundup is in the deals we checked, so this page has no list. These guides have bottles we priced.",
+  "empty_desc": "Christmas vanilla fragrance gifts: no bottle on the vanilla roundup is in the deals we checked. Other gift guides list bottles we did price.",
+  "choose": [
+   "The note line is the one already stored. La Vie Est Belle is pear, praline, and vanilla. Eilish is sugar, red berries, and vanilla. Donna Born in Roma is jasmine and bourbon vanilla. Olympea is vanilla and a salt accord. Poeme is jasmine, vanilla, and tonka. Those are the women's bottles. Stronger With You Intensely is toffee, cinnamon, and vanilla. Uomo Born in Roma Intense is vanilla, lavender, and vetiver. The Most Wanted is ginger and bourbon vanilla. Le Beau is coconut and tonka. Eros is mint, apple, and vanilla. Eros Flame is lemon, black pepper, and vanilla. Those are the men's bottles.",
+   "Winter cologne gifts keeps CK Free, Boss In Motion, Coach, and Mefisto, which this page leaves off. Best-selling colognes 2026 keeps Cool Water, Acqua di Gio, and Le Beau. This page shares Eros, Eros Flame, The Most Wanted, and Le Beau with parts of those lists and leaves Cool Water and Acqua di Gio off, because they are not on the vanilla roundup.",
+   "Read the size on the card. La Vie Est Belle, Eros, Eros Flame, The Most Wanted, Stronger With You Intensely, Donna Born in Roma, and Olympea include 1.7 oz or 1.0 oz bottles, so a mid sticker can still be a smaller bottle. Le Beau is 4.2 oz. Poeme, Eilish, and Uomo Born in Roma Intense are 3.4 oz."
+  ],
+  "faq": [
+   [
+    "How is this different from winter cologne gifts?",
+    "Winter cologne gifts is men's cologne already on the warm-spicy or woody-amber roundup. This page is every bottle already on the vanilla roundup, men's and women's. It leaves off CK Free, Boss In Motion, Coach, and Mefisto. It can share Eros Flame, The Most Wanted, and Stronger With You Intensely."
+   ],
+   [
+    "How is this different from best-selling perfumes 2026?",
+    "Best-selling perfumes 2026 is six names: Juicy Couture, Eternity, Dylan Blue Pour Femme, Eilish, La Vie Est Belle, and Light Blue. This page leaves Juicy Couture, Eternity, Dylan Blue, and Light Blue off. It keeps Donna Born in Roma, Olympea, and Poeme, which that list does not. The two pages share Eilish and La Vie Est Belle."
+   ],
+   [
+    "Do you call these Christmas vanilla scents?",
+    "No. None of these listings say that. The page is the vanilla roundup we already priced, for someone buying a sweet bottle as a Christmas gift. It is not a ranking of who wears them."
+   ]
+  ],
+  "links": [
+   {"href": "/best/vanilla-sweet-fragrance-deals/", "label": "Vanilla and sweet fragrance deals"},
+   {"href": "/gifts/winter-cologne-gifts/", "label": "Winter cologne gifts"},
+   {"href": "/gifts/best-selling-perfumes-2026/", "label": "Best-selling perfumes 2026"},
+   {"href": "/gifts/best-selling-colognes-2026/", "label": "Best-selling colognes 2026"},
+   {"href": "/gifts/christmas-perfume-gifts-for-wife/", "label": "Christmas perfume gifts for wife"},
+   {"href": "/gifts/christmas-cologne-gifts-for-husband/", "label": "Christmas cologne gifts for husband"},
+   {"href": "/gifts/for-her/", "label": "Fragrance gifts for her"},
+   {"href": "/gifts/for-him/", "label": "Fragrance gifts for him"}
+  ]
+},
+{
+  "slug": "christmas-minis-under-40",
+  "title": "Christmas fragrance minis under $40",
+  "title_tag": "Buy Christmas Fragrance Minis Under $40",
+  "buy_meta": true,
+  "chip": "Christmas minis under $40",
+  "travel_only": true,
+  "max_price": 40,
+  "exclude_set": true,
+  "min_bottles": 6,
+  "filled_label": "Christmas fragrance minis and travel sizes under $40",
+  "intro": "Travel sprays and minis under $40 for a Christmas stocking, lowest checked price first. Each row is a 0.3 oz to 1.0 oz mini already in the gift catalog we checked. No rollerball turned up in that catalog, so the rows are 1.0 oz minis. Fragrance minis and travel sizes lists every travel size we checked, including the ones at $40 and up. Fragrance stocking stuffers under $25 mixes full bottles with the minis at $25 or less. This page leaves full bottles off and leaves off a mini whose checked price is $40 or more. A boxed set stays on the gift-set guides. We do not add a scent note the 1 oz listing does not print. For Christmas shopping through December 25, 2026.",
+  "empty": "No travel spray or mini we checked is under $40, so this page has no list. These guides have products we priced.",
+  "empty_desc": "Christmas fragrance minis under $40: no travel spray or mini we checked is under $40. Other gift guides list products we did price.",
+  "choose": [
+   "Use this page when the gift has to fit in a stocking and the checked price is under $40. The all-minis page keeps the travel sprays at $40 and up. The stocking page at $25 or less also keeps full bottles.",
+   "Read the size on the card. These rows are 1.0 oz. A 1.0 oz mini is less juice than a 3.4 oz bottle at a similar sticker. The name stays plain text when that same size does not already have a deal page, so a mini does not point at a larger bottle.",
+   "We do not guess what a mini smells like. The catalog row names the bottle, the size, and the price. It does not name notes."
+  ],
+  "faq": [
+   [
+    "How is this different from fragrance minis and travel sizes?",
+    "That page lists every 0.3 oz to 1.0 oz travel size we checked, including ones at $40 and up. This page stops under $40. A mini at $40 or more stays on that page and drops off this one."
+   ],
+   [
+    "How is this different from stocking stuffers under $25?",
+    "Stocking stuffers under $25 keeps full bottles and minis at $25 or less. This page is minis only, and the cap is under $40, so it keeps 1.0 oz minis from $25 up to under $40 and leaves the full bottles off."
+   ],
+   [
+    "Are there rollerballs?",
+    "No rollerball turned up in the catalog we checked. The rows are 1.0 oz minis. We do not add a rollerball we did not price."
+   ]
+  ],
+  "links": [
+   {"href": "/gifts/stocking-stuffer-minis/", "label": "Fragrance minis and travel sizes"},
+   {"href": "/gifts/stocking-stuffer-fragrances/", "label": "Fragrance stocking stuffers under $25"},
+   {"href": "/gifts/white-elephant-fragrances-under-25/", "label": "White elephant fragrance gifts under $25"},
+   {"href": "/gifts/last-minute-christmas-fragrance-gifts/", "label": "Last-minute Christmas fragrance gifts"},
+   {"href": "/gifts/christmas-gift-sets-under-50/", "label": "Christmas gift sets under $50"},
+   {"href": "/gifts/for-her/", "label": "Fragrance gifts for her"},
+   {"href": "/gifts/for-him/", "label": "Fragrance gifts for him"}
+  ]
+},
+{
   "slug": "black-friday-cologne-under-40",
   "title": "Black Friday cologne under $40",
   "title_tag": "Buy Black Friday Cologne Under $40",
@@ -2134,9 +2312,11 @@
    ]
   },
   {
-   "slug": "christmas-perfume-gifts-for-mom",
-   "title": "Christmas perfume gifts for mom",
-   "chip": "Gifts for mom",
+  "slug": "christmas-perfume-gifts-for-mom",
+  "title": "Christmas perfume gifts for mom",
+  "title_tag": "Buy Christmas Perfume for Mom",
+  "buy_meta": true,
+  "chip": "Gifts for mom",
    "gender": "women",
    "min_price": 50,
    "filled_label": "Christmas perfume gifts for mom",
@@ -4201,6 +4381,8 @@
  {
   "slug": "christmas-cologne-gifts-for-dad",
   "title": "Christmas cologne gifts for dad",
+  "title_tag": "Buy Christmas Cologne for Dad",
+  "buy_meta": true,
   "chip": "Christmas gifts for dad",
   "gender": "men",
   "min_price": 50,
@@ -4732,6 +4914,8 @@
  {
   "slug": "christmas-perfume-gifts-for-wife",
   "title": "Christmas perfume gifts for wife",
+  "title_tag": "Buy Christmas Perfume for Wife",
+  "buy_meta": true,
   "chip": "Christmas gifts for wife",
   "gender": "women",
   "ids": [
@@ -5004,6 +5188,8 @@
  {
   "slug": "christmas-cologne-gifts-for-husband",
   "title": "Christmas cologne gifts for husband",
+  "title_tag": "Buy Christmas Cologne for Husband",
+  "buy_meta": true,
   "chip": "Christmas gifts for husband",
   "gender": "men",
   "ids": [
@@ -5143,6 +5329,8 @@
  {
   "slug": "christmas-cologne-gifts-for-boyfriend",
   "title": "Christmas cologne gifts for boyfriend",
+  "title_tag": "Buy Christmas Cologne for Boyfriend",
+  "buy_meta": true,
   "chip": "Christmas gifts for boyfriend",
   "genders": ["men", "unisex"],
   "ids": [
@@ -5196,6 +5384,8 @@
  {
   "slug": "christmas-perfume-gifts-for-girlfriend",
   "title": "Christmas perfume gifts for girlfriend",
+  "title_tag": "Buy Christmas Perfume for Girlfriend",
+  "buy_meta": true,
   "chip": "Christmas gifts for girlfriend",
   "gender": "women",
   "ids": [
@@ -5326,6 +5516,7 @@
   "slug": "best-selling-colognes-2026",
   "title": "Best-selling colognes 2026",
   "title_tag": "Buy Best-Selling Colognes 2026",
+  "buy_meta": true,
   "chip": "Best-selling colognes 2026",
   "gender": "men",
   "ids": [
@@ -5380,6 +5571,7 @@
   "slug": "best-selling-perfumes-2026",
   "title": "Best-selling perfumes 2026",
   "title_tag": "Buy Best-Selling Perfumes 2026",
+  "buy_meta": true,
   "chip": "Best-selling perfumes 2026",
   "gender": "women",
   "ids": [

@@ -108,6 +108,10 @@ META = {
     "thanksgiving-fragrance-gifts": ("THANKSGIVING", "A bottle to hand someone hosting dinner."),
     "cyber-monday-gift-sets": ("CYBER MONDAY", "Boxed sets to buy on Monday."),
     "cyber-monday-perfume-under-30": ("CYBER MONDAY", "Women's perfumes in a small budget."),
+    "early-black-friday-fragrance-deals": ("BLACK FRIDAY", "Bottles already half off, before the weekend."),
+    "last-minute-christmas-fragrance-gifts": ("CHRISTMAS", "Full bottles still under a small cap."),
+    "christmas-vanilla-fragrance-gifts": ("CHRISTMAS", "Sweet bottles from the vanilla roundup."),
+    "christmas-minis-under-40": ("MINIS", "Travel sizes for a stocking, under a cap."),
 }
 DEFAULT_EYEBROW = "GIFT GUIDE"
 DEFAULT_HOOK = "Checked deals from authorized retailers."
