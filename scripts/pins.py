@@ -30,7 +30,7 @@ SANS = os.path.join(FONT_DIR, "SourceSans3-Semibold.ttf")
 SANS_REG = os.path.join(FONT_DIR, "SourceSans3-Regular.ttf")
 # Phrases that stay on one line. Longest first so "for boyfriend" wins over "for".
 KEEP = (
-    "black friday", "cyber monday", "thanksgiving", "white elephant", "for brother-in-law", "for sister-in-law", "for a hostess", "for hostess", "for daughter-in-law", "for son-in-law", "for mother-in-law", "for father-in-law", "for granddaughter", "for best friend", "for boyfriend", "for girlfriend", "for grandson", "for teen girls", "for teen boys", "for husband", "for wife", "for grandma", "for grandpa", "for teachers", "for daughter", "for stepmom", "for stepdad", "for new dad", "for new mom", "for couples", "for niece", "for nephew", "for sister", "for brother", "for teens", "for uncle", "for aunt", "for boss", "for son", "his and hers", "for him", "for her", "for mom", "for dad",
+    "black friday", "cyber monday", "veterans day", "friendsgiving", "thanksgiving", "white elephant", "for brother-in-law", "for sister-in-law", "for a hostess", "for hostess", "for daughter-in-law", "for son-in-law", "for mother-in-law", "for father-in-law", "for granddaughter", "for best friend", "for boyfriend", "for girlfriend", "for grandson", "for teen girls", "for teen boys", "for husband", "for wife", "for grandma", "for grandpa", "for teachers", "for daughter", "for stepmom", "for stepdad", "for new dad", "for new mom", "for couples", "for niece", "for nephew", "for sister", "for brother", "for teens", "for uncle", "for aunt", "for boss", "for son", "his and hers", "for him", "for her", "for mom", "for dad",
     "stocking stuffers", "stocking stuffer", "travel sizes", "gift sets",
     "under $100", "under $15", "under $20", "under $25", "under $30", "under $40", "under $50", "under $75",
 )
@@ -112,6 +112,11 @@ META = {
     "last-minute-christmas-fragrance-gifts": ("CHRISTMAS", "Full bottles still under a small cap."),
     "christmas-vanilla-fragrance-gifts": ("CHRISTMAS", "Sweet bottles from the vanilla roundup."),
     "christmas-minis-under-40": ("MINIS", "Travel sizes for a stocking, under a cap."),
+    "veterans-day-cologne-gifts": ("VETERANS DAY", "Full-size men's cologne to buy this week."),
+    "cyber-monday-cologne-under-40": ("CYBER MONDAY", "Men's cologne in a small budget."),
+    "christmas-fragrance-gifts-under-30": ("CHRISTMAS", "Full-size bottles in a small gift budget."),
+    "black-friday-perfume-under-30": ("BLACK FRIDAY", "Women's perfume in a small budget."),
+    "friendsgiving-fragrance-gifts": ("FRIENDSGIVING", "A fresh bottle for the person hosting."),
 }
 DEFAULT_EYEBROW = "GIFT GUIDE"
 DEFAULT_HOOK = "Checked deals from authorized retailers."
