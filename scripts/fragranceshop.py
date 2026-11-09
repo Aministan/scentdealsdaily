@@ -582,7 +582,7 @@ def attach(deals, dupes=None):
 def _apply(d, offer):
     """Point the deal at the buy-button store and keep the other store as also-at.
 
-    The lower price wins, except when the two affiliate prices are within 5%.
+    The lower price wins, except when the two affiliate prices are within $2.
     Then the higher-commission store is the buy button. See scripts/merchants.py.
     """
     import merchants

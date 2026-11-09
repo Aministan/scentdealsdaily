@@ -1,9 +1,9 @@
 # ScentDealsDaily
-> Daily-checked discounts on authentic designer fragrances at reputable retailers, plus a cited dupes directory. Last updated 2026-11-07T16:50:12Z.
+> Daily-checked discounts on authentic designer fragrances at reputable retailers, plus a cited dupes directory. Last updated 2026-11-08T17:03:14Z.
 
 ## Today's deals (price USD, size, retailer, % off listed compare-at)
 - Juicy Couture Peace Love & Juicy Couture Perfume 3.4 oz.: $20.95 (was $89.00, -76%) at FragranceShop: https://www.fragranceshop.com/product/peace-love-juicy-couture-perfume-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz
-- Calvin Klein Free Cologne 3.4 oz.: $17.95 (was $70.00, -74%) at FragranceShop: https://www.fragranceshop.com/product/ck-free-for-men/?attribute_pa_size=eau-de-toilette-spray-3-4-oz
+- Calvin Klein Free Cologne 3.4 oz.: $19.95 (was $70.00, -72%) at Perfumania: https://www.perfumania.com/products/calvin-klein-free-mens-eau-de-toilette-spray?variant=31838813094021
 - Calvin Klein Beauty Perfume 3.4 oz.: $23.95 (was $85.00, -72%) at FragranceShop: https://www.fragranceshop.com/product/beauty-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz
 - Calvin Klein Eternity Air Perfume 3.4 oz.: $20.95 (was $73.00, -71%) at FragranceShop: https://www.fragranceshop.com/product/eternity-air-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz
 - Azzaro Chrome Legend Cologne 4.2 oz.: $22.95 (was $66.00, -65%) at FragranceShop: https://www.fragranceshop.com/product/chrome-legend-for-men/?attribute_pa_size=eau-de-toilette-spray-4-2-oz
@@ -196,6 +196,11 @@ https://scentdealsdaily.com/gifts/stocking-stuffer-minis/
 https://scentdealsdaily.com/gifts/holiday-gift-sets/
 https://scentdealsdaily.com/gifts/christmas-gift-sets-under-50/
 https://scentdealsdaily.com/gifts/gift-sets/
+https://scentdealsdaily.com/gifts/stocking-stuffers-for-men/
+https://scentdealsdaily.com/gifts/stocking-stuffers-for-her/
+https://scentdealsdaily.com/gifts/black-friday-designer-cologne/
+https://scentdealsdaily.com/gifts/black-friday-luxury-perfume/
+https://scentdealsdaily.com/gifts/cyber-monday-perfume-gift-sets/
 https://scentdealsdaily.com/gifts/veterans-day-cologne-gifts/
 https://scentdealsdaily.com/gifts/cyber-monday-cologne-under-40/
 https://scentdealsdaily.com/gifts/christmas-fragrance-gifts-under-30/

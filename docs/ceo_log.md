@@ -685,3 +685,36 @@ The five new titles are 43, 47, 52, 47, and 46 characters. Teens is 52, mother-i
 **Checks:** local build on the 2026-11-07T16:50:12Z deals file. Sitemap 236 URLs (was 231). 239 HTML files (236 in the sitemap plus noindex /subscribed/, noindex 404, and noindex gift alias). 0 broken internal links. 714 JSON-LD blocks parsed. 0 github.io links. Every canonical is on https://scentdealsdaily.com. CNAME is scentdealsdaily.com. Both Google site-verification meta tags stay on every page. data/deals.json and muse_deals.json were not edited. No request was made to a CJ, Awin, Rakuten, or /go tracking URL. The build string-checked 3,653 affiliate hrefs.
 
 **Deploy:** this push triggers daily-refresh (refresh + build + IndexNow + Pages). Live 200s are the workflow's job after the push.
+
+## 2026-11-09 (Mon) — category CTR and holiday buying pages
+
+**Refresh status:** origin/main at the start of this pass was 43c60a8 "daily refresh" (2026-11-08). data/deals.json is stamped 2026-11-08T17:03:14Z (Nov 8, 2026 1:03 PM ET on the site's existing clock): 52 live deals. That refresh committed deals.json only, so the HTML on main still said Nov 7 until this rebuild. This pass did not edit data/deals.json and did not re-fetch prices. The push triggers daily-refresh, which owns the next price check.
+
+**Muse result:** muse_deals.json is identical to the attached file (56 rows, sha1 26cbc2509317eb00083be99cb218afc8c4359a31). Nothing merged. Still skipped: every eBay row, Walmart/PerfumesAmerica, Nordstrom Rack, Amazon, marketplace sellers, and the Sephora reference row. Ulta stays compare-only. No HeavenScent. No prices were invented.
+
+**Skipped as already on the site:** Christmas gifts for him under $50 is /gifts/cologne-gifts-for-him-under-50/. Black Friday cologne deals, Black Friday perfume deals, Cyber Monday gift sets, stocking stuffers under $25, and the minis page already exist. The new filters are not those lists.
+
+**Merchant order:** scripts/merchants.py now treats prices within $2 as close, instead of within 5%. Higher commission still wins inside that band (Perfumania, then FragranceShop, then FragranceNet). A wider gap keeps the lower price. On this file the build moved 1 buy button: Calvin Klein Free 3.4 oz, FragranceShop $17.95 vs Perfumania $19.95. Perfumania is the button. The $17.95 FragranceShop price stays on the card as also-at. Against the stored $70 compare-at the Perfumania price is 72% off, still above the 15% floor. No other affiliate pair was within $2.
+
+**Conversion (generator, so the daily refresh keeps it)**
+- /men/, /women/, and /unisex/ titles are shopping queries with the month, the lowest checked price, and the max percent off. Each page opens with "Prices checked" and a sticky lead Buy for the lowest price, then the cards, then FAQ. ItemList (Product/Offer) and FAQPage JSON-LD. No new JavaScript. The lead block has no image. Card images stay lazy.
+- /men/: "Men's Cologne Deals Nov 2026: From $17.95 (72% Off)" (51). Meta 127. Lead Azzaro Cologne 1.7 oz $17.95 at FragranceShop.
+- /women/: "Women's Perfume Deals Nov 2026: From $20.95 (76% Off)" (53). Meta 149. Lead Peace Love & Juicy Couture 3.4 oz $20.95 at FragranceShop.
+- /unisex/: "Unisex Fragrance Deals Nov 2026: From $24.95 (64% Off)" (54). Meta 136. Lead CK One 1.7 oz $24.95 at Perfumania.
+- Impression gift pages already had the lead Buy and a price-checked line: /gifts/, /gifts/luxury-fragrance-gifts/, /gifts/cologne-gifts-for-teen-boys/, /gifts/perfume-gifts-for-teen-girls/, /gifts/fragrance-gifts-for-teens/, /gifts/perfume-gifts-for-mother-in-law/. The build checks that the Buy stays above the cards.
+
+**New pages (5, config `gift_guides`, so they survive the rebuild). Prices are the Nov 8 deals.json prices after the $2 merchant rule.**
+- /gifts/stocking-stuffers-for-men/: men's cologne and men's travel sprays under $35, sets excluded, 6 items from $17.95 (Azzaro Cologne 1.7 oz $17.95 at FragranceShop, CK Free 3.4 oz $19.95 at Perfumania, Chrome Legend 4.2 oz $22.95, Brit 1.0 oz $23.85 at Perfumania, Weekend 1.7 oz $23.95, Bottled Unlimited 3.3 oz $31.95). The mixed stocking page stops at $25 and keeps women's perfume. Title: "Buy Stocking Stuffers for Men: From $17.95" (42).
+- /gifts/stocking-stuffers-for-her/: women's perfume and women's travel sprays under $30, sets excluded, 11 items from $14.95 (Fantasy 1.0 oz $14.95 at Perfumania through Eternity 3.4 oz $29.95). Black Friday perfume under $30 is full bottles only. Title: "Buy Stocking Stuffers for Her: From $14.95" (42).
+- /gifts/black-friday-designer-cologne/: men's cologne with a checked compare-at of $80 or more and a price under $80, minis and sets excluded, 11 bottles from $39.99 (Cool Water 4.2 oz $39.99 at FragranceNet through Le Beau 4.2 oz $78.95). Black Friday cologne deals keeps every men's cologne. Luxury cologne for him starts at a $110 compare-at and keeps bottles at $80 and up. Title: "Buy Black Friday Designer Cologne: From $39.99" (46).
+- /gifts/black-friday-luxury-perfume/: women's perfume with a checked compare-at of $110 or more, 7 bottles from $64.95 (Dylan Blue Pour Femme 3.4 oz $64.95 at FragranceShop, Bright Crystal Absolu 3.0 oz $70.95, Poeme 3.4 oz $83.95 at Perfumania, Euphoria 3.3 oz $88.99 at FragranceNet, Light Blue 3.3 oz $91.99 at FragranceNet, Donna Born in Roma 1.7 oz $94.95, Cafe Rose 3.4 oz $199.99 at Perfumania). Luxury perfume gifts for her also keeps unisex H24. This page leaves H24 off. Title: "Buy Black Friday Luxury Perfume: From $64.95" (44).
+- /gifts/cyber-monday-perfume-gift-sets/: women's boxed sets under $100, 12 sets from $31.95 (Jennifer Lopez Live Luxe $31.95 at Perfumania through Good Girl 4-piece $86.95). Cyber Monday gift sets is the mixed list of that cap. Christmas perfume gift sets for her also keeps the women's sets at $100 and up. Title: "Buy Cyber Monday Perfume Sets for Her: From $31.95" (50).
+
+Each new page has ItemList (Product with AggregateOffer) and FAQPage JSON-LD, a canonical on https://scentdealsdaily.com/gifts/<slug>/, a 1000×1500 pin, and a lead price plus Buy button before the cards. /men/ or /women/, the /gifts/ hub, for him, for her, and the related guides link them. Sitemap (241 URLs), llms.txt, and feed.xml (152 items) include the five URLs.
+
+**Titles/meta**
+Category titles are 51, 53, and 54 characters. Category metas are 127, 149, and 136. The five new titles are 42, 42, 46, 44, and 50. Their metas are 143, 157, 151, 159, and 116. All titles are ≤60. All metas are 70–160. No duplicate titles or descriptions.
+
+**Checks:** local build on the 2026-11-08T17:03:14Z deals file. Sitemap 241 URLs (was 236). 244 HTML files (241 in the sitemap plus noindex /subscribed/, noindex 404, and noindex gift alias). The build's link, JSON-LD, pin, and affiliate-string audits passed. 0 github.io links. Every canonical is on https://scentdealsdaily.com. CNAME is scentdealsdaily.com. Both Google site-verification meta tags stay on every page. data/deals.json and muse_deals.json were not edited. No request was made to a CJ, Awin, Rakuten, or /go tracking URL. The build string-checked 3,736 affiliate hrefs.
+
+**Deploy:** this push triggers daily-refresh (refresh + build + IndexNow + Pages). Live 200s are confirmed after that run.

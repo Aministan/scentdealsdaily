@@ -1,2 +1,4 @@
 homepage-*.png
 out/
+__pycache__/
+*.pyc

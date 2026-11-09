@@ -4,7 +4,7 @@
 - Amazon Associates – free; needs live site with original content; must make 3 qualifying sales within 180 days or the account closes. Requires the Associates disclosure (already on /disclosure).
 - Walmart Creator/Affiliates – via Impact; free application, site/social review.
 - FragranceNet – via Rakuten Advertising, advertiser MID 216, publisher tracking id `cED93qTW*cI`. Commission used for merchant order: 0.10%. Deep link `https://click.linksynergy.com/deeplink?id=cED93qTW*cI&mid=216&murl=` plus the URL-encoded plain `https://www.fragrancenet.com/` product URL. Do not request the click URL; price checks use the plain product page. Sealed retail sprays only; testers, unboxed bottles, vials, and refills are excluded.
-- Merchant order: when two of these stores are within 5% on the same bottle, the buy button goes to the higher commission (Perfumania's reported ~10%, then FragranceShop at 5%, then FragranceNet at 0.10%). A wider gap keeps the lower price. The other price stays on the card.
+- Merchant order: when two of these stores are within $2 on the same bottle, the buy button goes to the higher commission (Perfumania's reported ~10%, then FragranceShop at 5%, then FragranceNet at 0.10%). A wider gap keeps the lower price. The other price stays on the card.
 - Macy's, Ulta, Sephora, Nordstrom – via Rakuten Advertising / Impact (free publisher accounts, per-brand approval; usually want some traffic first).
 - JomaShop – via its affiliate network (CJ/Impact); free.
 Tip: apply to CJ (Perfumania) first — every link on v1 is Perfumania, so that alone monetizes the site. Swap links in build.py once approved.

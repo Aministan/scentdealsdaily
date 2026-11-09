@@ -219,7 +219,7 @@ def _apply_match(deal, offer, now):
         "url": offer["url"],
         "size": offer["size"],
     }
-    # FragranceNet is 0.10%. A CJ store within 5% keeps the buy button.
+    # FragranceNet is 0.10%. A CJ store within $2 keeps the buy button.
     import merchants
     chosen = merchants.prefer([
         {"retailer": deal.get("retailer"), "price": deal.get("price"), "url": deal.get("url")},

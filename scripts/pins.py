@@ -117,6 +117,11 @@ META = {
     "christmas-fragrance-gifts-under-30": ("CHRISTMAS", "Full-size bottles in a small gift budget."),
     "black-friday-perfume-under-30": ("BLACK FRIDAY", "Women's perfume in a small budget."),
     "friendsgiving-fragrance-gifts": ("FRIENDSGIVING", "A fresh bottle for the person hosting."),
+    "stocking-stuffers-for-men": ("STOCKING", "Men's cologne and minis for a stocking."),
+    "stocking-stuffers-for-her": ("STOCKING", "Women's perfume and minis for a stocking."),
+    "black-friday-designer-cologne": ("BLACK FRIDAY", "Designer cologne with a real markdown."),
+    "black-friday-luxury-perfume": ("BLACK FRIDAY", "Prestige perfume to buy before the weekend."),
+    "cyber-monday-perfume-gift-sets": ("CYBER MONDAY", "Boxed perfume sets for her."),
 }
 DEFAULT_EYEBROW = "GIFT GUIDE"
 DEFAULT_HOOK = "Checked deals from authorized retailers."

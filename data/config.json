@@ -1314,6 +1314,226 @@
  ],
  "gift_guides": [
 {
+  "slug": "stocking-stuffers-for-men",
+  "title": "Stocking stuffers for men",
+  "title_tag": "Buy Stocking Stuffers for Men",
+  "buy_meta": true,
+  "chip": "Stocking stuffers for men",
+  "gender": "men",
+  "max_price": 35,
+  "include_travel": true,
+  "exclude_set": true,
+  "min_bottles": 6,
+  "filled_label": "men's cologne stocking stuffers under $35",
+  "intro": "Men's cologne for a stocking, lowest checked price first. Full bottles and the men's travel sprays already in the catalog stay together when the checked price is under $35. The mixed stocking page stops at $25 and it keeps women's perfume. Fragrance gifts for him under $25 leaves travel sprays off and stops below $25, so the men's mini and the 3.3 oz bottle on this page can sit here and stay off that list. Black Friday cologne under $40 is full bottles only and it keeps the 4.2 oz Cool Water, which is over this cap. A boxed set stays on the men's gift-set page. We do not call a scent a stocking cologne. For Christmas shopping through December 24, 2026. A note line appears only when that retailer's product description already names the notes.",
+  "empty": "No men's cologne or travel spray we checked is under $35, so this page has no list. These guides have bottles we priced.",
+  "empty_desc": "Stocking stuffers for men: no men's cologne or travel spray we checked is under $35. Other gift guides list bottles we did price.",
+  "choose": [
+   "Use this page when the stocking is for a man and the gift has to stay under $35, including a 1 oz travel spray. The mixed stocking list is $25 or less and it mixes in women's perfume. This page leaves those women's bottles off and it keeps one more full men's bottle, the 3.3 oz, that the $25 list drops.",
+   "The note lines already stored: CK Free is juniper, coffee, and Virginia cedar. Chrome Legend is green apple, tea, and bitter orange. Burberry Weekend is lemon, grapefruit, and mandarin. Bottled Unlimited is mint, grapefruit, and sandalwood. Azzaro Cologne does not get a guessed smell. The Burberry Brit travel spray does not get a guessed smell either. The note line is the retailer's.",
+   "Read the size on the card. A 1 oz travel spray and a 3.4 oz bottle are different amounts of juice, even when both fit the cap. A boxed set of minis stays on the cologne gift-set page."
+  ],
+  "faq": [
+   [
+    "How is this different from fragrance stocking stuffers under $25?",
+    "That page keeps men's and women's bottles, minis, and travel sizes at $25 or less. This page is men's only, it includes the men's travel spray, and the cap is under $35 so a full bottle between $25 and $35 can sit here."
+   ],
+   [
+    "How is this different from Black Friday cologne under $40?",
+    "Black Friday cologne under $40 is full-size men's cologne only, for November 27, and it keeps bottles up to $40. This page is the stocking list. It adds the men's travel spray and it drops any full bottle at $35 or more."
+   ],
+   [
+    "Does a boxed miniature set count as a stocking stuffer?",
+    "No. A multi-piece set stays on the cologne gift-set pages. This page is one bottle or one travel spray."
+   ]
+  ],
+  "links": [
+   {"href": "/gifts/stocking-stuffer-fragrances/", "label": "Fragrance stocking stuffers under $25"},
+   {"href": "/gifts/stocking-stuffer-minis/", "label": "Fragrance minis and travel sizes"},
+   {"href": "/gifts/fragrance-gifts-for-him-under-25/", "label": "Fragrance gifts for him under $25"},
+   {"href": "/gifts/black-friday-cologne-under-40/", "label": "Black Friday cologne under $40"},
+   {"href": "/gifts/cologne-gifts-for-him-under-50/", "label": "Cologne gifts for him under $50"},
+   {"href": "/gifts/christmas-minis-under-40/", "label": "Christmas fragrance minis under $40"},
+   {"href": "/men/", "label": "All men's cologne deals"}
+  ]
+},
+{
+  "slug": "stocking-stuffers-for-her",
+  "title": "Stocking stuffers for her",
+  "title_tag": "Buy Stocking Stuffers for Her",
+  "buy_meta": true,
+  "chip": "Stocking stuffers for her",
+  "gender": "women",
+  "max_price": 30,
+  "include_travel": true,
+  "exclude_set": true,
+  "min_bottles": 6,
+  "filled_label": "women's perfume stocking stuffers under $30",
+  "intro": "Women's perfume for a stocking, lowest checked price first. Full bottles and the women's travel sprays already in the catalog stay together when the checked price is under $30. The mixed stocking page stops at $25 and it keeps men's cologne. Black Friday perfume under $30 and Cyber Monday perfume under $30 are full bottles only, so the travel sprays on this page stay off those two lists. Perfume gifts for her under $30 is a shorter noted list and it leaves off bottles whose listing copy stores no notes. A boxed set stays on the perfume gift-set pages. We do not call a scent a stocking perfume. For Christmas shopping through December 24, 2026. A note line appears only when that retailer's product description already names the notes.",
+  "empty": "No women's perfume or travel spray we checked is under $30, so this page has no list. These guides have bottles we priced.",
+  "empty_desc": "Stocking stuffers for her: no women's perfume or travel spray we checked is under $30. Other gift guides list bottles we did price.",
+  "choose": [
+   "Use this page when the stocking is for her and the gift has to stay under $30, including a 1 oz travel spray. The mixed stocking list stops at $25 and it mixes in men's cologne. This page leaves those men's bottles off and it keeps the women's bottles from $25 up to under $30, plus the travel sprays under $30.",
+   "The note lines already stored on the full bottles: Peace Love and Juicy Couture is red apple, cassis, and jasmine. Eternity Air is grapefruit, black currant, and peony. CK Beauty is jasmine and Virginia cedar. Boss Woman is mango, mandarin, and freesia. Eternity is freesia, lily, and rose. Burberry Touch for women and Ralph Lauren Romance are on this price list with no note line. The travel sprays do not get a guessed smell.",
+   "Read the size on the card. London and Romance are 1.0 oz full bottles. A travel spray is also 1 oz and it is a different product from those two. A boxed miniature set stays on the perfume gift-set page."
+  ],
+  "faq": [
+   [
+    "How is this different from fragrance stocking stuffers under $25?",
+    "That page keeps men's and women's bottles and travel sizes at $25 or less. This page is women's only. It keeps travel sprays under $30 and the full bottles from $25 up to under $30."
+   ],
+   [
+    "How is this different from Black Friday perfume under $30?",
+    "Black Friday perfume under $30 is full-size women's perfume only, for November 27. This page is the stocking list. It adds the women's travel sprays under $30 and it is framed for a Christmas stocking, not for November 27."
+   ],
+   [
+    "Are the 1 oz bottles minis?",
+    "Only when the catalog marks them as a travel spray or a mini. Burberry London and Ralph Lauren Romance are full bottles sold at 1.0 oz. They stay on this page because the checked price is under $30. A boxed set does not."
+   ]
+  ],
+  "links": [
+   {"href": "/gifts/stocking-stuffer-fragrances/", "label": "Fragrance stocking stuffers under $25"},
+   {"href": "/gifts/stocking-stuffer-minis/", "label": "Fragrance minis and travel sizes"},
+   {"href": "/gifts/black-friday-perfume-under-30/", "label": "Black Friday perfume under $30"},
+   {"href": "/gifts/cyber-monday-perfume-under-30/", "label": "Cyber Monday perfume under $30"},
+   {"href": "/gifts/perfume-gifts-for-her-under-30/", "label": "Perfume gifts for her under $30"},
+   {"href": "/gifts/christmas-minis-under-40/", "label": "Christmas fragrance minis under $40"},
+   {"href": "/women/", "label": "All women's perfume deals"}
+  ]
+},
+{
+  "slug": "black-friday-designer-cologne",
+  "title": "Black Friday designer cologne deals",
+  "title_tag": "Buy Black Friday Designer Cologne",
+  "buy_meta": true,
+  "chip": "Black Friday designer cologne",
+  "gender": "men",
+  "min_was": 80,
+  "max_price": 80,
+  "exclude_mini": true,
+  "exclude_set": true,
+  "min_bottles": 6,
+  "filled_label": "Black Friday designer cologne under $80 with an $80 compare-at",
+  "intro": "Designer men's cologne for Black Friday, lowest checked price first. A bottle is listed only when the compare-at we checked is $80 or more and today's price is still under $80. That is the designer name at a markdown, without the niche bottle and without the under-$40 starters. Black Friday cologne deals lists every men's cologne, including the cheap bottles and the ones at $80 and up, and it sorts by the discount. Luxury cologne gifts for him starts at a $110 compare-at and it keeps bottles at $80 and up, plus one unisex bottle. This page drops both of those edges. Minis and boxed sets stay off. Black Friday 2026 is Friday, November 27. This is not a separate sale price. Cool Water, men's Eternity, Burberry Touch for men, and Wanted stay on this list with no note line when they qualify, because the stored copy does not name notes. For Black Friday shopping through November 27, 2026.",
+  "empty": "No men's cologne we checked has an $80 compare-at and a price under $80, so this page has no list. These guides have bottles we priced.",
+  "empty_desc": "Black Friday designer cologne deals: no men's cologne we checked has an $80 compare-at and a price under $80. Other gift guides list bottles we did price.",
+  "choose": [
+   "Shop this list the week of November 27, 2026, when he already knows the designer name and the gift should stay under $80. The bottles under $40 are on Black Friday cologne under $40. The bottles at $80 and up, and Hermès H24, are on luxury cologne gifts for him. Xerjoff Mefisto is over this price cap, so the niche bottle stays off.",
+   "The note lines already stored: Eros Flame is on the vanilla roundup. The Most Wanted Parfum is ginger and bourbon vanilla. Acqua di Gio is lime, bergamot, and marine notes. Le Beau is coconut and tonka. Stronger With You Intensely is the sweet evening Armani. Cool Water, men's Eternity, Touch for men, and Wanted do not get a guessed smell. Legend Spirit and Coach use the note line already stored on the card, and no line is added when the retailer did not print one.",
+   "Read the size on the card before the sticker. Eros Flame, The Most Wanted, Legend Spirit, and Stronger With You Intensely are 1.7 oz. Cool Water and Le Beau are 4.2 oz. A lower sticker can still be less juice. When the name links to a bottle page, that page shows the price per ounce."
+  ],
+  "faq": [
+   [
+    "How is this different from Black Friday cologne deals?",
+    "Black Friday cologne deals lists every men's cologne we checked and sorts by the discount. This page keeps a designer bottle only when the compare-at is $80 or more and today's price is under $80. The cheapest starters and the bottles at $80 and up stay on the full Black Friday cologne page."
+   ],
+   [
+    "How is this different from luxury cologne gifts for him?",
+    "Luxury cologne gifts for him starts at a $110 compare-at, keeps bottles at $80 and up, and includes the unisex Hermès H24. This page stops under $80, uses an $80 compare-at, and it is men's cologne only, for November 27."
+   ],
+   [
+    "Are these separate Black Friday prices?",
+    "No. Each price is the current price we checked. Black Friday 2026 is November 27. Minis, boxed sets, and marketplace sellers stay off."
+   ]
+  ],
+  "links": [
+   {"href": "/black-friday-cologne-deals/", "label": "Black Friday cologne deals"},
+   {"href": "/gifts/black-friday-cologne-under-40/", "label": "Black Friday cologne under $40"},
+   {"href": "/gifts/luxury-cologne-gifts-for-him/", "label": "Luxury cologne gifts for him"},
+   {"href": "/gifts/best-selling-colognes-2026/", "label": "Best-selling colognes 2026"},
+   {"href": "/gifts/cologne-gifts-for-him-under-50/", "label": "Cologne gifts for him under $50"},
+   {"href": "/best/luxury-fragrance-deals/", "label": "Luxury fragrance deals"},
+   {"href": "/men/", "label": "All men's cologne deals"}
+  ]
+},
+{
+  "slug": "black-friday-luxury-perfume",
+  "title": "Black Friday luxury perfume deals",
+  "title_tag": "Buy Black Friday Luxury Perfume",
+  "buy_meta": true,
+  "chip": "Black Friday luxury perfume",
+  "gender": "women",
+  "min_was": 110,
+  "exclude_mini": true,
+  "exclude_set": true,
+  "min_bottles": 6,
+  "filled_label": "Black Friday women's perfume with a $110 compare-at",
+  "intro": "Women's perfume for a Black Friday luxury gift, lowest checked price first. A bottle is listed only when the compare-at we checked is $110 or more. That is the same prestige floor as luxury perfume gifts for her, and this page leaves the unisex Hermès off. Luxury perfume gifts for her keeps H24 because a unisex bottle counts on that gift list. Luxury fragrance gifts uses a $120 compare-at and mixes men's cologne in, so the women's bottle at $110 stays here and stays off that mixed page. Black Friday perfume deals lists every women's perfume, including the bottles under this floor, and it sorts by the discount. Minis and boxed sets stay off. Black Friday 2026 is Friday, November 27. This is not a separate sale price. For Black Friday shopping through November 27, 2026. A note line appears only when that retailer's product description already names the notes.",
+  "empty": "No women's perfume we checked has a compare-at of $110 or more, so this page has no list. These guides have bottles we priced.",
+  "empty_desc": "Black Friday luxury perfume deals: no women's perfume we checked has a compare-at of $110 or more. Other gift guides list bottles we did price.",
+  "choose": [
+   "Shop this list the week of November 27, 2026, when the gift is a women's perfume and the name is a prestige bottle. The bottles under a $110 compare-at stay on Black Friday perfume deals. Hermès H24 is unisex, so it stays on the luxury gift page for her and off this one.",
+   "The note lines already stored: Dylan Blue Pour Femme is green apple and rose. Bright Crystal Absolu is yuzu and peony. Poême is jasmine and tuberose. Donna Born in Roma is jasmine and bourbon vanilla. Café Rose is Turkish and Bulgarian rose with coffee. Euphoria and Light Blue use the note line already stored on the card. No line is added when the retailer did not print one.",
+   "Read the size on the card. Dylan Blue, Poême, Light Blue, and Café Rose are the larger bottles. Bright Crystal Absolu is 3.0 oz. Donna Born in Roma is 1.7 oz. A 1.7 oz bottle and a 3.4 oz bottle are different amounts of juice. When the name links to a bottle page, that page shows the price per ounce."
+  ],
+  "faq": [
+   [
+    "How is this different from luxury perfume gifts for her?",
+    "Luxury perfume gifts for her lists women's perfume and unisex bottles with a $110 compare-at, for holiday shopping through December 20. This page is women's perfume only, so Hermès H24 stays off, and it is the Black Friday list for November 27."
+   ],
+   [
+    "How is this different from Black Friday perfume deals?",
+    "Black Friday perfume deals lists every women's perfume we checked and sorts by the discount. This page keeps a bottle only when the compare-at is $110 or more, and it sorts by the lowest price."
+   ],
+   [
+    "What counts as luxury here?",
+    "The compare-at price we checked is $110 or more. That is the retailer's own list price, or another authorized retailer's price when that is the comparison we stored. A bottle under that floor stays on the full Black Friday perfume page."
+   ]
+  ],
+  "links": [
+   {"href": "/black-friday-perfume-deals/", "label": "Black Friday perfume deals"},
+   {"href": "/gifts/luxury-perfume-gifts-for-her/", "label": "Luxury perfume gifts for her"},
+   {"href": "/gifts/luxury-fragrance-gifts/", "label": "Luxury fragrance gifts"},
+   {"href": "/best/luxury-fragrance-deals/", "label": "Luxury fragrance deals"},
+   {"href": "/gifts/black-friday-perfume-under-40/", "label": "Black Friday perfume under $40"},
+   {"href": "/gifts/best-selling-perfumes-2026/", "label": "Best-selling perfumes 2026"},
+   {"href": "/women/", "label": "All women's perfume deals"}
+  ]
+},
+{
+  "slug": "cyber-monday-perfume-gift-sets",
+  "title": "Cyber Monday perfume gift sets for her",
+  "title_tag": "Buy Cyber Monday Perfume Sets for Her",
+  "buy_meta": true,
+  "chip": "Cyber Monday perfume sets for her",
+  "sets_only": true,
+  "gender": "women",
+  "max_price": 100,
+  "min_bottles": 6,
+  "filled_label": "Cyber Monday women's perfume gift sets under $100",
+  "intro": "Boxed perfume sets for her on Cyber Monday, lowest checked price first. Cyber Monday 2026 is Monday, November 30. A set is listed only when it is a women's set and the checked price is under $100. Cyber Monday fragrance gift sets is the mixed list of that same cap, so the men's sets stay on that page and off this one. Christmas perfume gift sets for her is every women's set, including the sets at $100 and up. Black Friday fragrance gift sets is the November 27 mixed list under $100. Holiday gift sets stops under $75 and at twelve, men and women together. A single bottle is not listed as a set. This is not a separate sale price. For Cyber Monday shopping through November 30, 2026. The line under each card is the retailer's own contents list.",
+  "empty": "No women's perfume gift set we checked is under $100, so this page has no list. These guides have products we priced.",
+  "empty_desc": "Cyber Monday perfume gift sets for her: no women's set we checked is under $100. Other gift guides list products we did price.",
+  "choose": [
+   "Use this page on November 30, 2026, when the gift for her is a box and the checked price is under $100. The men's miniature sets on the mixed Cyber Monday page stay off. A women's set at $100 or more stays on Christmas perfume gift sets for her.",
+   "The order is the lowest checked price, then the larger discount when two stickers match. It is not a largest-discount ranking. Read the contents line on the card. It is the retailer's list of what is in the box. This page does not add scent notes the listing does not print.",
+   "A single full bottle of perfume stays on the perfume gift guides. A travel spray that is not sold as a set stays on the stocking and minis pages."
+  ],
+  "faq": [
+   [
+    "How is this different from Cyber Monday fragrance gift sets?",
+    "Cyber Monday fragrance gift sets lists men's and women's boxed sets under $100. This page is women's sets only, for the same November 30 shopping day and the same cap."
+   ],
+   [
+    "How is this different from Christmas perfume gift sets for her?",
+    "Christmas perfume gift sets for her lists every women's set we checked, including sets at $100 and up. This page stops under $100 and it is the Cyber Monday list for November 30."
+   ],
+   [
+    "Are these separate Cyber Monday prices?",
+    "No. Each price is the current price we checked. Cyber Monday 2026 is November 30. A single bottle is not listed as a set."
+   ]
+  ],
+  "links": [
+   {"href": "/gifts/cyber-monday-gift-sets/", "label": "Cyber Monday fragrance gift sets"},
+   {"href": "/gifts/christmas-perfume-gift-sets/", "label": "Christmas perfume gift sets for her"},
+   {"href": "/gifts/black-friday-gift-sets/", "label": "Black Friday fragrance gift sets"},
+   {"href": "/gifts/holiday-gift-sets/", "label": "Holiday fragrance gift sets"},
+   {"href": "/cyber-monday-perfume-deals/", "label": "Cyber Monday perfume deals"},
+   {"href": "/gifts/for-her/", "label": "Fragrance gifts for her"},
+   {"href": "/women/", "label": "All women's perfume deals"}
+  ]
+},
+{
   "slug": "veterans-day-cologne-gifts",
   "title": "Veterans Day cologne gifts",
   "title_tag": "Buy Veterans Day Cologne Gifts",
