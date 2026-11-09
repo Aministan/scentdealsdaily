@@ -5097,15 +5097,25 @@ def audit_nov9_buys():
             if other[0]==slug: continue
             # A new page that reprints an older guide's exact bottles is a duplicate.
         print(f"{rel}: {title} ({len(title)}) / meta {len(desc)} / {n} cards")
-    # The new lists must not reprint an older guide bottle-for-bottle.
+    # The new lists must not reprint an older guide bottle-for-bottle when they use the same filters.
+    # A women's-only page can match the women's-plus-unisex page on a day when no unisex bottle qualifies.
+    def _filter_key(slug):
+        spec=next((g for g in GIFT_GUIDES if g["slug"]==slug), None)
+        if not spec: return None
+        genders=spec.get("genders") or ((spec.get("gender"),) if spec.get("gender") else ())
+        return (tuple(genders), spec.get("min_was"), spec.get("max_price"), spec.get("min_price"),
+                bool(spec.get("exclude_mini")), bool(spec.get("exclude_set")), bool(spec.get("sets_only")))
     by_picks={slug: tuple(f"{d['id']}|{sz(d.get('size') or '')}|{d['price']:.2f}" for d in picks) for slug, _h1, picks in GIFT_PAGE_PICKS}
     for slug in added:
         key=by_picks.get(slug)
         if not key:
             raise SystemExit(f"{slug}: picks were not recorded")
         twins=[other for other, rows in by_picks.items() if other!=slug and rows==key]
+        same=[other for other in twins if _filter_key(other)==_filter_key(slug)]
+        if same:
+            raise SystemExit(f"{slug}: same bottles as {', '.join(same)}")
         if twins:
-            raise SystemExit(f"{slug}: same bottles as {', '.join(twins)}")
+            print(f"{slug}: same bottles as {', '.join(twins)} today; the audience filters still differ")
 audit_nov9_buys()
 def audit_holiday_hub_links():
     """Homepage, gender pages, and every gift page point at the Black Friday hub."""
