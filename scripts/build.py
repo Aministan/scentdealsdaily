@@ -179,6 +179,9 @@ main{max-width:1100px;margin:0 auto;padding:16px}h1{font-size:26px;line-height:1
 .box{background:#fff;border:1px solid #ece7e1;border-radius:14px;padding:16px;margin:18px 0}
 table{width:100%;border-collapse:collapse;background:#fff}th,td{text-align:left;padding:10px;border-bottom:1px solid #eee;vertical-align:top}
 .chips a{display:inline-block;margin:3px;padding:4px 10px;border-radius:99px;background:#fff;border:1px solid #e3ddd6;text-decoration:none;font-size:14px}
+.brand-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.brand-tile{display:flex;flex-direction:column;gap:2px;background:#fff;border:1px solid #ece7e1;border-radius:14px;padding:12px 14px;text-decoration:none;color:inherit}
+.brand-tile .price{font-size:20px}
 footer{max-width:1100px;margin:20px auto;padding:16px;font-size:13px;color:#6f6976}
 .nl{margin:18px 0}.nl-foot{margin:0 0 12px}
 .crumbs{font-size:13px;color:#6f6976;margin:0 0 8px}.crumbs a{text-decoration:none}.crumbs a:hover{text-decoration:underline}.crumbs .sep{margin:0 .35em;color:#b5aeb8}.crumbs [aria-current=page]{color:#5f5a66}
@@ -3677,6 +3680,376 @@ def _band_picks(rows, limit=8):
     if all(d["id"]!=cheapest["id"] or d.get("size")!=cheapest.get("size") for d in picked):
         picked=by_off[:limit-1]+[cheapest]
     return picked
+BF_BRAND_MIN=3
+BF_BRAND_REGISTRY=f"{ROOT}/data/bf_brand_pages.json"
+BF_BRAND_PAGES=[]
+_BANNED_STORES=("amazon","ebay","walmart","nordstrom","sephora")
+def bf_brand_visibility(count):
+    """Index a brand page at 3 priced bottles. Below that, keep the URL and noindex it."""
+    return "index" if isinstance(count, int) and not isinstance(count, bool) and count>=BF_BRAND_MIN else "noindex"
+def bf_banned_store(d):
+    blob=gift_blob(d)
+    host=(urllib.parse.urlparse(d.get("url") or "").hostname or "").lower()
+    return any(bad in blob or bad in host for bad in _BANNED_STORES)
+def bf_priced_bottle(d):
+    """One in-stock bottle priced at Perfumania, FragranceShop, or FragranceNet. Sets stay off."""
+    if not gift_ok(d) or is_gift_set(d): return False
+    if d.get("retailer") not in merchants.AFFILIATE_COMMISSION: return False
+    if bf_banned_store(d): return False
+    return True
+def bf_collect_bottles():
+    """Checked deals plus single-bottle minis. A gift set is not a bottle. One id is kept once."""
+    rows=[]; seen=set()
+    pool=list(deals)+[g for g in (D.get("gifts") or []) if g.get("kind")=="mini"]
+    for d in pool:
+        if not bf_priced_bottle(d): continue
+        key=(d.get("id"), sz(d.get("size") or "")) if d.get("id") else (canon(d.get("brand") or ""), d.get("name"), sz(d.get("size") or ""), d.get("retailer"))
+        if key in seen: continue
+        seen.add(key)
+        rows.append(d)
+    grouped={}
+    for d in rows:
+        grouped.setdefault(canon(d["brand"]), []).append(d)
+    for b in grouped:
+        grouped[b]=by_price(grouped[b])
+    return grouped
+def _load_bf_brand_registry():
+    if not os.path.isfile(BF_BRAND_REGISTRY): return []
+    data=json.load(open(BF_BRAND_REGISTRY, encoding="utf-8"))
+    pages=data.get("pages") if isinstance(data, dict) else None
+    if not isinstance(pages, list):
+        raise SystemExit(f"{BF_BRAND_REGISTRY}: expected a pages list")
+    out=[]; seen=set()
+    for item in pages:
+        if not isinstance(item, dict): continue
+        slug_s=(item.get("slug") or "").strip()
+        brand=(item.get("brand") or "").strip()
+        if not slug_s or not brand or slug_s in seen: continue
+        seen.add(slug_s)
+        out.append({"slug":slug_s,"brand":brand})
+    return out
+def _save_bf_brand_registry(pages):
+    payload={"pages":sorted(pages, key=lambda item: item["slug"])}
+    text=json.dumps(payload, indent=2)+"\n"
+    prev=open(BF_BRAND_REGISTRY, encoding="utf-8").read() if os.path.isfile(BF_BRAND_REGISTRY) else ""
+    if text!=prev:
+        open(BF_BRAND_REGISTRY, "w", encoding="utf-8").write(text)
+def _uniq_names(rows):
+    seen=[]
+    for d in rows:
+        name=d.get("name") or fullname(d)
+        if name not in seen: seen.append(name)
+    return seen
+def _join_names(names):
+    names=[n for n in names if n]
+    if not names: return ""
+    if len(names)==1: return names[0]
+    if len(names)==2: return f"{names[0]} and {names[1]}"
+    return ", ".join(names[:-1])+", and "+names[-1]
+def _size_at(d):
+    size=sz(d.get("size") or "")
+    return f"{size} at {d['retailer']}" if size else d["retailer"]
+def _money_row(d):
+    return f"${d['price']:.2f} for {d['name']} ({_size_at(d)})"
+def _other_names(rows):
+    ends={rows[0]["name"], rows[-1]["name"]}
+    out=[]
+    for d in rows:
+        if d["name"] in ends or d["name"] in out: continue
+        out.append(d["name"])
+    return out
+def _multi_size_sentence(rows):
+    bits=[]
+    for name in _uniq_names(rows):
+        sizes=[sz(d.get("size") or "") for d in rows if d["name"]==name and sz(d.get("size") or "")]
+        if len(sizes)>1:
+            bits.append(f"{name} in {_join_names(sizes)}")
+    if not bits: return ""
+    verb="is" if len(bits)==1 else "are"
+    return f"{_join_names(bits)} {verb} the same fragrance in more than one size."
+def bf_brand_intro(brand, rows):
+    """Names and the checked range, in a sentence shaped for this house. No price is typed in."""
+    lo, hi=rows[0], rows[-1]
+    others=_other_names(rows)
+    men=_uniq_names([d for d in rows if d.get("gender")=="men"])
+    women=_uniq_names([d for d in rows if d.get("gender")=="women"])
+    if brand=="Versace" and men and women:
+        first=(f"Versace's men's bottles are {_join_names(men)}, and the women's perfumes are {_join_names(women)}, "
+               f"from {_money_row(lo)} to {_money_row(hi)}.")
+    elif brand=="Burberry":
+        mid=(f" In between are {_join_names(others)}." if others else "")
+        first=(f"Burberry runs from {_money_row(lo)} to {_money_row(hi)}.{mid}")
+        if any(d.get("gender")=="men" and "touch" in d["name"].lower() for d in rows) and any(d.get("gender")=="women" and "touch" in d["name"].lower() for d in rows):
+            first=first+" Touch cologne and Touch perfume are both priced."
+    elif brand=="Calvin Klein":
+        first=(f"Calvin Klein runs from {_money_row(lo)} to {_money_row(hi)}, "
+               f"across {_join_names(_uniq_names(rows))}.")
+    elif brand=="Azzaro":
+        mid=(f" {_join_names(others)} are the bottles between them." if others else "")
+        first=(f"The house cologne is the Azzaro low, {_money_row(lo)}; {hi['name']} is the high, {_money_row(hi)}.{mid}")
+    elif brand=="Hugo Boss":
+        bits=[f"{d['name']} at ${d['price']:.2f} for {_size_at(d)}" for d in rows]
+        first=f"Hugo Boss has {len(rows)} checked bottles: {_join_names(bits)}."
+    elif brand=="Valentino":
+        bits=[f"{d['name']} at ${d['price']:.2f} ({_size_at(d)})" for d in rows]
+        first=f"Valentino's checked bottles are {_join_names(bits)}."
+        if women and men:
+            first=first+" "+f"{_join_names(women)} is the women's perfume, and {_join_names(men)} are the men's colognes."
+    else:
+        first=(f"{brand}'s checked bottles are {_join_names(_uniq_names(rows))}, "
+               f"from {_money_row(lo)} to {_money_row(hi)}.")
+    extra=_multi_size_sentence(rows)
+    note="Prices are current and checked daily. Black Friday prices may change. This page rebuilds with the daily refresh."
+    text=re.sub(r"\s+"," ", first).strip()
+    if not text.endswith("."): text+="."
+    if extra: text+=" "+extra
+    return text+" "+note
+def bf_brand_desc(brand, rows):
+    lo, hi=rows[0], rows[-1]
+    price=f"${lo['price']:.2f}"
+    n=len(rows)
+    cands=[
+        f"Shop {brand} Black Friday deals from {price}. {n} checked bottles, {lo['name']} to {hi['name']}. Buy before November 27, 2026.",
+        f"Buy {brand} Black Friday deals from {price}. {lo['name']} is the low of {n} bottles. Checked daily for November 27, 2026.",
+        f"Shop {brand} Black Friday deals from {price}. {n} bottles through {hi['name']}. Buy before November 27, 2026.",
+        f"Buy {brand} for Black Friday from {price}. {n} checked bottles. Prices may change. Updated {bf_when}.",
+    ]
+    desc=next((c for c in cands if 70<=len(c)<=160 and price in c and brand in c and "black friday" in c.lower()), None)
+    if not desc:
+        raise SystemExit(f"/black-friday/{bslug(brand)}/: meta does not fit ({[len(c) for c in cands]})")
+    return desc
+def bf_brand_intent_taken(brand, slug_s):
+    """A different URL whose title or h1 already targets this brand's Black Friday query."""
+    brand_l=brand.lower()
+    own=f"black-friday/{slug_s}/index.html"
+    for dirpath, _, files in os.walk(OUT):
+        for fn in files:
+            if not fn.endswith(".html"): continue
+            rel=os.path.relpath(os.path.join(dirpath, fn), OUT).replace(os.sep, "/")
+            if rel==own: continue
+            text=open(os.path.join(dirpath, fn), encoding="utf-8").read()
+            title_m=re.search(r"<title>(.*?)</title>", text, re.S)
+            h1_m=re.search(r"<h1>(.*?)</h1>", text, re.S)
+            blob=html.unescape(re.sub(r"<[^>]+>","", (title_m.group(1) if title_m else "")+" "+(h1_m.group(1) if h1_m else ""))).lower()
+            if brand_l in blob and "black friday" in blob:
+                return rel
+    return None
+def bf_brand_page_links(brand, rows):
+    slug_s=bslug(brand)
+    links=[(BF_HUB_PATH, "Black Friday hub")]
+    if os.path.isfile(f"{OUT}/brands/{slug_s}/index.html"):
+        links.append((f"/brands/{slug_s}/", f"{brand} deals"))
+    seen=set()
+    for d in rows:
+        href=fragrance_href(d)
+        if not href: continue
+        path=href[len(PREFIX):] if PREFIX and href.startswith(PREFIX) else href
+        if not path.startswith("/"): path="/"+path
+        if path in seen: continue
+        seen.add(path)
+        links.append((path, fullname(d)))
+    html_s="<p class='chips'>"+"".join(f"<a href='{PREFIX}{href}'>{e(label)}</a>" for href, label in links)+"</p>"
+    return html_s, links
+def _link_brand_page_to_bf(brand, slug_s):
+    """The evergreen brand page points at the Black Friday list while that list is indexable."""
+    fp=f"{OUT}/brands/{slug_s}/index.html"
+    if not os.path.isfile(fp): return
+    text=open(fp, encoding="utf-8").read()
+    needle=f"<h1>{e(brand)} deals</h1>"
+    chip=f"<p class='chips'><a href='{PREFIX}/black-friday/{slug_s}/'>{e(brand)} Black Friday deals</a></p>"
+    if needle not in text:
+        raise SystemExit(f"brands/{slug_s}/: missing the h1 for the Black Friday link")
+    if chip not in text:
+        open(fp, "w", encoding="utf-8").write(text.replace(needle, needle+chip, 1))
+def _rows_for_bf_entry(entry, grouped):
+    brand=entry["brand"]
+    if brand in grouped: return brand, grouped[brand]
+    for b, rows in grouped.items():
+        if bslug(b)==entry["slug"]: return b, rows
+    return brand, []
+def _check_bf_brand_copy(brand, rows, intro):
+    prices={f"${d['price']:.2f}" for d in rows}
+    mentioned=set(re.findall(r"\$\d+\.\d{2}", intro))
+    if not mentioned or not mentioned<=prices:
+        raise SystemExit(f"{brand}: intro uses a price that is not on the page ({mentioned-prices})")
+    if f"${rows[0]['price']:.2f}" not in intro or f"${rows[-1]['price']:.2f}" not in intro:
+        raise SystemExit(f"{brand}: intro is missing the low or high price")
+    hits=[name for name in _uniq_names(rows) if name in intro]
+    if len(_uniq_names(rows))>=2 and len(hits)<2:
+        raise SystemExit(f"{brand}: intro names fewer than two bottles ({hits})")
+def bf_brand_shop_html():
+    shown=[p for p in BF_BRAND_PAGES if p["index"] and p.get("lo") is not None]
+    if not shown: return ""
+    tiles=[]
+    for p in sorted(shown, key=lambda item: item["brand"].lower()):
+        tiles.append(
+            f"<a class='brand-tile' href='{PREFIX}/black-friday/{p['slug']}/'>"
+            f"<div class='brand'>{e(p['brand'])}</div>"
+            f"<div class='nm'>Black Friday deals</div>"
+            f"<div class='price'>From ${p['lo']:.2f}</div>"
+            f"<div class='meta'>{p['count']} bottles</div></a>")
+    return ("<section class='box' id='shop-by-brand'><h2 style='margin-top:0'>Shop by brand</h2>"
+            "<div class='brand-grid'>"+"".join(tiles)+"</div></section>")
+def _render_one_bf_brand(spec):
+    brand, slug_s, rows, index=spec["brand"], spec["slug"], spec["rows"], spec["index"]
+    h1=f"{brand} Black Friday deals"
+    link_rows=rows
+    links_html, link_pairs=bf_brand_page_links(brand, link_rows)
+    if not rows:
+        title=f"{brand} Black Friday Deals 2026"
+        if len(title)>60: raise SystemExit(f"/black-friday/{slug_s}/: empty title is {len(title)} chars")
+        desc=(f"{brand} Black Friday deals. None of the bottles we checked today are this brand at "
+              f"Perfumania, FragranceShop, or FragranceNet. See the Black Friday hub for priced bottles.")
+        if not 70<=len(desc)<=160:
+            desc=f"{brand} Black Friday deals. No checked bottle at Perfumania, FragranceShop, or FragranceNet today. See the Black Friday hub."
+        use_sid("bfcm", slug_s)
+        page(f"black-friday/{slug_s}/index.html", title, desc,
+             f"<h1>{e(h1)}</h1><p>None of the bottles we checked today are {e(brand)} at Perfumania, FragranceShop, or FragranceNet.</p>{links_html}{GIFT_DISC}",
+             index=False, feed=False, robots="noindex,follow", image="/media/pins/holiday-fragrance-gifts.png")
+        print(f"black friday brand /black-friday/{slug_s}/: 0 bottles, noindex")
+        return
+    for d in rows:
+        if d.get("retailer") not in merchants.AFFILIATE_COMMISSION or is_gift_set(d):
+            raise SystemExit(f"{brand}: {d.get('id')} is not an approved-store bottle")
+    lo, hi=rows[0], rows[-1]
+    title=f"{brand} Black Friday Deals 2026: From ${lo['price']:.2f}"
+    if len(title)>60 or f"From ${lo['price']:.2f}" not in title or "Black Friday Deals 2026" not in title:
+        raise SystemExit(f"/black-friday/{slug_s}/: title is {len(title)} chars ({title})")
+    if title in TITLES:
+        raise SystemExit(f"/black-friday/{slug_s}/: title collides ({title})")
+    desc=bf_brand_desc(brand, rows)
+    intro=bf_brand_intro(brand, rows)
+    _check_bf_brand_copy(brand, rows, intro)
+    faqs=[
+        ("When is Black Friday 2026?",
+         "Black Friday 2026 is Friday, November 27, 2026. Cyber Monday 2026 is Monday, November 30."),
+        ("Are these separate Black Friday prices?",
+         f"No. The lowest {brand} price we checked is ${lo['price']:.2f} for {fullname(lo)} ({sz(lo.get('size') or '')}) at {lo['retailer']}. Last updated {bf_when}."),
+        ("Which bottles are on this page?",
+         f"{len(rows)} {brand} bottles, from ${lo['price']:.2f} for {lo['name']} to ${hi['price']:.2f} for {hi['name']}, sorted by the price we checked."),
+    ]
+    use_sid("bfcm", slug_s)
+    related=_related_html(brand, rows)
+    top, rest_html=fold_offer(lead_offer(rows), intro, gift_table(rows))
+    thin="" if index else "<p>Fewer than 3 bottles are priced for this brand today, so this page is not in the sitemap.</p>"
+    page(f"black-friday/{slug_s}/index.html", title, desc,
+         f"<h1>{e(h1)}</h1><p class='sub'>Last updated {e(bf_when)}. Checked {e(upd_h)}.</p>{top}{links_html}{rest_html}{thin}{related}{GIFT_DISC}{faqhtml(faqs)}{BREVO_FORM}<p class='meta'>Prices and photos come from the deals we already checked. We do not invent a price or a photo, and we do not list testers, decants, gift sets, or Amazon.</p>",
+         [itemlist(rows, h1), faqld(faqs)],
+         index=index, feed=index, robots=None if index else "noindex,follow",
+         image="/media/pins/holiday-fragrance-gifts.png")
+    KW.append(f"{brand.lower()} black friday deals")
+    text=open(f"{OUT}/black-friday/{slug_s}/index.html", encoding="utf-8").read()
+    if f"<title>{e(title)}</title>" not in text:
+        raise SystemExit(f"/black-friday/{slug_s}/: title was rewritten ({title})")
+    if text.count('<article class="card">')!=len(rows):
+        raise SystemExit(f"/black-friday/{slug_s}/: card count is not {len(rows)}")
+    got=re.findall(r'<article class="card">.*?<span class="price">\$(\d+\.\d{2})</span>', text, re.S)
+    expect=[f"{d['price']:.2f}" for d in rows]
+    if got!=expect:
+        raise SystemExit(f"/black-friday/{slug_s}/: cards are not sorted by price ({got})")
+    if "lead-offer" not in text or f"Buy at {e(lo['retailer'])}" not in text:
+        raise SystemExit(f"/black-friday/{slug_s}/: missing the lead Buy button")
+    for href, label in link_pairs:
+        if f"<a href='{PREFIX}{href}'>{e(label)}</a>" not in text:
+            raise SystemExit(f"/black-friday/{slug_s}/: missing link {label} {href}")
+    if index and 'content="noindex' in text:
+        raise SystemExit(f"/black-friday/{slug_s}/: indexable page is noindex")
+    if not index and 'content="noindex' not in text:
+        raise SystemExit(f"/black-friday/{slug_s}/: thin page is missing noindex")
+    state="index" if index else "noindex"
+    print(f"black friday brand /black-friday/{slug_s}/: {len(rows)} bottles, from ${lo['price']:.2f}, title {len(title)} chars, {state}")
+def render_bf_brand_pages():
+    """One /black-friday/<brand>/ page per house with 3 priced bottles, plus a noindex shell if it later falls short."""
+    global BF_BRAND_PAGES
+    if bf_brand_visibility(2)!="noindex" or bf_brand_visibility(3)!="index" or bf_brand_visibility(0)!="noindex":
+        raise SystemExit("brand Black Friday minimum rule drifted")
+    grouped=bf_collect_bottles()
+    registry=_load_bf_brand_registry()
+    registered={item["slug"] for item in registry}
+    planned=[]; used=set()
+    for brand in sorted(grouped, key=lambda b: b.lower()):
+        rows=grouped[brand]
+        if len(rows)<BF_BRAND_MIN: continue
+        slug_s=bslug(brand)
+        if not slug_s or slug_s in used:
+            raise SystemExit(f"bad Black Friday slug for {brand}")
+        if slug_s not in registered:
+            taken=bf_brand_intent_taken(brand, slug_s)
+            if taken:
+                print(f"SKIP /black-friday/{slug_s}/: {taken} already covers {brand} Black Friday")
+                continue
+        used.add(slug_s)
+        planned.append({"brand":brand,"slug":slug_s,"rows":rows,"index":True})
+    for entry in registry:
+        if entry["slug"] in used: continue
+        brand, rows=_rows_for_bf_entry(entry, grouped)
+        planned.append({"brand":brand,"slug":entry["slug"],"rows":rows,"index":False})
+        used.add(entry["slug"])
+    intros=[]; descs=[]
+    BF_BRAND_PAGES=[]
+    saved=[]; seen_save=set()
+    for entry in registry:
+        if entry["slug"] in seen_save: continue
+        saved.append({"slug":entry["slug"],"brand":entry["brand"]})
+        seen_save.add(entry["slug"])
+    for spec in planned:
+        if spec["index"]:
+            intro=bf_brand_intro(spec["brand"], spec["rows"])
+            desc=bf_brand_desc(spec["brand"], spec["rows"])
+            if intro in intros:
+                raise SystemExit(f"{spec['brand']}: intro matches another brand page")
+            if desc in descs:
+                raise SystemExit(f"{spec['brand']}: meta description matches another brand page")
+            intros.append(intro); descs.append(desc)
+        _render_one_bf_brand(spec)
+        if spec["index"]:
+            _link_brand_page_to_bf(spec["brand"], spec["slug"])
+        BF_BRAND_PAGES.append({
+            "brand":spec["brand"], "slug":spec["slug"], "index":spec["index"],
+            "count":len(spec["rows"]), "lo":spec["rows"][0]["price"] if spec["rows"] else None,
+        })
+        if spec["index"] and spec["slug"] not in seen_save:
+            saved.append({"slug":spec["slug"],"brand":spec["brand"]})
+            seen_save.add(spec["slug"])
+    _save_bf_brand_registry(saved)
+    print(f"black friday brands: {sum(1 for p in BF_BRAND_PAGES if p['index'])} indexable pages")
+def audit_bf_brand_pages():
+    """Indexable brand pages are in the sitemap. A house under 3 bottles is not, and a previously published URL stays noindex."""
+    sm=open(f"{OUT}/sitemap.xml", encoding="utf-8").read()
+    hub=open(f"{OUT}/black-friday/index.html", encoding="utf-8").read()
+    indexable=[p for p in BF_BRAND_PAGES if p["index"]]
+    if not indexable:
+        raise SystemExit("no indexable Black Friday brand pages")
+    if "Shop by brand" not in hub or "id='shop-by-brand'" not in hub:
+        raise SystemExit(f"{BF_HUB_PATH}: missing the Shop by brand grid")
+    for p in BF_BRAND_PAGES:
+        loc=f"{BASE}{PREFIX}/black-friday/{p['slug']}/"
+        rel=f"black-friday/{p['slug']}/index.html"
+        exists=os.path.isfile(f"{OUT}/{rel}")
+        listed=f"<loc>{loc}</loc>" in sm
+        href=f"href='{PREFIX}/black-friday/{p['slug']}/'"
+        if p["index"]:
+            if not exists or not listed:
+                raise SystemExit(f"{loc} missing from the built site or the sitemap")
+            if href not in hub or f"From ${p['lo']:.2f}" not in hub:
+                raise SystemExit(f"{BF_HUB_PATH}: Shop by brand is missing {p['brand']} from ${p['lo']:.2f}")
+        else:
+            if not exists:
+                raise SystemExit(f"thin brand page was deleted: {loc}")
+            if listed:
+                raise SystemExit(f"thin brand page is still in the sitemap: {loc}")
+            text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+            if 'content="noindex' not in text:
+                raise SystemExit(f"{rel}: expected noindex")
+            if href in hub:
+                raise SystemExit(f"{BF_HUB_PATH}: still links noindex {p['brand']}")
+    grouped=bf_collect_bottles()
+    for brand, rows in grouped.items():
+        if len(rows)>=BF_BRAND_MIN: continue
+        loc=f"{BASE}{PREFIX}/black-friday/{bslug(brand)}/"
+        if f"<loc>{loc}</loc>" in sm:
+            raise SystemExit(f"{brand} has {len(rows)} bottles and is still in the sitemap")
+    print(f"black friday brand audit: {len(indexable)} in the sitemap, {sum(1 for p in BF_BRAND_PAGES if not p['index'])} noindex")
 def render_black_friday_hub():
     """One hub at /black-friday/. Prices and photos come from the deals already checked."""
     rows=[d for d in deals if gift_ok(d) and retailer_image(d) and not isinstance(d.get("price"), bool)]
@@ -3697,6 +4070,9 @@ def render_black_friday_hub():
             parts.append(f"<h2 id='{anchor}'>{e(heading)}</h2><p>None of the deals we checked today fall in this price band.</p>")
     if not shown:
         raise SystemExit(f"{BF_HUB_PATH}: no checked deals to list")
+    shop=bf_brand_shop_html()
+    if shop:
+        parts.insert(0, shop)
     lo=lowest_deal(shown)
     price=f"${lo['price']:.2f}"
     title=fit([
@@ -3764,6 +4140,7 @@ def render_black_friday_hub():
         if f"<a href='{PREFIX}{href}'>{e(label)}</a>" not in text:
             raise SystemExit(f"{BF_HUB_PATH}: missing link {label} {href}")
     print(f"black friday hub {BF_HUB_PATH}: {len(shown)} bottles, from {price}, {len(related)} seasonal links")
+render_bf_brand_pages()
 render_black_friday_hub()
 def apply_money_chips():
     """Homepage only: Black Friday and Cyber Monday buys, directly under the lead price and before the newsletter."""
@@ -4719,6 +5096,7 @@ def audit_bf_landings():
                 raise SystemExit(f"{rel}: missing seasonal link to {spec['path']}")
     print(f"black friday landings: {len(BF_LANDINGS)} pages in the sitemap and cross-linked")
 audit_bf_landings()
+audit_bf_brand_pages()
 def audit_holiday_additions():
     """Cyber Monday and the general Christmas hubs are published only when they have enough bottles."""
     sm=open(f"{OUT}/sitemap.xml", encoding="utf-8").read()

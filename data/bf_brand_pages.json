@@ -1,0 +1,28 @@
+{
+  "pages": [
+    {
+      "slug": "azzaro",
+      "brand": "Azzaro"
+    },
+    {
+      "slug": "burberry",
+      "brand": "Burberry"
+    },
+    {
+      "slug": "calvin-klein",
+      "brand": "Calvin Klein"
+    },
+    {
+      "slug": "hugo-boss",
+      "brand": "Hugo Boss"
+    },
+    {
+      "slug": "valentino",
+      "brand": "Valentino"
+    },
+    {
+      "slug": "versace",
+      "brand": "Versace"
+    }
+  ]
+}
