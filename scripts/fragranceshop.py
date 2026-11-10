@@ -651,9 +651,217 @@ def _apply(d, offer):
     }
 
 
+def _catalog_items():
+    path = os.path.join(ROOT, "data", "fs_catalog.json")
+    data = json.load(open(path, encoding="utf-8"))
+    items = data.get("items") if isinstance(data, dict) else None
+    return items or []
+
+
+def _pct(price, was):
+    if not was or was <= price:
+        return 0
+    return round((1 - float(price) / float(was)) * 100)
+
+
+def _store_image(raw):
+    images = raw.get("images") if isinstance(raw, dict) else None
+    if not images or not isinstance(images, list):
+        return ""
+    src = (images[0] or {}).get("src") or ""
+    if not src.startswith(STORE + "/"):
+        return ""
+    return src
+
+
+def _plain_html(raw):
+    import html as _html
+    text = re.sub(r"<[^>]+>", " ", raw or "")
+    return re.sub(r"\s+", " ", _html.unescape(text)).strip()
+
+
+def _deal_from_variation(spec, client, now):
+    """One sealed bottle. Price, compare-at, and photo come from the variation payload."""
+    offer = variation(client, spec["vid"])
+    if not offer:
+        _log(f"  fs catalog miss {spec.get('id')}")
+        return None
+    url = offer.get("url") or ""
+    if spec.get("expect") not in url or not url.startswith(STORE):
+        _log(f"  fs catalog url mismatch {spec.get('id')} {url}")
+        return None
+    if size_oz(offer.get("variation") or "") != size_oz(spec.get("size") or ""):
+        _log(f"  fs catalog size mismatch {spec.get('id')} {offer.get('variation')}")
+        return None
+    raw = client.get_json(f"{API}/{int(spec['vid'])}") or {}
+    blob = _fold(f"{offer.get('name') or ''} {_plain_html(raw.get('description') or '')} {url}")
+    need = re.sub(r"[^a-z0-9]+", "", (spec.get("text_has") or "").lower())
+    if need and need not in re.sub(r"[^a-z0-9]+", "", blob):
+        _log(f"  fs catalog text mismatch {spec.get('id')}")
+        return None
+    price, was = offer.get("price"), offer.get("was")
+    pct = _pct(price, was)
+    if pct < 15:
+        _log(f"  fs catalog {spec.get('id')} only {pct}% off")
+        return None
+    image = _store_image(raw)
+    if not image:
+        _log(f"  fs catalog no photo {spec.get('id')}")
+        return None
+    row = {
+        "id": spec["id"],
+        "brand": spec["brand"],
+        "name": spec["name"],
+        "size": spec["size"],
+        "type": spec.get("type") or "",
+        "gender": spec.get("gender") or "unisex",
+        "price": round(float(price), 2),
+        "was": round(float(was), 2),
+        "pct_off": pct,
+        "retailer": RETAILER,
+        "url": url,
+        "image": image,
+        "checked": now,
+        "in_stock": True,
+        "comps": [{"retailer": RETAILER, "price": round(float(price), 2), "url": url, "checked": now}],
+        "fs": {
+            "price": round(float(price), 2),
+            "was": round(float(was), 2),
+            "url": url,
+            "name": offer.get("name") or offer.get("matched"),
+            "variation": offer.get("variation"),
+        },
+    }
+    if spec.get("url_size"):
+        row["url_size"] = True
+    return row
+
+
+def _gift_from_set(spec, client, now):
+    """A boxed set. Testers stay out. The piece list is copied from the product text."""
+    data = client.get_json(f"{API}/{int(spec['product'])}")
+    if not isinstance(data, dict) or not data.get("prices"):
+        _log(f"  fs catalog set miss {spec.get('id')}")
+        return None
+    if data.get("is_in_stock") is False or data.get("is_purchasable") is False:
+        return None
+    url = (data.get("permalink") or "").split("?")[0]
+    if spec.get("expect") not in url or not url.startswith(STORE):
+        _log(f"  fs catalog set url mismatch {spec.get('id')} {url}")
+        return None
+    title = data.get("name") or ""
+    if not re.search(r"\bset\b", title, re.I):
+        return None
+    if re.search(r"tester|unboxed|\boil\b", title, re.I):
+        return None
+    price, was = money(data.get("prices"))
+    pct = _pct(price, was)
+    if price is None or pct < 15:
+        _log(f"  fs catalog set {spec.get('id')} only {pct}% off")
+        return None
+    image = _store_image(data)
+    if not image:
+        return None
+    text = _plain_html(data.get("description") or "")
+    contents = ""
+    match = re.search(r"includes\s*:?\s*(.+)", text, re.I)
+    if match:
+        contents = match.group(1).strip(" .")
+    size_match = re.search(r"(\d+(?:\.\d+)?)\s*oz", contents or text, re.I)
+    size = f"{size_match.group(1)} oz." if size_match else "Gift set"
+    row = {
+        "id": spec["id"],
+        "brand": spec["brand"],
+        "name": spec["name"],
+        "size": size,
+        "type": "Gift Set",
+        "gender": spec.get("gender") or "unisex",
+        "price": round(float(price), 2),
+        "was": round(float(was), 2),
+        "pct_off": pct,
+        "retailer": RETAILER,
+        "url": url,
+        "image": image,
+        "checked": now,
+        "in_stock": True,
+        "kind": "set",
+        "fs": {"price": round(float(price), 2), "was": round(float(was), 2), "url": url, "name": title},
+    }
+    if contents:
+        row["contents"] = contents
+    return row
+
+
+def catalog_rows(client, now):
+    """Live FragranceShop bottles and gift sets listed in data/fs_catalog.json.
+
+    A row is returned only when the store API prices that exact product in USD.
+    """
+    deals, gifts = [], []
+    for spec in _catalog_items():
+        if not isinstance(spec, dict) or not spec.get("id"):
+            continue
+        if spec.get("kind") == "set":
+            row = _gift_from_set(spec, client, now)
+            if row:
+                gifts.append(row)
+                _log(f"  fs set {row['brand']} {row['name']}: ${row['price']:.2f} (was ${row['was']:.2f})")
+            continue
+        row = _deal_from_variation(spec, client, now)
+        if row:
+            deals.append(row)
+            _log(f"  fs catalog {row['brand']} {row['name']} {row['size']}: ${row['price']:.2f} (was ${row['was']:.2f})")
+    _log(f"fragranceshop catalog: {len(deals)} bottles, {len(gifts)} gift sets")
+    return deals, gifts
+
+
+def merge_catalog(deals, gifts, now, client=None):
+    """Append catalog rows that are not already in the file. Returns (bottles, sets)."""
+    client = client or Client()
+    new_deals, new_gifts = catalog_rows(client, now)
+    seen_ids = {d.get("id") for d in deals}
+    seen_urls = {d.get("url") for d in deals}
+    added = 0
+    for row in new_deals:
+        if row["id"] in seen_ids or row["url"] in seen_urls:
+            continue
+        deals.append(row)
+        seen_ids.add(row["id"])
+        seen_urls.add(row["url"])
+        added += 1
+    gift_ids = {g.get("id") for g in gifts}
+    gift_urls = {g.get("url") for g in gifts}
+    added_gifts = 0
+    for row in new_gifts:
+        if row["id"] in gift_ids or row["url"] in gift_urls:
+            continue
+        gifts.append(row)
+        gift_ids.add(row["id"])
+        gift_urls.add(row["url"])
+        added_gifts += 1
+    return added, added_gifts
+
+
 if __name__ == "__main__":
-    # manual check: python3 scripts/fragranceshop.py 'Calvin Klein' 'Free Cologne' '3.4 oz.' 'Eau De Toilette' men
-    brand, name, size, typ, gender = sys.argv[1:6]
-    deal = {"brand": brand, "name": name, "size": size, "type": typ, "gender": gender, "id": name}
-    c = Client()
-    print(json.dumps(lookup(c, deal), indent=2))
+    # Refresh only the FragranceShop catalog: python3 scripts/fragranceshop.py --catalog
+    if len(sys.argv) > 1 and sys.argv[1] == "--catalog":
+        import datetime
+        now = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+        path = os.path.join(ROOT, "data", "deals.json")
+        data = json.load(open(path, encoding="utf-8"))
+        deals = data.get("deals") or []
+        gifts = data.get("gifts") or []
+        added, added_gifts = merge_catalog(deals, gifts, now)
+        deals = [d for d in deals if (d.get("pct_off") or 0) >= 15]
+        deals.sort(key=lambda d: -d["pct_off"])
+        data["deals"] = deals
+        data["gifts"] = gifts
+        data["updated"] = now
+        json.dump(data, open(path, "w"), indent=1)
+        print(f"catalog merged {added} bottles, {added_gifts} gift sets; {len(deals)} deals")
+    else:
+        # manual check: python3 scripts/fragranceshop.py 'Calvin Klein' 'Free Cologne' '3.4 oz.' 'Eau De Toilette' men
+        brand, name, size, typ, gender = sys.argv[1:6]
+        deal = {"brand": brand, "name": name, "size": size, "type": typ, "gender": gender, "id": name}
+        c = Client()
+        print(json.dumps(lookup(c, deal), indent=2))

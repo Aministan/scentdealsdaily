@@ -288,6 +288,35 @@ def main():
         if prev_gifts:
             gifts=prev_gifts
             print(f"gift catalog fetch returned nothing; kept {len(gifts)} previous gift rows", file=sys.stderr)
+    # FragranceShop-only bottles and gift sets. A miss is skipped; the price is never filled in.
+    catalog_before=(_fs.STATS["transient"], _fs.STATS["total"])
+    added, added_gifts=_fs.merge_catalog(deals, gifts, now)
+    catalog_tried=_fs.STATS["total"]-catalog_before[1]
+    catalog_failed=_fs.STATS["transient"]-catalog_before[0]
+    if catalog_tried and catalog_failed/catalog_tried>0.5 and os.path.exists(out):
+        try:
+            prev_cat=json.load(open(out))
+        except Exception:
+            prev_cat={}
+        have={d.get("id") for d in deals}
+        for old in prev_cat.get("deals") or []:
+            if not str(old.get("id") or "").startswith("fs-") or old.get("id") in have:
+                continue
+            if old.get("retailer")!="FragranceShop" or not old.get("price") or not old.get("url"):
+                continue
+            deals.append(old)
+            have.add(old.get("id"))
+        ghave={g.get("id") for g in gifts}
+        for old in prev_cat.get("gifts") or []:
+            if not str(old.get("id") or "").startswith("fs-") or old.get("id") in ghave:
+                continue
+            if old.get("kind")!="set" or old.get("retailer")!="FragranceShop":
+                continue
+            gifts.append(old)
+        print(f"fragranceshop catalog degraded ({catalog_failed}/{catalog_tried}); kept previous catalog rows", file=sys.stderr)
+    deals=[d for d in deals if (d.get("pct_off") or 0)>=15]
+    deals.sort(key=lambda d:-d["pct_off"])
+    print(f"fragranceshop catalog: +{added} bottles, +{added_gifts} gift sets", file=sys.stderr)
     json.dump({"updated":now,"deals":deals,"dupes":dupes,"dropped":dropped,"gifts":gifts},open(out,"w"),indent=1)
     print(f"{len(deals)} live deals, {len(gifts)} gift rows, {len(dropped)} dropped {dropped}, {sum(1 for d in dupes if d['price'])}/{len(dupes)} dupes priced, {FAIL['transient']}/{FAIL['total']} fetch failures")
 if __name__=="__main__": main()

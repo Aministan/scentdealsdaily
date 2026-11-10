@@ -5,6 +5,10 @@
       "brand": "Azzaro"
     },
     {
+      "slug": "billie-eilish",
+      "brand": "Billie Eilish"
+    },
+    {
       "slug": "burberry",
       "brand": "Burberry"
     },
@@ -13,8 +17,56 @@
       "brand": "Calvin Klein"
     },
     {
+      "slug": "carolina-herrera",
+      "brand": "Carolina Herrera"
+    },
+    {
+      "slug": "clinique",
+      "brand": "Clinique"
+    },
+    {
+      "slug": "dior",
+      "brand": "Dior"
+    },
+    {
+      "slug": "dolce-gabbana",
+      "brand": "Dolce & Gabbana"
+    },
+    {
+      "slug": "giorgio-armani",
+      "brand": "Giorgio Armani"
+    },
+    {
+      "slug": "gucci",
+      "brand": "Gucci"
+    },
+    {
       "slug": "hugo-boss",
       "brand": "Hugo Boss"
+    },
+    {
+      "slug": "jean-paul-gaultier",
+      "brand": "Jean Paul Gaultier"
+    },
+    {
+      "slug": "lancome",
+      "brand": "Lanc\u00f4me"
+    },
+    {
+      "slug": "maison-margiela",
+      "brand": "Maison Margiela"
+    },
+    {
+      "slug": "montblanc",
+      "brand": "Montblanc"
+    },
+    {
+      "slug": "paco-rabanne",
+      "brand": "Paco Rabanne"
+    },
+    {
+      "slug": "prada",
+      "brand": "Prada"
     },
     {
       "slug": "valentino",
@@ -23,6 +75,10 @@
     {
       "slug": "versace",
       "brand": "Versace"
+    },
+    {
+      "slug": "yves-saint-laurent",
+      "brand": "Yves Saint Laurent"
     }
   ]
 }

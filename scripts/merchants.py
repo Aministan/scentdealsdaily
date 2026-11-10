@@ -1,8 +1,8 @@
 """Which approved store gets the buy button when one bottle is priced at two stores.
 
-Rates already written down for this site:
-- Perfumania, CJ, reported ~10% in docs/affiliate-programs.md (another listing says 3.2%).
+Rates used for the buy button:
 - FragranceShop, CJ, 5% in docs/affiliate-programs.md.
+- Perfumania, CJ, 4%. An older listing said ~10%; the button uses 4%.
 - FragranceNet, Rakuten, 0.10%.
 
 When the higher price is within $2 of the lower price, the higher-commission store
@@ -11,8 +11,8 @@ rows are not buy buttons. A switch that would put the deal under the 15% floor
 against the stored compare-at is skipped.
 """
 AFFILIATE_COMMISSION = {
-    "Perfumania": 10.0,
     "FragranceShop": 5.0,
+    "Perfumania": 4.0,
     "FragranceNet": 0.10,
 }
 # Higher price must be <= cheaper + CLOSE_DOLLARS.
@@ -134,10 +134,19 @@ if __name__ == "__main__":
     exact = {"retailer": "Perfumania", "price": 19.95, "url": "https://www.perfumania.com/c"}
     cheap_fs = {"retailer": "FragranceShop", "price": 17.95, "url": "https://www.fragranceshop.com/c"}
     picked = prefer([cheap_fs, exact])
-    if picked["retailer"] != "Perfumania":
-        raise SystemExit("a $2.00 gap should move the button to Perfumania")
+    if picked["retailer"] != "FragranceShop":
+        raise SystemExit("a $2.00 gap should stay on FragranceShop, the higher commission")
+    close_fs = {"retailer": "FragranceShop", "price": 19.95, "url": "https://www.fragranceshop.com/e"}
+    cheap_pm = {"retailer": "Perfumania", "price": 17.95, "url": "https://www.perfumania.com/e"}
+    picked = prefer([close_fs, cheap_pm])
+    if picked["retailer"] != "FragranceShop":
+        raise SystemExit("within $2, FragranceShop should take the button from Perfumania")
     over = {"retailer": "Perfumania", "price": 20.00, "url": "https://www.perfumania.com/d"}
     picked = prefer([cheap_fs, over])
     if picked["retailer"] != "FragranceShop":
         raise SystemExit("a gap over $2 should keep the lower price")
+    wide_fs = {"retailer": "FragranceShop", "price": 22.00, "url": "https://www.fragranceshop.com/f"}
+    picked = prefer([wide_fs, cheap_pm])
+    if picked["retailer"] != "Perfumania":
+        raise SystemExit("a gap over $2 should keep the lower Perfumania price")
     print("merchants ok")
