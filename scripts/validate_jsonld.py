@@ -37,6 +37,11 @@ CTR_RELS=(
     "gifts/stocking-stuffers-for-her/index.html",
     "gifts/christmas-cologne-gifts-for-him/index.html",
     "gifts/christmas-perfume-gifts-for-her/index.html",
+    "gifts/perfume-gifts-for-her-under-25/index.html",
+    "gifts/christmas-cologne-gifts-under-100/index.html",
+    "gifts/christmas-perfume-gifts-under-100/index.html",
+    "gifts/black-friday-unisex-fragrance-deals/index.html",
+    "gifts/cyber-monday-luxury-fragrance-deals/index.html",
 )
 
 def _money(value):

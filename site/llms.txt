@@ -1,9 +1,9 @@
 # ScentDealsDaily
-> Daily-checked discounts on authentic designer fragrances at reputable retailers, plus a cited dupes directory. Last updated 2026-11-10T01:56:38Z.
+> Daily-checked discounts on authentic designer fragrances at reputable retailers, plus a cited dupes directory. Last updated 2026-11-10T02:03:16Z.
 
 ## Today's deals (price USD, size, retailer, % off listed compare-at)
-- Calvin Klein Free Cologne 3.4 oz.: $17.95 (was $89.00, -80%) at FragranceShop: https://www.fragranceshop.com/product/ck-free-for-men/?attribute_pa_size=eau-de-toilette-spray-3-4-oz
 - Juicy Couture Peace Love & Juicy Couture Perfume 3.4 oz.: $20.95 (was $89.00, -76%) at FragranceShop: https://www.fragranceshop.com/product/peace-love-juicy-couture-perfume-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz
+- Calvin Klein Free Cologne 3.4 oz.: $17.95 (was $70.00, -74%) at FragranceShop: https://www.fragranceshop.com/product/ck-free-for-men/?attribute_pa_size=eau-de-toilette-spray-3-4-oz
 - Calvin Klein Beauty Perfume 3.4 oz.: $23.95 (was $85.00, -72%) at FragranceShop: https://www.fragranceshop.com/product/beauty-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz
 - Calvin Klein Eternity Air Perfume 3.4 oz.: $20.95 (was $73.00, -71%) at FragranceShop: https://www.fragranceshop.com/product/eternity-air-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz
 - Dolce & Gabbana The One Gold Intense Cologne 1.7 oz.: $33.95 (was $109.00, -69%) at FragranceShop: https://www.fragranceshop.com/product/dolce-gabbana-the-one-gold-intense-cologne-for-men/?attribute_pa_size=eau-de-parfum-spray-1-7-oz
@@ -114,8 +114,8 @@
 - Raw data (JSON): https://scentdealsdaily.com/deals.json
 
 ## Per-product & per-dupe pages
-https://scentdealsdaily.com/fragrance/calvin-klein-free-cologne/
 https://scentdealsdaily.com/fragrance/juicy-couture-peace-love-juicy-couture-perfume/
+https://scentdealsdaily.com/fragrance/calvin-klein-free-cologne/
 https://scentdealsdaily.com/fragrance/calvin-klein-beauty-perfume/
 https://scentdealsdaily.com/fragrance/calvin-klein-eternity-air-perfume/
 https://scentdealsdaily.com/fragrance/dolce-gabbana-the-one-gold-intense-cologne/
@@ -128,7 +128,7 @@ https://scentdealsdaily.com/fragrance/calvin-klein-ck-one/
 https://scentdealsdaily.com/fragrance/davidoff-cool-water-cologne/
 https://scentdealsdaily.com/fragrance/clinique-my-happy-peony-picnic-perfume/
 https://scentdealsdaily.com/fragrance/calvin-klein-obsession-perfume/
-https://scentdealsdaily.com/fragrance/montblanc-legend-cologne-6-7-oz/
+https://scentdealsdaily.com/fragrance/montblanc-legend-cologne/
 https://scentdealsdaily.com/fragrance/hugo-boss-woman-perfume/
 https://scentdealsdaily.com/fragrance/azzaro-azzaro-cologne/
 https://scentdealsdaily.com/fragrance/azzaro-the-most-wanted-parfum-cologne/
@@ -267,6 +267,11 @@ https://scentdealsdaily.com/gifts/stocking-stuffer-minis/
 https://scentdealsdaily.com/gifts/holiday-gift-sets/
 https://scentdealsdaily.com/gifts/christmas-gift-sets-under-50/
 https://scentdealsdaily.com/gifts/gift-sets/
+https://scentdealsdaily.com/gifts/perfume-gifts-for-her-under-25/
+https://scentdealsdaily.com/gifts/christmas-cologne-gifts-under-100/
+https://scentdealsdaily.com/gifts/christmas-perfume-gifts-under-100/
+https://scentdealsdaily.com/gifts/black-friday-unisex-fragrance-deals/
+https://scentdealsdaily.com/gifts/cyber-monday-luxury-fragrance-deals/
 https://scentdealsdaily.com/gifts/stocking-stuffers-for-men/
 https://scentdealsdaily.com/gifts/stocking-stuffers-for-her/
 https://scentdealsdaily.com/gifts/black-friday-designer-cologne/
