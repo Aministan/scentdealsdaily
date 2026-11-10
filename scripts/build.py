@@ -176,6 +176,9 @@ main{max-width:1100px;margin:0 auto;padding:16px}h1{font-size:26px;line-height:1
 .btn{display:block;text-align:center;background:#6b2d5c;color:#fff;border-radius:10px;padding:10px;margin-top:auto;text-decoration:none;font-weight:650}
 .lead-offer{background:#fff;border:1px solid #ece7e1;border-radius:14px;padding:12px 14px;margin:0 0 14px;position:sticky;top:0;z-index:30;box-shadow:0 2px 10px rgba(29,27,32,.08)}
 .lead-offer .lead-name,.lead-offer .lead-price{margin:4px 0}.lead-offer .btn{margin-top:8px}
+.fold-deals{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 12px}
+.fold-deal{background:#fff;border:1px solid #ece7e1;border-radius:12px;padding:8px 10px}
+.fold-deal .lead-name,.fold-deal .lead-price{margin:2px 0}.fold-deal .price{font-size:20px}.fold-deal .btn{margin-top:6px;padding:8px 10px}
 .box{background:#fff;border:1px solid #ece7e1;border-radius:14px;padding:16px;margin:18px 0}
 table{width:100%;border-collapse:collapse;background:#fff}th,td{text-align:left;padding:10px;border-bottom:1px solid #eee;vertical-align:top}
 .chips a{display:inline-block;margin:3px;padding:4px 10px;border-radius:99px;background:#fff;border:1px solid #e3ddd6;text-decoration:none;font-size:14px}
@@ -185,7 +188,7 @@ table{width:100%;border-collapse:collapse;background:#fff}th,td{text-align:left;
 footer{max-width:1100px;margin:20px auto;padding:16px;font-size:13px;color:#6f6976}
 .nl{margin:18px 0}.nl-foot{margin:0 0 12px}
 .crumbs{font-size:13px;color:#6f6976;margin:0 0 8px}.crumbs a{text-decoration:none}.crumbs a:hover{text-decoration:underline}.crumbs .sep{margin:0 .35em;color:#b5aeb8}.crumbs [aria-current=page]{color:#5f5a66}
-@media(max-width:640px){header{padding:8px 12px}nav{margin-top:2px;gap:8px 12px;font-size:13px}main{padding:10px 12px}h1{font-size:22px;line-height:1.15;margin:2px 0}.sub{margin:0 0 8px}.crumbs{margin:0 0 4px}.lead-offer{padding:8px 12px;margin:0 0 10px}.lead-offer .lead-name,.lead-offer .lead-price{margin:2px 0}.lead-offer .btn{margin-top:6px;padding:12px}table,thead,tbody,tr,td{display:block}thead{display:none}td{border:0;padding:4px 10px}tr{border-bottom:1px solid #eee;padding:8px 0}}"""
+@media(max-width:640px){header{padding:8px 12px}nav{margin-top:2px;gap:8px 12px;font-size:13px}main{padding:10px 12px}h1{font-size:22px;line-height:1.15;margin:2px 0}.sub{margin:0 0 8px}.crumbs{margin:0 0 4px}.lead-offer{padding:8px 12px;margin:0 0 10px}.lead-offer .lead-name,.lead-offer .lead-price{margin:2px 0}.lead-offer .btn{margin-top:6px;padding:12px}.fold-deals{grid-template-columns:1fr;gap:6px;margin:0 0 8px}.fold-deal{padding:6px 8px}.fold-deal .btn{padding:8px}table,thead,tbody,tr,td{display:block}thead{display:none}td{border:0;padding:4px 10px}tr{border-bottom:1px solid #eee;padding:8px 0}}"""
 BREVO_URL="https://dc62f1d4.sibforms.com/serve/MUIFAEr2_FjNas7tKaQpb8Gb1G8G8lAWo4YUlMQLlesHgqoeXDeb81p6QoFTA97ntOQFoJ4oeYqYMvNLQ_abdWQ7yXLxfV3Ip6_yAkBb31h5wt_6nN7ia5t-doG3uLTnPam6d-V-faigM0xHfhmkEvb_KToQHCq2QIwPP4u-dsOd3SyYzJzE8_dUkbPBtLTO2DT2MnTeld3EP66vtQ=="
 # Brevo's embed uses fixed ids, so the full form is included once per page. The footer is a link to the hosted form.
 BREVO_HEAD="""<link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
@@ -721,6 +724,34 @@ def lead_offer(rows):
             f"<p class='lead-name'><b>{e(fullname(d))}</b>{size_bit}</p>"
             f"<p class='lead-price'><span class='price'>${d['price']:.2f}</span> <span class='meta'>at {e(d['retailer'])}</span></p>"
             f"{ext_a(d['url'], label, cls='btn', style='max-width:340px', placement='cta')}</div>")
+def fs_fold_ok(d):
+    """A sealed FragranceShop bottle with a checked price. Sets, testers, and decants stay out."""
+    if d.get("retailer")!="FragranceShop" or d.get("in_stock") is False: return False
+    if isinstance(d.get("price"), bool) or not isinstance(d.get("price"), (int, float)): return False
+    if not d.get("url"): return False
+    blob=" ".join(str(d.get(k) or "") for k in ("name","type","size","url")).lower()
+    if re.search(r"\b(tester|testers|decant|decants)\b", blob): return False
+    if "gift set" in blob or "coffret" in blob: return False
+    if re.search(r"\b\d+\s*-?\s*(pc|piece|pcs)\b", blob) and "set" in blob: return False
+    return True
+def fs_fold_html(rows):
+    """Three FragranceShop deals with a price and a Buy button, before the rest of the page."""
+    pool=[d for d in rows if fs_fold_ok(d)]
+    pool.sort(key=lambda d:(-(d.get("pct_off") or 0), d["price"], d.get("id") or ""))
+    picks=pool[:3]
+    if len(picks)<3: return ""
+    bits=[]
+    for d in picks:
+        size=sz(d.get("size") or "")
+        size_bit=f" · {e(size)}" if size else ""
+        bits.append(
+            "<div class='fold-deal'>"
+            f"<p class='lead-name'><b>{e(fullname(d))}</b>{size_bit}</p>"
+            f"<p class='lead-price'><span class='price'>${d['price']:.2f}</span> <span class='meta'>at FragranceShop</span></p>"
+            f"{ext_a(d['url'], 'Buy at FragranceShop →', cls='btn', placement='cta')}"
+            "</div>")
+    return ("<div class='fold-deals' id='fs-deals'><p class='meta'>Top FragranceShop deals · Price checked "
+            f"{e(upd_h)}</p>"+"".join(bits)+"</div>")
 use_sid("home")
 _home_lo=min(d["price"] for d in deals)
 _home_mx=max(d["pct_off"] for d in deals)
@@ -732,6 +763,7 @@ page("index.html",fit([f"Fragrance Deals Today: From ${_home_lo:.2f} ({_home_mx}
  _home_desc,
  f"<h1>Today's best designer fragrance deals</h1><p class='sub'>{len(deals)} live deals on authentic bottles · last checked {upd_h} · sorted by % off · <a href='{PREFIX}/black-friday/'>Black Friday perfume and cologne deals</a></p>"
  +lead_offer(deals)
+ +fs_fold_html(deals)
  +MONEY_MARK
  +NEW_HOLIDAY_MARK
  +BREVO_FORM
@@ -816,6 +848,7 @@ for g,label in [("men","Men's Cologne"),("women","Women's Perfume"),("unisex","U
       gdesc,
       f"<h1>{label} deals</h1><p class='sub'>Prices checked {e(upd_h)}.</p>"
       +lead_offer(ds)
+      +fs_fold_html(ds)
       +f"<p>{e(sale.capitalize())} on sale at authorized retailers. The button above is the lowest price on this page.</p>"
       +f"<div class='grid'>{''.join(card(d) for d in ds)}</div>"
       +GENDER_GIFT_MARK
@@ -4114,7 +4147,7 @@ def render_black_friday_hub():
         raise SystemExit(f"{BF_HUB_PATH}: only {len(related)} seasonal pages to link")
     related_html="<section class='box'><h2 style='margin-top:0'>Holiday and sale guides</h2><div class='chips'>"+"".join(f"<a href='{PREFIX}{href}'>{e(label)}</a>" for href, label in related)+"</div></section>"
     use_sid("bfcm", "hub")
-    top, rest_html=fold_offer(lead_offer(shown), intro, "".join(parts))
+    top, rest_html=fold_offer(lead_offer(shown)+fs_fold_html(deals), intro, "".join(parts))
     page("black-friday/index.html", title, desc,
      f"<h1>{e(h1)}</h1><p class='sub'>Last updated {e(when)}. Checked {e(upd_h)}.</p>{top}{gift_nav(skip_hub=True)}{related_html}{rest_html}{GIFT_DISC}{faqhtml(faqs)}{BREVO_FORM}<p class='meta'>Prices and photos come from the deals we already checked. We do not invent a price or a photo, and we do not list testers, decants, or Amazon.</p>",
      [itemlist(shown, h1), faqld(faqs)], image="/media/pins/holiday-fragrance-gifts.png", feed=True)
@@ -5531,6 +5564,32 @@ def audit_holiday_hub_links():
         raise SystemExit(f"{BF_HUB_PATH} is not in the sitemap")
     print(f"holiday hub links: /black-friday/ in the nav, hero, homepage, men, women, unisex, sitemap, and {gift_n} gift pages")
 audit_holiday_hub_links()
+def audit_fs_fold():
+    """Top traffic pages show three FragranceShop prices and Buy buttons before the product grid."""
+    btn_re=re.compile(r"<a\b[^>]*class=\"btn\"[^>]*>.*?</a>", re.S)
+    for rel in ("index.html","men/index.html","women/index.html","unisex/index.html","black-friday/index.html"):
+        text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+        card_at=text.find('<article class="card">')
+        fold_at=text.find("id='fs-deals'")
+        if card_at<0 or not (0<=fold_at<card_at):
+            raise SystemExit(f"{rel}: FragranceShop deals are not above the product cards")
+        deals_html=re.findall(r"<div class='fold-deal'>(.*?)</div>", text[fold_at:card_at], re.S)
+        if len(deals_html)!=3:
+            raise SystemExit(f"{rel}: expected 3 FragranceShop deals above the fold, found {len(deals_html)}")
+        for i, body in enumerate(deals_html, 1):
+            if not re.search(r"class='price'>\$\d+\.\d{2}<", body):
+                raise SystemExit(f"{rel}: fold deal {i} is missing a price")
+            btns=btn_re.findall(body)
+            if len(btns)!=1 or "Buy at FragranceShop" not in html.unescape(btns[0]):
+                raise SystemExit(f"{rel}: fold deal {i} needs one FragranceShop Buy button")
+            if not _buy_button(btns[0].replace("Buy at FragranceShop →", "Buy at FragranceShop")) and "sponsored" not in btns[0]:
+                raise SystemExit(f"{rel}: fold deal {i} Buy button is missing rel sponsored")
+            if "nofollow" not in btns[0] or "sponsored" not in btns[0]:
+                raise SystemExit(f"{rel}: fold deal {i} Buy button is missing nofollow sponsored")
+        if "Affiliate disclosure" not in text:
+            raise SystemExit(f"{rel}: affiliate disclosure is missing")
+        print(f"{rel}: 3 FragranceShop deals with prices and Buy buttons above the grid")
+audit_fs_fold()
 import subprocess, sys
 _validator=subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "validate_jsonld.py")])
 if _validator.returncode!=0:
