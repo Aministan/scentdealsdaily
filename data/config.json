@@ -1314,6 +1314,205 @@
  ],
  "gift_guides": [
 {
+  "slug": "christmas-gift-sets-for-her-under-50",
+  "title": "Christmas gift sets for her under $50",
+  "title_tag": "Buy Christmas Gift Sets for Her Under $50",
+  "buy_meta": true,
+  "chip": "Christmas gift sets for her under $50",
+  "sets_only": true,
+  "gender": "women",
+  "max_price": 50,
+  "min_bottles": 4,
+  "filled_label": "Christmas perfume gift sets for her under $50",
+  "intro": "Boxed perfume sets for her when the checked price is under $50, lowest price first. Christmas perfume gift sets for her keeps every women's set, including the sets at $50 and up. Christmas gift sets under $50 is the mixed list at this same cap, so a men's set stays on that page and off this one. Cyber Monday perfume gift sets for her stops under $100 and keeps the women's sets this page drops once the price reaches $50. A single bottle is not listed as a set. For Christmas shopping through December 20, 2026. The line under each card is the retailer's own contents list.",
+  "empty": "No women's perfume gift set we checked is under $50, so this page has no list. These guides have products we priced.",
+  "empty_desc": "Christmas gift sets for her under $50: no women's set we checked is under $50. Other gift guides list products we did price.",
+  "choose": [
+   "Use this page when the Christmas gift for her is a box and the checked price has to stay under $50. A women's set at $50 or more stays on Christmas perfume gift sets for her. A men's set under $50 stays on Christmas gift sets under $50.",
+   "The order is the lowest checked price. Read the contents line on the card. It is the retailer's list of what is in the box. This page does not add scent notes the listing does not print.",
+   "A single bottle of perfume stays on the perfume gift guides. A travel spray that is not sold as a set stays on the stocking and minis pages."
+  ],
+  "faq": [
+   [
+    "How is this different from Christmas perfume gift sets for her?",
+    "Christmas perfume gift sets for her lists every women's set we checked, including sets at $50 and up. This page stops under $50."
+   ],
+   [
+    "How is this different from Christmas gift sets under $50?",
+    "Christmas gift sets under $50 lists men's and women's boxed sets under $50. This page is women's sets only, for the same cap."
+   ],
+   [
+    "Are these single bottles?",
+    "No. Each card is a multi-piece set the retailer sells as a gift set. The contents line is the retailer's."
+   ]
+  ],
+  "links": [
+   {"href": "/gifts/christmas-perfume-gift-sets/", "label": "Christmas perfume gift sets for her"},
+   {"href": "/gifts/christmas-gift-sets-under-50/", "label": "Christmas gift sets under $50"},
+   {"href": "/gifts/cyber-monday-perfume-gift-sets/", "label": "Cyber Monday perfume gift sets for her"},
+   {"href": "/gifts/holiday-gift-sets/", "label": "Holiday fragrance gift sets"},
+   {"href": "/gifts/black-friday-gift-sets/", "label": "Black Friday fragrance gift sets"},
+   {"href": "/gifts/for-her/", "label": "Fragrance gifts for her"},
+   {"href": "/gifts/", "label": "All holiday gift guides"},
+   {"href": "/women/", "label": "All women's perfume deals"},
+   {"href": "/black-friday/", "label": "Black Friday hub"},
+   {"href": "/brands/calvin-klein/", "label": "Calvin Klein deals"}
+  ]
+},
+{
+  "slug": "christmas-gift-sets-for-men-under-100",
+  "title": "Christmas gift sets for men under $100",
+  "title_tag": "Buy Christmas Gift Sets for Men Under $100",
+  "buy_meta": true,
+  "chip": "Christmas gift sets for men under $100",
+  "sets_only": true,
+  "gender": "men",
+  "max_price": 100,
+  "min_bottles": 4,
+  "filled_label": "Christmas cologne gift sets for men under $100",
+  "intro": "Boxed cologne sets for a man when the checked price is under $100, lowest price first. Christmas cologne gift sets for men keeps every men's set, including a set at $100 or more. Christmas gift sets under $50 is men and women together and stops under $50, so a men's set from $50 up to $100 stays on this page and off that one. Black Friday fragrance gift sets is the mixed list under $100. A single bottle is not listed as a set. For Christmas shopping through December 20, 2026. The line under each card is the retailer's own contents list.",
+  "empty": "No men's cologne gift set we checked is under $100, so this page has no list. These guides have products we priced.",
+  "empty_desc": "Christmas gift sets for men under $100: no men's set we checked is under $100. Other gift guides list products we did price.",
+  "choose": [
+   "Use this page when the Christmas gift for him is a box and the checked price has to stay under $100. A men's set at $100 or more stays on Christmas cologne gift sets for men. A women's set stays off this page.",
+   "The order is the lowest checked price. When two sets are within $2, the buy button on each card is still that set's own checked offer. Read the contents line. It is the retailer's list. This page does not add scent notes the listing does not print.",
+   "A single bottle of cologne stays on the cologne gift guides. A travel spray that is not sold as a set stays on the stocking and minis pages."
+  ],
+  "faq": [
+   [
+    "How is this different from Christmas cologne gift sets for men?",
+    "Christmas cologne gift sets for men lists every men's set we checked, including a set at $100 or more. This page stops under $100."
+   ],
+   [
+    "Why does this page go to $100?",
+    "Christmas gift sets under $50 mixes men's and women's sets and stops under $50. This page is men's sets only and it keeps the sets from $50 up to $100 as well. A men's set at $100 or more stays on Christmas cologne gift sets for men."
+   ],
+   [
+    "Are these single bottles?",
+    "No. Each card is a multi-piece set the retailer sells as a gift set. The contents line is the retailer's."
+   ]
+  ],
+  "links": [
+   {"href": "/gifts/christmas-cologne-gift-sets/", "label": "Christmas cologne gift sets for men"},
+   {"href": "/gifts/christmas-gift-sets-under-50/", "label": "Christmas gift sets under $50"},
+   {"href": "/gifts/black-friday-gift-sets/", "label": "Black Friday fragrance gift sets"},
+   {"href": "/gifts/cyber-monday-gift-sets/", "label": "Cyber Monday fragrance gift sets"},
+   {"href": "/gifts/christmas-cologne-gifts-for-dad/", "label": "Christmas cologne gifts for dad"},
+   {"href": "/gifts/for-him/", "label": "Fragrance gifts for him"},
+   {"href": "/gifts/", "label": "All holiday gift guides"},
+   {"href": "/men/", "label": "All men's cologne deals"},
+   {"href": "/black-friday/", "label": "Black Friday hub"},
+   {"href": "/brands/versace/", "label": "Versace deals"},
+   {"href": "/brands/paco-rabanne/", "label": "Paco Rabanne deals"},
+   {"href": "/brands/ralph-lauren/", "label": "Ralph Lauren deals"},
+   {"href": "/brands/jean-paul-gaultier/", "label": "Jean Paul Gaultier deals"}
+  ]
+},
+{
+  "slug": "christmas-cologne-gifts-under-50",
+  "title": "Christmas cologne gifts under $50",
+  "title_tag": "Buy Christmas Cologne Under $50",
+  "buy_meta": true,
+  "chip": "Christmas cologne under $50",
+  "gender": "men",
+  "max_price": 50,
+  "min_oz": 3,
+  "exclude_mini": true,
+  "exclude_set": true,
+  "min_bottles": 4,
+  "filled_label": "Christmas cologne gifts, 3 oz or larger, under $50",
+  "intro": "Men's cologne for a Christmas gift when the bottle is 3 oz or larger and the checked price is under $50, lowest price first. Cologne gifts for him under $50 is every men's cologne under $50, so the 1.7 oz and 1.0 oz bottles stay on that page and drop off this one. Christmas cologne gifts under $100 starts at $50 and stops under $100. Christmas cologne gifts for dad starts at $50 and keeps the smaller sizes. Minis and boxed sets stay off. We do not call a scent a Christmas cologne. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description already names the notes.",
+  "empty": "No men's cologne we checked is 3 oz or larger and under $50, so this page has no list. These guides have bottles we priced.",
+  "empty_desc": "Christmas cologne gifts under $50: no men's cologne we checked is 3 oz or larger and under $50. Other gift guides list bottles we did price.",
+  "choose": [
+   "Shop this list when the Christmas gift for him should be a full bottle under $50, not a 1.7 oz or 1.0 oz bottle. Those smaller bottles stay on cologne gifts for him under $50. A bottle at $50 or more stays on Christmas cologne gifts under $100 and on cologne gifts for dad.",
+   "The note lines already stored stay on the card when that bottle is also on a notes roundup. No line is added when the retailer did not print one. This is not a ranking of who wears them.",
+   "Read the size on the card. A 3.0 oz bottle and a 4.2 oz bottle can both sit under $50. They are different amounts of juice. When the name links to a bottle page, that page shows the price per ounce."
+  ],
+  "faq": [
+   [
+    "How is this different from cologne gifts for him under $50?",
+    "Cologne gifts for him under $50 lists every men's cologne under $50, including 1.7 oz and 1.0 oz bottles. This page keeps 3 oz and larger only."
+   ],
+   [
+    "How is this different from Christmas cologne gifts for dad?",
+    "Christmas cologne gifts for dad starts at $50 and keeps smaller sizes. This page stops under $50 and keeps 3 oz and larger."
+   ],
+   [
+    "How is this different from Christmas cologne gifts under $100?",
+    "Christmas cologne gifts under $100 starts at $50 and stops under $100. This page is the bottles under $50 that are 3 oz or larger."
+   ]
+  ],
+  "links": [
+   {"href": "/gifts/cologne-gifts-for-him-under-50/", "label": "Cologne gifts for him under $50"},
+   {"href": "/gifts/christmas-cologne-gifts-for-dad/", "label": "Christmas cologne gifts for dad"},
+   {"href": "/gifts/christmas-cologne-gifts-under-100/", "label": "Christmas cologne gifts under $100"},
+   {"href": "/gifts/christmas-cologne-gifts-for-him/", "label": "Christmas cologne gifts for him"},
+   {"href": "/gifts/christmas-gift-sets-for-men-under-100/", "label": "Christmas gift sets for men under $100"},
+   {"href": "/gifts/for-him/", "label": "Fragrance gifts for him"},
+   {"href": "/gifts/", "label": "All holiday gift guides"},
+   {"href": "/men/", "label": "All men's cologne deals"},
+   {"href": "/black-friday/", "label": "Black Friday hub"},
+   {"href": "/black-friday-cologne-deals/", "label": "Black Friday cologne deals"},
+   {"href": "/brands/calvin-klein/", "label": "Calvin Klein deals"},
+   {"href": "/brands/azzaro/", "label": "Azzaro deals"},
+   {"href": "/brands/hugo-boss/", "label": "Hugo Boss deals"},
+   {"href": "/brands/davidoff/", "label": "Davidoff deals"}
+  ]
+},
+{
+  "slug": "christmas-perfume-gifts-under-50",
+  "title": "Christmas perfume gifts under $50",
+  "title_tag": "Buy Christmas Perfume Under $50",
+  "buy_meta": true,
+  "chip": "Christmas perfume under $50",
+  "gender": "women",
+  "max_price": 50,
+  "min_oz": 3,
+  "exclude_mini": true,
+  "exclude_set": true,
+  "min_bottles": 4,
+  "filled_label": "Christmas perfume gifts, 3 oz or larger, under $50",
+  "intro": "Women's perfume for a Christmas gift when the bottle is 3 oz or larger and the checked price is under $50, lowest price first. Perfume gifts for her under $50 is every women's perfume under $50, so the 1.0 oz and 1.7 oz bottles stay on that page and drop off this one. Christmas perfume gifts under $100 starts at $50 and stops under $100. Best-selling perfumes 2026 is a short name list, not this size and price cap. Minis and boxed sets stay off. We do not call a scent a Christmas perfume. For holiday shopping through December 20, 2026. A note line appears only when that retailer's product description already names the notes.",
+  "empty": "No women's perfume we checked is 3 oz or larger and under $50, so this page has no list. These guides have bottles we priced.",
+  "empty_desc": "Christmas perfume gifts under $50: no women's perfume we checked is 3 oz or larger and under $50. Other gift guides list bottles we did price.",
+  "choose": [
+   "Shop this list when the Christmas gift for her should be a full bottle under $50, not a 1.0 oz or 1.7 oz bottle. Those smaller bottles stay on perfume gifts for her under $50. A bottle at $50 or more stays on Christmas perfume gifts under $100.",
+   "Best-selling perfumes 2026 keeps a named short list and can share a bottle that is also 3 oz or larger and under $50. It is not this cap. The note line on the card is the one already stored. No line is added when the retailer did not print one.",
+   "Read the size on the card. A 3.0 oz bottle and a 3.4 oz bottle can both sit under $50. They are different amounts of juice. When the name links to a bottle page, that page shows the price per ounce."
+  ],
+  "faq": [
+   [
+    "How is this different from perfume gifts for her under $50?",
+    "Perfume gifts for her under $50 lists every women's perfume under $50, including 1.0 oz and 1.7 oz bottles. This page keeps 3 oz and larger only."
+   ],
+   [
+    "How is this different from best-selling perfumes 2026?",
+    "Best-selling perfumes 2026 is a short list of named perfumes. This page is every women's perfume that is 3 oz or larger and under $50. A named bottle stays off this page when it is smaller than 3 oz or the checked price is $50 or more."
+   ],
+   [
+    "How is this different from Christmas perfume gifts under $100?",
+    "Christmas perfume gifts under $100 starts at $50 and stops under $100. This page is the bottles under $50 that are 3 oz or larger."
+   ]
+  ],
+  "links": [
+   {"href": "/gifts/perfume-gifts-for-her-under-50/", "label": "Perfume gifts for her under $50"},
+   {"href": "/gifts/christmas-perfume-gifts-under-100/", "label": "Christmas perfume gifts under $100"},
+   {"href": "/gifts/christmas-perfume-gifts-for-her/", "label": "Christmas perfume gifts for her"},
+   {"href": "/gifts/best-selling-perfumes-2026/", "label": "Best-selling perfumes 2026"},
+   {"href": "/gifts/christmas-gift-sets-for-her-under-50/", "label": "Christmas gift sets for her under $50"},
+   {"href": "/gifts/for-her/", "label": "Fragrance gifts for her"},
+   {"href": "/gifts/", "label": "All holiday gift guides"},
+   {"href": "/women/", "label": "All women's perfume deals"},
+   {"href": "/black-friday/", "label": "Black Friday hub"},
+   {"href": "/black-friday-perfume-deals/", "label": "Black Friday perfume deals"},
+   {"href": "/brands/juicy-couture/", "label": "Juicy Couture deals"},
+   {"href": "/brands/calvin-klein/", "label": "Calvin Klein deals"},
+   {"href": "/brands/clinique/", "label": "Clinique deals"},
+   {"href": "/brands/hugo-boss/", "label": "Hugo Boss deals"}
+  ]
+},
+{
   "slug": "perfume-gifts-for-her-under-25",
   "title": "Perfume gifts for her under $25",
   "title_tag": "Buy Perfume Gifts for Her Under $25",

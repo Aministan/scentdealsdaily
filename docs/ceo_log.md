@@ -747,3 +747,33 @@ The men's title is 55 characters and the meta is 128. The five new titles are 48
 **Checks:** local build on the 2026-11-10T02:03:16Z deals file. Sitemap 307 URLs (was 302). 310 HTML files (307 in the sitemap plus noindex /subscribed/, noindex 404, and noindex gift alias). 0 broken internal links. 1,017 JSON-LD blocks parsed. 0 github.io links. Every canonical is on https://scentdealsdaily.com. CNAME is scentdealsdaily.com. Both Google site-verification meta tags, the Impact tag, the Pinterest tag, the Cloudflare beacon, and the Brevo form stay on the pages that already had them. data/deals.json and muse_deals.json were not edited. No request was made to a CJ, Awin, Rakuten, or /go tracking URL. The build string-checked 4,880 affiliate hrefs.
 
 **Deploy:** this push triggers daily-refresh (refresh + build + IndexNow + Pages). Live 200s are confirmed after that run.
+
+## 2026-11-11 (Wed) — women's and unisex CTR, four Christmas buying pages
+
+**Refresh status:** origin/main at the start of this pass was ac23dc46 "daily refresh". data/deals.json is stamped 2026-11-10T18:39:57Z (Nov 10, 2026 2:39 PM ET on the site's existing clock): 88 live deals. This pass did not edit data/deals.json and did not re-fetch prices. Muse deals were not merged. No prices were invented.
+
+**Skipped as already on the site:** /gifts/christmas-cologne-gifts-for-dad/ and /gifts/best-selling-perfumes-2026/. A men's-only gift-set page under $50 has one set (Perry Ellis 360 miniature set, $31.95 at Perfumania), under the 4-product floor, so that URL was not added.
+
+**Merchant order:** scripts/merchants.py was not changed. FragranceShop is 5% and already wins the buy button when another approved store is within $2. On this file the build logged "no buy button moved (no two affiliate prices within $2)". Calvin Klein Free 3.4 oz is already $17.95 at FragranceShop, $2.00 under Perfumania's $19.95, so the button stays on FragranceShop.
+
+**Conversion (generator, so the daily refresh keeps it)**
+- /women/ title now leads with Buy, in the same shape as /men/. Title: "Buy Women's Perfume Deals Nov 2026: From $20.95 (76% Off)" (57). Meta 139: "Buy women's perfume deals from $20.95 (Peace Love & Juicy Couture Perfume). Up to 76% off before Black Friday. Prices checked Nov 10, 2026." Lead is Peace Love & Juicy Couture 3.4 oz at $20.95 at FragranceShop. The 76% is the highest checked women's discount.
+- /unisex/ title: "Buy Unisex Fragrance Deals Nov 2026: From $24.95 (65% Off)" (58). Meta 125: "Buy unisex fragrance deals from $24.95 (Calvin Klein CK One). Up to 65% off before Black Friday. Prices checked Nov 10, 2026." Lead is CK One 1.7 oz at $24.95 at Perfumania. No FragranceShop price for that bottle is within $2.
+- Homepage title: "Buy Fragrance Deals Today: From $17.95 (76% Off)" (48). Meta 89 names the $17.95 floor, the 76% max, and "Prices checked Nov 10, 2026."
+- /black-friday/ title: "Buy Black Friday Deals 2026: From $17.95" (40). Meta 126. The sub line is "Prices checked Nov 10, 2026."
+- On a 390×700 phone screen, /women/, /unisex/, the homepage, and /black-friday/ show the lowest price and a Buy button without scrolling. The mobile nav stays on one row. The date comes from deals.json "updated". No new JavaScript and no new photo on the lead block.
+
+**New pages (4, config `gift_guides`, so they survive the rebuild). Prices are the Nov 10 deals.json prices.**
+- /gifts/christmas-gift-sets-for-her-under-50/: women's boxed sets under $50, 5 sets from $31.95 (Jennifer Lopez Live Luxe 3-piece $31.95 at Perfumania, Guess Girl 3-piece $32.95, Calvin Klein miniature set $47.95, Dsquared2 Red Wood 2-piece $48.95, Lattafa Yara 4-piece $49.95). Christmas perfume gift sets for her keeps the women's sets at $50 and up. Christmas gift sets under $50 also keeps the men's Perry Ellis set. Title: "Buy Christmas Gift Sets for Her Under $50: From $31.95" (54).
+- /gifts/christmas-gift-sets-for-men-under-100/: men's boxed sets under $100, 5 sets from $31.95 (Perry Ellis 360 miniature set $31.95 at Perfumania, Paco Rabanne 4-piece $64.95, Polo Classic mini set $64.95, Versace Eros 2-piece $66.95 at FragranceShop, Jean Paul Gaultier set $76.95). Christmas cologne gift sets for men also keeps the Versace Eros set at $102.99 at Perfumania. Title: "Buy Christmas Gift Sets for Men Under $100: From $31.95" (55).
+- /gifts/christmas-cologne-gifts-under-50/: men's cologne, 3 oz or larger, under $50, 5 bottles from $17.95 (Calvin Klein Free 3.4 oz $17.95 at FragranceShop, Chrome Legend 4.2 oz $22.95, Bottled Unlimited 3.3 oz $31.95, Cool Water 4.2 oz $39.99 at FragranceNet, Boss In Motion 3.0 oz $44.95 at Perfumania). Cologne gifts for him under $50 keeps the 1.7 oz and 1.0 oz bottles this page drops. Title: "Buy Christmas Cologne Under $50: From $17.95" (44).
+- /gifts/christmas-perfume-gifts-under-50/: women's perfume, 3 oz or larger, under $50, 9 bottles from $20.95 (Peace Love & Juicy Couture 3.4 oz $20.95 at FragranceShop through My Happy Peony Picnic 3.4 oz $43.95). Perfume gifts for her under $50 keeps Burberry London 1.0 oz, Touch 1.7 oz, Romance 1.0 oz, and the 1.0 oz Clinique Happy. Title: "Buy Christmas Perfume Under $50: From $20.95" (44).
+
+Each new page has ItemList (Product with AggregateOffer) and FAQPage JSON-LD, a BreadcrumbList, a canonical on https://scentdealsdaily.com/gifts/<slug>/, a 1000×1500 pin, and a lead price plus Buy button before the cards. The homepage, /gifts/, /men/ or /women/, /black-friday/, for him or for her, and the related brand pages link them. Sitemap (311 URLs), llms.txt, and feed.xml include the four URLs.
+
+**Titles/meta**
+Women's title is 57 characters and the meta is 139. Unisex is 58 and 125. Homepage is 48 and 89. The Black Friday hub is 40 and 126. The four new titles are 54, 55, 44, and 44. Their metas are 115, 116, 148, and 157. All titles are ≤60. All metas are 70–160. No duplicate titles or descriptions.
+
+**Checks:** local build on the 2026-11-10T18:39:57Z deals file. Sitemap 311 URLs (was 307). 0 broken internal links. JSON-LD parsed (314 pages, 311 breadcrumbs, 2,099 product offers, 302 FAQ pages). 0 github.io links. Every canonical is on https://scentdealsdaily.com. CNAME is scentdealsdaily.com. Both Google site-verification meta tags stay on every page. data/deals.json and muse_deals.json were not edited. No request was made to a CJ, Awin, Rakuten, or /go tracking URL. The build string-checked 4,920 affiliate hrefs.
+
+**Deploy:** this push goes straight to main and triggers daily-refresh (refresh + build + IndexNow + Pages). Live 200s are checked after that run.
