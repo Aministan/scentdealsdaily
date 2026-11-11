@@ -31,6 +31,9 @@ CUSTOM_DOMAIN=os.environ.get("CUSTOM_DOMAIN","scentdealsdaily.com")  # written t
 NEWSLETTER_ENDPOINT=os.environ.get("NEWSLETTER_ENDPOINT","#newsletter-placeholder")
 NAME="ScentDealsDaily"
 D=json.load(open(f"{ROOT}/data/deals.json"))
+_sku_n=links.attach_image_skus(D.get("deals"))+links.attach_image_skus(D.get("gifts"))+links.attach_image_skus(D.get("dupes"))
+if _sku_n:
+    print(f"image sku: {_sku_n} rows tagged from an fs###### photo")
 CFG=json.load(open(f"{ROOT}/data/config.json"))
 BRAND_GUIDES=json.load(open(f"{ROOT}/data/brand_guides.json"))
 e=html.escape
@@ -70,10 +73,18 @@ def _sid_part(s):
 def use_sid(typ, slug=""):
     CTX["type"]=_sid_part(typ) or "site"
     CTX["slug"]=_sid_part(slug)
-def make_sid(placement):
-    """<pagetype>-<slug>-<placement>, charset [a-z0-9-_], at most 64 characters."""
-    typ,slug,place=CTX["type"],CTX["slug"],_sid_part(placement) or "link"
-    sid="-".join(p for p in (typ,slug,place) if p)
+def make_sid(placement, product=""):
+    """<pagetype>-<slug>-<placement>, charset [a-z0-9-_], at most 64 characters.
+
+    A hub Buy link passes the product slug. It is placed in front of the page
+    slug, so a sid that does not fit keeps the product and cuts the page slug.
+    The placement (cta, table, grid, also) is never the part that is cut.
+    Deal pages already store the product as the page slug and stay as they are.
+    """
+    typ,page,place=CTX["type"],CTX["slug"],_sid_part(placement) or "link"
+    extra="" if typ=="deal" else _sid_part(product)
+    slug="-".join(p for p in (extra, page) if p)
+    sid="-".join(p for p in (typ, slug, place) if p)
     if len(sid)<=64: return sid
     budget=64-len(typ)-len(place)-2
     cut=""
@@ -81,7 +92,7 @@ def make_sid(placement):
         cut=slug[:budget].rstrip("-")
         if len(slug)>budget and "-" in cut: cut=cut.rsplit("-",1)[0]
         cut=cut.strip("-")
-    sid="-".join(p for p in (typ,cut,place) if p)
+    sid="-".join(p for p in (typ, cut, place) if p)
     return sid[:64].strip("-")
 def add_sid(url, sid):
     """Put sid on the CJ click URL. Leave every other query parameter, including url=, byte-for-byte."""
@@ -93,10 +104,39 @@ def add_sid(url, sid):
     base,query=url.split("?",1)
     parts=[p for p in query.split("&") if p and not p.startswith("sid=")]
     return base+"?sid="+sid_q+(("&"+("&".join(parts))) if parts else "")+frag
-def affiliate_url(url, placement="link"):
+_SID_PRODUCTS=None
+def product_slug_for_url(url):
+    """Product slug for a retailer URL already stored on a deal, gift, or dupe. No network."""
+    global _SID_PRODUCTS
+    if _SID_PRODUCTS is None:
+        mapping={}
+        def remember(raw, slug_s):
+            if isinstance(raw, str) and raw and slug_s:
+                mapping.setdefault(raw, slug_s)
+        for d in list(D.get("deals") or [])+list(D.get("gifts") or [])+list(D.get("dupes") or []):
+            if d.get("brand") and d.get("name"):
+                slug_s=frag_slug(d)
+            elif d.get("dupe"):
+                slug_s=slug(str(d["dupe"]))
+            else:
+                continue
+            remember(d.get("url"), slug_s)
+            also=d.get("also")
+            if isinstance(also, dict):
+                remember(also.get("url"), slug_s)
+            for c in d.get("comps") or []:
+                if isinstance(c, dict):
+                    remember(c.get("url"), slug_s)
+        _SID_PRODUCTS=mapping
+    if not isinstance(url, str) or not url:
+        return ""
+    return _SID_PRODUCTS.get(url) or ""
+def affiliate_url(url, placement="link", product=""):
     """CJ deep link for Perfumania and FragranceShop. Rakuten deep link for FragranceNet."""
     if not isinstance(url,str) or not url: return url
-    sid=make_sid(placement)
+    if not product and CTX.get("type")!="deal":
+        product=product_slug_for_url(url)
+    sid=make_sid(placement, product)
     if is_cj(url): return add_sid(url, sid)
     if is_rakuten(url): return url
     if is_fragrancenet(url):
@@ -107,8 +147,8 @@ def affiliate_url(url, placement="link"):
     base=cj+"?sid="+urllib.parse.quote(sid, safe="-_")
     if (p.path or "") in ("","/") and not p.query and not p.fragment: return base
     return base+"&url="+urllib.parse.quote(url,safe="")
-def ext_a(url, inner, cls="", style="", placement="link"):
-    href=e(affiliate_url(url, placement))
+def ext_a(url, inner, cls="", style="", placement="link", product=""):
+    href=e(affiliate_url(url, placement, product))
     extra=(f' class="{cls}"' if cls else "")+(f" style='{style}'" if style else "")
     # Affiliate anchors are for a person clicking. No prefetch, prerender, or dns-prefetch.
     if is_affiliate(url) or links.is_tracking_url(url):
@@ -346,7 +386,8 @@ def also_line(d):
     for c in d.get("comps") or []:
         if c.get("retailer")=="FragranceNet": add(c)
     if not rows: return ""
-    return "".join(f"<div class='also'>also at {ext_a(a['url'], e(a['retailer']), placement='also')} · ${float(a['price']):.2f}</div>" for a in rows)
+    product=frag_slug(d) if d.get("brand") and d.get("name") else ""
+    return "".join(f"<div class='also'>also at {ext_a(a['url'], e(a['retailer']), placement='also', product=product)} · ${float(a['price']):.2f}</div>" for a in rows)
 # Neutral stand-in when the retailer data has no photo. Not a product picture.
 _PLACEHOLDER_SVG='<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400"><rect width="400" height="400" fill="#f4f1ec"/><rect x="168" y="88" width="64" height="16" rx="3" fill="#d5cfc7"/><path d="M156 110h88v188a30 30 0 0 1-30 30h-28a30 30 0 0 1-30-30V110z" fill="#e6e0d8" stroke="#c8c2ba" stroke-width="3"/><text x="200" y="358" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" fill="#7a7480">No photo</text></svg>'
 PLACEHOLDER_SRC="data:image/svg+xml,"+urllib.parse.quote(_PLACEHOLDER_SVG)
@@ -382,7 +423,7 @@ def card(d,eager=False):
 <div><span class="price">${d['price']:.2f}</span><span class="was">${d['was']:.2f}</span></div>
 <div class="meta">at {e(d['retailer'])} · checked {checked_h(d.get('checked'))} · {('crossed-out = price at '+e(d['was_label'])) if d.get('was_label') else '"was" = retailer\'s listed compare-at price'}</div>
 {also_line(d)}
-{ext_a(d['url'], f"Buy at {e(d['retailer'])}", cls="btn", placement="grid")}</article>"""
+{ext_a(d['url'], f"Buy at {e(d['retailer'])}", cls="btn", placement="grid", product=frag_slug(d))}</article>"""
 def conc_name(t):
     """Concentration label from the stored type. Only the values we already record."""
     low=(t or "").strip().lower()
@@ -724,7 +765,7 @@ def lead_offer(rows):
     return (f"<div class='lead-offer'><p class='meta'>Best price on this page · Price checked {e(upd_h)}</p>"
             f"<p class='lead-name'><b>{e(fullname(d))}</b>{size_bit}</p>"
             f"<p class='lead-price'><span class='price'>${d['price']:.2f}</span> <span class='meta'>at {e(d['retailer'])}</span></p>"
-            f"{ext_a(d['url'], label, cls='btn', style='max-width:340px', placement='cta')}</div>")
+            f"{ext_a(d['url'], label, cls='btn', style='max-width:340px', placement='cta', product=frag_slug(d) if d.get('brand') and d.get('name') else '')}</div>")
 def fs_fold_ok(d):
     """A sealed FragranceShop bottle with a checked price. Sets, testers, and decants stay out."""
     if d.get("retailer")!="FragranceShop" or d.get("in_stock") is False: return False
@@ -735,11 +776,26 @@ def fs_fold_ok(d):
     if "gift set" in blob or "coffret" in blob: return False
     if re.search(r"\b\d+\s*-?\s*(pc|piece|pcs)\b", blob) and "set" in blob: return False
     return True
-def fs_fold_html(rows):
-    """Three FragranceShop deals with a price and a Buy button, before the rest of the page."""
+def _fold_pins(pool, needles):
+    """Bottles named in needles, in that order, when they are already in this page's pool."""
+    pinned=[]
+    for needle in needles or ():
+        needle=(needle or "").lower()
+        if not needle: continue
+        hit=next((d for d in pool if needle in f"{d.get('brand') or ''} {d.get('name') or ''}".lower() and d not in pinned), None)
+        if hit: pinned.append(hit)
+    return pinned
+def fs_fold_html(rows, pins=()):
+    """Three FragranceShop deals with a price and a Buy button, before the rest of the page.
+
+    pins are product names already in deals.json. They lead the three slots.
+    The remaining slots stay the steepest FragranceShop discounts on the page.
+    """
     pool=[d for d in rows if fs_fold_ok(d)]
     pool.sort(key=lambda d:(-(d.get("pct_off") or 0), d["price"], d.get("id") or ""))
-    picks=pool[:3]
+    pinned=_fold_pins(pool, pins)
+    rest=[d for d in pool if d not in pinned]
+    picks=(pinned+rest)[:3]
     if len(picks)<3: return ""
     bits=[]
     for d in picks:
@@ -749,7 +805,7 @@ def fs_fold_html(rows):
             "<div class='fold-deal'>"
             f"<p class='lead-name'><b>{e(fullname(d))}</b>{size_bit}</p>"
             f"<p class='lead-price'><span class='price'>${d['price']:.2f}</span> <span class='meta'>at FragranceShop</span></p>"
-            f"{ext_a(d['url'], 'Buy at FragranceShop →', cls='btn', placement='cta')}"
+            f"{ext_a(d['url'], 'Buy at FragranceShop →', cls='btn', placement='cta', product=frag_slug(d))}"
             "</div>")
     return ("<div class='fold-deals' id='fs-deals'><p class='meta'>Top FragranceShop deals · Price checked "
             f"{e(upd_h)}</p>"+"".join(bits)+"</div>")
@@ -768,7 +824,7 @@ page("index.html",fit([f"Buy Fragrance Deals Today: From ${_home_lo:.2f} ({_home
  _home_desc,
  f"<h1>Today's best designer fragrance deals</h1><p class='sub'>Prices checked {e(_home_when)}. {len(deals)} live deals · <a href='{PREFIX}/black-friday/'>Black Friday perfume and cologne deals</a></p>"
  +lead_offer(deals)
- +fs_fold_html(deals)
+ +fs_fold_html(deals, ("le male le parfum", "afternoon delight", "free cologne"))
  +MONEY_MARK
  +NEW_HOLIDAY_MARK
  +BREVO_FORM
@@ -813,6 +869,7 @@ for g,label in [("men","Men's Cologne"),("women","Women's Perfume"),("unisex","U
     ds=[d for d in deals if d["gender"]==g]
     if not ds: continue
     use_sid(g)
+    _gender_pins={"men":("le male le parfum", "free cologne"), "unisex":("afternoon delight",)}.get(g, ())
     gchip="".join(f"<a href='{PREFIX}/gifts/{gu['slug']}/'>{e(gu.get('chip') or gu['title'])}</a>" for gu in GIFT_GUIDES if any(d["gender"]==g for d in gu["picks"]))
     mx=max(d['pct_off'] for d in ds)
     lo=min(ds, key=lambda d:(d["price"], -(d.get("pct_off") or 0), d["id"]))
@@ -858,7 +915,7 @@ for g,label in [("men","Men's Cologne"),("women","Women's Perfume"),("unisex","U
       gdesc,
       f"<h1>{label} deals</h1><p class='sub'>Prices checked {e(when)}.</p>"
       +lead_offer(ds)
-      +fs_fold_html(ds)
+      +fs_fold_html(ds, _gender_pins)
       +f"<p>{e(sale.capitalize())} on sale at authorized retailers. The button above is the lowest price on this page.</p>"
       +f"<div class='grid'>{''.join(card(d) for d in ds)}</div>"
       +(BF_BRAND_ROW_MARK if g in ("men","women") else "")
@@ -1100,7 +1157,40 @@ def comprows(d):
 import hashlib
 def faqld(qs): return {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":a}} for q,a in qs]}
 def faqhtml(qs): return "<section class='box'><h2 style='margin-top:0'>FAQ</h2>"+"".join(f"<h3>{e(q)}</h3><p>{e(a)}</p>" for q,a in qs)+"</section>"
-def buy(url,ret): return ext_a(url, f"Buy at {e(ret)} →", cls="btn", style="max-width:340px", placement="cta")
+def buy(url,ret, product=""): return ext_a(url, f"Buy at {e(ret)} →", cls="btn", style="max-width:340px", placement="cta", product=product)
+# Bottles that already sold at FragranceShop. Names only; prices stay on the deal.
+_CONVERTER_NAMES=(
+    ("calvin klein", "free cologne"),
+    ("jean paul gaultier", "le male le parfum"),
+    ("maison margiela", "afternoon delight"),
+)
+def converter_deals():
+    """The proven FragranceShop bottles still in this price check. One row each.
+
+    A bottle that leaves the price check is skipped. Two rows for one name is a
+    bad match and stops the build, so the also-popular links cannot pick the wrong size.
+    """
+    found=[]
+    for brand, name in _CONVERTER_NAMES:
+        hits=[d for d in deals if d.get("retailer")=="FragranceShop" and brand in (d.get("brand") or "").lower() and name in (d.get("name") or "").lower() and isinstance(d.get("price"), (int, float)) and not isinstance(d.get("price"), bool)]
+        if len(hits)>1:
+            raise SystemExit(f"proven FragranceShop bottle {brand} {name}: {len(hits)} rows, need one")
+        if not hits:
+            print(f"converter not in today's FragranceShop deals: {brand} {name}")
+            continue
+        found.append(hits[0])
+    return found
+_CONVERTERS=converter_deals()
+def also_popular(d):
+    """Deal-page links to the other bottles that already sold. Internal pages only."""
+    if d.get("id") not in {x.get("id") for x in _CONVERTERS}:
+        return ""
+    bits=[]
+    for other in _CONVERTERS:
+        if other.get("id")==d.get("id"): continue
+        bits.append(f"<a href='{PREFIX}/fragrance/{frag_slug(other)}/'>{e(fullname(other))}</a> · ${other['price']:.2f}")
+    if not bits: return ""
+    return "<div class='also'>also popular: "+" · ".join(bits)+"</div>"
 KW=[]
 for d in deals:
     full=fullname(d); s=frag_slug(d); use_sid("deal", s); KW+= [f"{full.lower()} cheapest price",f"{full.lower()} sale",f"{full.lower()} {sz(d['size']).lower()} deal"]
@@ -1118,7 +1208,7 @@ for d in deals:
         (f"How much does {full} cost per ounce?",(f"At ${d['price']:.2f} for {d['size']} it works out to ${per_oz(d):.2f} per ounce, and you save ${d['was']-d['price']:.2f} versus the ${d['was']:.2f} listed price." if per_oz(d) else f"At ${d['price']:.2f} you save ${d['was']-d['price']:.2f} versus the ${d['was']:.2f} listed price."))]
     rus=roundups_of(d)
     body=(f"<h1>{e(full)} {e(sz(d['size']))}: cheapest price today</h1><p class='sub'>Lowest verified price: <b class='price'>${d['price']:.2f}</b> <span class='was'>${d['was']:.2f}</span> <span class='badge'>-{d['pct_off']}%</span> at {e(d['retailer'])} · checked {checked_h(d.get('checked'))}</p>"
-      +buy(d['url'],d['retailer'])+also_line(d)
+      +buy(d['url'],d['retailer'], frag_slug(d))+also_line(d)+also_popular(d)
       +f"<div class='box' style='display:flex;gap:16px;flex-wrap:wrap'><img src='{e(d['image'] or '')}' alt='{e(full)}' width=220 height=220 fetchpriority=high decoding=async style='object-fit:contain'><div style='flex:1;min-width:220px'><h2 style='margin-top:0'>Price comparison</h2><table><thead><tr><th>Retailer</th><th>Size</th><th>Price</th><th>Checked</th></tr></thead><tbody>{comprows(d)}</tbody></table><p class=meta>More retailers are added as we verify them. We never list unverified prices.</p></div></div>"
       +BREVO_FORM
       +f"<p>{e(full)} is one of today's best {gl} deals: {d['pct_off']}% {('below the '+e(d['was_label'])+' price') if d.get('was_label') else 'off the listed price'}, a {d['type'].lower() or 'fragrance'} from {e(d['brand'])} (<a href='{PREFIX}/brands/{bslug(d['brand'])}/'>all {e(canon(d['brand']))} deals</a>{"".join(", <a href='"+PREFIX+"/best/"+ru['slug']+"/'>"+e(ru['title'].lower().replace('best ','more '))+"</a>" for ru in rus)}).</p>"
@@ -1399,7 +1489,7 @@ for r in ROUNDUPS:
     SC=r['scope']; KW+=[r['title'].lower().replace('best ','best cheap ').replace(' deals',''),r['title'].lower(),f"designer {N} {SC}"]
     others=[x for x in ROUNDUPS if x is not r]
     NT=r.get('notes') or {}
-    rows="".join(f"<tr><td><a href='{PREFIX}/fragrance/{frag_slug(d)}/'>{e(fullname(d))}</a><div class=meta>{e(d['type'] or '')}{(' · '+e(NT[d['id']])) if d['id'] in NT else ''}</div></td><td>{e(d['size'])}</td><td><b>${d['price']:.2f}</b> <span class=was>${d['was']:.2f}</span></td><td>{('$%.2f' % per_oz(d)) if per_oz(d) else '—'}</td><td><span class=badge>-{d['pct_off']}%</span></td><td>{ext_a(d['url'], 'Buy at '+e(d['retailer']), placement='table')}</td></tr>" for d in ds)
+    rows="".join(f"<tr><td><a href='{PREFIX}/fragrance/{frag_slug(d)}/'>{e(fullname(d))}</a><div class=meta>{e(d['type'] or '')}{(' · '+e(NT[d['id']])) if d['id'] in NT else ''}</div></td><td>{e(d['size'])}</td><td><b>${d['price']:.2f}</b> <span class=was>${d['was']:.2f}</span></td><td>{('$%.2f' % per_oz(d)) if per_oz(d) else '—'}</td><td><span class=badge>-{d['pct_off']}%</span></td><td>{ext_a(d['url'], 'Buy at '+e(d['retailer']), placement='table', product=frag_slug(d))}</td></tr>" for d in ds)
     qs=[(f"What is the cheapest {N} deal {SC} today?",f"As of {upd_h}, the lowest verified price is {fullname(cheap)} {cheap['size']} at ${cheap['price']:.2f} from {cheap['retailer']} ({cheap['pct_off']}% off ${cheap['was']:.2f})."),
         (f"Which {N} {SC} is the best value per ounce?",f"{fullname(val)} at ${per_oz(val):.2f} per ounce (${val['price']:.2f} for {val['size']})." if per_oz(val) else f"{fullname(val)} at ${val['price']:.2f}."),
         (f"Which {N} {SC} has the biggest discount?",f"{fullname(big)}: {big['pct_off']}% off, ${big['price']:.2f} versus ${big['was']:.2f} {('at '+big['was_label']) if big.get('was_label') else 'listed compare-at'}."),
@@ -1480,7 +1570,7 @@ for v in VS:
     cheaper=min((A,B),key=lambda d:d['price']); value=min((A,B),key=lambda d:per_oz(d) or 999); bigger=max((A,B),key=lambda d:d['pct_off'])
     ca,cb=conc(A['type']),conc(B['type'])
     def cell(d): return f"<b>${d['price']:.2f}</b> <span class=was>${d['was']:.2f}</span> <span class=badge>-{d['pct_off']}%</span>"
-    def bt(d): return ext_a(d['url'], f"Buy at {e(d['retailer'])}", cls="btn", placement="table")
+    def bt(d): return ext_a(d['url'], f"Buy at {e(d['retailer'])}", cls="btn", placement="table", product=frag_slug(d))
     rows=(f"<tr><td>Price today</td><td>{cell(A)}</td><td>{cell(B)}</td></tr>"
       f"<tr><td>Size</td><td>{e(sz(A['size']))}</td><td>{e(sz(B['size']))}</td></tr>"
       f"<tr><td>Price per ounce</td><td>{('$%.2f' % pa) if pa else '—'}</td><td>{('$%.2f' % pb) if pb else '—'}</td></tr>"
@@ -1625,7 +1715,7 @@ def gift_card(d, notes=None):
 <div><span class="price">${d['price']:.2f}</span>{was}</div>
 {label}<div class="meta">at {e(d['retailer'])} · checked {upd_h}</div>
 {also_line(d)}
-{ext_a(d['url'], f"Buy at {e(d['retailer'])}", cls="btn", placement="grid")}</article>"""
+{ext_a(d['url'], f"Buy at {e(d['retailer'])}", cls="btn", placement="grid", product=frag_slug(d) if d.get("brand") and d.get("name") else "")}</article>"""
 def gift_table(ds, notes=None):
     notes=notes or {}
     if not ds: return ""
@@ -5827,6 +5917,136 @@ def audit_nov11_pages():
             raise SystemExit(f"{rel}: missing BreadcrumbList")
         print(f"{rel}: {title} ({len(title)}) / meta {len(desc)} / {len(key)} products")
 audit_nov11_pages()
+def _sid_keeps_product(sid, product, place):
+    """True when the sid still has the product slug, or a long prefix left by the 64-character cut.
+
+    Placement stays whole. A brand-length page slug is not treated as the product.
+    """
+    if not product or not str(sid).endswith("-"+place):
+        return False
+    core=sid[:-(len(place)+1)]
+    if re.search(r"(?:^|-)"+re.escape(product)+r"(?:-|$)", core):
+        return True
+    parts=product.split("-")
+    prefix=""
+    for n in range(len(parts)-1, 0, -1):
+        candidate="-".join(parts[:n])
+        if re.search(r"(?:^|-)"+re.escape(candidate)+r"(?:-|$)", core):
+            prefix=candidate
+            break
+    return len(prefix)>=24
+def audit_product_sids():
+    """Hub CJ links carry the product slug. Deal-page SIDs stay pagetype-slug-placement. String check only."""
+    placements=("cta","table","grid","also","link","src")
+    saved=(CTX["type"], CTX["slug"])
+    bare=re.compile(r"^(?:home|men|women|unisex|sub|dupes|brand|gifts|bfcm|best|hub|dupe|cmp|llms|404)-(?:cta|table|grid|also|link|src)$")
+    checked=0
+    bare_hits=[]
+    try:
+        use_sid("deal", "sample-product")
+        for place in placements:
+            if make_sid(place)!=make_sid(place, "other-product"):
+                raise SystemExit("deal-page sid changed when a product slug was passed")
+        plain="https://www.fragrancenet.com/cologne/calvin-klein/ck-free/edt"
+        if affiliate_url(plain, "grid", "calvin-klein-free-cologne")!=RAKUTEN_DEEPLINK+"&murl="+urllib.parse.quote(plain, safe=""):
+            raise SystemExit("FragranceNet link was rewritten")
+        for dirpath, _, files in os.walk(OUT):
+            for name in files:
+                if not name.endswith(".html"): continue
+                rel=os.path.relpath(os.path.join(dirpath, name), OUT).replace(os.sep, "/")
+                text=open(os.path.join(dirpath, name), encoding="utf-8").read()
+                deal_page=rel.startswith("fragrance/") and rel.endswith("/index.html")
+                if deal_page:
+                    use_sid("deal", rel.split("/")[1])
+                for href in re.findall(r'href="(https://[^"]*click-101905413-[0-9]+\?[^"]*)"', text):
+                    raw=html.unescape(href)
+                    sid_m=re.search(r"[?&]sid=([^&]+)", raw)
+                    if not sid_m:
+                        raise SystemExit(f"{rel}: CJ link has no sid")
+                    sid=urllib.parse.unquote(sid_m.group(1))
+                    if not re.fullmatch(r"[a-z0-9-_]{1,64}", sid):
+                        raise SystemExit(f"{rel}: sid {sid} breaks the 64-character charset")
+                    if not any(sid.endswith("-"+p) for p in placements):
+                        raise SystemExit(f"{rel}: sid {sid} lost its placement")
+                    place=next(p for p in placements if sid.endswith("-"+p))
+                    if deal_page:
+                        if sid!=make_sid(place):
+                            raise SystemExit(f"{rel}: deal sid {sid} != {make_sid(place)}")
+                        continue
+                    inner=(urllib.parse.parse_qs(urllib.parse.urlparse(raw).query).get("url") or [""])[0]
+                    product=product_slug_for_url(inner)
+                    fs="anrdoezrs.net/click-101905413-16941523" in raw
+                    if bare.match(sid) and (fs or product):
+                        bare_hits.append(f"{rel}: {sid}")
+                    if fs and not product:
+                        raise SystemExit(f"{rel}: FragranceShop link has no product for {inner[:90]}")
+                    if product and not _sid_keeps_product(sid, product, place):
+                        raise SystemExit(f"{rel}: sid {sid} is missing {product}")
+                    if fs:
+                        checked+=1
+        if bare_hits:
+            raise SystemExit("product-less hub sid:\n"+"\n".join(bare_hits[:12]))
+    finally:
+        CTX["type"], CTX["slug"]=saved
+    print(f"hub sids: {checked} FragranceShop links carry a product slug")
+def audit_converter_fold():
+    """Proven sellers stay above the fold, at the prices already in deals.json."""
+    def named(needle):
+        hits=[d for d in deals if needle in f"{d.get('brand') or ''} {d.get('name') or ''}".lower() and d.get("retailer")=="FragranceShop"]
+        return hits[0] if len(hits)==1 else None
+    def fold_names(rel):
+        text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+        fold=re.search(r"id='fs-deals'>(.*?)</div></div>", text, re.S)
+        if not fold:
+            raise SystemExit(f"{rel}: missing the FragranceShop fold")
+        return text, [html.unescape(n) for n in re.findall(r"lead-name'><b>(.*?)</b>", fold.group(1))]
+    def lead_name(text):
+        lead=re.search(r"<div class='lead-offer'>.*?lead-name'><b>(.*?)</b>", text, re.S)
+        return html.unescape(lead.group(1)) if lead else ""
+    home_text, home_fold=fold_names("index.html")
+    men_text, men_fold=fold_names("men/index.html")
+    _uni_text, uni_fold=fold_names("unisex/index.html")
+    checks=(
+        ("free cologne", "index.html", home_fold, home_text, deals),
+        ("le male le parfum", "index.html", home_fold, home_text, deals),
+        ("afternoon delight", "index.html", home_fold, home_text, deals),
+        ("free cologne", "men/index.html", men_fold, men_text, [d for d in deals if d.get("gender")=="men"]),
+        ("le male le parfum", "men/index.html", men_fold, men_text, [d for d in deals if d.get("gender")=="men"]),
+        ("afternoon delight", "unisex/index.html", uni_fold, _uni_text, [d for d in deals if d.get("gender")=="unisex"]),
+    )
+    for needle, rel, fold, text, pool in checks:
+        row=named(needle)
+        if not row or not fs_fold_ok(row): continue
+        label=fullname(row)
+        if label not in fold:
+            raise SystemExit(f"{rel}: fold missing {label}: {fold}")
+        low=min(pool, key=lambda d:(d["price"], -(d.get("pct_off") or 0), d["id"]))
+        if low.get("id")==row.get("id") and lead_name(text)!=label:
+            raise SystemExit(f"{rel}: {label} is the lowest price and is not the lead")
+    by_id={d["id"]: d for d in deals}
+    for row in _CONVERTERS:
+        live=by_id[row["id"]]
+        if live.get("retailer")!="FragranceShop":
+            raise SystemExit(f"{live['id']}: buy retailer is {live.get('retailer')}, FragranceShop has the priced offer")
+        rel=f"fragrance/{frag_slug(live)}/index.html"
+        text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+        if len(_CONVERTERS)<2:
+            continue
+        if "also popular:" not in text:
+            raise SystemExit(f"{rel}: missing the also popular row")
+        block=text.split("also popular:", 1)[1][:700]
+        for other in _CONVERTERS:
+            if other["id"]==live["id"]: continue
+            href=f"{PREFIX}/fragrance/{frag_slug(other)}/"
+            if href not in block:
+                raise SystemExit(f"{rel}: also popular does not link {href}")
+            if f"${other['price']:.2f}" not in block:
+                raise SystemExit(f"{rel}: also popular price is not the deals.json price for {other['id']}")
+        if f"${live['price']:.2f}" not in text:
+            raise SystemExit(f"{rel}: offer price drifted from deals.json")
+    print("converter fold: proven FragranceShop bottles are above the fold, with also-popular deal links")
+audit_product_sids()
+audit_converter_fold()
 import subprocess, sys
 _validator=subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "validate_jsonld.py")])
 if _validator.returncode!=0:

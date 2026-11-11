@@ -1,5 +1,5 @@
 # ScentDealsDaily
-> Daily-checked discounts on authentic designer fragrances at reputable retailers, plus a cited dupes directory. Last updated 2026-11-10T18:39:57Z.
+> Daily-checked discounts on authentic designer fragrances at reputable retailers, plus a cited dupes directory. Last updated 2026-11-11T18:41:25Z.
 
 ## Today's deals (price USD, size, retailer, % off listed compare-at)
 - Juicy Couture Peace Love & Juicy Couture Perfume 3.4 oz.: $20.95 (was $89.00, -76%) at FragranceShop: https://www.fragranceshop.com/product/peace-love-juicy-couture-perfume-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz
@@ -44,6 +44,7 @@
 - Gucci Guilty Essence Cologne 3.0 oz.: $70.95 (was $122.00, -42%) at FragranceShop: https://www.fragranceshop.com/product/gucci-guilty-essence-cologne-for-men/?attribute_pa_size=eau-de-toilette-spray-3-0-oz
 - Gucci Bloom Perfume 3.3 oz.: $74.95 (was $130.00, -42%) at FragranceShop: https://www.fragranceshop.com/product/gucci-bloom-for-women/?attribute_pa_size=eau-de-parfum-spray-3-3-oz
 - Dolce & Gabbana The One Perfume 2.5 oz.: $57.95 (was $100.00, -42%) at FragranceShop: https://www.fragranceshop.com/product/dolce-gabbana-the-one-for-women/?attribute_pa_size=eau-de-parfum-spray-2-5-oz
+- Hermes H24 Eau de Toilette 1.7 oz.: $64.95 (was $110.00, -41%) at Perfumania: https://www.perfumania.com/products/h24-eau-de-toilette?variant=41173414412421
 - Hugo Boss Boss In Motion Cologne 3.0 oz.: $44.95 (was $76.00, -41%) at Perfumania: https://www.perfumania.com/products/hugo-boss-in-motion-mens-eau-de-toilette-spray?variant=31838659510405
 - Jean Paul Gaultier Le Male Elixir Cologne 4.2 oz.: $93.95 (was $160.00, -41%) at FragranceShop: https://www.fragranceshop.com/product/jean-paul-gaultier-le-male-elixir-cologne-for-men/?attribute_pa_size=parfum-spray-4-2-oz
 - Elizabeth Arden Green Tea Scent Perfume 3.4 oz.: $31.95 (was $52.00, -39%) at Perfumania: https://www.perfumania.com/products/elizabeth-arden-green-tea-scent-women-eau-de-parfum-spray?variant=31839020253317
@@ -100,8 +101,8 @@
 - MFK Baccarat Rouge 540 Extrait -> Armaf Club de Nuit Untold: $42.95 3.6 oz at Perfumania https://www.perfumania.com/products/club-de-nuit-untold-unisex-fragrance?variant=41264895918213 (sources: https://altscent.app/clone-list/)
 - Dior Sauvage Elixir -> Lattafa Asad: $39.99 3.4 oz. at Perfumania https://www.perfumania.com/products/lattafa-asad-cologne-eau-de-parfum-for-men?variant=41094013976709 (sources: https://perfumania.com/blogs/articles/top-6-luxury-fragrance-dupes-in-2026)
 - Creed Silver Mountain Water -> Armaf Club de Nuit Sillage: $34.95 3.6 oz. at Perfumania https://www.perfumania.com/products/club-de-nuit-sillage-unisex-fragrance?variant=41266471370885 (sources: https://perfumania.com/blogs/articles/top-6-luxury-fragrance-dupes-in-2026, https://altscent.app/clone-list/)
-- Jean Paul Gaultier Ultra Male -> Afnan 9PM: $39.99 3.4 oz. at Perfumania https://www.perfumania.com/products/9pm-cologne?variant=41284110418053 (sources: https://perfumania.com/blogs/articles/top-6-luxury-fragrance-dupes-in-2026)
-- Creed Millésime Impérial -> Armaf Club de Nuit Milestone (sources: https://scentfile.com/clone-list.csv, https://altscent.app/clone-list/)
+- Jean Paul Gaultier Ultra Male -> Afnan 9PM: $42.99 5.0 oz. at Perfumania https://www.perfumania.com/products/9pm-cologne?variant=41961878388869 (sources: https://perfumania.com/blogs/articles/top-6-luxury-fragrance-dupes-in-2026)
+- Creed Millésime Impérial -> Armaf Club de Nuit Milestone: $26.95 3.6 oz. at FragranceShop https://www.fragranceshop.com/product/armaf-club-de-nuit-milestone-for-unisex/?attribute_pa_size=eau-de-parfum-spray-3-6-oz (sources: https://scentfile.com/clone-list.csv, https://altscent.app/clone-list/)
 - YSL Y Eau de Parfum -> Lattafa Fakhar Black: $39.99 3.4 oz. at Perfumania https://www.perfumania.com/products/fakhar-eau-de-parfum-1?variant=41052514484357 (sources: https://altscent.app/clone-list/)
 - Mugler Angel Nova -> Lattafa Mayar: $20.95 3.4 oz. at FragranceShop https://www.fragranceshop.com/product/lattafa-mayar-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz (sources: https://altscent.app/clone-list/)
 - Bleu de Chanel EDP -> Armaf Club de Nuit Iconic (Blue Iconic) (sources: https://www.thelastspritz.com/best-cologne-dupes, https://scentfile.com/clone-list.csv)
@@ -156,6 +157,7 @@ https://scentdealsdaily.com/fragrance/xerjoff-casamorati-mefisto-cologne/
 https://scentdealsdaily.com/fragrance/gucci-guilty-essence-cologne/
 https://scentdealsdaily.com/fragrance/gucci-bloom-perfume/
 https://scentdealsdaily.com/fragrance/dolce-gabbana-the-one-perfume/
+https://scentdealsdaily.com/fragrance/hermes-h24-eau-de-toilette/
 https://scentdealsdaily.com/fragrance/hugo-boss-boss-in-motion-cologne/
 https://scentdealsdaily.com/fragrance/jean-paul-gaultier-le-male-elixir-cologne/
 https://scentdealsdaily.com/fragrance/elizabeth-arden-green-tea-scent-perfume/
@@ -253,6 +255,7 @@ https://scentdealsdaily.com/vs/legend-spirit-vs-acqua-di-gio/
 https://scentdealsdaily.com/vs/le-beau-vs-versace-eros/
 https://scentdealsdaily.com/vs/most-wanted-vs-stronger-with-you/
 https://scentdealsdaily.com/vs/clinique-happy-vs-green-tea/
+https://scentdealsdaily.com/vs/h24-vs-legend-spirit/
 https://scentdealsdaily.com/vs/eilish-vs-la-vie-est-belle/
 https://scentdealsdaily.com/vs/cool-water-vs-acqua-di-gio/
 https://scentdealsdaily.com/vs/light-blue-vs-clinique-happy/

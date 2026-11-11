@@ -316,6 +316,9 @@ def main():
         print(f"fragranceshop catalog degraded ({catalog_failed}/{catalog_tried}); kept previous catalog rows", file=sys.stderr)
     deals=[d for d in deals if (d.get("pct_off") or 0)>=15]
     deals.sort(key=lambda d:-d["pct_off"])
+    sku_n=links.attach_image_skus(deals)+links.attach_image_skus(gifts)+links.attach_image_skus(dupes)
+    if sku_n:
+        print(f"image sku: {sku_n} rows tagged from an fs###### photo", file=sys.stderr)
     print(f"fragranceshop catalog: +{added} bottles, +{added_gifts} gift sets", file=sys.stderr)
     json.dump({"updated":now,"deals":deals,"dupes":dupes,"dropped":dropped,"gifts":gifts},open(out,"w"),indent=1)
     print(f"{len(deals)} live deals, {len(gifts)} gift rows, {len(dropped)} dropped {dropped}, {sum(1 for d in dupes if d['price'])}/{len(dupes)} dupes priced, {FAIL['transient']}/{FAIL['total']} fetch failures")

@@ -135,6 +135,36 @@ def safe_request_url(url):
     return url
 
 
+_FS_IMAGE_SKU = re.compile(r"fs(\d+)\.(?:jpe?g|png|webp)\b", re.I)
+
+
+def image_sku(url):
+    """FragranceShop photo id already in the image URL, as CJ writes items.sku (FS191154).
+
+    Returns "" when the URL has no fs<digits> file name. Does not request the URL.
+    """
+    if not isinstance(url, str) or not url:
+        return ""
+    match = _FS_IMAGE_SKU.search(url)
+    if not match:
+        return ""
+    return "FS" + match.group(1)
+
+
+def attach_image_skus(rows):
+    """Set deal['sku'] from an image URL that already contains fs<digits>.jpg. Never invents one."""
+    changed = 0
+    for row in rows or []:
+        if not isinstance(row, dict):
+            continue
+        sku = image_sku(row.get("image"))
+        if not sku or row.get("sku") == sku:
+            continue
+        row["sku"] = sku
+        changed += 1
+    return changed
+
+
 def affiliate_link_ok(url):
     """String-format check for a click URL. Does not request it."""
     if not isinstance(url, str) or not url:
