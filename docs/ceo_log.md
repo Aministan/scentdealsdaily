@@ -777,3 +777,33 @@ Women's title is 57 characters and the meta is 139. Unisex is 58 and 125. Homepa
 **Checks:** local build on the 2026-11-10T18:39:57Z deals file. Sitemap 311 URLs (was 307). 0 broken internal links. JSON-LD parsed (314 pages, 311 breadcrumbs, 2,099 product offers, 302 FAQ pages). 0 github.io links. Every canonical is on https://scentdealsdaily.com. CNAME is scentdealsdaily.com. Both Google site-verification meta tags stay on every page. data/deals.json and muse_deals.json were not edited. No request was made to a CJ, Awin, Rakuten, or /go tracking URL. The build string-checked 4,920 affiliate hrefs.
 
 **Deploy:** this push goes straight to main and triggers daily-refresh (refresh + build + IndexNow + Pages). Live 200s are checked after that run.
+
+## 2026-11-12 (Thu) — seller-page Buy fold, four holiday lists for the bottles that sold
+
+**Refresh status:** origin/main at the start of this pass was 55e88f40 "daily refresh". data/deals.json is stamped 2026-11-11T18:55:32Z (Nov 11, 2026 2:55 PM ET): 89 live deals. This pass did not edit data/deals.json and did not re-fetch prices. muse_deals.json is unchanged since Nov 6 (sha1 26cbc25093, same file as the attached upload). No new 15%+ authorized-retailer row was merged. No prices were invented.
+
+**Skipped as already on the site:** /black-friday/jean-paul-gaultier/, /black-friday/maison-margiela/, /black-friday/calvin-klein/, /gifts/best-selling-colognes-2026/, and /gifts/christmas-cologne-gifts-under-100/. Those URLs stay. The new pages are tighter lists.
+
+**Merchant order:** scripts/merchants.py was not changed. The build logged "no buy button moved (no two affiliate prices within $2)". Calvin Klein Free 3.4 oz is $17.95 at FragranceShop and $19.95 at Perfumania, a $2.00 gap, so the higher-commission store is already the lower price and the button stays on FragranceShop. The price table on each seller page lists that buy-button store first. The deal-page FAQ now says the two prices are within $2 when the button is the higher-commission store.
+
+**Conversion (generator, so the daily refresh keeps it)**
+The 17 FragranceShop-family deal pages for the bottles that sold and their closest siblings now lead with a sticky price and one Buy button, then the sibling links, then the photo. The check date is that bottle's checked time from deals.json. On a 390×700 phone screen, Le Male Le Parfum shows $93.95 and Buy at FragranceShop before the bottle photo. The same fold is on the Le Male Christmas gift page, where Ultra Male at $77.95 is the lowest price.
+- Le Male line: Le Male Le Parfum $93.95, Le Male Elixir $93.95, Ultra Male $77.95, all at FragranceShop. Titles 54, 51, and 47. Metas 122, 119, and 115.
+- Replica: Afternoon Delight $78.95, Jazz Club $81.95, Bubble Bath $81.95, all at FragranceShop. Titles 54, 46, and 48. Metas 119, 111, and 113.
+- Calvin Klein: 11 bottles from CK Free $17.95 at FragranceShop through Euphoria $88.99 at FragranceNet. CK One 1.7 oz stays at Perfumania ($24.95; FragranceNet is $29.99, wider than $2). Titles 35–57. Metas 94–116.
+Each of these titles starts with Buy, is ≤60 characters, and includes the checked price. Each meta is 70–160 characters, starts with Buy, and includes "Prices checked". No duplicate titles. CJ SIDs on the deal pages stay deal-slug-placement. Hub links to these bottles keep the product slug.
+
+**New pages (4, config `gift_guides`, so they survive the rebuild). Prices are the Nov 11 deals.json prices.**
+- /gifts/le-male-christmas-gifts/: Le Male Le Parfum 4.2 oz $93.95, Le Male Elixir 4.2 oz $93.95, Ultra Male 4.2 oz $77.95, all at FragranceShop. Lowest price first, so Ultra Male leads. Le Beau stays on best-selling colognes 2026. Title: "Buy Le Male Christmas Gifts Under $100: From $77.95" (51). Meta 150.
+- /gifts/replica-christmas-gifts/: Afternoon Delight 3.4 oz $78.95, Jazz Club 3.4 oz $81.95, Bubble Bath 3.4 oz $81.95, all at FragranceShop. Title: "Buy Replica Christmas Fragrance Gifts: From $78.95" (50). Meta 154.
+- /gifts/calvin-klein-christmas-fragrance-deals/: 11 Calvin Klein bottles from $17.95 (CK Free 3.4 oz at FragranceShop through Euphoria 3.3 oz $88.99 at FragranceNet). Title: "Buy Calvin Klein Christmas Deals: From $17.95" (45). Meta 154.
+- /gifts/black-friday-calvin-klein-under-30/: 6 Calvin Klein bottles under $30, from $17.95 (CK Free, Eternity Air $20.95, Beauty $23.95, CK One 1.7 oz $24.95 at Perfumania, CK Everyone 3.3 oz $29.95 at Perfumania, Eternity 3.4 oz $29.95). Title: "Buy Black Friday CK Deals Under $30: From $17.95" (48). Meta 150.
+
+Each new page has ItemList (Product with AggregateOffer) and FAQPage JSON-LD, a BreadcrumbList, a canonical on https://scentdealsdaily.com/gifts/<slug>/, a 1000×1500 pin, and a lead price plus Buy button before the cards. Inbound links: the homepage, /gifts/, the matching gender page, the brand page, and the Black Friday brand page. The Le Male, Replica, and Calvin Klein deal pages also link the guide that contains that bottle. Sitemap (318 URLs, was 314), llms.txt, and feed.xml (186 items) include the four URLs.
+
+**Titles/meta**
+The four new titles are 51, 50, 45, and 48. Their metas are 150, 154, 154, and 150. The 17 seller-page titles are 35–57 and the metas are 94–122. All titles are ≤60. All metas are 70–160. No duplicate titles or descriptions.
+
+**Checks:** local build on the 2026-11-11T18:55:32Z deals file. Sitemap 318 URLs (was 314). 0 broken internal links. JSON-LD parsed (321 pages, 318 breadcrumbs, 247 item lists, 2,136 product offers, 309 FAQ pages). 0 github.io links. Every canonical is on https://scentdealsdaily.com. CNAME is scentdealsdaily.com. Both Google site-verification meta tags stay on every page. data/deals.json and muse_deals.json were not edited. weekly-email.yml and send_weekly_email.py were not edited. No request was made to a CJ, Awin, Rakuten, or /go tracking URL. The build string-checked 4,992 affiliate hrefs. A local phone-size render of the Le Male Le Parfum deal page and the Le Male Christmas gift page showed the price and Buy button before the bottle photo. Affiliate hosts were mapped to localhost for that render.
+
+**Deploy:** this push goes straight to main and triggers daily-refresh (refresh + build + IndexNow + Pages). Live 200s are checked after that run.

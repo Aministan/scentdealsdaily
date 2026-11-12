@@ -710,7 +710,7 @@ def bestchips(): return ("<section class='box'><h2 style='margin-top:0'>Shop by 
     +"".join(f"<a href='{PREFIX}/dupes/{h['slug']}/'>{e(h['title'])}</a>" for h in HUBS)
     +"".join(f"<a href='{PREFIX}/vs/{v['slug']}/'>{e(v['title'])}</a>" for v in VS)+"</div></section>") if (ROUNDUPS or HUBS or VS) else ""
 # New holiday landings lead the chip row. A guide that missed its bottle minimum is already gone.
-_NEW_GIFT_SLUGS=("christmas-gift-sets-for-her-under-50","christmas-gift-sets-for-men-under-100","christmas-cologne-gifts-under-50","christmas-perfume-gifts-under-50","perfume-gifts-for-her-under-25","christmas-cologne-gifts-under-100","christmas-perfume-gifts-under-100","black-friday-unisex-fragrance-deals","cyber-monday-luxury-fragrance-deals","stocking-stuffers-for-men","stocking-stuffers-for-her","black-friday-designer-cologne","black-friday-luxury-perfume","cyber-monday-perfume-gift-sets","veterans-day-cologne-gifts","cyber-monday-cologne-under-40","christmas-fragrance-gifts-under-30","black-friday-perfume-under-30","friendsgiving-fragrance-gifts","early-black-friday-fragrance-deals","last-minute-christmas-fragrance-gifts","christmas-vanilla-fragrance-gifts","christmas-minis-under-40","black-friday-cologne-under-40","black-friday-perfume-under-40","thanksgiving-fragrance-gifts","cyber-monday-gift-sets","cyber-monday-perfume-under-30")
+_NEW_GIFT_SLUGS=("le-male-christmas-gifts","replica-christmas-gifts","calvin-klein-christmas-fragrance-deals","black-friday-calvin-klein-under-30","christmas-gift-sets-for-her-under-50","christmas-gift-sets-for-men-under-100","christmas-cologne-gifts-under-50","christmas-perfume-gifts-under-50","perfume-gifts-for-her-under-25","christmas-cologne-gifts-under-100","christmas-perfume-gifts-under-100","black-friday-unisex-fragrance-deals","cyber-monday-luxury-fragrance-deals","stocking-stuffers-for-men","stocking-stuffers-for-her","black-friday-designer-cologne","black-friday-luxury-perfume","cyber-monday-perfume-gift-sets","veterans-day-cologne-gifts","cyber-monday-cologne-under-40","christmas-fragrance-gifts-under-30","black-friday-perfume-under-30","friendsgiving-fragrance-gifts","early-black-friday-fragrance-deals","last-minute-christmas-fragrance-gifts","christmas-vanilla-fragrance-gifts","christmas-minis-under-40","black-friday-cologne-under-40","black-friday-perfume-under-40","thanksgiving-fragrance-gifts","cyber-monday-gift-sets","cyber-monday-perfume-under-30")
 _PRIORITY_GIFT_SLUGS=_NEW_GIFT_SLUGS+("christmas-cologne-gifts-for-son","christmas-cologne-gifts-for-brother","christmas-perfume-gifts-for-sister","winter-cologne-gifts","black-friday-gift-sets","christmas-cologne-gift-sets","christmas-perfume-gift-sets","white-elephant-fragrances-under-25","fragrance-gifts-for-him-under-25")
 _guide_chip={g["slug"]: (g.get("chip") or g["title"]) for g in GIFT_GUIDES}
 SEO_GIFTS=[(slug, _guide_chip[slug]) for slug in _NEW_GIFT_SLUGS if slug in _guide_chip]+[
@@ -742,7 +742,7 @@ VS_PAGES=[]
 # (relative path, deal) for each /fragrance/ page this build wrote.
 FRAGRANCE_PAGES=[]
 # Compact homepage set. Titles come from GIFT_SUBPAGES, not from this tuple.
-HOME_GIFT_SLUGS=("christmas-gift-sets-for-her-under-50","christmas-gift-sets-for-men-under-100","christmas-cologne-gifts-under-50","christmas-perfume-gifts-under-50","perfume-gifts-for-her-under-25","christmas-cologne-gifts-under-100","christmas-perfume-gifts-under-100","black-friday-unisex-fragrance-deals","cyber-monday-luxury-fragrance-deals","stocking-stuffers-for-men","stocking-stuffers-for-her","black-friday-designer-cologne","black-friday-luxury-perfume","cyber-monday-perfume-gift-sets","veterans-day-cologne-gifts","cyber-monday-cologne-under-40","christmas-fragrance-gifts-under-30","black-friday-perfume-under-30","friendsgiving-fragrance-gifts","early-black-friday-fragrance-deals","last-minute-christmas-fragrance-gifts","christmas-vanilla-fragrance-gifts","christmas-minis-under-40","for-him","for-her","under-50","holiday-gift-sets","black-friday-cologne-under-40","black-friday-perfume-under-40","thanksgiving-fragrance-gifts","cyber-monday-gift-sets","cyber-monday-perfume-under-30","christmas-cologne-gifts-for-son","christmas-cologne-gifts-for-brother","christmas-perfume-gifts-for-sister","winter-cologne-gifts","black-friday-gift-sets","perfume-gifts-for-her-under-50","perfume-gifts-for-her-under-30","best-mens-cologne-under-40","christmas-gift-sets-under-50","christmas-cologne-gift-sets","christmas-perfume-gift-sets","white-elephant-fragrances-under-25","fragrance-gifts-for-him-under-25","fragrance-gifts-for-teens","fragrance-gifts-for-coworkers-under-40","fragrance-gifts-for-teachers-under-40","fragrance-gifts-for-college-students","fragrance-gifts-for-boss","stocking-stuffer-fragrances","perfume-gifts-for-wife","cologne-gifts-for-husband","perfume-gifts-for-grandma","perfume-gifts-for-aunt","cologne-gifts-for-grandpa","cologne-gifts-for-uncle","perfume-gifts-for-sister","perfume-gifts-for-niece","perfume-gifts-for-daughter","cologne-gifts-for-brother","cologne-gifts-for-nephew","cologne-gifts-for-son","perfume-gifts-for-best-friend","perfume-gifts-for-mother-in-law","cologne-gifts-for-father-in-law","his-and-hers-fragrance-gifts","hanukkah-fragrance-gifts","fragrance-gifts-for-new-mom","perfume-gifts-for-granddaughter","cologne-gifts-for-grandson","cologne-gifts-for-new-dad","perfume-gifts-for-mom-under-50","christmas-cologne-gifts-for-dad","cologne-gifts-for-teen-boys","perfume-gifts-for-teen-girls","cologne-gifts-for-stepdad","fragrance-gifts-for-couples","perfume-gifts-for-stepmom","christmas-perfume-gifts-for-wife","perfume-gifts-for-daughter-in-law","cologne-gifts-for-son-in-law","christmas-cologne-gifts-for-husband","classic-cologne-gifts","christmas-cologne-gifts-for-boyfriend","christmas-perfume-gifts-for-girlfriend","christmas-cologne-gifts-for-him","christmas-perfume-gifts-for-her","best-selling-colognes-2026","best-selling-perfumes-2026","cologne-gifts-for-brother-in-law","perfume-gifts-for-sister-in-law","perfume-gifts-for-hostess")
+HOME_GIFT_SLUGS=("le-male-christmas-gifts","replica-christmas-gifts","calvin-klein-christmas-fragrance-deals","black-friday-calvin-klein-under-30","christmas-gift-sets-for-her-under-50","christmas-gift-sets-for-men-under-100","christmas-cologne-gifts-under-50","christmas-perfume-gifts-under-50","perfume-gifts-for-her-under-25","christmas-cologne-gifts-under-100","christmas-perfume-gifts-under-100","black-friday-unisex-fragrance-deals","cyber-monday-luxury-fragrance-deals","stocking-stuffers-for-men","stocking-stuffers-for-her","black-friday-designer-cologne","black-friday-luxury-perfume","cyber-monday-perfume-gift-sets","veterans-day-cologne-gifts","cyber-monday-cologne-under-40","christmas-fragrance-gifts-under-30","black-friday-perfume-under-30","friendsgiving-fragrance-gifts","early-black-friday-fragrance-deals","last-minute-christmas-fragrance-gifts","christmas-vanilla-fragrance-gifts","christmas-minis-under-40","for-him","for-her","under-50","holiday-gift-sets","black-friday-cologne-under-40","black-friday-perfume-under-40","thanksgiving-fragrance-gifts","cyber-monday-gift-sets","cyber-monday-perfume-under-30","christmas-cologne-gifts-for-son","christmas-cologne-gifts-for-brother","christmas-perfume-gifts-for-sister","winter-cologne-gifts","black-friday-gift-sets","perfume-gifts-for-her-under-50","perfume-gifts-for-her-under-30","best-mens-cologne-under-40","christmas-gift-sets-under-50","christmas-cologne-gift-sets","christmas-perfume-gift-sets","white-elephant-fragrances-under-25","fragrance-gifts-for-him-under-25","fragrance-gifts-for-teens","fragrance-gifts-for-coworkers-under-40","fragrance-gifts-for-teachers-under-40","fragrance-gifts-for-college-students","fragrance-gifts-for-boss","stocking-stuffer-fragrances","perfume-gifts-for-wife","cologne-gifts-for-husband","perfume-gifts-for-grandma","perfume-gifts-for-aunt","cologne-gifts-for-grandpa","cologne-gifts-for-uncle","perfume-gifts-for-sister","perfume-gifts-for-niece","perfume-gifts-for-daughter","cologne-gifts-for-brother","cologne-gifts-for-nephew","cologne-gifts-for-son","perfume-gifts-for-best-friend","perfume-gifts-for-mother-in-law","cologne-gifts-for-father-in-law","his-and-hers-fragrance-gifts","hanukkah-fragrance-gifts","fragrance-gifts-for-new-mom","perfume-gifts-for-granddaughter","cologne-gifts-for-grandson","cologne-gifts-for-new-dad","perfume-gifts-for-mom-under-50","christmas-cologne-gifts-for-dad","cologne-gifts-for-teen-boys","perfume-gifts-for-teen-girls","cologne-gifts-for-stepdad","fragrance-gifts-for-couples","perfume-gifts-for-stepmom","christmas-perfume-gifts-for-wife","perfume-gifts-for-daughter-in-law","cologne-gifts-for-son-in-law","christmas-cologne-gifts-for-husband","classic-cologne-gifts","christmas-cologne-gifts-for-boyfriend","christmas-perfume-gifts-for-girlfriend","christmas-cologne-gifts-for-him","christmas-perfume-gifts-for-her","best-selling-colognes-2026","best-selling-perfumes-2026","cologne-gifts-for-brother-in-law","perfume-gifts-for-sister-in-law","perfume-gifts-for-hostess")
 def register_gift_subpage(slug, title):
     if not slug or not str(title or "").strip():
         raise SystemExit("gift guide missing a slug or page title")
@@ -1191,6 +1191,78 @@ def also_popular(d):
         bits.append(f"<a href='{PREFIX}/fragrance/{frag_slug(other)}/'>{e(fullname(other))}</a> · ${other['price']:.2f}")
     if not bits: return ""
     return "<div class='also'>also popular: "+" · ".join(bits)+"</div>"
+def seller_line(d):
+    """Proven FragranceShop sellers and the closest bottles still in the price check.
+
+    Le Beau is a different Jean Paul Gaultier line, so it stays off the Le Male row.
+    A bottle that leaves deals.json leaves this row on the next rebuild.
+    """
+    brand=(d.get("brand") or "").lower()
+    name=(d.get("name") or "").lower()
+    if brand=="calvin klein": return "ck"
+    if brand=="maison margiela" and "replica" in name: return "replica"
+    if brand=="jean paul gaultier" and ("le male" in name or "ultra male" in name): return "le-male"
+    return ""
+def seller_short(d):
+    full=fullname(d)
+    for prefix in ("Calvin Klein ", "Jean Paul Gaultier ", "Maison Margiela "):
+        if full.startswith(prefix): return full[len(prefix):]
+    return full
+def seller_label(d):
+    short=seller_short(d)
+    if seller_line(d)=="ck" and not short.lower().startswith("ck"): return "CK "+short
+    return short
+def seller_h1(d):
+    Z=sz(d.get("size") or "")
+    P=f"${d['price']:.2f}"
+    label=seller_label(d)
+    return fit([f"{label} {Z}: {P}", f"{label}: {P}", label])
+def seller_title_meta(d):
+    """Price-led title and meta for a bottle that has sold, or its closest sibling."""
+    label=seller_label(d)
+    full=fullname(d)
+    Z=sz(d.get("size") or "")
+    P=f"${d['price']:.2f}"
+    when=f"{upd:%b %-d, %Y}"
+    pct=d.get("pct_off") or 0
+    title=next((c for c in (
+        f"Buy {label} {Z}: {P} ({pct}% Off)",
+        f"Buy {label}: {P} ({pct}% Off)",
+        f"Buy {label} {Z}: {P}",
+        f"Buy {label}: {P}",
+    ) if c and len(c)<=60 and c.startswith("Buy ") and P in c), None)
+    if not title:
+        raise SystemExit(f"{d.get('id')}: seller title does not fit")
+    meta=next((c for c in (
+        f"Buy {full} {Z} for {P} at {d['retailer']}, {pct}% off. Prices checked {when}.",
+        f"Buy {label} {Z} for {P} at {d['retailer']}, {pct}% off. Prices checked {when}.",
+        f"Buy {label} for {P} at {d['retailer']}. {pct}% off. Prices checked {when}.",
+        f"Buy {label} {Z} for {P}. {pct}% off. Prices checked {when}.",
+    ) if 70<=len(c)<=160 and c.startswith("Buy ") and P in c and "Prices checked" in c and when in c), None)
+    if not meta:
+        raise SystemExit(f"{d.get('id')}: seller meta does not fit")
+    return title, meta
+def seller_lead(d):
+    """Sticky price and Buy button. The date is this bottle's checked time."""
+    size=sz(d.get("size") or "")
+    size_bit=f" · {e(size)}" if size else ""
+    when=checked_h(d.get("checked"))
+    label="Buy at "+e(d["retailer"])+" →"
+    return (f"<div class='lead-offer'><p class='meta'>Best price · Price checked {e(when)}</p>"
+            f"<p class='lead-name'><b>{e(fullname(d))}</b>{size_bit}</p>"
+            f"<p class='lead-price'><span class='price'>${d['price']:.2f}</span> <span class='was'>${d['was']:.2f}</span> <span class='badge'>-{d['pct_off']}%</span> <span class='meta'>at {e(d['retailer'])}</span></p>"
+            f"{ext_a(d['url'], label, cls='btn', style='max-width:340px', placement='cta', product=frag_slug(d))}</div>")
+def seller_family_links(d):
+    """Internal links to the other bottles in this line. Prices come from deals.json."""
+    line=seller_line(d)
+    if not line: return ""
+    others=[x for x in deals if x.get("id")!=d.get("id") and seller_line(x)==line]
+    others.sort(key=lambda x:(x["price"], x["id"]))
+    if not others: return ""
+    label={"ck":"Other Calvin Klein bottles","replica":"Other Replica scents","le-male":"Other Le Male colognes"}[line]
+    bits=[f"<a href='{PREFIX}/fragrance/{frag_slug(x)}/'>{e(fullname(x))}</a> · ${x['price']:.2f}" for x in others]
+    return f"<div class='also'>{e(label)}: "+" · ".join(bits)+"</div>"
+SELLER_PAGES=[]
 KW=[]
 for d in deals:
     full=fullname(d); s=frag_slug(d); use_sid("deal", s); KW+= [f"{full.lower()} cheapest price",f"{full.lower()} sale",f"{full.lower()} {sz(d['size']).lower()} deal"]
@@ -1199,7 +1271,7 @@ for d in deals:
     _lower=[c for c in (d.get("comps") or []) if c.get("retailer")!=d.get("retailer") and c.get("retailer") in merchants.AFFILIATE_COMMISSION and isinstance(c.get("price"),(int,float)) and not isinstance(c.get("price"),bool) and float(c["price"])+0.009<float(d["price"])]
     if _lower:
         _lo=min(_lower, key=lambda c: float(c["price"]))
-        _price_q=(f"As of {upd_h}, the buy button is ${d['price']:.2f} for {d['size']} at {d['retailer']}. {_lo['retailer']} is ${float(_lo['price']):.2f}. The two prices are within 5%, so the higher-commission store is the buy button.")
+        _price_q=(f"As of {upd_h}, the buy button is ${d['price']:.2f} for {d['size']} at {d['retailer']}. {_lo['retailer']} is ${float(_lo['price']):.2f}. The two prices are within ${merchants.CLOSE_DOLLARS:.0f}, so the higher-commission store is the buy button.")
     else:
         _price_q=f"As of {upd_h}, the lowest price we verified is ${d['price']:.2f} for {d['size']} at {d['retailer']}, {d['pct_off']}% below {('the $%.2f at %s' % (d['was'],d['was_label'])) if d.get('was_label') else ('its listed $%.2f' % d['was'])}."
     qs=[(f"What is the cheapest price for {full} right now?", _price_q),
@@ -1207,8 +1279,15 @@ for d in deals:
         (f"Is the {d['retailer']} {full} authentic?",f"{d['retailer']} is a long-established US fragrance chain selling genuine designer brands. We exclude marketplace sellers and tester listings."),
         (f"How much does {full} cost per ounce?",(f"At ${d['price']:.2f} for {d['size']} it works out to ${per_oz(d):.2f} per ounce, and you save ${d['was']-d['price']:.2f} versus the ${d['was']:.2f} listed price." if per_oz(d) else f"At ${d['price']:.2f} you save ${d['was']-d['price']:.2f} versus the ${d['was']:.2f} listed price."))]
     rus=roundups_of(d)
-    body=(f"<h1>{e(full)} {e(sz(d['size']))}: cheapest price today</h1><p class='sub'>Lowest verified price: <b class='price'>${d['price']:.2f}</b> <span class='was'>${d['was']:.2f}</span> <span class='badge'>-{d['pct_off']}%</span> at {e(d['retailer'])} · checked {checked_h(d.get('checked'))}</p>"
-      +buy(d['url'],d['retailer'], frag_slug(d))+also_line(d)+also_popular(d)
+    line=seller_line(d)
+    if line:
+        when_row=checked_h(d.get("checked"))
+        head=(f"<h1>{e(seller_h1(d))}</h1><p class='sub'>Prices checked {e(when_row)}.</p>"
+          +seller_lead(d)+seller_family_links(d)+also_popular(d)+also_line(d))
+    else:
+        head=(f"<h1>{e(full)} {e(sz(d['size']))}: cheapest price today</h1><p class='sub'>Lowest verified price: <b class='price'>${d['price']:.2f}</b> <span class='was'>${d['was']:.2f}</span> <span class='badge'>-{d['pct_off']}%</span> at {e(d['retailer'])} · checked {checked_h(d.get('checked'))}</p>"
+          +buy(d['url'],d['retailer'], frag_slug(d))+also_line(d)+also_popular(d))
+    body=(head
       +f"<div class='box' style='display:flex;gap:16px;flex-wrap:wrap'><img src='{e(d['image'] or '')}' alt='{e(full)}' width=220 height=220 fetchpriority=high decoding=async style='object-fit:contain'><div style='flex:1;min-width:220px'><h2 style='margin-top:0'>Price comparison</h2><table><thead><tr><th>Retailer</th><th>Size</th><th>Price</th><th>Checked</th></tr></thead><tbody>{comprows(d)}</tbody></table><p class=meta>More retailers are added as we verify them. We never list unverified prices.</p></div></div>"
       +BREVO_FORM
       +f"<p>{e(full)} is one of today's best {gl} deals: {d['pct_off']}% {('below the '+e(d['was_label'])+' price') if d.get('was_label') else 'off the listed price'}, a {d['type'].lower() or 'fragrance'} from {e(d['brand'])} (<a href='{PREFIX}/brands/{bslug(d['brand'])}/'>all {e(canon(d['brand']))} deals</a>{"".join(", <a href='"+PREFIX+"/best/"+ru['slug']+"/'>"+e(ru['title'].lower().replace('best ','more '))+"</a>" for ru in rus)}).</p>"
@@ -1219,12 +1298,17 @@ for d in deals:
     save=d['was']-d['price']
     was_bit=(f"{d['pct_off']}% below the ${d['was']:.2f} {d['was_label']} price" if d.get('was_label') else f"{d['pct_off']}% off the ${d['was']:.2f} list price")
     frag_rel=f"fragrance/{s}/index.html"
-    page(frag_rel,fit([f"{full} {Z} Sale: {P} ({d['pct_off']}% Off) – Cheapest Price {upd:%b %Y}",f"{full} {Z} Sale: {P} ({d['pct_off']}% Off)",f"{short} {Z} Sale: {P} ({d['pct_off']}% Off)",f"{short} {Z}: {P} ({d['pct_off']}% Off)",f"{short}: {P} ({d['pct_off']}% Off)",f"{short.replace(canon(d['brand'])+' ','',1).replace(d['brand']+' ','',1)} {Z}: {P} ({d['pct_off']}% Off)"]),
-      fit([f"{full} {Z} is {P} at {d['retailer']}, {was_bit} (save ${save:.2f}). Sealed bottle, checked {upd:%b %-d, %Y}.",
+    if line:
+        frag_title, frag_desc=seller_title_meta(d)
+    else:
+        frag_title=fit([f"{full} {Z} Sale: {P} ({d['pct_off']}% Off) – Cheapest Price {upd:%b %Y}",f"{full} {Z} Sale: {P} ({d['pct_off']}% Off)",f"{short} {Z} Sale: {P} ({d['pct_off']}% Off)",f"{short} {Z}: {P} ({d['pct_off']}% Off)",f"{short}: {P} ({d['pct_off']}% Off)",f"{short.replace(canon(d['brand'])+' ','',1).replace(d['brand']+' ','',1)} {Z}: {P} ({d['pct_off']}% Off)"])
+        frag_desc=fit([f"{full} {Z} is {P} at {d['retailer']}, {was_bit} (save ${save:.2f}). Sealed bottle, checked {upd:%b %-d, %Y}.",
            f"{full} {Z} is {P} at {d['retailer']}, {was_bit}. Sealed, checked {upd:%b %-d, %Y}.",
-           f"{full} {Z} for {P} at {d['retailer']} ({was_bit}). Checked {upd:%b %-d, %Y}."],160),body,
+           f"{full} {Z} for {P} at {d['retailer']} ({was_bit}). Checked {upd:%b %-d, %Y}."],160)
+    page(frag_rel, frag_title, frag_desc, body,
       [itemlist([d], f"{full} {sz(d['size'])}"), prod_ld(d, name=f"{full} {d['size']}", brand=d['brand']), faqld(qs)])
     FRAGRANCE_PAGES.append((frag_rel, d))
+    if line: SELLER_PAGES.append((frag_rel, d))
 def nohouse(n):
     """Name without the house prefix (Armaf/Lattafa/MFK/YSL...), for titles that would run past 60 chars."""
     w=re.sub(r' [(].*?[)]','',n).split(); k=2 if w[0] in ("Al","Ariana") else 1
@@ -2369,6 +2453,18 @@ if any(g["slug"]=="christmas-perfume-gifts-under-50" and g.get("picks") for g in
 if any(g["slug"]=="cyber-monday-luxury-fragrance-deals" and g.get("picks") for g in GIFT_GUIDES):
     for _slug in ("luxury-fragrance-gifts","luxury-fragrance-gifts-under-100","luxury-cologne-gifts-for-him","luxury-perfume-gifts-for-her","black-friday-luxury-perfume"):
         _prepend_gift_link(_slug, "/gifts/cyber-monday-luxury-fragrance-deals/", "Cyber Monday luxury fragrance deals")
+if any(g["slug"]=="le-male-christmas-gifts" and g.get("picks") for g in GIFT_GUIDES):
+    for _slug in ("christmas-cologne-gifts-under-100","christmas-cologne-gifts-for-him","best-selling-colognes-2026","cologne-gifts-for-husband","christmas-cologne-gifts-for-dad"):
+        _prepend_gift_link(_slug, "/gifts/le-male-christmas-gifts/", "Le Male Christmas gifts")
+if any(g["slug"]=="replica-christmas-gifts" and g.get("picks") for g in GIFT_GUIDES):
+    for _slug in ("luxury-fragrance-gifts","luxury-fragrance-gifts-under-100","cyber-monday-luxury-fragrance-deals","christmas-cologne-gifts-for-him","for-him"):
+        _prepend_gift_link(_slug, "/gifts/replica-christmas-gifts/", "Replica Christmas gifts")
+if any(g["slug"]=="calvin-klein-christmas-fragrance-deals" and g.get("picks") for g in GIFT_GUIDES):
+    for _slug in ("christmas-cologne-gifts-under-50","christmas-perfume-gifts-under-50","best-selling-perfumes-2026","christmas-cologne-gifts-for-boyfriend","christmas-fragrance-gifts-under-30"):
+        _prepend_gift_link(_slug, "/gifts/calvin-klein-christmas-fragrance-deals/", "Calvin Klein Christmas fragrance deals")
+if any(g["slug"]=="black-friday-calvin-klein-under-30" and g.get("picks") for g in GIFT_GUIDES):
+    for _slug in ("calvin-klein-christmas-fragrance-deals","christmas-fragrance-gifts-under-30","black-friday-perfume-under-30","christmas-cologne-gifts-under-50","black-friday-unisex-fragrance-deals"):
+        _prepend_gift_link(_slug, "/gifts/black-friday-calvin-klein-under-30/", "Black Friday Calvin Klein under $30")
 # Indexed luxury guides. /gifts/luxury-unisex-fragrance-gifts/ is not one of them:
 # the deals file does not have six unisex bottles at the luxury compare-at, and this pass adds no page.
 LUXURY_GIFT_SLUGS=frozenset({
@@ -4009,6 +4105,17 @@ def bf_brand_page_links(brand, rows):
         if path in seen: continue
         seen.add(path)
         links.append((path, fullname(d)))
+    for href, label in {
+        "Jean Paul Gaultier": (("/gifts/le-male-christmas-gifts/", "Le Male Christmas gifts"),),
+        "Maison Margiela": (("/gifts/replica-christmas-gifts/", "Replica Christmas gifts"),),
+        "Calvin Klein": (
+            ("/gifts/calvin-klein-christmas-fragrance-deals/", "Calvin Klein Christmas fragrance deals"),
+            ("/gifts/black-friday-calvin-klein-under-30/", "Black Friday Calvin Klein under $30"),
+        ),
+    }.get(brand, ()):
+        rel=href.strip("/")+"/index.html"
+        if os.path.isfile(f"{OUT}/{rel}") and href not in {h for h,_ in links}:
+            links.append((href, label))
     html_s="<p class='chips'>"+"".join(f"<a href='{PREFIX}{href}'>{e(label)}</a>" for href, label in links)+"</p>"
     return html_s, links
 def _link_brand_page_to_bf(brand, slug_s):
@@ -6047,6 +6154,141 @@ def audit_converter_fold():
     print("converter fold: proven FragranceShop bottles are above the fold, with also-popular deal links")
 audit_product_sids()
 audit_converter_fold()
+def audit_seller_pages():
+    """Proven sellers and their closest siblings: Buy title, sticky price, and the higher-commission store when prices are close."""
+    if len(SELLER_PAGES)<12:
+        raise SystemExit(f"seller pages: expected the CK, Le Male, and Replica rows, found {len(SELLER_PAGES)}")
+    seen_title={}
+    lines={}
+    for rel, d in SELLER_PAGES:
+        line=seller_line(d)
+        lines.setdefault(line, []).append(d)
+        text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+        title=html.unescape(re.search(r"<title>(.*?)</title>", text, re.S).group(1))
+        desc=html.unescape(re.search(r'<meta name="description" content="([^"]*)"', text).group(1))
+        price=f"${d['price']:.2f}"
+        if len(title)>60 or not title.startswith("Buy ") or price not in title:
+            raise SystemExit(f"{rel}: title is {len(title)} chars or misses Buy / price ({title})")
+        if not (70<=len(desc)<=160) or not desc.startswith("Buy ") or price not in desc or "Prices checked" not in desc:
+            raise SystemExit(f"{rel}: meta is {len(desc)} chars or misses Buy, price, or the check date ({desc})")
+        if title in seen_title:
+            raise SystemExit(f"{rel}: title duplicates {seen_title[title]}")
+        seen_title[title]=rel
+        lead=re.search(r"<div class='lead-offer'>(.*?)</div>", text, re.S)
+        lead_at=text.find("<div class='lead-offer'>")
+        card_at=text.find('<article class="card">')
+        if not lead or "Buy at " not in lead.group(1) or price not in lead.group(1) or "Price checked " not in lead.group(1):
+            raise SystemExit(f"{rel}: lead Buy is missing the price or the check date")
+        if "<img" in lead.group(1):
+            raise SystemExit(f"{rel}: lead block has an image")
+        if lead_at<0 or card_at<0 or lead_at>card_at:
+            raise SystemExit(f"{rel}: cards are above the lead Buy")
+        main=text.split("<main>",1)[-1]
+        if main.find("Prices checked")<0 or main.find("Prices checked")>main.find("<div class='lead-offer'>"):
+            raise SystemExit(f"{rel}: Prices checked is not above the Buy button")
+        canon=re.search(r'<link rel="canonical" href="([^"]+)"', text)
+        if not canon or not canon.group(1).startswith("https://scentdealsdaily.com/fragrance/"):
+            raise SystemExit(f"{rel}: canonical is not on the live host")
+        offers=[]
+        def add(retailer, price_n, url):
+            if retailer in merchants.AFFILIATE_COMMISSION and isinstance(price_n,(int,float)) and not isinstance(price_n, bool) and url:
+                offers.append({"retailer": retailer, "price": price_n, "url": url})
+        add(d.get("retailer"), d.get("price"), d.get("url"))
+        for comp in d.get("comps") or []:
+            if isinstance(comp, dict): add(comp.get("retailer"), comp.get("price"), comp.get("url"))
+        chosen=merchants.prefer(offers)
+        if not chosen or chosen.get("retailer")!=d.get("retailer"):
+            raise SystemExit(f"{rel}: buy button is not the close higher-commission store")
+        table=re.search(r"<tbody>(.*?)</tbody>", text, re.S)
+        if not table or e(d["retailer"]) not in table.group(1)[:400]:
+            raise SystemExit(f"{rel}: price table does not lead with {d.get('retailer')}")
+        sibs=[x for x in deals if x.get("id")!=d.get("id") and seller_line(x)==line]
+        block=text.split("<div class='lead-offer'>", 1)[1][:4000]
+        for sib in sibs:
+            href=f"{PREFIX}/fragrance/{frag_slug(sib)}/"
+            if href not in block or f"${sib['price']:.2f}" not in block:
+                raise SystemExit(f"{rel}: missing the sibling link for {sib.get('id')}")
+        print(f"{rel}: {title} ({len(title)}) / meta {len(desc)} / {d['retailer']} {price}")
+    for line, need in (("ck", 8), ("le-male", 3), ("replica", 3)):
+        if len(lines.get(line) or [])<need:
+            raise SystemExit(f"seller pages: {line} has {len(lines.get(line) or [])}, need {need}")
+    print(f"seller pages: {len(SELLER_PAGES)} Buy titles, lead price above the cards")
+audit_seller_pages()
+def audit_nov12_pages():
+    """Holiday buying pages for the bottles that have sold, plus their lines. Not reprints of an older guide."""
+    slugs=(
+        "le-male-christmas-gifts",
+        "replica-christmas-gifts",
+        "calvin-klein-christmas-fragrance-deals",
+        "black-friday-calvin-klein-under-30",
+    )
+    sm=open(f"{OUT}/sitemap.xml", encoding="utf-8").read()
+    llms=open(f"{OUT}/llms.txt", encoding="utf-8").read()
+    feed=open(f"{OUT}/feed.xml", encoding="utf-8").read()
+    by_picks={slug: tuple(f"{d['id']}|{sz(d.get('size') or '')}|{d['price']:.2f}" for d in picks) for slug, _h1, picks in GIFT_PAGE_PICKS}
+    hubs=("gifts/index.html","index.html","men/index.html","women/index.html","unisex/index.html")
+    hub_text={rel: open(f"{OUT}/{rel}", encoding="utf-8").read() for rel in hubs}
+    brand_text={
+        "le-male-christmas-gifts": open(f"{OUT}/brands/jean-paul-gaultier/index.html", encoding="utf-8").read(),
+        "replica-christmas-gifts": open(f"{OUT}/brands/maison-margiela/index.html", encoding="utf-8").read(),
+        "calvin-klein-christmas-fragrance-deals": open(f"{OUT}/brands/calvin-klein/index.html", encoding="utf-8").read(),
+        "black-friday-calvin-klein-under-30": open(f"{OUT}/brands/calvin-klein/index.html", encoding="utf-8").read(),
+    }
+    bf_text={
+        "le-male-christmas-gifts": open(f"{OUT}/black-friday/jean-paul-gaultier/index.html", encoding="utf-8").read(),
+        "replica-christmas-gifts": open(f"{OUT}/black-friday/maison-margiela/index.html", encoding="utf-8").read(),
+        "calvin-klein-christmas-fragrance-deals": open(f"{OUT}/black-friday/calvin-klein/index.html", encoding="utf-8").read(),
+        "black-friday-calvin-klein-under-30": open(f"{OUT}/black-friday/calvin-klein/index.html", encoding="utf-8").read(),
+    }
+    for slug in slugs:
+        rel=f"gifts/{slug}/index.html"
+        if not os.path.isfile(f"{OUT}/{rel}"):
+            raise SystemExit(f"{rel}: Nov 12 page was not built")
+        text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+        title=html.unescape(re.search(r"<title>(.*?)</title>", text, re.S).group(1))
+        desc=html.unescape(re.search(r'<meta name="description" content="([^"]*)"', text).group(1))
+        if len(title)>60 or not title.startswith("Buy ") or "From $" not in title:
+            raise SystemExit(f"{rel}: title is {len(title)} chars or misses Buy / From price ({title})")
+        if not (70<=len(desc)<=160) or not desc.startswith("Buy ") or "from $" not in desc:
+            raise SystemExit(f"{rel}: meta is {len(desc)} chars or misses Buy / from price ({desc})")
+        key=by_picks.get(slug)
+        if not key or len(key)<3:
+            raise SystemExit(f"{slug}: expected at least 3 priced bottles, got {0 if not key else len(key)}")
+        twins=[other for other, rows in by_picks.items() if other!=slug and rows==key]
+        if twins:
+            raise SystemExit(f"{slug}: same products as {', '.join(twins)}")
+        loc=f"{BASE}{PREFIX}/gifts/{slug}/"
+        if f"<loc>{loc}</loc>" not in sm or loc not in llms or loc not in feed:
+            raise SystemExit(f"{loc} missing from sitemap, llms.txt, or feed.xml")
+        canon=re.search(r'<link rel="canonical" href="([^"]+)"', text)
+        if not canon or canon.group(1)!=loc:
+            raise SystemExit(f"{rel}: canonical is not {loc}")
+        lead=re.search(r"<div class='lead-offer'>(.*?)</div>", text, re.S)
+        card_at=text.find('<article class="card">')
+        if not lead or "Price checked " not in lead.group(1) or "Buy at " not in lead.group(1) or "<img" in lead.group(1):
+            raise SystemExit(f"{rel}: lead Buy is missing the price-checked date")
+        if card_at<0 or text.find("lead-offer")>card_at:
+            raise SystemExit(f"{rel}: cards are above the lead Buy")
+        if "Prices checked" not in text[:card_at]:
+            raise SystemExit(f"{rel}: Prices checked is not above the cards")
+        if '"@type":"FAQPage"' not in text and '"@type": "FAQPage"' not in text:
+            raise SystemExit(f"{rel}: missing FAQPage")
+        if '"@type":"ItemList"' not in text and '"@type": "ItemList"' not in text:
+            raise SystemExit(f"{rel}: missing ItemList")
+        if "AggregateOffer" not in text:
+            raise SystemExit(f"{rel}: ItemList product is missing an AggregateOffer")
+        if '"@type": "BreadcrumbList"' not in text and '"@type":"BreadcrumbList"' not in text:
+            raise SystemExit(f"{rel}: missing BreadcrumbList")
+        href=f"{PREFIX}/gifts/{slug}/"
+        inbound=[hub for hub, blob in hub_text.items() if f"href='{href}'" in blob or f'href="{href}"' in blob]
+        if f"href='{href}'" not in brand_text[slug] and f'href="{href}"' not in brand_text[slug]:
+            raise SystemExit(f"{rel}: brand page does not link it")
+        if f"href='{href}'" not in bf_text[slug] and f'href="{href}"' not in bf_text[slug]:
+            raise SystemExit(f"{rel}: Black Friday brand page does not link it")
+        if len(inbound)<3:
+            raise SystemExit(f"{rel}: only {len(inbound)} hub links ({inbound})")
+        print(f"{rel}: {title} ({len(title)}) / meta {len(desc)} / {len(key)} bottles / hubs {', '.join(inbound)}")
+audit_nov12_pages()
 import subprocess, sys
 _validator=subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "validate_jsonld.py")])
 if _validator.returncode!=0:
