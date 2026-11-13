@@ -1,5 +1,5 @@
 # ScentDealsDaily
-> Daily-checked discounts on authentic designer fragrances at reputable retailers, plus a cited dupes directory. Last updated 2026-11-11T18:55:32Z.
+> Daily-checked discounts on authentic designer fragrances at reputable retailers, plus a cited dupes directory. Last updated 2026-11-12T18:54:27Z.
 
 ## Today's deals (price USD, size, retailer, % off listed compare-at)
 - Juicy Couture Peace Love & Juicy Couture Perfume 3.4 oz.: $20.95 (was $89.00, -76%) at FragranceShop: https://www.fragranceshop.com/product/peace-love-juicy-couture-perfume-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz
@@ -102,7 +102,7 @@
 - Dior Sauvage Elixir -> Lattafa Asad: $39.99 3.4 oz. at Perfumania https://www.perfumania.com/products/lattafa-asad-cologne-eau-de-parfum-for-men?variant=41094013976709 (sources: https://perfumania.com/blogs/articles/top-6-luxury-fragrance-dupes-in-2026)
 - Creed Silver Mountain Water -> Armaf Club de Nuit Sillage: $34.95 3.6 oz. at Perfumania https://www.perfumania.com/products/club-de-nuit-sillage-unisex-fragrance?variant=41266471370885 (sources: https://perfumania.com/blogs/articles/top-6-luxury-fragrance-dupes-in-2026, https://altscent.app/clone-list/)
 - Jean Paul Gaultier Ultra Male -> Afnan 9PM: $42.99 5.0 oz. at Perfumania https://www.perfumania.com/products/9pm-cologne?variant=41961878388869 (sources: https://perfumania.com/blogs/articles/top-6-luxury-fragrance-dupes-in-2026)
-- Creed Millésime Impérial -> Armaf Club de Nuit Milestone: $26.95 3.6 oz. at FragranceShop https://www.fragranceshop.com/product/armaf-club-de-nuit-milestone-for-unisex/?attribute_pa_size=eau-de-parfum-spray-3-6-oz (sources: https://scentfile.com/clone-list.csv, https://altscent.app/clone-list/)
+- Creed Millésime Impérial -> Armaf Club de Nuit Milestone (sources: https://scentfile.com/clone-list.csv, https://altscent.app/clone-list/)
 - YSL Y Eau de Parfum -> Lattafa Fakhar Black: $39.99 3.4 oz. at Perfumania https://www.perfumania.com/products/fakhar-eau-de-parfum-1?variant=41052514484357 (sources: https://altscent.app/clone-list/)
 - Mugler Angel Nova -> Lattafa Mayar: $20.95 3.4 oz. at FragranceShop https://www.fragranceshop.com/product/lattafa-mayar-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz (sources: https://altscent.app/clone-list/)
 - Bleu de Chanel EDP -> Armaf Club de Nuit Iconic (Blue Iconic) (sources: https://www.thelastspritz.com/best-cologne-dupes, https://scentfile.com/clone-list.csv)
@@ -270,6 +270,10 @@ https://scentdealsdaily.com/gifts/stocking-stuffer-minis/
 https://scentdealsdaily.com/gifts/holiday-gift-sets/
 https://scentdealsdaily.com/gifts/christmas-gift-sets-under-50/
 https://scentdealsdaily.com/gifts/gift-sets/
+https://scentdealsdaily.com/gifts/la-vie-est-belle-christmas-gifts/
+https://scentdealsdaily.com/gifts/good-girl-perfume-gift-deals/
+https://scentdealsdaily.com/gifts/best-selling-womens-perfume-gifts-under-100/
+https://scentdealsdaily.com/gifts/famous-fragrance-gifts-under-100/
 https://scentdealsdaily.com/gifts/le-male-christmas-gifts/
 https://scentdealsdaily.com/gifts/replica-christmas-gifts/
 https://scentdealsdaily.com/gifts/calvin-klein-christmas-fragrance-deals/

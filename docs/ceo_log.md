@@ -1,5 +1,36 @@
 # ScentDealsDaily CEO log
 
+## 2026-11-13 (Fri) — women's sellers in the fold, four holiday lists
+
+**Refresh status:** origin/main at the start of this pass was 270cafe0 "daily refresh". data/deals.json is stamped 2026-11-12T18:54:27Z (Nov 12, 2026 2:54 PM ET): 89 live deals. This pass did not edit data/deals.json and did not re-fetch prices. The push triggers daily-refresh, which owns the next price check.
+
+**Muse result:** the attached muse_deals.json is the same 56-row file already in the repo (sha1 26cbc2509317eb00083be99cb218afc8c4359a31). Nothing merged. Still skipped: every eBay row, Walmart/PerfumesAmerica, Nordstrom Rack, Amazon, marketplace sellers, and the Sephora reference row. Ulta stays compare-only. No prices were invented.
+
+**Merchant order:** scripts/merchants.py was not changed. The build logged no buy-button move. When two approved stores are within $2, the higher-commission store stays the button (FragranceShop 5%, then Perfumania 4%, then FragranceNet).
+
+**Conversion (generator, so the daily refresh keeps it)**
+Shoppers have bought Lancôme La Vie Est Belle 3.4 oz ($93.95 at FragranceShop), Carolina Herrera Good Girl 2.7 oz ($91.95 at FragranceShop), and Maison Margiela Replica Bubble Bath 3.4 oz ($81.95 at FragranceShop). Those three now sit on the also-popular row with Le Male Le Parfum, Afternoon Delight, and CK Free. Each of those six deal pages links the other five at the prices in deals.json.
+- Homepage fold, in order: La Vie Est Belle 3.4 oz $93.95, Good Girl $91.95, Le Male Le Parfum $93.95, Afternoon Delight $78.95, CK Free $17.95. All FragranceShop. The price and the Buy button are above the product grid.
+- /women/ fold: La Vie Est Belle 3.4 oz and Good Girl, then the steepest remaining women's FragranceShop bottle.
+- Every Lancôme deal page and every Carolina Herrera deal page now leads with the checked price and one Buy button above the photo, plus links to the other bottles in that house. That is La Vie Est Belle 3.4 oz and 1.0 oz, Idôle, Poeme, Good Girl, Very Good Girl, Good Girl Blush, and Bad Boy. Titles start with Buy and include the checked price.
+- Bubble Bath already had the Replica price-and-Buy fold. It is now on the also-popular row and named on /gifts/replica-christmas-gifts/ as a bottle shoppers have bought, with a link to its deal page.
+- /black-friday-cologne-deals/ (the grid whose shopper id sold Le Male) leads with Le Male Le Parfum. /black-friday-perfume-deals/ leads with La Vie Est Belle 3.4 oz, then Good Girl. /cyber-monday-fragrance-deals/ and the $50 to $100 band on /black-friday/ lead with Le Male Le Parfum, La Vie Est Belle 3.4 oz, Good Girl, Afternoon Delight, and Bubble Bath. The /black-friday/ fold is those first three. The rest of each grid stays largest discount first.
+
+**New pages (4, config `gift_guides`, so they survive the rebuild). Prices are the Nov 12 deals.json prices.**
+- /gifts/la-vie-est-belle-christmas-gifts/: La Vie Est Belle 1.0 oz $70.95 at FragranceShop, Poeme 3.4 oz $83.95 at Perfumania, La Vie Est Belle 3.4 oz $93.95 at FragranceShop, Idôle 3.4 oz $104.95 at FragranceShop. Title: "Buy La Vie Est Belle Christmas Gifts: From $70.95" (49). Meta 154.
+- /gifts/good-girl-perfume-gift-deals/: Very Good Girl 1.7 oz $80.95, Good Girl 2.7 oz $91.95, Good Girl Blush 2.7 oz $100.95, all at FragranceShop. Title: "Buy Good Girl Perfume Gift Deals: From $80.95" (45). Meta 157.
+- /gifts/best-selling-womens-perfume-gifts-under-100/: Very Good Girl $80.95, Black Opium 1.6 oz $84.95, Good Girl $91.95, La Vie Est Belle 3.4 oz $93.95, Donna Born in Roma 1.7 oz $94.95. Title: "Buy Best-Selling Perfume Under $100: From $80.95" (48). Meta 123.
+- /gifts/famous-fragrance-gifts-under-100/: Afternoon Delight $78.95, Bubble Bath $81.95, Good Girl $91.95, Le Male Le Parfum $93.95, La Vie Est Belle 3.4 oz $93.95. Title: "Buy Famous Fragrance Gifts Under $100: From $78.95" (50). Meta 111.
+
+Each new page has ItemList (Product with AggregateOffer) and FAQPage JSON-LD, a BreadcrumbList, a canonical on https://scentdealsdaily.com/gifts/<slug>/, a 1000×1500 pin, and a lead price plus Buy button before the cards. The homepage, /gifts/, /women/ or /men/ or /unisex/, /black-friday/, and the matching brand pages link them. Sitemap (322 URLs, was 318), llms.txt, and feed.xml include the four URLs.
+
+**Titles/meta**
+The four new titles are 49, 45, 48, and 50. Their metas are 154, 157, 123, and 111. The new seller-page titles are 42–53 and the metas are 96–119. All titles are ≤60. All metas are 70–160. No duplicate titles or descriptions.
+
+**Checks:** local build on the 2026-11-12T18:54:27Z deals file. Sitemap 322 URLs (was 318). 0 broken internal links. JSON-LD parsed (325 pages, 322 breadcrumbs, 251 item lists, 2,153 product offers, 313 FAQ pages). 0 github.io links. Every canonical is on https://scentdealsdaily.com. CNAME is scentdealsdaily.com. Both Google site-verification meta tags stay on every page. data/deals.json was not edited. No request was made to a CJ, Awin, Rakuten, or /go tracking URL.
+
+**Deploy:** this push goes straight to main and triggers daily-refresh (refresh + build + IndexNow + Pages). Live 200s are checked after that run.
+
 ## 2026-10-16 (Fri) — daily optimization pass (Grok Bot)
 
 **Refresh status:** today's scheduled `daily-refresh` run (run 38923372351, started 11:22 AM ET, ~4h after the 7:17 AM cron because GitHub delayed it) finished "success" and deployed, but it was degraded: Perfumania answered **HTTP 429 Too Many Requests** halfway through, so 13 compare-deals and 13/15 dupe prices were silently dropped (site went from ~37 to 28 deals, 2/15 dupes priced). IndexNow step also failed (403).
