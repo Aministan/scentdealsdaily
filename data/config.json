@@ -747,9 +747,218 @@
    "pick": "Pick Eros when you want mint, green apple, and vanilla. Pick Acqua di Gio when you want citrus and a marine note. Read the size row before you treat the two stickers as the same amount of juice.",
    "title_tag": "Buy Eros or Acqua di Gio",
    "meta_hook": "Buy the mint-apple cologne or the citrus marine one."
+  },
+  {
+   "slug": "le-male-le-parfum-vs-elixir",
+   "title": "Le Male Le Parfum vs Elixir",
+   "a": "fs-jpg-le-male-le-parfum-4-2",
+   "b": "fs-jpg-le-male-elixir-parfum-4-2",
+   "a_notes": "Stronger Le Male, mint and vanilla in the stored brand copy. Sold here as eau de parfum intense. No separate note pyramid is stored for Le Parfum versus Elixir.",
+   "b_notes": "Stronger Le Male, mint and vanilla in the stored brand copy. Sold here as parfum. The same copy groups it with Le Parfum.",
+   "intro": "Two stronger bottles in the Le Male line, both 4.2 oz in this price check. Le Male Le Parfum is the eau de parfum intense. Le Male Elixir is the parfum. The stored brand copy calls Le Male mint and vanilla and calls both of these the stronger versions of that line. It does not publish a separate note list for one versus the other, so this page compares concentration and the checked price. Ultra Male is the sweeter eau de toilette and stays on the Le Male Christmas page. The original Le Male eau de toilette is not in this price check.",
+   "difference": "Le Male Le Parfum and Le Male Elixir are both the stronger Le Male in the stored brand copy, which describes the line as mint and vanilla. The retailer lists Le Parfum as eau de parfum intense and Elixir as parfum. Both are 4.2 oz here. The copy does not split cardamom, iris, or any other note between them, so this page does not invent that split. Ultra Male is the sweeter eau de toilette flanker. This is not a wear-time test.",
+   "pick": "Pick Le Male Le Parfum or Elixir when you want the stronger Le Male, then use the concentration row and the checked price. Pick Ultra Male on the Le Male Christmas page when you want the sweeter eau de toilette. This page does not price the original Le Male eau de toilette.",
+   "title_tag": "Le Male Le Parfum vs Elixir",
+   "meta_hook": "Buy the eau de parfum intense or the parfum.",
+   "faq": [
+    [
+     "Is the original Le Male on this page?",
+     "No. The original eau de toilette is not in this price check. The two bottles here are Le Male Le Parfum and Le Male Elixir. Ultra Male is the eau de toilette on the Le Male Christmas page."
+    ],
+    [
+     "What does Le Male Le Parfum smell like compared with Elixir?",
+     "The stored brand copy calls both stronger versions of mint-and-vanilla Le Male. It does not publish a separate note pyramid for Le Parfum versus Elixir. Ultra Male is the sweeter flanker."
+    ]
+   ]
   }
  ],
  "roundups": [
+  {
+   "slug": "mens-fragrances-under-100",
+   "title": "Best Men's Fragrances Under $100",
+   "title_tag": "Men's Fragrances Under $100",
+   "noun": "cologne",
+   "who": "men's",
+   "scope": "under $100",
+   "max_price": 100,
+   "rule": "the bottle is a men's cologne whose checked price is under $100, and the note line is one already stored in this repo",
+   "lead": "Men's colognes whose checked price is under $100. The order is price per ounce, not a smell ranking. A bottle leaves this page when the check is $100 or more.",
+   "meta_lead": "Men's cologne deals under $100.",
+   "items": [
+    {"id": "fs-jpg-le-male-le-parfum-4-2", "notes": "Eau de parfum intense. Stronger Le Male; the line is mint and vanilla in the stored brand copy."},
+    {"id": "fs-jpg-le-male-elixir-parfum-4-2", "notes": "Parfum. Grouped with Le Parfum as a stronger Le Male. Mint and vanilla in the stored copy."},
+    {"id": "fs-jpg-ultra-male-edt-4-2", "notes": "Eau de toilette. The sweeter Le Male flanker."},
+    {"id": "stronger-with-you-intensely-cologne-for-men", "notes": "Eau de parfum: toffee, cinnamon, lavender, vanilla, tonka."},
+    {"id": "the-most-wanted-parfum-cologne", "notes": "Parfum: ginger, woody notes, bourbon vanilla."},
+    {"id": "fs-ch-bad-boy-edt-3-4", "notes": "Eau de toilette: pepper, sage, tonka, and a sweet wood."},
+    {"id": "versace-eros-cologne-eau-de-toilette-for-men", "notes": "Eau de toilette: mint, green apple, lemon, tonka, vanilla."},
+    {"id": "versace-eros-flame-eau-de-parfum-for-men", "notes": "Eau de parfum: citrus, black pepper, tonka, vanilla."},
+    {"id": "giorgio-armani-acqua-di-gio-eau-de-toilette-cologne-for-men", "notes": "Eau de toilette: citrus, neroli, marine notes, white musk."},
+    {"id": "fs-armani-acqua-di-gio-profondo-edp-3-3", "notes": "Eau de parfum flanker of Acqua di Gio. The stored copy calls it the fresher, more marine one."},
+    {"id": "calvin-klein-free-mens-eau-de-toilette-spray", "notes": "Eau de toilette: juniper, star anise, coffee, cedar, oak, patchouli."}
+   ],
+   "links": [
+    {"href": "/gifts/le-male-christmas-gifts/", "label": "Le Male Christmas cologne deals"},
+    {"href": "/vs/le-male-le-parfum-vs-elixir/", "label": "Le Male Le Parfum vs Elixir"},
+    {"href": "/best/long-lasting-cologne-deals/", "label": "Long-lasting men's cologne deals"},
+    {"href": "/gifts/christmas-cologne-gifts-under-100/", "label": "Christmas cologne gifts under $100"},
+    {"href": "/gifts/christmas-cologne-gifts-for-him/", "label": "Christmas cologne gifts for him"}
+   ],
+   "faq": [
+    ["What counts as under $100 here?", "The checked price has to be under $100. A bottle at $100 or more drops off on the next rebuild. The price on the card is the one we checked."],
+    ["Is this a ranking of the best-smelling cologne?", "No. The sort is price per ounce. The note line is the one already stored for that bottle. We do not score which one smells better."]
+   ]
+  },
+  {
+   "slug": "womens-perfumes-under-100",
+   "title": "Best Women's Perfumes Under $100",
+   "title_tag": "Women's Perfumes Under $100",
+   "noun": "women's perfume",
+   "who": "women's",
+   "scope": "under $100",
+   "max_price": 100,
+   "rule": "the bottle is a women's perfume whose checked price is under $100, and the note line is one already stored in this repo",
+   "lead": "Women's perfumes whose checked price is under $100, including La Vie Est Belle and Good Girl when they still qualify. The 1.0 oz and 3.4 oz La Vie Est Belle are the same perfume. The order is price per ounce, not a smell ranking.",
+   "meta_lead": "Women's perfume deals under $100, including La Vie Est Belle and Good Girl.",
+   "items": [
+    {"id": "fs-ch-good-girl-edp-2-7", "notes": "Eau de parfum: almond, jasmine, tonka, and cocoa."},
+    {"id": "fs-ch-very-good-girl-edp-1-7", "notes": "Eau de parfum flanker. Red-berry and floral, not the original Good Girl."},
+    {"id": "fs-lancome-la-vie-est-belle-edp-3-4", "notes": "Eau de parfum, 3.4 oz: pear, iris, praline, vanilla, tonka."},
+    {"id": "lancome-la-vie-est-belle-perfume-eau-de-parfum-for-women", "notes": "The same La Vie Est Belle eau de parfum, in the 1.0 oz size."},
+    {"id": "fs-ysl-black-opium-edp-1-6", "notes": "Eau de parfum: coffee, pear, vanilla, and white flowers."},
+    {"id": "valentino-donna-born-in-roma-perfume-eau-de-parfum-for-women", "notes": "Eau de parfum: black currant, jasmine, bourbon vanilla."},
+    {"id": "billie-eilish-perfume-eau-de-parfum-for-women", "notes": "Eau de parfum: sugar, red berries, vanilla, cacao, tonka."},
+    {"id": "lancome-poeme-perfume-for-women-eau-de-parfum-spray", "notes": "Eau de parfum: mimosa, jasmine, tuberose, vanilla, tonka. A fuller floral than La Vie Est Belle."}
+   ],
+   "links": [
+    {"href": "/gifts/la-vie-est-belle-christmas-gifts/", "label": "La Vie Est Belle Christmas gift deals"},
+    {"href": "/gifts/good-girl-perfume-gift-deals/", "label": "Good Girl perfume sale deals"},
+    {"href": "/best/la-vie-est-belle-alternatives/", "label": "La Vie Est Belle alternatives"},
+    {"href": "/best/good-girl-alternatives/", "label": "Good Girl alternatives"},
+    {"href": "/gifts/christmas-perfume-gifts-under-100/", "label": "Christmas perfume gifts under $100"},
+    {"href": "/gifts/christmas-perfume-gifts-for-her/", "label": "Christmas perfume gifts for her"}
+   ],
+   "faq": [
+    ["Why are there two La Vie Est Belle bottles?", "They are the same eau de parfum in two sizes, 1.0 oz and 3.4 oz, when both are still under $100. Read the size on the card before you compare the stickers."],
+    ["Is Good Girl Blush on this page?", "Only when its checked price is under $100. If it is over the cap, it stays on the Good Girl gift page."]
+   ]
+  },
+  {
+   "slug": "le-male-le-parfum-alternatives",
+   "title": "Le Male Le Parfum Alternatives",
+   "title_tag": "Le Male Le Parfum Alternatives",
+   "noun": "Le Male alternative",
+   "who": "men's",
+   "scope": "on sale",
+   "rule": "the bottle is Le Male Le Parfum, another Le Male we priced, or another sweet or mint-vanilla men's cologne whose notes are already stored. Le Beau is not on this list.",
+   "lead": "Le Male Le Parfum, plus other men's colognes in this price check if that bottle is not the one you want. Elixir and Ultra Male are the other Le Male bottles we priced. The rest are different perfumes. This is not a smell-alike score, and Le Beau stays off because it is coconut and tonka.",
+   "meta_lead": "Le Male Le Parfum alternatives in this check.",
+   "items": [
+    {"id": "fs-jpg-le-male-le-parfum-4-2", "notes": "The eau de parfum intense. Stronger Le Male; mint and vanilla in the stored brand copy."},
+    {"id": "fs-jpg-le-male-elixir-parfum-4-2", "notes": "The parfum in the same line. The stored copy groups it with Le Parfum."},
+    {"id": "fs-jpg-ultra-male-edt-4-2", "notes": "The sweeter eau de toilette flanker. Not the original Le Male."},
+    {"id": "versace-eros-cologne-eau-de-toilette-for-men", "notes": "A different perfume: mint, green apple, and vanilla."},
+    {"id": "stronger-with-you-intensely-cologne-for-men", "notes": "A different perfume: toffee, cinnamon, and vanilla."},
+    {"id": "the-most-wanted-parfum-cologne", "notes": "A different perfume: ginger, woods, and bourbon vanilla."},
+    {"id": "fs-ch-bad-boy-edt-3-4", "notes": "A different perfume: pepper, sage, tonka, and a sweet wood."}
+   ],
+   "links": [
+    {"href": "/vs/le-male-le-parfum-vs-elixir/", "label": "Le Male Le Parfum vs Elixir"},
+    {"href": "/gifts/le-male-christmas-gifts/", "label": "Le Male Christmas cologne deals"},
+    {"href": "/best/mens-fragrances-under-100/", "label": "Men's fragrances under $100"},
+    {"href": "/fragrance/jean-paul-gaultier-le-male-le-parfum-cologne/", "label": "Le Male Le Parfum price"}
+   ],
+   "faq": [
+    ["Do these smell like Le Male Le Parfum?", "We do not score that. Elixir is the other stronger Le Male in this check. Ultra Male is the sweeter flanker. Eros, Stronger With You Intensely, The Most Wanted, and Bad Boy are different perfumes with their own stored notes."],
+    ["Where is the original Le Male?", "The original eau de toilette is not in this price check. Ultra Male is the eau de toilette on this list, and it is the sweeter flanker, not the original."]
+   ]
+  },
+  {
+   "slug": "la-vie-est-belle-alternatives",
+   "title": "La Vie Est Belle Alternatives",
+   "title_tag": "La Vie Est Belle Alternatives",
+   "noun": "La Vie Est Belle alternative",
+   "who": "women's and unisex",
+   "scope": "on sale",
+   "rule": "the bottle is La Vie Est Belle 3.4 oz or another sweet gourmand or vanilla perfume whose notes are already stored. This is not a smell-alike score.",
+   "lead": "La Vie Est Belle 3.4 oz, plus other sweet perfumes in this price check. Donna Born in Roma, Eilish, Good Girl, and Black Opium are women's perfumes with their own notes. Afternoon Delight is the unisex vanilla gourmand. None of them is a duplicate of La Vie Est Belle.",
+   "meta_lead": "Sweet perfumes next to La Vie Est Belle: Donna, Eilish, Good Girl, Black Opium.",
+   "items": [
+    {"id": "fs-lancome-la-vie-est-belle-edp-3-4", "notes": "The 3.4 oz eau de parfum: pear, iris, praline, vanilla, tonka."},
+    {"id": "valentino-donna-born-in-roma-perfume-eau-de-parfum-for-women", "notes": "A different perfume: jasmine and bourbon vanilla."},
+    {"id": "billie-eilish-perfume-eau-de-parfum-for-women", "notes": "A different perfume: sugar, red berries, vanilla, cacao, tonka."},
+    {"id": "fs-ch-good-girl-edp-2-7", "notes": "A different perfume: almond, jasmine, tonka, cocoa."},
+    {"id": "fs-ysl-black-opium-edp-1-6", "notes": "A different perfume: coffee, pear, vanilla, white flowers."},
+    {"id": "fs-mm-afternoon-delight-edt-3-4", "notes": "Unisex eau de toilette: madeleine, vanilla, and a soft musk."}
+   ],
+   "links": [
+    {"href": "/vs/la-vie-est-belle-vs-donna-born-in-roma/", "label": "La Vie Est Belle vs Donna Born in Roma"},
+    {"href": "/vs/eilish-vs-la-vie-est-belle/", "label": "Eilish vs La Vie Est Belle"},
+    {"href": "/gifts/la-vie-est-belle-christmas-gifts/", "label": "La Vie Est Belle Christmas gift deals"},
+    {"href": "/best/womens-perfumes-under-100/", "label": "Women's perfumes under $100"},
+    {"href": "/fragrance/lanc-me-la-vie-est-belle-perfume-3-4-oz/", "label": "La Vie Est Belle 3.4 oz price"}
+   ],
+   "faq": [
+    ["Which of these smells like La Vie Est Belle?", "None is the same perfume. La Vie Est Belle is pear, iris, and praline. Donna Born in Roma is jasmine and bourbon vanilla. Eilish is berry, cacao, and vanilla. Good Girl is jasmine, cocoa, and tonka. Black Opium is coffee and vanilla. Afternoon Delight is madeleine and vanilla."],
+    ["Where is the 1.0 oz?", "The 1.0 oz is the same perfume in a smaller bottle. It stays on the La Vie Est Belle Christmas page and on its own deal page. This list keeps the 3.4 oz."]
+   ]
+  },
+  {
+   "slug": "good-girl-alternatives",
+   "title": "Good Girl Alternatives",
+   "title_tag": "Good Girl Alternatives",
+   "noun": "Good Girl alternative",
+   "who": "women's",
+   "scope": "on sale",
+   "rule": "the bottle is Good Girl, a Good Girl flanker, or another sweet women's perfume whose notes are already stored",
+   "lead": "Good Girl, its two flankers, and three other sweet women's perfumes in this price check. Blush and Very Good Girl share the name and are not the original. La Vie Est Belle, Black Opium, and Donna Born in Roma are different perfumes. This is not a smell-alike score.",
+   "meta_lead": "Good Girl alternatives we priced, including the flankers.",
+   "items": [
+    {"id": "fs-ch-good-girl-edp-2-7", "notes": "The original eau de parfum: almond, jasmine, tonka, cocoa."},
+    {"id": "fs-ch-very-good-girl-edp-1-7", "notes": "A flanker: red-berry and floral. Not the original and not Blush."},
+    {"id": "fs-ch-good-girl-blush-edp-2-7", "notes": "A flanker: lighter and fruitier. Not the original and not Very Good Girl."},
+    {"id": "fs-lancome-la-vie-est-belle-edp-3-4", "notes": "A different perfume: pear, iris, praline, vanilla."},
+    {"id": "fs-ysl-black-opium-edp-1-6", "notes": "A different perfume: coffee, pear, vanilla, white flowers."},
+    {"id": "valentino-donna-born-in-roma-perfume-eau-de-parfum-for-women", "notes": "A different perfume: jasmine and bourbon vanilla."}
+   ],
+   "links": [
+    {"href": "/gifts/good-girl-perfume-gift-deals/", "label": "Good Girl perfume sale deals"},
+    {"href": "/best/womens-perfumes-under-100/", "label": "Women's perfumes under $100"},
+    {"href": "/best/la-vie-est-belle-alternatives/", "label": "La Vie Est Belle alternatives"},
+    {"href": "/fragrance/carolina-herrera-good-girl-perfume/", "label": "Good Girl price"}
+   ],
+   "faq": [
+    ["Is Good Girl Blush the same as Good Girl?", "No. Blush is the lighter, fruitier flanker. Very Good Girl is the red-berry floral flanker. The original is almond, jasmine, tonka, and cocoa."],
+    ["Is Bad Boy a Good Girl alternative?", "No. Bad Boy is a men's cologne. It stays on the Carolina Herrera brand page."]
+   ]
+  },
+  {
+   "slug": "maison-margiela-replica-scents",
+   "title": "Best Maison Margiela Replica Scents",
+   "title_tag": "Best Replica Scents",
+   "noun": "Replica scent",
+   "who": "unisex",
+   "scope": "on sale",
+   "rule": "the bottle is a Maison Margiela Replica scent in this price check, with the note line already stored for that name",
+   "lead": "The Replica bottles in today's price check: Afternoon Delight, Bubble Bath, and Jazz Club. They are three different eaux de toilette, sold as unisex. Another Replica name is a different scent and is not listed until we have checked it.",
+   "meta_lead": "Replica scents we priced: Afternoon Delight, Bubble Bath, and Jazz Club.",
+   "items": [
+    {"id": "fs-mm-afternoon-delight-edt-3-4", "notes": "Eau de toilette: madeleine, vanilla, and a soft musk."},
+    {"id": "fs-mm-bubble-bath-edt-3-4", "notes": "Eau de toilette: soap, lavender, and clean musk."},
+    {"id": "fs-mm-jazz-club-edt-3-4", "notes": "Eau de toilette: tobacco, rum, and vanilla."}
+   ],
+   "links": [
+    {"href": "/gifts/replica-christmas-gifts/", "label": "Replica Christmas fragrance deals"},
+    {"href": "/brands/maison-margiela/", "label": "Maison Margiela deals"},
+    {"href": "/black-friday/maison-margiela/", "label": "Maison Margiela Black Friday deals"},
+    {"href": "/fragrance/maison-margiela-replica-bubble-bath/", "label": "Replica Bubble Bath price"},
+    {"href": "/fragrance/maison-margiela-replica-afternoon-delight/", "label": "Replica Afternoon Delight price"}
+   ],
+   "faq": [
+    ["Which Replica should I buy?", "Afternoon Delight for vanilla and a bakery note. Bubble Bath for soap and clean musk. Jazz Club for tobacco, rum, and vanilla. They are not flankers of one scent."],
+    ["Are these men's or women's perfumes?", "The retailer lists all three as unisex eau de toilette. There is not a separate men's and women's bottle in this check."]
+   ]
+  },
   {
    "slug": "fresh-citrus-cologne-deals",
    "title": "Best Fresh & Citrus Cologne Deals",
@@ -965,12 +1174,17 @@
   {
    "slug": "long-lasting-cologne-deals",
    "title": "Best Long-Lasting Cologne Deals",
+   "title_tag": "Best Long-Lasting Men's Cologne",
    "noun": "long-lasting cologne",
    "who": "men's",
    "scope": "on sale",
    "rule": "the bottle must be an eau de parfum or parfum, the higher-concentration versions that usually outlast an eau de toilette",
-   "lead": "Men's eaux de parfum and parfums, the stronger concentrations that tend to last through a full day or a long night out, all authentic and discounted at authorized retailers today. Each pick lists its key notes, from fresh neroli to toffee and vanilla. Azzaro Wanted by Night is an eau de parfum on sale today and is left off: the retailer's description names the original Wanted notes, not this bottle.",
+   "lead": "Men's eaux de parfum and parfums, the stronger concentrations that tend to last through a full day or a long night out, all authentic and discounted at authorized retailers today. Each pick lists its key notes, from fresh neroli to toffee and vanilla. Le Male Le Parfum and Le Male Elixir are included from the stored brand copy, which calls them the stronger Le Male and does not time them. Azzaro Wanted by Night is an eau de parfum on sale today and is left off: the retailer's description names the original Wanted notes, not this bottle.",
    "items": [
+    {"id": "fs-jpg-le-male-elixir-parfum-4-2", "notes": "Parfum. The stored brand copy calls it a stronger Le Male, mint and vanilla, and does not time it."},
+    {"id": "fs-jpg-le-male-le-parfum-4-2", "notes": "Eau de parfum intense. Grouped with Elixir as a stronger Le Male. No separate note pyramid is stored."},
+    {"id": "fs-dior-sauvage-elixir-edp-2", "notes": "Listed as eau de parfum. The stored copy calls it the thicker, spicier Sauvage: spice, lavender, and woods."},
+    {"id": "fs-armani-acqua-di-gio-profondo-edp-3-3", "notes": "Eau de parfum. The stored copy calls it the fresher, more marine Acqua di Gio flanker."},
     {
      "id": "bvlgari-man-wood-neroli-cologne-eau-de-parfum",
      "notes": "Citrus woody: neroli, bergamot, orange blossom, cedar"
@@ -1004,6 +1218,10 @@
     [
      "How can I make my cologne last longer?",
      "Spray right after a shower onto moisturized skin, aim for the neck and chest, and don't rub your wrists together. An unscented moisturizer underneath helps, and keeping the bottle away from heat and sunlight stops it from fading."
+    ],
+    [
+     "Is Le Male Le Parfum on this page?",
+     "Le Male Le Parfum and Le Male Elixir are on this page while they are live eau de parfum or parfum deals. The original Le Male eau de toilette is not in this price check. The brand copy does not time either bottle."
     ]
    ]
   },
@@ -1315,8 +1533,8 @@
  "gift_guides": [
 {
   "slug": "la-vie-est-belle-christmas-gifts",
-  "title": "La Vie Est Belle Christmas gifts",
-  "title_tag": "Buy La Vie Est Belle Christmas Gifts",
+  "title": "La Vie Est Belle Christmas gift deals",
+  "title_tag": "Buy La Vie Est Belle Gift Deals",
   "buy_meta": true,
   "chip": "La Vie Est Belle Christmas gifts",
   "gender": "women",
@@ -1330,7 +1548,7 @@
    "fs-lancome-idole-edp-3-4"
   ],
   "filled_label": "La Vie Est Belle Christmas gifts",
-  "intro": "Lancôme bottles for a Christmas gift, lowest price first. La Vie Est Belle 3.4 oz is one of the bottles shoppers have bought from this site. The 1.0 oz is the same perfume in the smaller size. Poeme and Idôle are the other Lancôme perfumes in this price check. Christmas perfume gifts under $100 is every women's perfume from $50 up to $100, so the bottles under that cap also sit on that longer list. A boxed La Vie Est Belle set stays on the gift-set guides. For Christmas shopping through December 25, 2026.",
+  "intro": "La Vie Est Belle Christmas gift deals, lowest checked price first. La Vie Est Belle 3.4 oz is one of the bottles shoppers have bought from this site. The 1.0 oz is the same perfume in the smaller size. Poeme and Idôle are the other Lancôme perfumes in this price check. Christmas perfume gifts under $100 is every women's perfume from $50 up to $100, so the bottles under that cap also sit on that longer list. A boxed La Vie Est Belle set stays on the gift-set guides. For Christmas shopping through December 25, 2026.",
   "empty": "No Lancôme perfume we checked is in stock, so this page has no list. These guides have bottles we priced.",
   "empty_desc": "La Vie Est Belle Christmas gifts: no Lancôme perfume we checked is in stock. Other gift guides list bottles we did price.",
   "choose": [
@@ -1350,9 +1568,37 @@
    [
     "Is the La Vie Est Belle gift set on this page?",
     "No. A boxed set stays on the gift-set guides. This page is single bottles."
+   ],
+   [
+    "What does La Vie Est Belle smell like?",
+    "Pear, iris, jasmine, and orange blossom, with praline, vanilla, and tonka. A sweet floral gourmand. Poeme is a fuller floral. Idôle is the cleaner modern floral. They are not the same perfume."
+   ],
+   [
+    "What is the La Vie Est Belle 3.4 oz price?",
+    "The 3.4 oz card on this page, when that size is still in the price check. The 1.0 oz is the same eau de parfum. The deal page for each size shows the checked price."
+   ],
+   [
+    "Is La Vie Est Belle on sale for Black Friday?",
+    "The cards use the daily price check, including around Black Friday. The Lancôme Black Friday page is the same house. It is not a second price."
    ]
   ],
+  "sections": [
+   {"h": "La Vie Est Belle sizes", "p": "The 1.0 oz and the 3.4 oz are the same eau de parfum. Poeme and Idôle are other Lancôme perfumes in the check, not other sizes of La Vie Est Belle."},
+   {"h": "How La Vie Est Belle smells", "p": "Pear, iris, jasmine, and orange blossom over praline, vanilla, and tonka. A sweet floral gourmand. Poeme is a fuller floral and less of a dessert."}
+  ],
+  "keywords": [
+   "la vie est belle deal",
+   "la vie est belle sale",
+   "la vie est belle 3.4 oz price",
+   "la vie est belle gift set",
+   "la vie est belle black friday",
+   "cheapest la vie est belle",
+   "smells like la vie est belle"
+  ],
   "links": [
+   {"href": "/best/la-vie-est-belle-alternatives/", "label": "La Vie Est Belle alternatives"},
+   {"href": "/best/womens-perfumes-under-100/", "label": "Women's perfumes under $100"},
+   {"href": "/vs/la-vie-est-belle-vs-donna-born-in-roma/", "label": "La Vie Est Belle vs Donna Born in Roma"},
    {"href": "/fragrance/lanc-me-la-vie-est-belle-perfume-3-4-oz/", "label": "La Vie Est Belle 3.4 oz price"},
    {"href": "/fragrance/lanc-me-la-vie-est-belle-perfume/", "label": "La Vie Est Belle 1.0 oz price"},
    {"href": "/gifts/good-girl-perfume-gift-deals/", "label": "Good Girl perfume gift deals"},
@@ -1368,8 +1614,8 @@
 },
 {
   "slug": "good-girl-perfume-gift-deals",
-  "title": "Good Girl perfume gift deals",
-  "title_tag": "Buy Good Girl Perfume Gift Deals",
+  "title": "Good Girl perfume sale deals",
+  "title_tag": "Buy Good Girl Perfume Sale",
   "buy_meta": true,
   "chip": "Good Girl perfume gift deals",
   "gender": "women",
@@ -1382,7 +1628,7 @@
    "fs-ch-good-girl-blush-edp-2-7"
   ],
   "filled_label": "Good Girl perfume gift deals",
-  "intro": "Carolina Herrera Good Girl bottles for a gift, lowest price first. Good Girl is one of the bottles shoppers have bought from this site. Very Good Girl and Good Girl Blush are the other Good Girl perfumes in the same price check. Bad Boy is a men's cologne and stays on the Carolina Herrera brand page. A boxed Good Girl mini set stays on the gift-set guides. For Christmas shopping through December 25, 2026.",
+  "intro": "Good Girl perfume sale deals, lowest checked price first. Good Girl is one of the bottles shoppers have bought from this site. Very Good Girl and Good Girl Blush are the other Good Girl perfumes in the same price check. Bad Boy is a men's cologne and stays on the Carolina Herrera brand page. A boxed Good Girl mini set stays on the gift-set guides. For Christmas shopping through December 25, 2026.",
   "empty": "No Good Girl perfume we checked is in stock, so this page has no list. These guides have bottles we priced.",
   "empty_desc": "Good Girl perfume gift deals: no Good Girl perfume we checked is in stock. Other gift guides list bottles we did price.",
   "choose": [
@@ -1402,9 +1648,37 @@
    [
     "Is the Good Girl mini set on this page?",
     "No. A boxed mini set stays on the gift-set guides. This page is single bottles."
+   ],
+   [
+    "What does Good Girl smell like?",
+    "Almond, jasmine, tonka, and cocoa. Very Good Girl is the red-berry floral flanker. Good Girl Blush is the lighter, fruitier flanker. They are not the same bottle."
+   ],
+   [
+    "Good Girl, Very Good Girl, or Blush?",
+    "Good Girl is the original eau de parfum. The other two are flankers. Read the extra word on the card before you buy."
+   ],
+   [
+    "Is Good Girl on sale for Black Friday?",
+    "The cards use the daily price check, including around Black Friday. The Carolina Herrera Black Friday page is the same house. It is not a second price."
    ]
   ],
+  "sections": [
+   {"h": "Good Girl, Blush, and Very Good Girl", "p": "Good Girl is the original eau de parfum. Blush is the lighter, fruitier flanker. Very Good Girl is the red-berry floral flanker. They are not the same bottle."},
+   {"h": "How Good Girl smells", "p": "Almond, jasmine, tonka, and cocoa. The flankers do not share that exact line."}
+  ],
+  "keywords": [
+   "good girl perfume deal",
+   "good girl perfume sale",
+   "good girl 2.7 oz price",
+   "good girl gift set",
+   "good girl black friday",
+   "cheapest good girl perfume",
+   "smells like good girl perfume"
+  ],
   "links": [
+   {"href": "/best/good-girl-alternatives/", "label": "Good Girl alternatives"},
+   {"href": "/best/womens-perfumes-under-100/", "label": "Women's perfumes under $100"},
+   {"href": "/best/la-vie-est-belle-alternatives/", "label": "La Vie Est Belle alternatives"},
    {"href": "/fragrance/carolina-herrera-good-girl-perfume/", "label": "Good Girl price"},
    {"href": "/gifts/la-vie-est-belle-christmas-gifts/", "label": "La Vie Est Belle Christmas gifts"},
    {"href": "/gifts/best-selling-womens-perfume-gifts-under-100/", "label": "Best-selling women's perfume gifts under $100"},
@@ -1530,8 +1804,8 @@
 },
 {
   "slug": "le-male-christmas-gifts",
-  "title": "Le Male Christmas gifts",
-  "title_tag": "Buy Le Male Christmas Gifts Under $100",
+  "title": "Le Male Christmas cologne deals",
+  "title_tag": "Buy Le Male Christmas Cologne Deals",
   "buy_meta": true,
   "chip": "Le Male Christmas gifts",
   "gender": "men",
@@ -1545,7 +1819,7 @@
    "fs-jpg-le-male-le-parfum-4-2"
   ],
   "filled_label": "Le Male Christmas gifts under $100",
-  "intro": "Jean Paul Gaultier Le Male bottles for a Christmas gift when the checked price is under $100, lowest price first. The list is Le Male Le Parfum, Le Male Elixir, and Ultra Male. Le Male Le Parfum is one of the bottles shoppers have bought from this site. Christmas cologne gifts under $100 is every men's cologne from $50 up to $100, so these three also sit on that longer list. Best-selling colognes 2026 keeps Le Beau and leaves this Le Male line off. Le Beau stays on the Jean Paul Gaultier brand page. A boxed Jean Paul Gaultier set stays on the gift-set guides. For Christmas shopping through December 25, 2026.",
+  "intro": "Le Male Christmas cologne deals under $100, lowest checked price first. The list is Le Male Le Parfum, Le Male Elixir, and Ultra Male. Le Male Le Parfum is one of the bottles shoppers have bought from this site. Christmas cologne gifts under $100 is every men's cologne from $50 up to $100, so these three also sit on that longer list. Best-selling colognes 2026 keeps Le Beau and leaves this Le Male line off. Le Beau stays on the Jean Paul Gaultier brand page. A boxed Jean Paul Gaultier set stays on the gift-set guides. For Christmas shopping through December 25, 2026.",
   "empty": "No Le Male cologne we checked is under $100, so this page has no list. These guides have bottles we priced.",
   "empty_desc": "Le Male Christmas gifts: no Le Male cologne we checked is under $100. Other gift guides list bottles we did price.",
   "choose": [
@@ -1565,9 +1839,38 @@
    [
     "Which Le Male bottle has sold from this site?",
     "Le Male Le Parfum. The other two are the Le Male bottles in the same price check. The card price is the one we checked."
+   ],
+   [
+    "Le Male Le Parfum, Elixir, or Ultra Male?",
+    "Le Parfum is the eau de parfum intense. Elixir is the parfum. Ultra Male is the sweeter eau de toilette. All three are 4.2 oz when they are on this page. The original Le Male eau de toilette is not in this check."
+   ],
+   [
+    "What does the Le Male line smell like?",
+    "The stored brand copy calls Le Male mint and vanilla. Le Parfum and Elixir are the stronger versions of that line. Ultra Male is the sweeter flanker. The copy does not split a separate note pyramid for Le Parfum versus Elixir."
+   ],
+   [
+    "Is Le Male Le Parfum on sale for Black Friday?",
+    "The cards use the daily price check, including around Black Friday. The Jean Paul Gaultier Black Friday page is the same house. It is not a second price."
    ]
   ],
+  "sections": [
+   {"h": "Le Parfum, Elixir, and Ultra Male", "p": "Le Male Le Parfum is the eau de parfum intense. Le Male Elixir is the parfum. Ultra Male is the sweeter eau de toilette. The original Le Male eau de toilette is not in this price check. All three bottles on this page are 4.2 oz when they qualify."},
+   {"h": "How the Le Male line smells", "p": "The stored brand copy calls Le Male mint and vanilla. Le Parfum and Elixir are the stronger versions of that line. Ultra Male pushes it sweeter. The copy does not split a separate note pyramid for Le Parfum versus Elixir."}
+  ],
+  "keywords": [
+   "le male le parfum deal",
+   "le male le parfum sale",
+   "le male le parfum 4.2 oz price",
+   "le male gift set",
+   "le male black friday",
+   "cheapest le male le parfum",
+   "smells like le male le parfum"
+  ],
   "links": [
+   {"href": "/best/le-male-le-parfum-alternatives/", "label": "Le Male Le Parfum alternatives"},
+   {"href": "/vs/le-male-le-parfum-vs-elixir/", "label": "Le Male Le Parfum vs Elixir"},
+   {"href": "/best/mens-fragrances-under-100/", "label": "Men's fragrances under $100"},
+   {"href": "/best/long-lasting-cologne-deals/", "label": "Long-lasting men's cologne deals"},
    {"href": "/fragrance/jean-paul-gaultier-le-male-le-parfum-cologne/", "label": "Le Male Le Parfum price"},
    {"href": "/gifts/famous-fragrance-gifts-under-100/", "label": "Famous fragrance gifts under $100"},
    {"href": "/gifts/christmas-cologne-gifts-under-100/", "label": "Christmas cologne gifts under $100"},
@@ -1583,8 +1886,8 @@
 },
 {
   "slug": "replica-christmas-gifts",
-  "title": "Replica Christmas gifts",
-  "title_tag": "Buy Replica Christmas Fragrance Gifts",
+  "title": "Replica Christmas fragrance deals",
+  "title_tag": "Buy Replica Christmas Scent Deals",
   "buy_meta": true,
   "chip": "Replica Christmas gifts",
   "gender": "unisex",
@@ -1597,7 +1900,7 @@
    "fs-mm-bubble-bath-edt-3-4"
   ],
   "filled_label": "Maison Margiela Replica Christmas gifts",
-  "intro": "Maison Margiela Replica bottles for a Christmas gift, lowest price first. The list is Afternoon Delight, Jazz Club, and Bubble Bath, the Replica scents in today's price check. Afternoon Delight and Bubble Bath are bottles shoppers have bought from this site. Famous fragrance gifts under $100 keeps those two and adds Le Male Le Parfum, Good Girl, and La Vie Est Belle. Jazz Club stays on this page. The Black Friday Maison Margiela page is the same house for November 27. This page is the Christmas list and it leaves every other brand off. For Christmas shopping through December 25, 2026. A note line appears only when that retailer's product description already names the notes.",
+  "intro": "Replica Christmas fragrance deals, lowest checked price first. The list is Afternoon Delight, Jazz Club, and Bubble Bath, the Replica scents in today's price check. Afternoon Delight and Bubble Bath are bottles shoppers have bought from this site. Famous fragrance gifts under $100 keeps those two and adds Le Male Le Parfum, Good Girl, and La Vie Est Belle. Jazz Club stays on this page. The Black Friday Maison Margiela page is the same house for November 27. This page is the Christmas list and it leaves every other brand off. For Christmas shopping through December 25, 2026. A note line appears only when that retailer's product description already names the notes.",
   "empty": "No Replica bottle we checked is in stock, so this page has no list. These guides have bottles we priced.",
   "empty_desc": "Replica Christmas gifts: no Replica bottle we checked is in stock. Other gift guides list bottles we did price.",
   "choose": [
@@ -1617,9 +1920,36 @@
    [
     "Which Replica bottle has sold from this site?",
     "Afternoon Delight and Bubble Bath. Jazz Club is the other Replica bottle in the same price check."
+   ],
+   [
+    "What do these Replica scents smell like?",
+    "Afternoon Delight is madeleine, vanilla, and a soft musk. Bubble Bath is soap, lavender, and clean musk. Jazz Club is tobacco, rum, and vanilla. They are not the same scent."
+   ],
+   [
+    "Are these eau de parfum or eau de toilette?",
+    "The retailer lists Afternoon Delight, Jazz Club, and Bubble Bath as eau de toilette, 3.4 oz, unisex."
+   ],
+   [
+    "Are Replica scents on sale for Black Friday?",
+    "The cards use the daily price check. The Maison Margiela Black Friday page is the house list for November 27. This page is the Christmas list and it is not a second price."
    ]
   ],
+  "sections": [
+   {"h": "Bubble Bath, Afternoon Delight, and Jazz Club", "p": "Three different Replica eaux de toilette, all unisex, not flankers of one scent."},
+   {"h": "How these Replica scents smell", "p": "Bubble Bath is soap, lavender, and clean musk. Afternoon Delight is madeleine, vanilla, and a soft musk. Jazz Club is tobacco, rum, and vanilla."}
+  ],
+  "keywords": [
+   "replica bubble bath deal",
+   "replica afternoon delight sale",
+   "replica bubble bath 3.4 oz price",
+   "replica afternoon delight 3.4 oz price",
+   "maison margiela replica black friday",
+   "cheapest replica bubble bath",
+   "smells like replica afternoon delight"
+  ],
   "links": [
+   {"href": "/best/maison-margiela-replica-scents/", "label": "Best Replica scents"},
+   {"href": "/best/la-vie-est-belle-alternatives/", "label": "La Vie Est Belle alternatives"},
    {"href": "/fragrance/maison-margiela-replica-afternoon-delight/", "label": "Replica Afternoon Delight price"},
    {"href": "/fragrance/maison-margiela-replica-bubble-bath/", "label": "Replica Bubble Bath price"},
    {"href": "/gifts/famous-fragrance-gifts-under-100/", "label": "Famous fragrance gifts under $100"},
@@ -2023,6 +2353,8 @@
    ]
   ],
   "links": [
+   {"href": "/best/mens-fragrances-under-100/", "label": "Men's fragrances under $100"},
+   {"href": "/best/long-lasting-cologne-deals/", "label": "Long-lasting men's cologne deals"},
    {"href": "/gifts/cologne-gifts-for-dad/", "label": "Cologne gifts for dad"},
    {"href": "/gifts/christmas-cologne-gifts-for-him/", "label": "Christmas cologne gifts for him"},
    {"href": "/gifts/christmas-cologne-gifts-for-dad/", "label": "Christmas cologne gifts for dad"},
@@ -2069,6 +2401,8 @@
    ]
   ],
   "links": [
+   {"href": "/best/womens-perfumes-under-100/", "label": "Women's perfumes under $100"},
+   {"href": "/best/la-vie-est-belle-alternatives/", "label": "La Vie Est Belle alternatives"},
    {"href": "/gifts/christmas-perfume-gifts-for-mom/", "label": "Christmas perfume gifts for mom"},
    {"href": "/gifts/christmas-perfume-gifts-for-her/", "label": "Christmas perfume gifts for her"},
    {"href": "/gifts/luxury-perfume-gifts-for-her/", "label": "Luxury perfume gifts for her"},
@@ -6770,6 +7104,7 @@
    ]
   ],
   "links": [
+   {"href": "/best/mens-fragrances-under-100/", "label": "Men's fragrances under $100"},
    {"href": "/gifts/christmas-cologne-gifts-for-dad/", "label": "Christmas cologne gifts for dad"},
    {"href": "/gifts/christmas-cologne-gifts-for-husband/", "label": "Christmas cologne gifts for husband"},
    {"href": "/gifts/christmas-cologne-gifts-for-boyfriend/", "label": "Christmas cologne gifts for boyfriend"},
@@ -6808,6 +7143,7 @@
    ]
   ],
   "links": [
+   {"href": "/best/womens-perfumes-under-100/", "label": "Women's perfumes under $100"},
    {"href": "/gifts/christmas-perfume-gifts-for-mom/", "label": "Christmas perfume gifts for mom"},
    {"href": "/gifts/christmas-perfume-gifts-for-wife/", "label": "Christmas perfume gifts for wife"},
    {"href": "/gifts/christmas-perfume-gifts-for-girlfriend/", "label": "Christmas perfume gifts for girlfriend"},

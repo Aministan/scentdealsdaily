@@ -1249,11 +1249,154 @@ def seller_label(d):
     short=seller_short(d)
     if seller_line(d)=="ck" and not short.lower().startswith("ck"): return "CK "+short
     return short
+# Deal pages that have already sold. Extra FAQ copy stays on these ids.
+# Notes in PROVEN_COPY are the brand-guide lines already stored in this repo.
+PROVEN_IDS=frozenset({
+    "calvin-klein-free-mens-eau-de-toilette-spray",
+    "fs-jpg-le-male-le-parfum-4-2",
+    "fs-mm-afternoon-delight-edt-3-4",
+    "fs-lancome-la-vie-est-belle-edp-3-4",
+    "fs-ch-good-girl-edp-2-7",
+    "fs-mm-bubble-bath-edt-3-4",
+})
+PROVEN_COPY={
+    "fs-jpg-le-male-le-parfum-4-2": {
+        "short": "Le Male Le Parfum",
+        "size_note": "The original Le Male eau de toilette is not in this price check, so this page does not price it. Ultra Male is the sweeter eau de toilette in the line. Elixir is the parfum.",
+        "smell": "The stored brand copy calls Le Male mint and vanilla, and it calls Le Male Le Parfum and Le Male Elixir the stronger versions of that line. Ultra Male is the sweeter flanker. That copy does not split a separate note pyramid for Le Parfum versus Elixir.",
+        "occasion": "Buy this when the gift is the stronger Le Male, not Le Beau. Le Beau is coconut and tonka and stays off the Le Male list. A boxed Jean Paul Gaultier set is not this 4.2 oz bottle.",
+        "set_q": "Is there a Le Male Le Parfum gift set on this page?",
+        "set_a": "No. This page is the 4.2 oz bottle. A boxed Jean Paul Gaultier set stays on the gift-set guides, and it is not automatically Le Male Le Parfum.",
+        "links": (
+            ("/best/le-male-le-parfum-alternatives/", "Le Male Le Parfum alternatives"),
+            ("/vs/le-male-le-parfum-vs-elixir/", "Le Male Le Parfum vs Elixir"),
+            ("/best/mens-fragrances-under-100/", "Men's fragrances under $100"),
+            ("/best/long-lasting-cologne-deals/", "Long-lasting men's cologne deals"),
+            ("/gifts/le-male-christmas-gifts/", "Le Male Christmas cologne deals"),
+            ("/black-friday/jean-paul-gaultier/", "Jean Paul Gaultier Black Friday deals"),
+        ),
+    },
+    "fs-lancome-la-vie-est-belle-edp-3-4": {
+        "short": "La Vie Est Belle",
+        "size_note": "The 1.0 oz is the same eau de parfum when it is in the check. Poeme and Idôle are other Lancôme perfumes, not other sizes of this one.",
+        "smell": "Pear, iris, jasmine, and orange blossom, with praline, vanilla, and tonka. A sweet floral gourmand. Poeme is a fuller floral and less of a dessert. Donna Born in Roma and Eilish are other sweet perfumes in the check, not the same smell.",
+        "occasion": "The stored copy calls this the safer famous gift for someone who likes sweet perfume. A boxed La Vie Est Belle set is a different product and stays on the gift-set guides.",
+        "set_q": "Is the La Vie Est Belle gift set the same as this 3.4 oz bottle?",
+        "set_a": "No. A boxed set is a different product. This page is the 3.4 oz eau de parfum. Boxed sets stay on the gift-set guides.",
+        "links": (
+            ("/best/la-vie-est-belle-alternatives/", "La Vie Est Belle alternatives"),
+            ("/best/womens-perfumes-under-100/", "Women's perfumes under $100"),
+            ("/vs/la-vie-est-belle-vs-donna-born-in-roma/", "La Vie Est Belle vs Donna Born in Roma"),
+            ("/vs/eilish-vs-la-vie-est-belle/", "Eilish vs La Vie Est Belle"),
+            ("/gifts/la-vie-est-belle-christmas-gifts/", "La Vie Est Belle Christmas gift deals"),
+            ("/black-friday/lancome/", "Lancôme Black Friday deals"),
+        ),
+    },
+    "fs-ch-good-girl-edp-2-7": {
+        "short": "Good Girl",
+        "size_note": "Very Good Girl and Good Girl Blush are flankers, not other sizes of this bottle. Bad Boy is a men's cologne and stays off this page.",
+        "smell": "Almond, jasmine, tonka, and cocoa. The stiletto-bottle original. Blush is the lighter, fruitier flanker. Very Good Girl is the red-berry floral flanker. They are not the same perfume.",
+        "occasion": "Give this when the person wants the original cocoa-and-jasmine perfume. Give Blush or Very Good Girl only when they named that flanker. A Good Girl mini set is a boxed set, not this bottle.",
+        "set_q": "Is the Good Girl mini set on this page?",
+        "set_a": "No. A boxed mini set stays on the gift-set guides. This page is the 2.7 oz eau de parfum.",
+        "links": (
+            ("/best/good-girl-alternatives/", "Good Girl alternatives"),
+            ("/best/womens-perfumes-under-100/", "Women's perfumes under $100"),
+            ("/best/la-vie-est-belle-alternatives/", "La Vie Est Belle alternatives"),
+            ("/gifts/good-girl-perfume-gift-deals/", "Good Girl perfume sale deals"),
+            ("/black-friday/carolina-herrera/", "Carolina Herrera Black Friday deals"),
+        ),
+    },
+    "fs-mm-bubble-bath-edt-3-4": {
+        "short": "Replica Bubble Bath",
+        "size_note": "The retailer lists this bottle as a 3.4 oz eau de toilette, unisex. Afternoon Delight and Jazz Club are other Replica scents, not other sizes.",
+        "smell": "Soap, lavender, and clean musk, meant to smell like a warm bath. It is not Jazz Club, which is tobacco, rum, and vanilla. It is not Afternoon Delight, which is madeleine and vanilla.",
+        "occasion": "Give this to someone who wants clean and soapy. Give Afternoon Delight for vanilla and a bakery note. Give Jazz Club for a smoky evening scent.",
+        "set_q": "Is Replica Bubble Bath an eau de parfum?",
+        "set_a": "No. The retailer lists Bubble Bath, Afternoon Delight, and Jazz Club as eau de toilette. This page is the 3.4 oz Bubble Bath bottle.",
+        "links": (
+            ("/best/maison-margiela-replica-scents/", "Best Replica scents"),
+            ("/gifts/replica-christmas-gifts/", "Replica Christmas fragrance deals"),
+            ("/black-friday/maison-margiela/", "Maison Margiela Black Friday deals"),
+        ),
+    },
+    "fs-mm-afternoon-delight-edt-3-4": {
+        "short": "Replica Afternoon Delight",
+        "size_note": "The retailer lists this bottle as a 3.4 oz eau de toilette, unisex. Bubble Bath and Jazz Club are other Replica scents, not flankers of this one.",
+        "smell": "Madeleine, vanilla, and a soft musk. A gourmand, separate from Bubble Bath and from Jazz Club.",
+        "occasion": "Give this to someone who wants vanilla and a bakery note. Bubble Bath is the clean soapy one. Jazz Club is tobacco and rum.",
+        "set_q": "Does Afternoon Delight smell like Bubble Bath?",
+        "set_a": "No. Afternoon Delight is madeleine, vanilla, and a soft musk. Bubble Bath is soap, lavender, and clean musk. Both are Replica eau de toilette, and they are different scents.",
+        "links": (
+            ("/best/maison-margiela-replica-scents/", "Best Replica scents"),
+            ("/best/la-vie-est-belle-alternatives/", "La Vie Est Belle alternatives"),
+            ("/gifts/replica-christmas-gifts/", "Replica Christmas fragrance deals"),
+            ("/black-friday/maison-margiela/", "Maison Margiela Black Friday deals"),
+        ),
+    },
+    "calvin-klein-free-mens-eau-de-toilette-spray": {
+        "short": "CK Free",
+        "size_note": "The retailer lists this bottle as a 3.4 oz eau de toilette. Defy is a different Calvin Klein cologne. CK One is the unisex citrus.",
+        "smell": "Juniper, star anise, coffee, Virginia cedar, oak, and patchouli. An aromatic woody men's cologne, not a sweet vanilla.",
+        "occasion": "The stored comparison calls it a darker coffee-and-wood cologne for evenings. Defy is the cleaner everyday Calvin Klein. This page is not a gift set.",
+        "set_q": "Is CK Free the same as CK One?",
+        "set_a": "No. CK Free is a woody men's eau de toilette. CK One is the citrus unisex. Both can be in the same price check, and they are different bottles.",
+        "links": (
+            ("/best/mens-fragrances-under-100/", "Men's fragrances under $100"),
+            ("/vs/ck-defy-vs-ck-free/", "CK Defy vs CK Free"),
+            ("/gifts/calvin-klein-christmas-fragrance-deals/", "Calvin Klein Christmas fragrance deals"),
+            ("/black-friday/calvin-klein/", "Calvin Klein Black Friday deals"),
+        ),
+    },
+}
+def _present_chips(pairs):
+    """Internal links only. A guide that did not render this build is left off."""
+    best={r["slug"] for r in ROUNDUPS}
+    vs_slugs={v["slug"] for v in VS}
+    gifts={g["slug"] for g in GIFT_GUIDES}
+    bits=[]
+    for href, label in pairs:
+        slug_s=href.strip("/").split("/")[-1]
+        if href.startswith("/best/") and slug_s not in best: continue
+        if href.startswith("/vs/") and slug_s not in vs_slugs: continue
+        if href.startswith("/gifts/") and slug_s not in gifts: continue
+        bits.append(f"<a href='{PREFIX}{href}'>{e(label)}</a>")
+    return "".join(bits)
+def proven_help(d):
+    """Size, smell, and occasion for a bottle that has sold. Notes are the stored brand copy."""
+    copy=PROVEN_COPY.get(d.get("id"))
+    if not copy: return "", []
+    sibs=[x for x in deals if x.get("id")!=d.get("id") and seller_line(x)==seller_line(d)]
+    sibs.sort(key=lambda x:(x["price"], x["id"]))
+    size_p=(f"This bottle is {sz(d.get('size') or '')} {d.get('type') or 'fragrance'} at ${d['price']:.2f}.")
+    if sibs:
+        size_p+=" Also in this check: "+", ".join(
+            f"{fullname(x)} is {sz(x.get('size') or '')} {x.get('type') or 'fragrance'} at ${x['price']:.2f}" for x in sibs
+        )+"."
+    if copy.get("size_note"):
+        size_p+=" "+copy["size_note"]
+    chips=_present_chips(copy["links"])
+    html=(f"<section class='box'><h2 style='margin-top:0'>Size and concentration</h2><p>{e(size_p)}</p>"
+          f"<h2>How it smells</h2><p>{e(copy['smell'])}</p><p>{e(copy['occasion'])}</p>"
+          +(f"<p class='chips'>{chips}</p>" if chips else "")+"</section>")
+    short=copy["short"]
+    faqs=[
+        (f"What size is the {short} deal?", size_p),
+        (f"What does {short} smell like?", copy["smell"]),
+        (f"When is {short} a good gift?", copy["occasion"]),
+        (copy["set_q"], copy["set_a"]),
+        (f"Is {short} on sale for Black Friday?",
+         f"The price on this page is the daily check, ${d['price']:.2f} at {d['retailer']} as of {upd_h}. The Black Friday pages use that same check. They do not add a second price."),
+    ]
+    return html, faqs
 def seller_h1(d):
     Z=sz(d.get("size") or "")
     P=f"${d['price']:.2f}"
     label=seller_label(d)
-    return fit([f"{label} {Z}: {P}", f"{label}: {P}", label])
+    cands=[f"{label} {Z}: {P}", f"{label}: {P}", label]
+    if d.get("id") in PROVEN_IDS:
+        cands=[f"{label} {Z} Deal: {P}", f"{label} Deal: {P}"]+cands
+    return fit(cands)
 def seller_title_meta(d):
     """Price-led title and meta for a bottle that has sold, or its closest sibling."""
     label=seller_label(d)
@@ -1262,20 +1405,36 @@ def seller_title_meta(d):
     P=f"${d['price']:.2f}"
     when=f"{upd:%b %-d, %Y}"
     pct=d.get("pct_off") or 0
-    title=next((c for c in (
+    proven=d.get("id") in PROVEN_IDS
+    title_cands=[]
+    if proven:
+        title_cands += (
+            f"Buy {label} {Z} Deal: {P}",
+            f"Buy {label} Deal: {P}",
+        )
+    title_cands += (
         f"Buy {label} {Z}: {P} ({pct}% Off)",
         f"Buy {label}: {P} ({pct}% Off)",
         f"Buy {label} {Z}: {P}",
         f"Buy {label}: {P}",
-    ) if c and len(c)<=60 and c.startswith("Buy ") and P in c), None)
+    )
+    title=next((c for c in title_cands if c and len(c)<=60 and c.startswith("Buy ") and P in c), None)
     if not title:
         raise SystemExit(f"{d.get('id')}: seller title does not fit")
-    meta=next((c for c in (
+    meta_cands=[]
+    if proven:
+        meta_cands += (
+            f"Buy the {label} {Z} deal for {P} at {d['retailer']}, {pct}% off. Cheapest price we checked. Prices checked {when}.",
+            f"Buy {label} {Z} on sale for {P} at {d['retailer']}. {pct}% off. Prices checked {when}.",
+            f"Buy the {label} deal for {P} at {d['retailer']}. Prices checked {when}.",
+        )
+    meta_cands += (
         f"Buy {full} {Z} for {P} at {d['retailer']}, {pct}% off. Prices checked {when}.",
         f"Buy {label} {Z} for {P} at {d['retailer']}, {pct}% off. Prices checked {when}.",
         f"Buy {label} for {P} at {d['retailer']}. {pct}% off. Prices checked {when}.",
         f"Buy {label} {Z} for {P}. {pct}% off. Prices checked {when}.",
-    ) if 70<=len(c)<=160 and c.startswith("Buy ") and P in c and "Prices checked" in c and when in c), None)
+    )
+    meta=next((c for c in meta_cands if 70<=len(c)<=160 and c.startswith("Buy ") and P in c and "Prices checked" in c and when in c), None)
     if not meta:
         raise SystemExit(f"{d.get('id')}: seller meta does not fit")
     return title, meta
@@ -1303,6 +1462,9 @@ SELLER_PAGES=[]
 KW=[]
 for d in deals:
     full=fullname(d); s=frag_slug(d); use_sid("deal", s); KW+= [f"{full.lower()} cheapest price",f"{full.lower()} sale",f"{full.lower()} {sz(d['size']).lower()} deal"]
+    if d.get("id") in PROVEN_IDS:
+        lab=seller_label(d).lower(); zbit=sz(d.get("size") or "").lower()
+        KW+=[f"{lab} deal", f"{lab} sale", f"{lab} {zbit} price", f"{lab} gift set", f"{lab} black friday", f"cheapest {lab}", f"smells like {lab}"]
     gl={"men":"men's cologne","women":"women's perfume","unisex":"unisex fragrance"}[d['gender']]
     others=[x for x in deals if x['gender']==d['gender'] and x['id']!=d['id']][:4]
     _lower=[c for c in (d.get("comps") or []) if c.get("retailer")!=d.get("retailer") and c.get("retailer") in merchants.AFFILIATE_COMMISSION and isinstance(c.get("price"),(int,float)) and not isinstance(c.get("price"),bool) and float(c["price"])+0.009<float(d["price"])]
@@ -1315,6 +1477,8 @@ for d in deals:
         (f"Is {full} on sale?",f"{d['retailer']} has it at ${d['price']:.2f} versus ${d['was']:.2f} {('at '+d['was_label']) if d.get('was_label') else 'listed compare-at'}. We re-check daily and remove it when the deal ends."),
         (f"Is the {d['retailer']} {full} authentic?",f"{d['retailer']} is a long-established US fragrance chain selling genuine designer brands. We exclude marketplace sellers and tester listings."),
         (f"How much does {full} cost per ounce?",(f"At ${d['price']:.2f} for {d['size']} it works out to ${per_oz(d):.2f} per ounce, and you save ${d['was']-d['price']:.2f} versus the ${d['was']:.2f} listed price." if per_oz(d) else f"At ${d['price']:.2f} you save ${d['was']-d['price']:.2f} versus the ${d['was']:.2f} listed price."))]
+    help_html, help_qs=proven_help(d)
+    qs=qs+help_qs
     rus=roundups_of(d)
     line=seller_line(d)
     if line:
@@ -1329,6 +1493,7 @@ for d in deals:
       +BREVO_FORM
       +f"<p>{e(full)} is one of today's best {gl} deals: {d['pct_off']}% {('below the '+e(d['was_label'])+' price') if d.get('was_label') else 'off the listed price'}, a {d['type'].lower() or 'fragrance'} from {e(d['brand'])} (<a href='{PREFIX}/brands/{bslug(d['brand'])}/'>all {e(canon(d['brand']))} deals</a>{"".join(", <a href='"+PREFIX+"/best/"+ru['slug']+"/'>"+e(ru['title'].lower().replace('best ','more '))+"</a>" for ru in rus)}).</p>"
       +"".join(f"<p><b>Comparing?</b> <a href='{PREFIX}/vs/{v['slug']}/'>{e(v['title'])}: prices, size and notes side by side</a></p>" for v in vs_of(d))
+      +help_html
       +FRAGRANCE_GIFT_MARK
       +faqhtml(qs)+"<h2>Similar deals today</h2><div class='grid'>"+"".join(card(x) for x in others)+"</div>")
     short=re.sub(r"( Spray)? (Cologne|Perfume|Unisex Fragrance)$","",full); P=f"${d['price']:.2f}"; Z=sz(d['size'])
@@ -1623,7 +1788,11 @@ for r in ROUNDUPS:
                     f"<a href='{PREFIX}/gifts/luxury-fragrance-gifts/'>luxury fragrance gifts</a>. "
                     f"The bottles here whose checked price is under $100 are on "
                     f"<a href='{PREFIX}/gifts/luxury-fragrance-gifts-under-100/'>luxury fragrance gifts under $100</a>.</p>")
+    link_html=""
+    if r.get("links"):
+        link_html="<p class='chips'>"+"".join(f"<a href='{PREFIX}{l['href']}'>{e(l['label'])}</a>" for l in r["links"] if isinstance(l, dict) and l.get("href") and l.get("label"))+"</p>"
     body=(f"<h1>{e(r['title'])} ({upd:%b %-d, %Y})</h1><p class='sub'>{n} authentic {r['who']} fragrances {SC}, each at least 15% below its listed price · checked {upd_h}</p>"+(f"<p>{e(r['lead'])}</p>" if r.get('lead') else "")
+      +link_html
       +gift_split
       +"<div class='box'><h2 style='margin-top:0'>Quick picks</h2><ul>"+picks(cheap,val,big)+"</ul>"
       +"<p class='meta'>How we pick: "+e(r['rule'])+", at least 15% below the retailer's listed compare-at price (or another authorized retailer's price, where shown), in stock, and sold by an authorized retailer. Sorted by price per ounce so bigger bottles get credit for real value, not just a low sticker.</p></div>"
@@ -1640,7 +1809,13 @@ for r in ROUNDUPS:
     meta_cands+=[f"{n} authentic {r['who']} {N}s {SC}, all 15%+ off, from ${cheap['price']:.2f} ({fullname(cheap)}). Ranked by price per ounce, checked {upd:%b %-d, %Y}.",
            f"{n} authentic {r['who']} {N}s {SC}, all 15%+ off, from {CP} ({fullname(cheap)}). Checked {upd:%b %-d}.",
            f"{n} authentic {r['who']} {N}s {SC}, all 15%+ off at authorized retailers, from {CP}. Ranked by price per ounce, checked {upd:%b %-d}."]
-    page(f"best/{r['slug']}/index.html",fit([f"{r['title']} Today ({upd:%b %-d}): {n} Authentic Picks | {NAME}",f"{r['title']} Today: {n} Picks From {CP}",f"{r['title']}: {n} Picks From {CP}",f"{n} Picks From {CP}: {r['title']}",f"From {CP}: {r['title']}",f"{r['title']} ({upd:%b %Y})"]),
+    head=r["title"]
+    tag=(str(r.get("title_tag") or "").strip() or head)
+    title_cands=[]
+    if str(r.get("title_tag") or "").strip():
+        title_cands += [f"{tag}: {n} Picks From {CP}", f"{tag} From {CP}", f"From {CP}: {tag}"]
+    title_cands += [f"{head} Today ({upd:%b %-d}): {n} Authentic Picks | {NAME}", f"{head} Today: {n} Picks From {CP}", f"{head}: {n} Picks From {CP}", f"{n} Picks From {CP}: {head}", f"From {CP}: {head}", f"{head} ({upd:%b %Y})"]
+    page(f"best/{r['slug']}/index.html",fit(title_cands),
       fit(meta_cands,160),body,[il,faqld(qs)])
 def srclinks(srcs): return " ".join((f'<a href="{e(affiliate_url(u, "src"))}" rel="nofollow sponsored noopener" target="_blank">[{i+1}]</a>' if is_perfumania(u) else f"<a href='{e(u)}' rel=noopener target=_blank>[{i+1}]</a>") for i,u in enumerate(srcs))
 def hubrow(x):
@@ -1683,6 +1858,7 @@ for h in HUBS:
 # ---------- head-to-head comparisons (/vs/<slug>/) ----------
 def conc(t):
     t=(t or "").lower()
+    if "intense" in t and "parfum" in t: return "Eau de Parfum Intense"
     return "Parfum" if t.startswith("parfum") else "Eau de Parfum" if "parfum" in t else "Eau de Toilette" if "toilette" in t else (t.title() or "—")
 for v in VS:
     use_sid("cmp", v["slug"])
@@ -1700,13 +1876,13 @@ for v in VS:
       f"<tr><td>Buy at</td><td>{e(A['retailer'])}</td><td>{e(B['retailer'])}</td></tr>"
       f"<tr><td></td><td>{bt(A)}</td><td>{bt(B)}</td></tr>")
     same_conc=ca==cb
-    RANK={"Eau de Toilette":1,"Eau de Parfum":2,"Parfum":3}
+    RANK={"Eau de Toilette":1,"Eau de Parfum":2,"Eau de Parfum Intense":2,"Parfum":3}
     def an(x): return ("an " if x[:1].upper() in "AEIOU" else "a ")+x
     hi,lo=((A,ca),(B,cb)) if RANK.get(ca,0)>=RANK.get(cb,0) else ((B,cb),(A,ca))
     qs=[(f"Which is cheaper, {fa} or {fb}?",f"As of {upd_h}, {fullname(cheaper)} is the lower price at ${cheaper['price']:.2f} for {sz(cheaper['size'])} ({cheaper['retailer']})."+(f" Per ounce, {fullname(value)} is the better value at ${per_oz(value):.2f}/oz." if per_oz(value) else "")),
         (f"What is the difference between {fa} and {fb}?",v['difference']),
         (f"Is {fa} or {fb} stronger?",(f"Both are sold as {ca}, so concentration alone doesn't separate them; performance depends on the composition and your skin." if same_conc else f"{fa} is {an(ca)} and {fb} is {an(cb)}. {hi[1]} has a higher concentration of fragrance oils than {lo[1].lower()}, so {fullname(hi[0])} usually lasts longer and projects more, though skin chemistry matters.")),
-        ("Are these bottles authentic?","Yes. We only link to authorized, long-established fragrance retailers (Perfumania, FragranceShop, and FragranceNet) and exclude marketplace sellers, testers and unboxed bottles. Prices are re-checked daily.")]
+        ("Are these bottles authentic?","Yes. We only link to authorized, long-established fragrance retailers (Perfumania, FragranceShop, and FragranceNet) and exclude marketplace sellers, testers and unboxed bottles. Prices are re-checked daily.")]+[tuple(x) for x in v.get("faq") or []]
     KW+=[T.lower(),f"{T.lower()} which is better",f"{fa.lower()} or {fb.lower()}"]
     body=(f"<h1>{e(T)}: price, size and notes compared</h1><p class='sub'>Both on sale today · checked {upd_h}</p><p>{e(v['intro'])}</p>"
       +f"<div class='box'><h2 style='margin-top:0'>Side by side</h2><table><thead><tr><th></th><th><a href='{PREFIX}/fragrance/{frag_slug(A)}/'>{e(fa)}</a></th><th><a href='{PREFIX}/fragrance/{frag_slug(B)}/'>{e(fb)}</a></th></tr></thead><tbody>{rows}</tbody></table>"
@@ -2613,6 +2789,12 @@ for spec in GIFT_GUIDES:
     choose_html=""
     if choose:
         choose_html="<section class='box'><h2 style='margin-top:0'>How to choose</h2>"+"".join(f"<p>{e(p)}</p>" for p in choose if isinstance(p, str) and p.strip())+"</section>"
+    for sec in spec.get("sections") or []:
+        if isinstance(sec, dict) and str(sec.get("h") or "").strip() and str(sec.get("p") or "").strip():
+            choose_html += f"<section class='box'><h2 style='margin-top:0'>{e(str(sec['h']).strip())}</h2><p>{e(str(sec['p']).strip())}</p></section>"
+    for phrase in spec.get("keywords") or []:
+        if isinstance(phrase, str) and phrase.strip():
+            KW.append(phrase.strip().lower())
     desc_override=luxury_ctr_meta(h1, picks) if spec["slug"] in LUXURY_GIFT_SLUGS and picks else None
     if spec.get("buy_meta") and picks:
         desc_override=buy_intent_meta(h1, picks)
@@ -6546,6 +6728,52 @@ def audit_nov13_pages():
             raise SystemExit(f"{rel}: the photo is above the Buy button")
     print("seller photo: Lancôme, Carolina Herrera, and Replica Buy buttons sit above the photo")
 audit_nov13_pages()
+def audit_keyword_pages():
+    """Proven deal pages keep the Buy button above the photo, and the new guides are in the sitemap."""
+    sm=open(f"{OUT}/sitemap.xml", encoding="utf-8").read()
+    new_rels=(
+        "best/mens-fragrances-under-100/index.html",
+        "best/womens-perfumes-under-100/index.html",
+        "best/le-male-le-parfum-alternatives/index.html",
+        "best/la-vie-est-belle-alternatives/index.html",
+        "best/good-girl-alternatives/index.html",
+        "best/maison-margiela-replica-scents/index.html",
+        "best/long-lasting-cologne-deals/index.html",
+        "vs/le-male-le-parfum-vs-elixir/index.html",
+    )
+    for rel in new_rels:
+        if not os.path.isfile(f"{OUT}/{rel}"):
+            raise SystemExit(f"{rel}: new guide was not built")
+        text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+        title=html.unescape(re.search(r"<title>(.*?)</title>", text, re.S).group(1))
+        desc=html.unescape(re.search(r'<meta name="description" content="([^"]*)"', text).group(1))
+        if len(title)>60:
+            raise SystemExit(f"{rel}: title is {len(title)} chars ({title})")
+        if not (70<=len(desc)<=160):
+            raise SystemExit(f"{rel}: meta is {len(desc)} chars ({desc})")
+        loc=f"{BASE}{PREFIX}/{rel[:-len('index.html')]}"
+        if f"<loc>{loc}</loc>" not in sm:
+            raise SystemExit(f"{loc} is not in the sitemap")
+        if "Bright Crystal" in text and "absolu" not in text.lower():
+            raise SystemExit(f"{rel}: names Bright Crystal")
+        if '"@type": "FAQPage"' not in text and '"@type":"FAQPage"' not in text:
+            raise SystemExit(f"{rel}: missing FAQPage")
+        if "anrdoezrs.net" in text or "tkqlhce.com" in text or "linksynergy.com" in text or "jdoqocy.com" in text:
+            pass
+        print(f"{rel}: {title} ({len(title)}) / meta {len(desc)}")
+    for rel, d in SELLER_PAGES:
+        if d.get("id") not in PROVEN_IDS: continue
+        text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+        lead_at=text.find("lead-offer")
+        img_at=text.find("<img")
+        if lead_at<0 or img_at<lead_at:
+            raise SystemExit(f"{rel}: the photo is above the Buy button")
+        if ">Size and concentration</h2>" not in text or ">How it smells</h2>" not in text:
+            raise SystemExit(f"{rel}: missing the size or smell section")
+        if "Deal:" not in html.unescape(re.search(r"<title>(.*?)</title>", text, re.S).group(1)):
+            raise SystemExit(f"{rel}: title does not say Deal")
+        print(f"{rel}: keyword section above the FAQ, Buy button above the photo")
+audit_keyword_pages()
 import subprocess, sys
 _validator=subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "validate_jsonld.py")])
 if _validator.returncode!=0:
