@@ -15,6 +15,7 @@ try:
     import pins as giftpins
 except ImportError as _pin_err:
     raise SystemExit("gift pin images need Pillow. Install it with: python3 -m pip install pillow") from _pin_err
+import product_images
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__))); OUT=f"{ROOT}/site"
 # site/ is wiped and regenerated; keep promo videos in site/media across that rebuild.
 _media_tmp=None
@@ -4947,6 +4948,8 @@ if _MEDIA_BEFORE:
     if changed:
         raise SystemExit("existing media changed or deleted: "+", ".join(changed[:12]))
     print(f"media preserved: {len(_MEDIA_BEFORE)-len(_GIFT_PINS_WRITTEN & set(_MEDIA_BEFORE))} existing files unchanged")
+
+product_images.cache(deals, f"{OUT}/media/products", frag_slug, retailer_image)
 
 # Parent crumb labels. The current page uses its own h1. A section missing from
 # the built files is not linked, so /fragrance/, /dupe/, /best/, and /vs/ stay
