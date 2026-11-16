@@ -24,7 +24,6 @@ PINS_PATH = os.path.join(ROOT, "data", "pin_posts.json")
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import fragrancenet
 import fragranceshop
-import product_images
 
 FS = "FragranceShop"
 FN = "FragranceNet"
@@ -557,6 +556,11 @@ def _slug(text):
 
 
 def _cache_images(rows):
+    try:
+        import product_images
+    except SystemExit:
+        _log("  image cache skipped: Pillow is not installed yet")
+        return 0
     dest = os.path.join(ROOT, "site", "media", "products")
     os.makedirs(dest, exist_ok=True)
     saved = 0

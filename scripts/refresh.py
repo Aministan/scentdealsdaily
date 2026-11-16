@@ -321,10 +321,5 @@ def main():
         print(f"image sku: {sku_n} rows tagged from an fs###### photo", file=sys.stderr)
     print(f"fragranceshop catalog: +{added} bottles, +{added_gifts} gift sets", file=sys.stderr)
     json.dump({"updated":now,"deals":deals,"dupes":dupes,"dropped":dropped,"gifts":gifts},open(out,"w"),indent=1)
-    try:
-        import sales_data
-        sales_data.update(now)
-    except Exception as exc:
-        print(f"sales pages: kept the previous bestseller file ({exc})", file=sys.stderr)
     print(f"{len(deals)} live deals, {len(gifts)} gift rows, {len(dropped)} dropped {dropped}, {sum(1 for d in dupes if d['price'])}/{len(dupes)} dupes priced, {FAIL['transient']}/{FAIL['total']} fetch failures")
 if __name__=="__main__": main()
