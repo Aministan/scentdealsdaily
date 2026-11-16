@@ -74,6 +74,17 @@ def known_prices():
     for row in data.get("deals") or []: take(row)
     for row in data.get("gifts") or []: take(row)
     for row in data.get("dupes") or []: take(row)
+    sales_path=os.path.join(os.path.dirname(DEALS), "sales.json")
+    if os.path.isfile(sales_path):
+        sales=json.load(open(sales_path, encoding="utf-8"))
+        buckets=[]
+        best=sales.get("bestsellers") or {}
+        buckets.extend(best.get("fragranceshop") or [])
+        buckets.extend(best.get("fragrancenet") or [])
+        buckets.extend(sales.get("le_male") or [])
+        buckets.extend(sales.get("gift_sets") or [])
+        for row in buckets:
+            take(row)
     return found
 
 def walk(node):
@@ -96,6 +107,7 @@ def scripts(text):
 
 def needs_itemlist(rel, text):
     if 'content="noindex' in text: return False
+    if "did not list a price" in text: return False
     if rel=="index.html" or rel in ("men/index.html","women/index.html","unisex/index.html"): return True
     if rel.startswith("fragrance/"): return True
     if rel.startswith("best/"): return True

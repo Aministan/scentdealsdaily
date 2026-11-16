@@ -128,6 +128,20 @@ def product_slug_for_url(url):
             for c in d.get("comps") or []:
                 if isinstance(c, dict):
                     remember(c.get("url"), slug_s)
+        try:
+            import sales_pages
+            sales=sales_pages.load_sales()
+        except Exception:
+            sales={}
+        extra=[]
+        best=sales.get("bestsellers") or {}
+        extra.extend(best.get("fragranceshop") or [])
+        extra.extend(best.get("fragrancenet") or [])
+        extra.extend(sales.get("gift_sets") or [])
+        extra.extend(sales.get("le_male") or [])
+        for row in extra:
+            if isinstance(row, dict):
+                remember(row.get("url"), sales_pages._slug(sales_pages._label(row)))
         _SID_PRODUCTS=mapping
     if not isinstance(url, str) or not url:
         return ""
@@ -354,7 +368,7 @@ def page(path,title,desc,body,jsonld=None,index=True,image=None,feed=True,canoni
 {robots_tag}<title>{e(title)}</title><meta name="description" content="{e(desc)}"><link rel="canonical" href="{canon_url}">
 <link rel="alternate" type="application/rss+xml" title="ScentDealsDaily" href="{FEED_HREF}">
 {social}<link rel="preconnect" href="https://cdn.shopify.com"><style>{CSS}</style>{brevo_head}{ld}</head><body>
-<header><a class="logo" href="{p}/">Scent<span>Deals</span>Daily</a><nav><a href="{p}/">Today's deals</a><a href="{p}/black-friday/">Black Friday</a><a href="{p}/dupes/">Dupes</a><a href="{p}/men/">Men</a><a href="{p}/women/">Women</a><a href="{p}/brands/">Brands</a><a href="{p}/sponsor/">Sponsor</a></nav></header>
+<header><a class="logo" href="{p}/">Scent<span>Deals</span>Daily</a><nav><a href="{p}/">Today's deals</a><a href="{p}/best-sellers/">Best sellers</a><a href="{p}/jean-paul-gaultier-le-male-deals/">Le Male</a><a href="{p}/fragrance-gift-sets/">Gift sets</a><a href="{p}/black-friday/">Black Friday</a><a href="{p}/dupes/">Dupes</a><a href="{p}/men/">Men</a><a href="{p}/women/">Women</a><a href="{p}/brands/">Brands</a><a href="{p}/sponsor/">Sponsor</a></nav></header>
 <main>{body}</main><footer>{NL_FOOT}<p>We may earn a commission when you buy through our links, at no extra cost to you. Affiliate links go to Perfumania, FragranceShop, and FragranceNet.</p>
 <p><b>Affiliate disclosure:</b> some links may earn us a commission at no cost to you. <a href="{p}/disclosure/">Details</a>.
 We list only authorized or long-established retailers, never gray-market marketplaces. Prices change fast; each deal shows when we last checked it. Not affiliated with any brand.</p>
@@ -854,7 +868,7 @@ page("index.html",fit([f"Buy Fragrance Deals Today: From ${_home_lo:.2f} ({_home
  +MONEY_MARK
  +NEW_HOLIDAY_MARK
  +BREVO_FORM
- +f"<div class='grid'>{''.join(card(d,i<2) for i,d in enumerate(deals))}</div><p class='chips'><a href='{PREFIX}/gifts/'>Holiday fragrance gifts</a>"
+ +f"<div class='grid'>{''.join(card(d,i<2) for i,d in enumerate(deals))}</div><!--sales-push--><p class='chips'><a href='{PREFIX}/gifts/'>Holiday fragrance gifts</a>"
  +"".join(f"<a href='{PREFIX}/gifts/{slug}/'>{e(label)}</a>" for slug,label in SEO_GIFTS)+"</p>"+GIFT_HOME_MARK+bestchips()
  +"<section class='box'><h2 style='margin-top:0'>Why trust these deals?</h2><p>We only list authorized or long-established retailers (no anonymous marketplace sellers), re-check every price and stock status daily, and drop expired deals automatically. Want the smell for less? See our <a href='"+PREFIX+"/dupes/'>dupes directory</a>.</p></section>",
  [itemlist(deals,"Today's designer fragrance deals"),{"@context":"https://schema.org","@type":"WebSite","name":NAME,"url":BASE+PREFIX+"/"}])
@@ -1274,6 +1288,7 @@ PROVEN_COPY={
             ("/best/mens-fragrances-under-100/", "Men's fragrances under $100"),
             ("/best/long-lasting-cologne-deals/", "Long-lasting men's cologne deals"),
             ("/gifts/le-male-christmas-gifts/", "Le Male Christmas cologne deals"),
+            ("/jean-paul-gaultier-le-male-deals/", "All Le Male deals"),
             ("/black-friday/jean-paul-gaultier/", "Jean Paul Gaultier Black Friday deals"),
         ),
     },
@@ -4366,6 +4381,7 @@ def bf_brand_page_links(brand, rows):
         links.append((path, fullname(d)))
     for href, label in {
         "Jean Paul Gaultier": (
+            ("/jean-paul-gaultier-le-male-deals/", "Le Male deals"),
             ("/gifts/le-male-christmas-gifts/", "Le Male Christmas gifts"),
             ("/gifts/famous-fragrance-gifts-under-100/", "Famous fragrance gifts under $100"),
         ),
@@ -4744,8 +4760,11 @@ def render_black_friday_hub():
         if f"<a href='{PREFIX}{href}'>{e(label)}</a>" not in text:
             raise SystemExit(f"{BF_HUB_PATH}: missing link {label} {href}")
     print(f"black friday hub {BF_HUB_PATH}: {len(shown)} bottles, from {price}, {len(related)} seasonal links")
+import sales_pages
+sales_pages.build_pages(globals())
 render_bf_brand_pages()
 render_black_friday_hub()
+sales_pages.apply_links(globals())
 def apply_money_chips():
     """Homepage only: Black Friday and Cyber Monday buys, directly under the lead price and before the newsletter."""
     specs=[

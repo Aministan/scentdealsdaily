@@ -1,0 +1,54 @@
+{
+ "updated": "2026-11-16T01:48:33Z",
+ "note": "Daily Pinterest posts read posts[]. Page images are site-hosted /media/products/{slug}.jpg files. FragranceShop CDN urls are not used.",
+ "posts": [
+  {
+   "title": "Jean Paul Gaultier Le Male Le Parfum",
+   "page": "/fragrance/jean-paul-gaultier-le-male-le-parfum-cologne/",
+   "image": "/media/products/jean-paul-gaultier-le-male-le-parfum-cologne.jpg",
+   "kind": "product"
+  },
+  {
+   "title": "Fragrance gift sets",
+   "page": "/fragrance-gift-sets/",
+   "image": "/media/products/cubano-for-men-set.jpg",
+   "kind": "page"
+  },
+  {
+   "title": "Best sellers",
+   "page": "/best-sellers/",
+   "image": "/media/products/afnan-supremacy-collector-s-edition-perfume.jpg",
+   "kind": "page"
+  },
+  {
+   "title": "Afnan Supremacy Collector\u2019s Edition Perfume",
+   "page": "/fragrance/afnan-supremacy-collector-s-edition-perfume/",
+   "image": "/media/products/afnan-supremacy-collector-s-edition-perfume.jpg",
+   "kind": "bestseller"
+  },
+  {
+   "title": "Obsession Cologne",
+   "page": "/fragrance/obsession-cologne/",
+   "image": "/media/products/obsession-cologne.jpg",
+   "kind": "bestseller"
+  },
+  {
+   "title": "Barakkat Rouge 540 Perfume",
+   "page": "/fragrance/barakkat-rouge-540-perfume/",
+   "image": "/media/products/barakkat-rouge-540-perfume.jpg",
+   "kind": "bestseller"
+  },
+  {
+   "title": "Rasasi Hawas Cologne",
+   "page": "/best-sellers/",
+   "image": "/media/products/rasasi-hawas-cologne.jpg",
+   "kind": "bestseller"
+  },
+  {
+   "title": "Abercrombie & Fitch Fierce Cologne",
+   "page": "/fragrance/abercrombie-fitch-fierce-cologne/",
+   "image": "/media/products/abercrombie-fitch-fierce-cologne.jpg",
+   "kind": "bestseller"
+  }
+ ]
+}
