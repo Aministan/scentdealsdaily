@@ -438,6 +438,10 @@ def _write_best(ns, groups, linked):
         f"<p class='sub'>Ranked the way FragranceShop and FragranceNet list them. Prices were read on those pages. Checked {ns['e'](when)}.</p>",
         "<p>A bottle with no sealed-spray price on the store page is listed without one. This page does not add ratings.</p>",
     ]
+    parts.append(ns["fs_fold_html"](ns["deals"], (
+        {"brand":"margiela","name_is":"replica jazz club","size":"3.4"},
+        "le male le parfum",
+    )))
     ld_rows = []
     for store, rows in groups:
         cards = []

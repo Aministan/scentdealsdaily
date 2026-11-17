@@ -513,6 +513,12 @@ def build_pin_posts(sales):
         "product",
     ))
     posts.append(_pin_record(
+        "Maison Margiela Replica Jazz Club",
+        "/fragrance/maison-margiela-replica-jazz-club/",
+        "/media/products/maison-margiela-replica-jazz-club.jpg",
+        "product",
+    ))
+    posts.append(_pin_record(
         "Fragrance gift sets",
         "/fragrance-gift-sets/",
         "",
@@ -542,12 +548,12 @@ def build_pin_posts(sales):
     # Page pins reuse the first product photo already hosted for that section.
     if top:
         slug = _slug(f"{top[0].get('brand') or ''} {top[0].get('name') or ''}")
-        posts[2]["image"] = f"/media/products/{slug}.jpg"
+        posts[3]["image"] = f"/media/products/{slug}.jpg"
     sets = sales.get("gift_sets") or []
     if sets:
         lead = sets[0]
         slug = _slug(f"{lead.get('brand') or ''} {lead.get('name') or ''}")
-        posts[1]["image"] = f"/media/products/{slug}.jpg"
+        posts[2]["image"] = f"/media/products/{slug}.jpg"
     return posts
 
 

@@ -972,7 +972,10 @@ for g,label in [("men","Men's Cologne"),("women","Women's Perfume"),("unisex","U
     _gender_pins={"men":("le male le parfum", "free cologne"), "women":(
         {"brand":"lanc","name_is":"la vie est belle perfume","size":"3.4"},
         {"brand":"carolina","name_is":"good girl perfume","size":"2.7"},
-    ), "unisex":("afternoon delight",)}.get(g, ())
+    ), "unisex":(
+        {"brand":"margiela","name_is":"replica jazz club","size":"3.4"},
+        "afternoon delight",
+    )}.get(g, ())
     gchip="".join(f"<a href='{PREFIX}/gifts/{gu['slug']}/'>{e(gu.get('chip') or gu['title'])}</a>" for gu in GIFT_GUIDES if any(d["gender"]==g for d in gu["picks"]))
     mx=max(d['pct_off'] for d in ds)
     lo=min(ds, key=lambda d:(d["price"], -(d.get("pct_off") or 0), d["id"]))
@@ -2162,6 +2165,7 @@ _PROVEN_GRID=(
     {"brand":"carolina","name_is":"good girl perfume","size":"2.7"},
     "afternoon delight",
     "bubble bath",
+    {"brand":"margiela","name_is":"replica jazz club","size":"3.4"},
 )
 def pin_proven(rows):
     """Move bottles that have already sold to the front. The rest keep their order."""
@@ -3800,7 +3804,7 @@ if CM_ROWS:
     cm_back=(f"<p><a href='{PREFIX}{CM_PATH}'>Cyber Monday fragrance deals</a> "
              "lists the checked bottles in one list, largest discount first, for November 30.</p>")
 use_sid("bfcm", "fragrance-deals")
-_bf_top, _bf_rest=fold_offer(lead_offer(bf_singles), bf_intro, "".join(bf_parts))
+_bf_top, _bf_rest=fold_offer(lead_offer(bf_singles)+fs_fold_html(bf_singles, ("le male le parfum", {"brand":"lanc","name_is":"la vie est belle perfume","size":"3.4"}, {"brand":"carolina","name_is":"good girl perfume","size":"2.7"}, {"brand":"margiela","name_is":"replica jazz club","size":"3.4"})), bf_intro, "".join(bf_parts))
 page("black-friday-fragrance-deals/index.html", bf_title, bf_desc,
  f"<h1>{e(bf_h1)}</h1><p class='sub'>Last updated {e(bf_when)}. Checked {e(upd_h)}.</p>{_bf_top}{NEW_HOLIDAY_MARK}{gift_nav()}{bf_jumps}{_bf_rest}{bf_seasonal_note()}{cm_back}{GIFT_DISC}{faqhtml(bf_faqs)}{BREVO_FORM}<p class='meta'>Prices and photos come from the deals we already checked. We do not invent a price or a photo, and we do not list testers, decants, or Amazon.</p>",
  bf_ld+[faqld(bf_faqs)], image="/media/pins/holiday-fragrance-gifts.png", feed=bool(bf_ids))
