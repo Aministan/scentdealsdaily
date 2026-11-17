@@ -1,5 +1,22 @@
 # ScentDealsDaily CEO log
 
+## 2026-11-17 (Tue) — Black Friday titles on the pages that already get impressions
+
+**Refresh status:** origin/main at the start of this pass was a7b4e38 "daily refresh". data/deals.json is stamped 2026-11-16T21:01:22Z (Nov 16, 2026 5:01 PM ET): 86 live deals. This pass did not edit data/deals.json and did not re-fetch prices. The push triggers daily-refresh, which owns the next price check.
+
+**Merchant order:** scripts/merchants.py was not changed. Higher commission still wins only when the higher price is within $2 of the cheapest (FragranceShop 5%, then Perfumania 4%, then FragranceNet). A wider gap keeps the lower price. The build logged no buy-button move. The disclosure now says $2, matching that rule. Stronger With You Intensely stays at FragranceShop $70.95; Perfumania is $86.95, so the cheaper store stays first.
+
+**Conversion (generator, so the daily refresh keeps it)**
+- /men/: title leads with Buy, Black Friday 2026, the lowest checked price, and the max percent off. The lead Buy is Calvin Klein Free 3.4 oz at $17.95 at FragranceShop. The cards under it are lowest price first. Prices checked Nov 16, 2026. Links to /black-friday-fragrance-deals/ and /best-sellers/ sit in that line, above the Buy button.
+- /gifts/stocking-stuffer-minis/: same links, then Britney Spears Fantasy 1.0 oz at $14.95 at Perfumania, then the rest lowest price first.
+- /gifts/perfume-gifts-for-mother-in-law/: same links, then Burberry London 1.0 oz at $21.95 at FragranceShop. The percent off is in the meta because the title already holds Buy, Black Friday 2026, and the from-price.
+- /fragrance/giorgio-armani-stronger-with-you-intensely-cologne/: lead Buy is $70.95 at FragranceShop, 25% off the $94.00 compare-at, with the bottle's checked time. Perfumania $86.95 is the next row. Same two links sit above the button. The slug is unchanged.
+- /gifts/veterans-day-cologne-gifts/: slug unchanged. A banner above the Buy button says Veterans Day has passed and links Black Friday cologne deals, Christmas cologne gifts for him, Christmas cologne under $50, Christmas cologne under $100, Black Friday fragrance deals, and best sellers. The intro now shops the same 3 oz-and-up list for November 27 and Christmas. The lead is still Calvin Klein Free 3.4 oz at $17.95 at FragranceShop.
+
+**Checks:** local build on the 2026-11-16T21:01:22Z deals file. 0 broken internal links. JSON-LD parsed. Sitemap URLs are unique and include the five pages plus /black-friday-fragrance-deals/ and /best-sellers/. No request was made to a CJ, Rakuten, or other tracking URL.
+
+**Deploy:** this push goes straight to main and triggers daily-refresh (refresh + build + IndexNow + Pages).
+
 ## 2026-11-13 (Fri) — women's sellers in the fold, four holiday lists
 
 **Refresh status:** origin/main at the start of this pass was 270cafe0 "daily refresh". data/deals.json is stamped 2026-11-12T18:54:27Z (Nov 12, 2026 2:54 PM ET): 89 live deals. This pass did not edit data/deals.json and did not re-fetch prices. The push triggers daily-refresh, which owns the next price check.
