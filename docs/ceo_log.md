@@ -1,5 +1,36 @@
 # ScentDealsDaily CEO log
 
+## 2026-11-19 (Thu) — 1 Million Lucky joins the bottles that sold
+
+**Refresh status:** origin/main at the start of this pass was 7603b6ce "daily refresh". data/deals.json is stamped 2026-11-19T02:58:54Z (Nov 18, 2026 9:58 PM ET): 85 live deals. This pass did not edit data/deals.json and did not re-fetch prices. The push triggers daily-refresh, which owns the next price check.
+
+**Muse result:** the attached muse_deals.json is the same file already in the repo (sha1 26cbc2509317eb00083be99cb218afc8c4359a31). Nothing merged. No prices were invented.
+
+**Merchant order:** scripts/merchants.py was not changed. Higher commission still wins only when the higher price is within $2 of the cheapest (FragranceShop 5%, then Perfumania 4%, then FragranceNet). The build logged no buy-button move. Olympéa stays at Perfumania $59.95 because that is the only checked price. 1 Million Lucky, 1 Million Royal, and Invictus stay at FragranceShop.
+
+**Conversion (generator, so the daily refresh keeps it)**
+Shoppers bought Paco Rabanne 1 Million Lucky 3.4 oz on Nov 18 (the $197.90 two-item FragranceShop order, with 1 Million Lucky in it). Jazz Club was already pinned and is now on the same also-popular row.
+- Also-popular, on every proven deal page: Le Male Le Parfum $93.95, La Vie Est Belle 3.4 oz $93.95, Good Girl $91.95, Afternoon Delight $78.95, Bubble Bath $81.95, CK Free, plus 1 Million Lucky $77.95 and Jazz Club $81.95. All FragranceShop. Each of those pages links the others at the prices in deals.json.
+- Homepage fold, after Good Girl and next to Le Male Le Parfum: 1 Million Lucky $77.95. The order is La Vie Est Belle 3.4 oz, Good Girl, Le Male Le Parfum, 1 Million Lucky, Afternoon Delight, CK Free.
+- /men/ fold: Le Male Le Parfum, then 1 Million Lucky, then the next FragranceShop bottle. The cards under that stay lowest price first. The lead Buy is still the lowest men's price.
+- Every Paco Rabanne deal page leads with the checked price and one Buy button above the photo, plus links to the other bottles. 1 Million Lucky $77.95 at FragranceShop, 1 Million Royal $89.95 at FragranceShop, Invictus $63.95 at FragranceShop, Olympéa $59.95 at Perfumania. Titles start with Buy and include the checked price. Lucky's title says Deal. The 4-piece mini set is in the gift catalog, not a deal page, so it stays on the gift-set guides.
+- /black-friday-cologne-deals/ leads with Le Male Le Parfum, then 1 Million Lucky. The rest of that grid stays largest discount first. Cyber Monday and the $50 to $100 band on /black-friday/ are unchanged.
+
+**New pages (4, config `gift_guides`, so they survive the rebuild). Prices are the Nov 19 deals.json prices.**
+- /gifts/paco-rabanne-christmas-gifts/: Olympéa 1.7 oz $59.95 at Perfumania, Invictus 3.4 oz $63.95 at FragranceShop, 1 Million Lucky 3.4 oz $77.95 at FragranceShop, 1 Million Royal 3.4 oz $89.95 at FragranceShop. Title: "Buy Paco Rabanne Christmas Gifts: From $59.95" (45). Meta 158.
+- /gifts/1-million-christmas-cologne-deals/: 1 Million Lucky $77.95 and 1 Million Royal $89.95, both 3.4 oz at FragranceShop. Title: "Buy 1 Million Cologne Deals: From $77.95" (40). Meta 159.
+- /gifts/best-selling-cologne-gifts-black-friday/: Stronger With You Intensely 1.7 oz $70.95, 1 Million Lucky $77.95, Afternoon Delight $78.95, Jazz Club $81.95, Le Male Le Parfum $93.95. Title: "Buy Best-Selling Cologne Gifts: From $70.95" (43). Meta 121. The copy says these are bottles shoppers have bought here, not a unit-sales chart.
+- /gifts/black-friday-best-selling-perfume-gifts/: Afternoon Delight $78.95, Bubble Bath $81.95, Jazz Club $81.95, Good Girl $91.95, La Vie Est Belle 3.4 oz $93.95. Title: "Buy Black Friday Perfume Gifts: From $78.95" (43). Meta 120. Women's perfume and the unisex Replica bottles. Le Male stays on the cologne list.
+
+Each new page has ItemList (Product with AggregateOffer), FAQPage, and BreadcrumbList JSON-LD, a canonical on https://scentdealsdaily.com/gifts/<slug>/, a 1000×1500 pin, and a lead price plus Buy button before the cards. The homepage, /gifts/, /men/ or /women/ or /unisex/, /black-friday/, and the matching brand pages and deal pages link them. Sitemap is 348 URLs. llms.txt and feed.xml include the four URLs.
+
+**Titles/meta**
+The four new titles are 45, 40, 43, and 43. Their metas are 158, 159, 121, and 120. The Paco Rabanne deal-page titles are 44–52 and the metas are 103–137. Jazz Club is "Buy Replica Jazz Club 3.4 oz Deal: $81.95" (41) / meta 131. All titles are ≤60. All metas are 70–160. No duplicate titles or descriptions.
+
+**Checks:** local build on the 2026-11-19T02:58:54Z deals file. Sitemap 348 URLs. 0 broken internal links. JSON-LD parsed (1,135 blocks). 0 github.io links. Every canonical is on https://scentdealsdaily.com. CNAME is scentdealsdaily.com. Both Google site-verification meta tags stay on every page. data/deals.json was not edited. Affiliate hrefs were checked as strings only. No request was made to a CJ, Awin, Rakuten, or /go tracking URL.
+
+**Deploy:** this push goes straight to main and triggers daily-refresh (refresh + build + IndexNow + Pages). Live 200s are checked after that run.
+
 ## 2026-11-17 (Tue) — Black Friday titles on the pages that already get impressions
 
 **Refresh status:** origin/main at the start of this pass was a7b4e38 "daily refresh". data/deals.json is stamped 2026-11-16T21:01:22Z (Nov 16, 2026 5:01 PM ET): 86 live deals. This pass did not edit data/deals.json and did not re-fetch prices. The push triggers daily-refresh, which owns the next price check.

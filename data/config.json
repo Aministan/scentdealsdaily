@@ -1532,6 +1532,512 @@
  ],
  "gift_guides": [
 {
+  "slug": "paco-rabanne-christmas-gifts",
+  "title": "Paco Rabanne Christmas gifts",
+  "title_tag": "Buy Paco Rabanne Christmas Gifts",
+  "buy_meta": true,
+  "chip": "Paco Rabanne Christmas gifts",
+  "exclude_mini": true,
+  "exclude_set": true,
+  "min_bottles": 4,
+  "ids": [
+    "olympea-eau-de-parfum-spray-for-women-by-paco-rabanne",
+    "fs-paco-invictus-edt-3-4",
+    "fs-paco-1-million-lucky-edt-3-4",
+    "fs-paco-1-million-royal-parfum-3-4"
+  ],
+  "filled_label": "Paco Rabanne Christmas gifts",
+  "intro": "Paco Rabanne Christmas gifts, lowest checked price first. The list is Olympéa, Invictus, 1 Million Lucky, and 1 Million Royal. 1 Million Lucky is a bottle shoppers have bought from this site. 1 Million Christmas cologne deals keeps only the two 1 Million colognes and leaves Olympéa and Invictus off. A boxed Paco Rabanne mini set stays on the gift-set guides. The original 1 Million eau de toilette is not in this price check. For Christmas shopping through December 25, 2026.",
+  "empty": "No Paco Rabanne bottle we checked is in stock, so this page has no list. These guides have bottles we priced.",
+  "empty_desc": "Paco Rabanne Christmas gifts: no Paco Rabanne bottle we checked is in stock. Other gift guides list bottles we did price.",
+  "choose": [
+    "Start with 1 Million Lucky when the gift is the bottle shoppers have already bought here. 1 Million Royal is the parfum flanker in that family. Invictus is the fresh sporty cologne. Olympéa is the salty vanilla women's perfume. Read the size on the card.",
+    "Use 1 Million Christmas cologne deals when the gift has to stay in the 1 Million line. This page is the whole house that is in the price check. Best-selling cologne gifts for Black Friday keeps 1 Million Lucky and adds bottles from other houses.",
+    "The buy button is the checked offer. When two stores for the same bottle are within $2, the higher-commission store is the button. A wider gap keeps the lower price."
+  ],
+  "faq": [
+    [
+      "Which Paco Rabanne bottle has sold from this site?",
+      "1 Million Lucky. Invictus, 1 Million Royal, and Olympéa are the other Paco Rabanne bottles in the same price check."
+    ],
+    [
+      "How is this different from 1 Million Christmas cologne deals?",
+      "That page is 1 Million Lucky and 1 Million Royal only. This page adds Invictus and Olympéa."
+    ],
+    [
+      "Is the Paco Rabanne mini set on this page?",
+      "No. A boxed mini set stays on the gift-set guides. This page is single bottles."
+    ],
+    [
+      "1 Million Lucky, Royal, or Invictus?",
+      "Lucky and Royal are the sweet gold-bar family. The stored copy does not split a separate note pyramid for those two. Invictus is the fresh, sporty, aquatic cologne. Olympéa is the women's salty vanilla."
+    ],
+    [
+      "What does Olympéa smell like?",
+      "The stored brand copy calls it a salty vanilla: water jasmine and mandarin over vanilla, a salt accord, and sandalwood. It is not Invictus and it is not 1 Million."
+    ],
+    [
+      "Is 1 Million Lucky on sale for Black Friday?",
+      "The cards use the daily price check, including around Black Friday. The Paco Rabanne Black Friday page is the same house. It is not a second price."
+    ]
+  ],
+  "sections": [
+    {
+      "h": "Lucky, Royal, Invictus, and Olympéa",
+      "p": "1 Million Lucky is the eau de toilette shoppers have bought here. 1 Million Royal is the parfum flanker. Invictus is the fresh sporty cologne. Olympéa is the women's perfume. The original 1 Million eau de toilette is not in this price check."
+    },
+    {
+      "h": "How the house splits",
+      "p": "The stored brand copy calls 1 Million sweet, warm, and a little leathery, and it calls Lucky and Royal flankers in that family. Invictus is fresh, sporty, and aquatic. Olympéa is a salty vanilla. They are not the same bottle."
+    }
+  ],
+  "keywords": [
+    "1 million lucky deal",
+    "1 million lucky sale",
+    "1 million lucky 3.4 oz price",
+    "paco rabanne christmas gift",
+    "1 million lucky black friday",
+    "cheapest 1 million lucky",
+    "paco rabanne cologne gift"
+  ],
+  "links": [
+    {
+      "href": "/gifts/1-million-christmas-cologne-deals/",
+      "label": "1 Million Christmas cologne deals"
+    },
+    {
+      "href": "/gifts/best-selling-cologne-gifts-black-friday/",
+      "label": "Best-selling cologne gifts for Black Friday"
+    },
+    {
+      "href": "/fragrance/paco-rabanne-1-million-lucky-cologne/",
+      "label": "1 Million Lucky price"
+    },
+    {
+      "href": "/fragrance/paco-rabanne-1-million-royal-cologne/",
+      "label": "1 Million Royal price"
+    },
+    {
+      "href": "/fragrance/paco-rabanne-invictus-cologne/",
+      "label": "Invictus price"
+    },
+    {
+      "href": "/fragrance/paco-rabanne-olympea-perfume/",
+      "label": "Olympéa price"
+    },
+    {
+      "href": "/black-friday-cologne-deals/",
+      "label": "Black Friday cologne deals"
+    },
+    {
+      "href": "/black-friday/paco-rabanne/",
+      "label": "Paco Rabanne Black Friday deals"
+    },
+    {
+      "href": "/brands/paco-rabanne/",
+      "label": "Paco Rabanne deals"
+    },
+    {
+      "href": "/men/",
+      "label": "All men's cologne deals"
+    },
+    {
+      "href": "/women/",
+      "label": "All women's perfume deals"
+    },
+    {
+      "href": "/gifts/",
+      "label": "All holiday gift guides"
+    },
+    {
+      "href": "/black-friday/",
+      "label": "Black Friday hub"
+    }
+  ]
+},
+{
+  "slug": "1-million-christmas-cologne-deals",
+  "title": "1 Million Christmas cologne deals",
+  "title_tag": "Buy 1 Million Cologne Deals",
+  "buy_meta": true,
+  "chip": "1 Million cologne deals",
+  "gender": "men",
+  "exclude_mini": true,
+  "exclude_set": true,
+  "min_bottles": 2,
+  "ids": [
+    "fs-paco-1-million-lucky-edt-3-4",
+    "fs-paco-1-million-royal-parfum-3-4"
+  ],
+  "filled_label": "1 Million Christmas cologne deals",
+  "intro": "1 Million Christmas cologne deals, lowest checked price first. The list is 1 Million Lucky and 1 Million Royal, the two 1 Million bottles in this price check. 1 Million Lucky is a bottle shoppers have bought from this site. Paco Rabanne Christmas gifts adds Invictus and Olympéa. The original 1 Million eau de toilette is not in this check. A boxed mini set stays on the gift-set guides. For Christmas shopping through December 25, 2026.",
+  "empty": "No 1 Million cologne we checked is in stock, so this page has no list. These guides have bottles we priced.",
+  "empty_desc": "1 Million Christmas cologne deals: no 1 Million cologne we checked is in stock. Other gift guides list bottles we did price.",
+  "choose": [
+    "Start with 1 Million Lucky when the gift is the bottle shoppers have already bought here. 1 Million Royal is the parfum flanker. Both are 3.4 oz when they are on this page. Read the concentration on the card.",
+    "Use Paco Rabanne Christmas gifts when the gift can leave the 1 Million line. That page keeps these two and adds Invictus and Olympéa. This page leaves those off.",
+    "The buy button is the checked offer. When two stores for the same bottle are within $2, the higher-commission store is the button. A wider gap keeps the lower price."
+  ],
+  "faq": [
+    [
+      "Which 1 Million bottle has sold from this site?",
+      "1 Million Lucky. 1 Million Royal is the other 1 Million bottle in the same price check."
+    ],
+    [
+      "How is this different from Paco Rabanne Christmas gifts?",
+      "Paco Rabanne Christmas gifts also lists Invictus and Olympéa. This page is Lucky and Royal only."
+    ],
+    [
+      "Is the original 1 Million on this page?",
+      "No. The original eau de toilette is not in this price check. Lucky is the eau de toilette flanker we priced. Royal is the parfum."
+    ],
+    [
+      "Lucky or Royal?",
+      "Lucky is the eau de toilette shoppers have bought here. Royal is the parfum flanker. The stored copy calls both part of the sweet 1 Million family and does not split a separate note pyramid."
+    ],
+    [
+      "Is the mini set on this page?",
+      "No. A boxed mini set stays on the gift-set guides. This page is the two 3.4 oz bottles."
+    ],
+    [
+      "Is 1 Million Lucky on sale for Black Friday?",
+      "The cards use the daily price check, including around Black Friday. The Paco Rabanne Black Friday page is the same house. It is not a second price."
+    ]
+  ],
+  "sections": [
+    {
+      "h": "Lucky and Royal",
+      "p": "1 Million Lucky is the 3.4 oz eau de toilette. 1 Million Royal is the 3.4 oz parfum. The original 1 Million eau de toilette is not in this price check."
+    },
+    {
+      "h": "How the 1 Million line smells",
+      "p": "The stored brand copy calls 1 Million sweet, warm, and a little leathery. Lucky and Royal are flankers in that family. The copy does not publish a separate note list for one versus the other."
+    }
+  ],
+  "keywords": [
+    "1 million cologne deal",
+    "1 million lucky cologne",
+    "1 million royal price",
+    "1 million cologne gift",
+    "1 million black friday",
+    "cheapest 1 million cologne"
+  ],
+  "links": [
+    {
+      "href": "/gifts/paco-rabanne-christmas-gifts/",
+      "label": "Paco Rabanne Christmas gifts"
+    },
+    {
+      "href": "/gifts/best-selling-cologne-gifts-black-friday/",
+      "label": "Best-selling cologne gifts for Black Friday"
+    },
+    {
+      "href": "/fragrance/paco-rabanne-1-million-lucky-cologne/",
+      "label": "1 Million Lucky price"
+    },
+    {
+      "href": "/fragrance/paco-rabanne-1-million-royal-cologne/",
+      "label": "1 Million Royal price"
+    },
+    {
+      "href": "/black-friday-cologne-deals/",
+      "label": "Black Friday cologne deals"
+    },
+    {
+      "href": "/black-friday/paco-rabanne/",
+      "label": "Paco Rabanne Black Friday deals"
+    },
+    {
+      "href": "/brands/paco-rabanne/",
+      "label": "Paco Rabanne deals"
+    },
+    {
+      "href": "/men/",
+      "label": "All men's cologne deals"
+    },
+    {
+      "href": "/gifts/",
+      "label": "All holiday gift guides"
+    },
+    {
+      "href": "/black-friday/",
+      "label": "Black Friday hub"
+    }
+  ]
+},
+{
+  "slug": "best-selling-cologne-gifts-black-friday",
+  "title": "Best-selling cologne gifts for Black Friday",
+  "title_tag": "Buy Best-Selling Cologne Gifts",
+  "buy_meta": true,
+  "chip": "Best-selling cologne gifts",
+  "exclude_mini": true,
+  "exclude_set": true,
+  "min_bottles": 4,
+  "ids": [
+    "stronger-with-you-intensely-cologne-for-men",
+    "fs-paco-1-million-lucky-edt-3-4",
+    "fs-mm-afternoon-delight-edt-3-4",
+    "fs-mm-jazz-club-edt-3-4",
+    "fs-jpg-le-male-le-parfum-4-2"
+  ],
+  "filled_label": "cologne gifts for Black Friday from bottles shoppers have bought",
+  "intro": "A short cologne-gift list for Black Friday, lowest checked price first, built around bottles shoppers have bought from this site. Le Male Le Parfum, 1 Million Lucky, and Jazz Club are on the list. Afternoon Delight and Stronger With You Intensely are the other bottles in that same check. This is not a unit-sales chart. Famous fragrance gifts under $100 keeps Le Male Le Parfum and Afternoon Delight and adds Good Girl, Bubble Bath, and La Vie Est Belle. It leaves Jazz Club, 1 Million Lucky, and Stronger With You Intensely off. Best-selling colognes 2026 is a different name list and shares none of these five. Black Friday 2026 is November 27. For Black Friday shopping through November 27, 2026.",
+  "empty": "None of these bottles are in the price check, so this page has no list. These guides have bottles we priced.",
+  "empty_desc": "Best-selling cologne gifts for Black Friday: none of these bottles are in the price check. Other gift guides list bottles we did price.",
+  "choose": [
+    "Start with Le Male Le Parfum, 1 Million Lucky, or Jazz Club when the gift is a bottle shoppers have already bought here. Afternoon Delight is the vanilla Replica. Stronger With You Intensely is the sweet evening Armani. Read the size on the card. Jazz Club and Afternoon Delight are unisex.",
+    "Use famous fragrance gifts under $100 when the gift should include Good Girl and La Vie Est Belle and can leave Jazz Club and 1 Million Lucky off. Use 1 Million Christmas cologne deals when the gift has to stay in the 1 Million line.",
+    "The buy button is the checked offer. When two stores for the same bottle are within $2, the higher-commission store is the button. A wider gap keeps the lower price."
+  ],
+  "faq": [
+    [
+      "Which bottles on this page have sold from this site?",
+      "Le Male Le Parfum, 1 Million Lucky, and Jazz Club. Afternoon Delight has sold here too. Stronger With You Intensely is the other cologne in the same price check."
+    ],
+    [
+      "How is this different from famous fragrance gifts under $100?",
+      "That page is Afternoon Delight, Bubble Bath, Good Girl, Le Male Le Parfum, and La Vie Est Belle. This page keeps Le Male Le Parfum and Afternoon Delight and adds 1 Million Lucky, Jazz Club, and Stronger With You Intensely."
+    ],
+    [
+      "How is this different from best-selling colognes 2026?",
+      "Best-selling colognes 2026 is Cool Water, Eros, Eros Flame, The Most Wanted, Acqua di Gio, and Le Beau. This page does not share those bottles. It is not a unit-sales ranking either."
+    ],
+    [
+      "Are Jazz Club and Afternoon Delight colognes?",
+      "The retailer lists both as unisex eau de toilette. They are on this gift list because shoppers buy them the way they buy a cologne. Le Male Le Parfum, 1 Million Lucky, and Stronger With You Intensely are men's."
+    ],
+    [
+      "What do these smell like?",
+      "The stored copy calls Le Male mint and vanilla, with Le Parfum the stronger version. 1 Million Lucky is the sweet, warm, slightly leathery flanker. Jazz Club is tobacco, rum, and vanilla. Afternoon Delight is madeleine and vanilla. Stronger With You Intensely is toffee, cinnamon, and vanilla."
+    ],
+    [
+      "Are these separate Black Friday prices?",
+      "No. Each card uses the price already in the daily price check. The page rebuilds with that check."
+    ]
+  ],
+  "sections": [
+    {
+      "h": "Bottles shoppers have bought",
+      "p": "Le Male Le Parfum, 1 Million Lucky, Jazz Club, and Afternoon Delight are bottles shoppers have bought from this site. Stronger With You Intensely is the other cologne on this short list. The order on the page is the lowest checked price, not a sales rank."
+    },
+    {
+      "h": "How this list differs",
+      "p": "Famous fragrance gifts under $100 is the mixed list that keeps Good Girl and La Vie Est Belle. This page is the cologne-gift list for November 27. It keeps the men's and unisex bottles people have bought and leaves the women's perfumes on the perfume page."
+    }
+  ],
+  "keywords": [
+    "black friday cologne gifts",
+    "best selling cologne gift",
+    "le male le parfum gift",
+    "1 million lucky gift",
+    "jazz club cologne",
+    "stronger with you intensely gift"
+  ],
+  "links": [
+    {
+      "href": "/gifts/paco-rabanne-christmas-gifts/",
+      "label": "Paco Rabanne Christmas gifts"
+    },
+    {
+      "href": "/gifts/1-million-christmas-cologne-deals/",
+      "label": "1 Million Christmas cologne deals"
+    },
+    {
+      "href": "/gifts/le-male-christmas-gifts/",
+      "label": "Le Male Christmas gifts"
+    },
+    {
+      "href": "/gifts/replica-christmas-gifts/",
+      "label": "Replica Christmas gifts"
+    },
+    {
+      "href": "/gifts/famous-fragrance-gifts-under-100/",
+      "label": "Famous fragrance gifts under $100"
+    },
+    {
+      "href": "/gifts/black-friday-best-selling-perfume-gifts/",
+      "label": "Black Friday perfume gifts shoppers bought"
+    },
+    {
+      "href": "/fragrance/jean-paul-gaultier-le-male-le-parfum-cologne/",
+      "label": "Le Male Le Parfum price"
+    },
+    {
+      "href": "/fragrance/paco-rabanne-1-million-lucky-cologne/",
+      "label": "1 Million Lucky price"
+    },
+    {
+      "href": "/fragrance/maison-margiela-replica-jazz-club/",
+      "label": "Replica Jazz Club price"
+    },
+    {
+      "href": "/fragrance/maison-margiela-replica-afternoon-delight/",
+      "label": "Replica Afternoon Delight price"
+    },
+    {
+      "href": "/fragrance/giorgio-armani-stronger-with-you-intensely-cologne/",
+      "label": "Stronger With You Intensely price"
+    },
+    {
+      "href": "/black-friday-cologne-deals/",
+      "label": "Black Friday cologne deals"
+    },
+    {
+      "href": "/men/",
+      "label": "All men's cologne deals"
+    },
+    {
+      "href": "/unisex/",
+      "label": "All unisex fragrance deals"
+    },
+    {
+      "href": "/gifts/",
+      "label": "All holiday gift guides"
+    },
+    {
+      "href": "/black-friday/",
+      "label": "Black Friday hub"
+    }
+  ]
+},
+{
+  "slug": "black-friday-best-selling-perfume-gifts",
+  "title": "Black Friday perfume gifts shoppers bought",
+  "title_tag": "Buy Black Friday Perfume Gifts",
+  "buy_meta": true,
+  "chip": "Black Friday perfume gifts shoppers bought",
+  "exclude_mini": true,
+  "exclude_set": true,
+  "min_bottles": 4,
+  "ids": [
+    "fs-mm-afternoon-delight-edt-3-4",
+    "fs-mm-bubble-bath-edt-3-4",
+    "fs-mm-jazz-club-edt-3-4",
+    "fs-ch-good-girl-edp-2-7",
+    "fs-lancome-la-vie-est-belle-edp-3-4"
+  ],
+  "filled_label": "Black Friday perfume and unisex gifts from bottles shoppers have bought",
+  "intro": "Women's and unisex bottles shoppers have bought from this site, lowest checked price first, for a Black Friday gift. The list is Afternoon Delight, Bubble Bath, Jazz Club, Good Girl, and La Vie Est Belle 3.4 oz. Famous fragrance gifts under $100 keeps four of these and swaps Jazz Club for Le Male Le Parfum. Best-selling women's perfume gifts under $100 keeps Good Girl and La Vie Est Belle and adds Very Good Girl, Black Opium, and Donna Born in Roma. It leaves the Replica bottles off. This page leaves men's cologne off. Black Friday 2026 is November 27. This is not a unit-sales chart. For Black Friday shopping through November 27, 2026.",
+  "empty": "None of these bottles are in the price check, so this page has no list. These guides have bottles we priced.",
+  "empty_desc": "Black Friday perfume gifts shoppers bought: none of these bottles are in the price check. Other gift guides list bottles we did price.",
+  "choose": [
+    "Start with Good Girl, La Vie Est Belle 3.4 oz, Bubble Bath, Afternoon Delight, or Jazz Club. Each of those is a bottle shoppers have bought here. Good Girl and La Vie Est Belle are women's perfume. The three Replica bottles are unisex. Read the size on the card.",
+    "Use best-selling women's perfume gifts under $100 when the gift has to be women's perfume under $100 and can leave Replica off. Use famous fragrance gifts under $100 when the gift can include Le Male Le Parfum. This page keeps Jazz Club and leaves Le Male off.",
+    "The buy button is the checked offer. When two stores for the same bottle are within $2, the higher-commission store is the button. A wider gap keeps the lower price."
+  ],
+  "faq": [
+    [
+      "Which bottles on this page have sold from this site?",
+      "La Vie Est Belle 3.4 oz, Good Girl, Bubble Bath, Afternoon Delight, and Jazz Club."
+    ],
+    [
+      "How is this different from famous fragrance gifts under $100?",
+      "That page replaces Jazz Club with Le Male Le Parfum and keeps the other four. This page keeps Jazz Club and leaves the men's cologne off."
+    ],
+    [
+      "How is this different from best-selling women's perfume gifts under $100?",
+      "That page is Very Good Girl, Black Opium, Good Girl, La Vie Est Belle 3.4 oz, and Donna Born in Roma. This page keeps Good Girl and La Vie Est Belle and adds the three Replica bottles."
+    ],
+    [
+      "Are the Replica bottles perfume?",
+      "The retailer lists Afternoon Delight, Bubble Bath, and Jazz Club as unisex eau de toilette. They are on this gift list because shoppers have bought them alongside the women's perfumes. Good Girl and La Vie Est Belle are women's eau de parfum."
+    ],
+    [
+      "What do these smell like?",
+      "Afternoon Delight is madeleine and vanilla. Bubble Bath is soap, lavender, and clean musk. Jazz Club is tobacco, rum, and vanilla. Good Girl is almond, jasmine, tonka, and cocoa. La Vie Est Belle is pear, iris, and praline vanilla. They are not the same scent."
+    ],
+    [
+      "Are these separate Black Friday prices?",
+      "No. Each card uses the price already in the daily price check. The page rebuilds with that check."
+    ]
+  ],
+  "sections": [
+    {
+      "h": "Women's perfume and unisex Replica",
+      "p": "Good Girl and La Vie Est Belle 3.4 oz are the women's bottles shoppers have bought. Afternoon Delight, Bubble Bath, and Jazz Club are the unisex Replica bottles shoppers have bought. Le Male Le Parfum stays on the cologne list."
+    },
+    {
+      "h": "How to tell them apart",
+      "p": "The stored copy calls Good Girl almond, jasmine, tonka, and cocoa. La Vie Est Belle is a sweet floral gourmand. Afternoon Delight is a bakery vanilla. Bubble Bath is clean and soapy. Jazz Club is tobacco and rum. Give the one whose notes match the person."
+    }
+  ],
+  "keywords": [
+    "black friday perfume gifts",
+    "good girl black friday",
+    "la vie est belle black friday",
+    "replica jazz club gift",
+    "bubble bath perfume gift",
+    "afternoon delight gift"
+  ],
+  "links": [
+    {
+      "href": "/gifts/best-selling-cologne-gifts-black-friday/",
+      "label": "Best-selling cologne gifts for Black Friday"
+    },
+    {
+      "href": "/gifts/famous-fragrance-gifts-under-100/",
+      "label": "Famous fragrance gifts under $100"
+    },
+    {
+      "href": "/gifts/best-selling-womens-perfume-gifts-under-100/",
+      "label": "Best-selling women's perfume gifts under $100"
+    },
+    {
+      "href": "/gifts/good-girl-perfume-gift-deals/",
+      "label": "Good Girl perfume gift deals"
+    },
+    {
+      "href": "/gifts/la-vie-est-belle-christmas-gifts/",
+      "label": "La Vie Est Belle Christmas gifts"
+    },
+    {
+      "href": "/gifts/replica-christmas-gifts/",
+      "label": "Replica Christmas gifts"
+    },
+    {
+      "href": "/fragrance/maison-margiela-replica-afternoon-delight/",
+      "label": "Replica Afternoon Delight price"
+    },
+    {
+      "href": "/fragrance/maison-margiela-replica-bubble-bath/",
+      "label": "Replica Bubble Bath price"
+    },
+    {
+      "href": "/fragrance/maison-margiela-replica-jazz-club/",
+      "label": "Replica Jazz Club price"
+    },
+    {
+      "href": "/fragrance/carolina-herrera-good-girl-perfume/",
+      "label": "Good Girl price"
+    },
+    {
+      "href": "/fragrance/lanc-me-la-vie-est-belle-perfume-3-4-oz/",
+      "label": "La Vie Est Belle 3.4 oz price"
+    },
+    {
+      "href": "/black-friday-perfume-deals/",
+      "label": "Black Friday perfume deals"
+    },
+    {
+      "href": "/women/",
+      "label": "All women's perfume deals"
+    },
+    {
+      "href": "/unisex/",
+      "label": "All unisex fragrance deals"
+    },
+    {
+      "href": "/gifts/",
+      "label": "All holiday gift guides"
+    },
+    {
+      "href": "/black-friday/",
+      "label": "Black Friday hub"
+    }
+  ]
+},
+{
   "slug": "la-vie-est-belle-christmas-gifts",
   "title": "La Vie Est Belle Christmas gift deals",
   "title_tag": "Buy La Vie Est Belle Gift Deals",
@@ -1604,6 +2110,7 @@
    {"href": "/gifts/good-girl-perfume-gift-deals/", "label": "Good Girl perfume gift deals"},
    {"href": "/gifts/best-selling-womens-perfume-gifts-under-100/", "label": "Best-selling women's perfume gifts under $100"},
    {"href": "/gifts/famous-fragrance-gifts-under-100/", "label": "Famous fragrance gifts under $100"},
+   {"href": "/gifts/black-friday-best-selling-perfume-gifts/", "label": "Black Friday perfume gifts shoppers bought"},
    {"href": "/gifts/christmas-perfume-gifts-under-100/", "label": "Christmas perfume gifts under $100"},
    {"href": "/black-friday/lancome/", "label": "Lancôme Black Friday deals"},
    {"href": "/brands/lancome/", "label": "Lancôme deals"},
