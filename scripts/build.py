@@ -2092,7 +2092,20 @@ for r in ROUNDUPS:
                     f"<a href='{PREFIX}/gifts/luxury-fragrance-gifts-under-100/'>luxury fragrance gifts under $100</a>.</p>")
     link_html=""
     if r.get("links"):
-        link_html="<p class='chips'>"+"".join(f"<a href='{PREFIX}{l['href']}'>{e(l['label'])}</a>" for l in r["links"] if isinstance(l, dict) and l.get("href") and l.get("label"))+"</p>"
+        built_vs={v["slug"] for v in VS}
+        built_gifts={g["slug"] for g in GIFT_GUIDES}
+        chips=[]
+        for l in r["links"]:
+            if not isinstance(l, dict) or not l.get("href") or not l.get("label"):
+                continue
+            href=l["href"]
+            slug_s=href.strip("/").split("/")[-1]
+            if href.startswith("/vs/") and slug_s not in built_vs:
+                continue
+            if href.startswith("/gifts/") and href.strip("/")!="gifts" and slug_s not in built_gifts:
+                continue
+            chips.append(f"<a href='{PREFIX}{href}'>{e(l['label'])}</a>")
+        link_html=("<p class='chips'>"+"".join(chips)+"</p>") if chips else ""
     body=(f"<h1>{e(r['title'])} ({upd:%b %-d, %Y})</h1><p class='sub'>{n} authentic {r['who']} fragrances {SC}, each at least 15% below its listed price · checked {upd_h}</p>"+(f"<p>{e(r['lead'])}</p>" if r.get('lead') else "")
       +link_html
       +gift_split
@@ -3087,7 +3100,24 @@ for spec in GIFT_GUIDES:
         faqs.append((pair[0], pair[1]))
     extra=""
     if spec.get("links"):
-        extra="<p class='chips'>"+"".join(f"<a href='{PREFIX}{l['href']}'>{e(l['label'])}</a>" for l in spec["links"])+"</p>"
+        built_vs={v["slug"] for v in VS}
+        built_best={r["slug"] for r in ROUNDUPS}
+        built_gifts={g["slug"] for g in GIFT_GUIDES}
+        chips=[]
+        for l in spec["links"]:
+            if not isinstance(l, dict) or not l.get("href") or not l.get("label"):
+                continue
+            href=l["href"]
+            slug_s=href.strip("/").split("/")[-1]
+            if href.startswith("/vs/") and slug_s not in built_vs:
+                continue
+            if href.startswith("/best/") and slug_s not in built_best:
+                continue
+            if href.startswith("/gifts/") and href.strip("/")!="gifts" and slug_s not in built_gifts:
+                continue
+            chips.append(f"<a href='{PREFIX}{href}'>{e(l['label'])}</a>")
+        if chips:
+            extra="<p class='chips'>"+"".join(chips)+"</p>"
     choose=spec.get("choose") or []
     if isinstance(choose, str): choose=[choose]
     choose_html=""
