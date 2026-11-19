@@ -16,6 +16,11 @@ try:
 except ImportError as _pin_err:
     raise SystemExit("gift pin images need Pillow. Install it with: python3 -m pip install pillow") from _pin_err
 import product_images
+try:
+    from zoneinfo import ZoneInfo
+    ET=ZoneInfo("America/New_York")
+except Exception:
+    ET=datetime.timezone(datetime.timedelta(hours=-5))
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__))); OUT=f"{ROOT}/site"
 # site/ is wiped and regenerated; keep promo videos in site/media across that rebuild.
 _media_tmp=None
@@ -235,6 +240,12 @@ main{max-width:1100px;margin:0 auto;padding:16px}h1{font-size:26px;line-height:1
 .fold-deals>.meta{grid-column:1/-1}
 .fold-deal{background:#fff;border:1px solid #ece7e1;border-radius:12px;padding:8px 10px}
 .fold-deal .lead-name,.fold-deal .lead-price{margin:2px 0}.fold-deal .price{font-size:20px}.fold-deal .btn{margin-top:6px;padding:8px 10px}
+.bf-banner{background:#1d1b20;color:#fff;text-align:center;margin:0;padding:6px 12px;font-size:14px}.bf-banner a{color:#e7b75f;font-weight:700;text-decoration:none}
+.promo-callout{background:#fff8ea;border:1px solid #e7b75f;border-radius:12px;padding:8px 12px;margin:0 0 12px}
+.fs-picks{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin:0 0 14px}
+.fs-pick{background:#fff;border:1px solid #ece7e1;border-radius:12px;padding:8px;display:flex;flex-direction:column}
+.fs-pick img{width:100%;aspect-ratio:1;object-fit:contain;background:#fff}
+.fs-pick .pick-name,.fs-pick .pick-price{margin:2px 0}.fs-pick .price{font-size:18px}
 .box{background:#fff;border:1px solid #ece7e1;border-radius:14px;padding:16px;margin:18px 0}
 table{width:100%;border-collapse:collapse;background:#fff}th,td{text-align:left;padding:10px;border-bottom:1px solid #eee;vertical-align:top}
 .chips a{display:inline-block;margin:3px;padding:4px 10px;border-radius:99px;background:#fff;border:1px solid #e3ddd6;text-decoration:none;font-size:14px}
@@ -385,7 +396,7 @@ def page(path,title,desc,body,jsonld=None,index=True,image=None,feed=True,canoni
 {robots_tag}<title>{e(title)}</title><meta name="description" content="{e(desc)}"><link rel="canonical" href="{canon_url}">
 <link rel="alternate" type="application/rss+xml" title="ScentDealsDaily" href="{FEED_HREF}">
 {social}<link rel="preconnect" href="https://cdn.shopify.com"><style>{CSS}</style>{brevo_head}{ld}</head><body>
-<header><a class="logo" href="{p}/">Scent<span>Deals</span>Daily</a><div class="nav-scroll"><nav><a href="{p}/">Today's deals</a><a href="{p}/best-sellers/">Best sellers</a><a href="{p}/jean-paul-gaultier-le-male-deals/">Le Male</a><a href="{p}/fragrance-gift-sets/">Gift sets</a><a href="{p}/black-friday/">Black Friday</a><a href="{p}/dupes/">Dupes</a><a href="{p}/men/">Men</a><a href="{p}/women/">Women</a><a href="{p}/brands/">Brands</a><a href="{p}/sponsor/">Sponsor</a></nav></div></header>
+<header><a class="logo" href="{p}/">Scent<span>Deals</span>Daily</a><div class="nav-scroll"><nav><a href="{p}/">Today's deals</a><a href="{p}/best-sellers/">Best sellers</a><a href="{p}/jean-paul-gaultier-le-male-deals/">Le Male</a><a href="{p}/fragrance-gift-sets/">Gift sets</a><a href="{p}/black-friday/">Black Friday</a><a href="{p}/dupes/">Dupes</a><a href="{p}/men/">Men</a><a href="{p}/women/">Women</a><a href="{p}/brands/">Brands</a><a href="{p}/sponsor/">Sponsor</a></nav></div></header>{fs_sale_banner()}
 <main>{body}</main><footer>{NL_FOOT}<p>We may earn a commission when you buy through our links, at no extra cost to you. Affiliate links go to Perfumania, FragranceShop, and FragranceNet.</p>
 <p><b>Affiliate disclosure:</b> some links may earn us a commission at no cost to you. <a href="{p}/disclosure/">Details</a>.
 We list only authorized or long-established retailers, never gray-market marketplaces. Prices change fast; each deal shows when we last checked it. Not affiliated with any brand.</p>
@@ -897,6 +908,108 @@ def more_grid(inner, limit=12):
     n=inner.count('<article class="card">')+inner.count("<article class='card'>")
     if n<=limit: return f"<div class='grid'>{inner}</div>"
     return f"<div class='grid more-grid' data-more='{limit}'>{inner}</div>"
+_PROVEN_GRID=(
+    "le male le parfum",
+    {"brand":"lanc","name_is":"la vie est belle perfume","size":"3.4"},
+    {"brand":"carolina","name_is":"good girl perfume","size":"2.7"},
+    "afternoon delight",
+    "bubble bath",
+    {"brand":"margiela","name_is":"replica jazz club","size":"3.4"},
+)
+PM_HOME="https://www.perfumania.com/"
+_DUPE_HOUSES=("afnan","lattafa","armaf","rasasi","al haramain","barakkat","club de nuit")
+def _promo_rows():
+    path=os.path.join(ROOT,"data","promos.json")
+    if not os.path.isfile(path): return []
+    data=json.load(open(path, encoding="utf-8"))
+    rows=[]
+    for row in data.get("offers") or []:
+        if isinstance(row, dict) and str(row.get("text") or "").strip() and row.get("start") and row.get("end"):
+            rows.append(row)
+    return rows
+def _promo_when(row):
+    start=datetime.datetime.fromisoformat(row["start"])
+    end=datetime.datetime.fromisoformat(row["end"])
+    if start.tzinfo is None: start=start.replace(tzinfo=ET)
+    if end.tzinfo is None: end=end.replace(tzinfo=ET)
+    return start, end
+def _promo_now():
+    return datetime.datetime.now(ET)
+def promo_groups(now=None):
+    """Active offers are inside start/end. Later offers have not started. Ended offers are omitted."""
+    now=now or _promo_now()
+    active, later=[], []
+    for row in _promo_rows():
+        start, end=_promo_when(row)
+        if start<=now<=end: active.append(row)
+        elif now<start: later.append(row)
+    active.sort(key=lambda r: r["start"])
+    later.sort(key=lambda r: r["start"])
+    return active, later
+def _promo_dates(row):
+    start, end=_promo_when(row)
+    if start.year==end.year and start.month==end.month:
+        return f"{start:%b} {start.day}–{end.day}"
+    return f"{start:%b} {start.day}–{end:%b} {end.day}"
+def promo_callout():
+    """The offer that is live in Eastern Time. Nothing before it starts or after it ends."""
+    bits=[]
+    for row in promo_groups()[0]:
+        bits.append("<p class='promo-callout'>"+ext_a(PM_HOME, e(row["text"].strip()), placement="link")+"</p>")
+    return "".join(bits)
+def promo_upcoming():
+    """Dated list of offers that have not ended, so a shopper can plan. Ended offers are left off."""
+    rows=promo_groups()[0]+promo_groups()[1]
+    if not rows: return ""
+    items=[]
+    for row in rows:
+        where=str(row.get("where") or "").strip()
+        where_bit=f" <span class='meta'>{e(where)}</span>" if where else ""
+        items.append(f"<li><span class='meta'>{e(_promo_dates(row))}</span> "+ext_a(PM_HOME, e(row["text"].strip()), placement="link")+where_bit+"</li>")
+    return "<section class='box' id='perfumania-offers'><h2 style='margin-top:0'>Upcoming Perfumania offers</h2><ul>"+"".join(items)+"</ul></section>"
+def fs_sale_banner():
+    """Slim sitewide link. Hidden after December 1, 2026, 11:59 PM ET."""
+    if _promo_now()>datetime.datetime(2026, 12, 1, 23, 59, 59, tzinfo=ET): return ""
+    return f"<p class='bf-banner'><a href='{PREFIX}/black-friday-fragrance-deals/'>FragranceShop Black Friday picks</a></p>"
+def fs_bf_picks(limit=12):
+    """Proven FragranceShop sellers, then designer bottles by bestseller rank and percent off."""
+    pool=[d for d in deals if fs_fold_ok(d) and isinstance(d.get("was"), (int, float)) and not isinstance(d.get("was"), bool) and d["was"]>d["price"]]
+    pinned=_fold_pins(pool, _PROVEN_GRID)
+    seen={d.get("id") for d in pinned}
+    ranks={}
+    sales_path=os.path.join(ROOT, "data", "sales.json")
+    if os.path.isfile(sales_path):
+        sales=json.load(open(sales_path, encoding="utf-8"))
+        for i, row in enumerate((sales.get("bestsellers") or {}).get("fragranceshop") or []):
+            key=slug(f"{row.get('brand') or ''} {row.get('name') or ''}")
+            if key: ranks.setdefault(key, i)
+    rest=[]
+    for d in pool:
+        if d.get("id") in seen: continue
+        blob=f"{d.get('brand') or ''} {d.get('name') or ''}".lower()
+        if any(h in blob for h in _DUPE_HOUSES): continue
+        rest.append(d)
+    rest.sort(key=lambda d: (ranks.get(slug(f"{d.get('brand') or ''} {d.get('name') or ''}"), 1000), -(d.get("pct_off") or 0), d["price"], d.get("id") or ""))
+    return (pinned+rest)[:limit]
+def fs_bf_section():
+    picks=fs_bf_picks()
+    if len(picks)<8: return ""
+    bits=[]
+    for d in picks:
+        photo=hosted_photo(d) or PLACEHOLDER_SRC
+        size=sz(d.get("size") or "")
+        size_bit=f" · {e(size)}" if size else ""
+        href=f"{PREFIX}/fragrance/{frag_slug(d)}/"
+        bits.append(
+            "<article class='fs-pick'>"
+            +f"<img loading='lazy' decoding='async' src='{e(photo)}' alt='{e(product_alt(d))}' width='400' height='400'>"
+            +f"<p class='pick-name'><a href='{href}'>{e(fullname(d))}</a>{size_bit}</p>"
+            +f"<p class='pick-price'><span class='price'>${d['price']:.2f}</span> <span class='was'>${d['was']:.2f}</span></p>"
+            +ext_a(d["url"], "Buy at "+e(d["retailer"]), cls="btn", placement="grid", product=frag_slug(d))
+            +"</article>")
+    return ("<section class='fs-bf-picks' id='fs-bf-picks'><h2>FragranceShop Black Friday picks</h2>"
+            f"<p class='meta'>Proven sellers first, then the steepest checked FragranceShop discounts. Price checked {e(upd_h)}.</p>"
+            +"<div class='fs-picks'>"+"".join(bits)+"</div></section>")
 use_sid("home")
 _home_lo=min(d["price"] for d in deals)
 _home_mx=max(d["pct_off"] for d in deals)
@@ -911,6 +1024,8 @@ if not (70<=len(_home_desc)<=160) or "Prices checked" not in _home_desc or _home
 page("index.html",fit([f"Buy Fragrance Deals Today: From ${_home_lo:.2f} ({_home_mx}% Off)",f"Fragrance Deals Today: From ${_home_lo:.2f} ({_home_mx}% Off) | {NAME}",f"Fragrance Deals Today: From ${_home_lo:.2f} ({_home_mx}% Off)",f"Fragrance Deals Today: Up to {_home_mx}% Off | {NAME}"]),
  _home_desc,
  f"<h1>Today's best designer fragrance deals</h1><p class='sub'>Prices checked {e(_home_when)}. {len(deals)} live deals · <a href='{PREFIX}/black-friday/'>Black Friday perfume and cologne deals</a></p>"
+ +promo_callout()
+ +fs_bf_section()
  +lead_offer(deals)
  +fs_fold_html(deals, (
     {"brand":"lanc","name_is":"la vie est belle perfume","size":"3.4"},
@@ -2234,16 +2349,7 @@ BF_MIN_BOTTLES=6
 CM_PATH="/cyber-monday-fragrance-deals/"
 CM_MIN_BOTTLES=6
 BF_U30_PATH="/black-friday-fragrance-deals-under-30/"
-# Order shoppers have bought, for the Black Friday and Cyber Monday grids.
-# Good Girl is the exact name, so Good Girl Blush and Very Good Girl stay in discount order.
-_PROVEN_GRID=(
-    "le male le parfum",
-    {"brand":"lanc","name_is":"la vie est belle perfume","size":"3.4"},
-    {"brand":"carolina","name_is":"good girl perfume","size":"2.7"},
-    "afternoon delight",
-    "bubble bath",
-    {"brand":"margiela","name_is":"replica jazz club","size":"3.4"},
-)
+# _PROVEN_GRID is defined with the homepage. Good Girl is the exact name, so Blush and Very Good Girl stay in discount order.
 def pin_proven(rows):
     """Move bottles that have already sold to the front. The rest keep their order."""
     pinned=_fold_pins(list(rows), _PROVEN_GRID)
@@ -3876,7 +3982,7 @@ if CM_ROWS:
 use_sid("bfcm", "fragrance-deals")
 _bf_top, _bf_rest=fold_offer(lead_offer(bf_singles)+fs_fold_html(bf_singles, ("le male le parfum", {"brand":"lanc","name_is":"la vie est belle perfume","size":"3.4"}, {"brand":"carolina","name_is":"good girl perfume","size":"2.7"}, {"brand":"margiela","name_is":"replica jazz club","size":"3.4"})), bf_intro, "".join(bf_parts))
 page("black-friday-fragrance-deals/index.html", bf_title, bf_desc,
- f"<h1>{e(bf_h1)}</h1><p class='sub'>Last updated {e(bf_when)}. Checked {e(upd_h)}.</p>{_bf_top}{NEW_HOLIDAY_MARK}{gift_nav()}{bf_jumps}{_bf_rest}{bf_seasonal_note()}{cm_back}{GIFT_DISC}{faqhtml(bf_faqs)}{BREVO_FORM}<p class='meta'>Prices and photos come from the deals we already checked. We do not invent a price or a photo, and we do not list testers, decants, or Amazon.</p>",
+ f"<h1>{e(bf_h1)}</h1><p class='sub'>Last updated {e(bf_when)}. Checked {e(upd_h)}.</p>{promo_callout()}{fs_bf_section()}{promo_upcoming()}{_bf_top}{NEW_HOLIDAY_MARK}{gift_nav()}{bf_jumps}{_bf_rest}{bf_seasonal_note()}{cm_back}{GIFT_DISC}{faqhtml(bf_faqs)}{BREVO_FORM}<p class='meta'>Prices and photos come from the deals we already checked. We do not invent a price or a photo, and we do not list testers, decants, or Amazon.</p>",
  bf_ld+[faqld(bf_faqs)], image="/media/pins/holiday-fragrance-gifts.png", feed=bool(bf_ids))
 KW+=["black friday perfume deals 2026","cyber monday cologne deals"]
 print(f"black friday page: {len(bf_ids)} unique deals, {bf_cards} cards; men {len(bf_men)}, women {len(bf_women)}, sets {len(bf_sets)}, under $50 {len(bf_u50)}")
@@ -4052,7 +4158,7 @@ def render_cyber_monday():
     listing=f"<h2 id='best-current-deals'>{e('Best current deals')}</h2><p>{e(blurb)}</p>{gift_table(rows)}"
     top, rest_html=fold_offer(lead_offer(rows), intro, listing)
     page(CM_PATH.strip("/")+"/index.html", title, desc,
-     f"<h1>{e(h1)}</h1><p class='sub'>Last updated {e(bf_when)}. Checked {e(upd_h)}.</p>{top}{NEW_HOLIDAY_MARK}{related}{gift_nav()}{rest_html}{GIFT_DISC}{faqhtml(faqs)}{BREVO_FORM}<p class='meta'>Prices are current and checked daily. We do not invent a price or a photo, and we do not list testers, decants, or Amazon.</p>",
+     f"<h1>{e(h1)}</h1><p class='sub'>Last updated {e(bf_when)}. Checked {e(upd_h)}.</p>{promo_callout()}{top}{NEW_HOLIDAY_MARK}{related}{gift_nav()}{rest_html}{GIFT_DISC}{faqhtml(faqs)}{BREVO_FORM}<p class='meta'>Prices are current and checked daily. We do not invent a price or a photo, and we do not list testers, decants, or Amazon.</p>",
      [itemlist(rows, h1), faqld(faqs)], image="/media/pins/holiday-fragrance-gifts.png", feed=True)
     KW.append("cyber monday fragrance deals 2026")
     text=open(f"{OUT}/{CM_PATH.strip('/')}/index.html", encoding="utf-8").read()
@@ -7153,6 +7259,72 @@ def audit_layout_fixes():
     if missing:
         raise SystemExit("homepage photo was not saved locally: "+", ".join(missing[:8]))
     print(f"layout: {chip_n} home chips, fold label spans, photos local, about and privacy in the sitemap")
+def audit_promos_and_picks():
+    """FragranceShop picks stay priced from deals.json. Perfumania offers appear only inside their Eastern Time window."""
+    early=datetime.datetime(2026, 11, 20, 12, 0, tzinfo=ET)
+    gap=datetime.datetime(2026, 11, 23, 12, 0, tzinfo=ET)
+    last_minute=datetime.datetime(2026, 11, 27, 23, 59, 59, tzinfo=ET)
+    after=datetime.datetime(2026, 11, 28, 0, 0, tzinfo=ET)
+    if [r["text"] for r in promo_groups(early)[0]]!=["$10 off orders of $99+ at Perfumania with code EARLYSAVINGS"]:
+        raise SystemExit("Nov 20–22 promo did not turn on")
+    if promo_groups(gap)[0]:
+        raise SystemExit("a promo is still active on Nov 23")
+    if [r["text"] for r in promo_groups(last_minute)[0]]!=["Perfumania Black Friday: Buy More, Save More, up to $40 off"]:
+        raise SystemExit("the Black Friday promo is missing at 11:59 PM ET on Nov 27")
+    if any(r.get("id")=="black-friday" for r in promo_groups(after)[0]):
+        raise SystemExit("the Black Friday promo did not hide after Nov 27")
+    now=_promo_now()
+    active, later=promo_groups(now)
+    home=open(f"{OUT}/index.html", encoding="utf-8").read()
+    bf=open(f"{OUT}/black-friday-fragrance-deals/index.html", encoding="utf-8").read()
+    cm=open(f"{OUT}/cyber-monday-fragrance-deals/index.html", encoding="utf-8").read()
+    for row in active:
+        for label, text in (("home", home), ("black friday", bf), ("cyber monday", cm)):
+            if row["text"] not in text:
+                raise SystemExit(f"active promo is missing on {label}")
+    for row in later:
+        if row["text"] in home or row["text"] in cm:
+            raise SystemExit("a future Perfumania offer is showing before its date")
+        if row["text"] not in bf:
+            raise SystemExit("upcoming list is missing an offer")
+    for row in _promo_rows():
+        if row in active or row in later: continue
+        if row["text"] in home or row["text"] in bf or row["text"] in cm:
+            raise SystemExit("an ended Perfumania offer is still on a page")
+    if (active or later) and "Upcoming Perfumania offers" not in bf:
+        raise SystemExit("black friday page is missing the upcoming offer list")
+    if "Upcoming Perfumania offers" in home or "Upcoming Perfumania offers" in cm:
+        raise SystemExit("the upcoming list is not limited to the black friday fragrance page")
+    picks=fs_bf_picks()
+    if not 8<=len(picks)<=12:
+        raise SystemExit(f"FragranceShop picks are {len(picks)}, need 8 to 12")
+    if "Le Male Le Parfum" not in fullname(picks[0]) or "Jazz Club" not in " ".join(fullname(d) for d in picks[:6]):
+        raise SystemExit("proven sellers are not leading the picks")
+    for rel in ("index.html", "black-friday-fragrance-deals/index.html"):
+        text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+        if text.count("class='fs-pick'")!=len(picks):
+            raise SystemExit(f"{rel}: pick count is not {len(picks)}")
+        section=text.split("id='fs-bf-picks'",1)[1].split("</section>",1)[0]
+        for d in picks:
+            if f"${d['price']:.2f}" not in section or f"${d['was']:.2f}" not in section:
+                raise SystemExit(f"{rel}: pick price drifted for {d.get('id')}")
+    if now<=datetime.datetime(2026, 12, 1, 23, 59, 59, tzinfo=ET) and "class='bf-banner'" not in home:
+        raise SystemExit("the FragranceShop banner is missing before December 1")
+    pins=json.load(open(os.path.join(ROOT, "data", "pin_posts.json"), encoding="utf-8"))
+    products=[p for p in pins.get("posts") or [] if p.get("kind")=="product"][:4]
+    want={
+        "/fragrance/jean-paul-gaultier-le-male-le-parfum-cologne/",
+        "/fragrance/maison-margiela-replica-jazz-club/",
+        "/fragrance/lanc-me-la-vie-est-belle-perfume-3-4-oz/",
+        "/fragrance/carolina-herrera-good-girl-perfume/",
+    }
+    if {p.get("page") for p in products}!=want:
+        raise SystemExit("pin posts are missing a FragranceShop pick")
+    for post in products:
+        if not str(post.get("image") or "").startswith("/media/products/") or not os.path.isfile(f"{OUT}{post.get('image')}"):
+            raise SystemExit(f"pin photo is not on the site ({post.get('image')})")
+    print(f"promos: {len(active)} active, {len(later)} upcoming; {len(picks)} FragranceShop picks")
+audit_promos_and_picks()
 audit_layout_fixes()
 import subprocess, sys
 _validator=subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "validate_jsonld.py")])

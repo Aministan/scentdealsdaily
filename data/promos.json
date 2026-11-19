@@ -1,0 +1,34 @@
+{
+  "note": "Perfumania offers from the publisher email. Shown only while the build time is inside start and end in Eastern Time. The text is printed exactly. An empty offers list renders nothing.",
+  "merchant_url": "https://www.perfumania.com/",
+  "offers": [
+    {
+      "id": "early-savings",
+      "text": "$10 off orders of $99+ at Perfumania with code EARLYSAVINGS",
+      "start": "2026-11-20T00:00:00-05:00",
+      "end": "2026-11-22T23:59:59-05:00",
+      "where": "Online only"
+    },
+    {
+      "id": "black-friday",
+      "text": "Perfumania Black Friday: Buy More, Save More, up to $40 off",
+      "start": "2026-11-26T00:00:00-05:00",
+      "end": "2026-11-27T23:59:59-05:00",
+      "where": "Online and in-store"
+    },
+    {
+      "id": "black-friday-weekend",
+      "text": "Perfumania Black Friday Weekend: save up to $35 online",
+      "start": "2026-11-28T00:00:00-05:00",
+      "end": "2026-11-29T23:59:59-05:00",
+      "where": ""
+    },
+    {
+      "id": "cyber-monday",
+      "text": "Perfumania Cyber Monday: up to 20% off online",
+      "start": "2026-11-30T00:00:00-05:00",
+      "end": "2026-12-01T23:59:59-05:00",
+      "where": ""
+    }
+  ]
+}
