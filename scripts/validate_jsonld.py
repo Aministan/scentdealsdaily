@@ -261,6 +261,12 @@ def main():
     for rel in CTR_RELS:
         fp=os.path.join(OUT, rel)
         if not os.path.isfile(fp):
+            # Gift, roundup, and comparison pages are omitted when today's
+            # deals miss the bottle minimum. Homepage and landing pages stay required.
+            top=rel.split("/", 1)[0]
+            if top in ("gifts", "best", "vs", "dupe", "fragrance", "brands"):
+                print(f"{rel}: not built today, skip the CTR check")
+                continue
             bad.append(f"{rel}: missing a priority page")
             continue
         text=open(fp, encoding="utf-8").read()
