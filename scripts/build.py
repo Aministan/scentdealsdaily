@@ -3997,7 +3997,8 @@ def bf_related_links(spec):
     by_slug=dict(GIFT_SUBPAGES)
     for slug_s in spec["gift_slugs"]:
         if slug_s not in by_slug:
-            raise SystemExit(f"{spec['path']}: gift page /gifts/{slug_s}/ was not built")
+            print(f"{spec['path']}: skip /gifts/{slug_s}/, that guide was not built today")
+            continue
         links.append((f"/gifts/{slug_s}/", by_slug[slug_s]))
     for slug_s in _BF_OPTIONAL_GIFTS.get(spec["path"], ()):
         if slug_s in by_slug:
