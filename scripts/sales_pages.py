@@ -135,8 +135,9 @@ def _buy(ns, row):
 
 
 def _img(ns, row):
-    src = (row.get("image") or "").strip()
-    if not src or links.is_tracking_url(src) or "macys" in (links.host_of(src) or ""):
+    slug = _slug(f"{row.get('brand') or ''} {row.get('name') or ''}")
+    src = ns["hosted_photo_slug"](slug, row.get("image") or "")
+    if not src:
         src = ns["PLACEHOLDER_SRC"]
     alt = _label(row)
     return f'<img loading="lazy" decoding="async" src="{ns["e"](src)}" alt="{ns["e"](alt)}" width="400" height="400">'
@@ -157,7 +158,7 @@ def _offer_ld(row):
     }
 
 
-def _list_ld(name, rows):
+def _list_ld(name, rows, ns=None):
     items = []
     for i, row in enumerate(rows, 1):
         offer = _offer_ld(row)
@@ -167,8 +168,11 @@ def _list_ld(name, rows):
         product = {"@type": "Product", "name": f"{_label(row)} {row.get('size') or ''}".strip()}
         if row.get("brand"):
             product["brand"] = {"@type": "Brand", "name": row["brand"]}
-        if row.get("image") and not links.is_tracking_url(row["image"]):
-            product["image"] = row["image"]
+        if ns:
+            slug = _slug(f"{row.get('brand') or ''} {row.get('name') or ''}")
+            local = ns["hosted_photo_slug"](slug, row.get("image") or "")
+            if local:
+                product["image"] = ns["BASE"] + ns["PREFIX"] + local
         product["offers"] = {
             "@type": "AggregateOffer",
             "lowPrice": offer["price"],
@@ -314,7 +318,7 @@ def _new_deal_page(ns, row, href, taken):
     )]
     row = dict(row)
     row["_until"] = ns["PRICE_UNTIL"]
-    ld = _list_ld(label, [row])
+    ld = _list_ld(label, [row], ns)
     body = (
         f"<h1>{ns['e'](label)} {ns['e'](size)}</h1>"
         f"<p class='sub'>Price read from {ns['e'](store)} · checked {ns['e'](when)}.</p>"
@@ -454,7 +458,7 @@ def _write_best(ns, groups, linked):
         parts.append(f"<h2>{ns['e'](store)}</h2><div class='grid'>{''.join(cards)}</div>")
     parts.append(f"<p><a href='{ns['PREFIX']}{FAMILY_HREF}'>Jean Paul Gaultier Le Male deals</a> · <a href='{ns['PREFIX']}{SETS_HREF}'>Fragrance gift sets</a></p>")
     ns["use_sid"]("best", "sellers")
-    ld = _list_ld("Best sellers", ld_rows)
+    ld = _list_ld("Best sellers", ld_rows, ns)
     ns["page"]("best-sellers/index.html", title, desc, "".join(parts), [ld] if ld else None, feed=False, image=ns["DEFAULT_SHARE"])
     print(f"best sellers: {sum(len(rows) for _s, rows in groups)} bottles, title {len(title)} chars")
 
@@ -514,7 +518,7 @@ def _write_family(ns, family, sets):
     shown = [dict(d, store=d.get("retailer"), brand=d.get("brand"), name=d.get("name")) for d in family]
     for row in shown:
         row["_until"] = ns["PRICE_UNTIL"]
-    ld = _list_ld("Jean Paul Gaultier Le Male deals", shown)
+    ld = _list_ld("Jean Paul Gaultier Le Male deals", shown, ns)
     ns["page"]("jean-paul-gaultier-le-male-deals/index.html", title, desc, "".join(bits), [ld, ns["faqld"](faqs)] if ld else [ns["faqld"](faqs)], feed=False, image=ns["DEFAULT_SHARE"])
     print(f"le male family: {len(family)} bottles, {len(gaultier_sets)} gift sets, title {len(title)} chars")
 
@@ -547,7 +551,7 @@ def _write_sets(ns, sets):
         item = dict(row)
         item["_until"] = ns["PRICE_UNTIL"]
         ld_rows.append(item)
-    ld = _list_ld("Fragrance gift sets", ld_rows)
+    ld = _list_ld("Fragrance gift sets", ld_rows, ns)
     body = (
         "<h1>Fragrance gift sets</h1>"
         f"<p class='sub'>FragranceShop and FragranceNet sets, largest savings first. Checked {ns['e'](when)}.</p>"
@@ -601,10 +605,10 @@ def build_pages(ns):
         for row in best.get(store_key) or []:
             if _banned(row):
                 raise SystemExit(f"bestseller list includes a banned product: {_label(row)}")
-            href, _deal, is_new = _page_for(ns, row, deals, taken)
             if _money(row.get("price")) is None:
-                href, is_new = "", False
-            elif is_new and href:
+                continue
+            href, _deal, is_new = _page_for(ns, row, deals, taken)
+            if is_new and href:
                 _new_deal_page(ns, row, href, taken)
                 added += 1
             rows.append((row, href, is_new))

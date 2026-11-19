@@ -232,6 +232,7 @@ main{max-width:1100px;margin:0 auto;padding:16px}h1{font-size:26px;line-height:1
 .lead-offer{background:#fff;border:1px solid #ece7e1;border-radius:14px;padding:12px 14px;margin:0 0 14px;position:sticky;top:0;z-index:30;box-shadow:0 2px 10px rgba(29,27,32,.08)}
 .lead-offer .lead-name,.lead-offer .lead-price{margin:4px 0}.lead-offer .btn{margin-top:8px}
 .fold-deals{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 12px}
+.fold-deals>.meta{grid-column:1/-1}
 .fold-deal{background:#fff;border:1px solid #ece7e1;border-radius:12px;padding:8px 10px}
 .fold-deal .lead-name,.fold-deal .lead-price{margin:2px 0}.fold-deal .price{font-size:20px}.fold-deal .btn{margin-top:6px;padding:8px 10px}
 .box{background:#fff;border:1px solid #ece7e1;border-radius:14px;padding:16px;margin:18px 0}
@@ -243,7 +244,10 @@ table{width:100%;border-collapse:collapse;background:#fff}th,td{text-align:left;
 footer{max-width:1100px;margin:20px auto;padding:16px;font-size:13px;color:#6f6976}
 .nl{margin:18px 0}.nl-foot{margin:0 0 12px}
 .crumbs{font-size:13px;color:#6f6976;margin:0 0 8px}.crumbs a{text-decoration:none}.crumbs a:hover{text-decoration:underline}.crumbs .sep{margin:0 .35em;color:#b5aeb8}.crumbs [aria-current=page]{color:#5f5a66}
-@media(max-width:640px){header{padding:6px 10px}.logo{font-size:18px;line-height:1.2}nav{flex-wrap:nowrap;overflow-x:auto;margin-top:1px;gap:10px;font-size:13px;line-height:1.2}nav a{flex:0 0 auto}main{padding:8px 12px}h1{font-size:20px;line-height:1.15;margin:0}.sub{margin:0 0 6px;font-size:13px;line-height:1.3}.crumbs{margin:0 0 2px;font-size:12px}.lead-offer{padding:8px 10px;margin:0 0 8px}.lead-offer .lead-name,.lead-offer .lead-price{margin:2px 0}.lead-offer .btn{margin-top:6px;padding:12px}.fold-deals{grid-template-columns:1fr;gap:6px;margin:0 0 8px}.fold-deal{padding:6px 8px}.fold-deal .btn{padding:8px}table,thead,tbody,tr,td{display:block}thead{display:none}td{border:0;padding:4px 10px}tr{border-bottom:1px solid #eee;padding:8px 0}}"""
+.nav-scroll{min-width:0;max-width:100%}
+.more-btn{display:inline-block;margin:8px 0 16px;background:#fff;color:#6b2d5c;border:1px solid #e3ddd6;border-radius:10px;padding:8px 14px;font:inherit;font-weight:650;cursor:pointer}
+.more-grid.is-clipped>:nth-child(n+13){display:none}
+@media(max-width:640px){header{padding:6px 10px}.logo{font-size:18px;line-height:1.2}.nav-scroll{position:relative}.nav-scroll::after{content:"";position:absolute;right:0;top:0;bottom:0;width:36px;pointer-events:none;background:linear-gradient(90deg,rgba(29,27,32,0),#1d1b20)}nav{flex-wrap:nowrap;overflow-x:auto;margin-top:1px;gap:10px;font-size:13px;line-height:1.2;scrollbar-width:thin}nav::-webkit-scrollbar{height:4px}nav::-webkit-scrollbar-thumb{background:#e7b75f;border-radius:4px}nav a{flex:0 0 auto}main{padding:8px 12px}h1{font-size:20px;line-height:1.15;margin:0}.sub{margin:0 0 6px;font-size:13px;line-height:1.3}.crumbs{margin:0 0 2px;font-size:12px}.lead-offer{padding:8px 10px;margin:0 0 8px}.lead-offer .lead-name,.lead-offer .lead-price{margin:2px 0}.lead-offer .btn{margin-top:6px;padding:12px}.fold-deals{grid-template-columns:1fr;gap:6px;margin:0 0 8px}.fold-deal{padding:6px 8px}.fold-deal .btn{padding:8px}table,thead,tbody,tr,td{display:block}thead{display:none}td{border:0;padding:4px 10px}tr{border-bottom:1px solid #eee;padding:8px 0}}"""
 BREVO_URL="https://dc62f1d4.sibforms.com/serve/MUIFAEr2_FjNas7tKaQpb8Gb1G8G8lAWo4YUlMQLlesHgqoeXDeb81p6QoFTA97ntOQFoJ4oeYqYMvNLQ_abdWQ7yXLxfV3Ip6_yAkBb31h5wt_6nN7ia5t-doG3uLTnPam6d-V-faigM0xHfhmkEvb_KToQHCq2QIwPP4u-dsOd3SyYzJzE8_dUkbPBtLTO2DT2MnTeld3EP66vtQ=="
 # Brevo's embed uses fixed ids, so the full form is included once per page. The footer is a link to the hosted form.
 BREVO_HEAD="""<link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
@@ -291,6 +295,19 @@ BREVO_JS="""<script>
 </script>
 <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>"""
 NL_FOOT=f'<p class="nl-foot"><a href="{BREVO_URL}">Weekly fragrance deals</a>, every Friday.</p>'
+MORE_JS="""<script>
+document.querySelectorAll(".more-grid").forEach(function(grid){
+  var n=parseInt(grid.getAttribute("data-more")||"12",10);
+  if(grid.children.length<=n) return;
+  grid.classList.add("is-clipped");
+  var btn=document.createElement("button");
+  btn.type="button";
+  btn.className="more-btn";
+  btn.textContent="Show more";
+  btn.addEventListener("click",function(){grid.classList.remove("is-clipped");btn.remove();});
+  grid.insertAdjacentElement("afterend",btn);
+});
+</script>"""
 TITLES=set()
 # Sitewide share image. Same 1000x1500 navy/gold pin format as site/media/pins/.
 DEFAULT_SHARE="/media/og-default.png"
@@ -368,12 +385,12 @@ def page(path,title,desc,body,jsonld=None,index=True,image=None,feed=True,canoni
 {robots_tag}<title>{e(title)}</title><meta name="description" content="{e(desc)}"><link rel="canonical" href="{canon_url}">
 <link rel="alternate" type="application/rss+xml" title="ScentDealsDaily" href="{FEED_HREF}">
 {social}<link rel="preconnect" href="https://cdn.shopify.com"><style>{CSS}</style>{brevo_head}{ld}</head><body>
-<header><a class="logo" href="{p}/">Scent<span>Deals</span>Daily</a><nav><a href="{p}/">Today's deals</a><a href="{p}/best-sellers/">Best sellers</a><a href="{p}/jean-paul-gaultier-le-male-deals/">Le Male</a><a href="{p}/fragrance-gift-sets/">Gift sets</a><a href="{p}/black-friday/">Black Friday</a><a href="{p}/dupes/">Dupes</a><a href="{p}/men/">Men</a><a href="{p}/women/">Women</a><a href="{p}/brands/">Brands</a><a href="{p}/sponsor/">Sponsor</a></nav></header>
+<header><a class="logo" href="{p}/">Scent<span>Deals</span>Daily</a><div class="nav-scroll"><nav><a href="{p}/">Today's deals</a><a href="{p}/best-sellers/">Best sellers</a><a href="{p}/jean-paul-gaultier-le-male-deals/">Le Male</a><a href="{p}/fragrance-gift-sets/">Gift sets</a><a href="{p}/black-friday/">Black Friday</a><a href="{p}/dupes/">Dupes</a><a href="{p}/men/">Men</a><a href="{p}/women/">Women</a><a href="{p}/brands/">Brands</a><a href="{p}/sponsor/">Sponsor</a></nav></div></header>
 <main>{body}</main><footer>{NL_FOOT}<p>We may earn a commission when you buy through our links, at no extra cost to you. Affiliate links go to Perfumania, FragranceShop, and FragranceNet.</p>
 <p><b>Affiliate disclosure:</b> some links may earn us a commission at no cost to you. <a href="{p}/disclosure/">Details</a>.
 We list only authorized or long-established retailers, never gray-market marketplaces. Prices change fast; each deal shows when we last checked it. Not affiliated with any brand.</p>
-<p>© {upd.year} {NAME} · <a href="{p}/gifts/">Holiday gifts</a> · <a href="{p}/llms.txt">llms.txt</a> · <a href="{p}/sitemap.xml">sitemap</a></p>
-<p><img src="https://hits.sh/scentdealsdaily.com.svg?label=visitors" alt="visitor count" loading="lazy" height="20"></p></footer>{brevo_js}<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{{"token": "5bfd6f8b561c42e982e52bf2a553ff60"}}'></script><!-- End Cloudflare Web Analytics --></body></html>"""
+<p>© {upd.year} {NAME} · <a href="{p}/about/">About</a> · <a href="{p}/privacy/">Privacy</a> · <a href="{p}/gifts/">Holiday gifts</a> · <a href="{p}/llms.txt">llms.txt</a> · <a href="{p}/sitemap.xml">sitemap</a></p>
+<p><img src="https://hits.sh/scentdealsdaily.com.svg?label=visitors" alt="visitor count" loading="lazy" height="20"></p></footer>{brevo_js}{MORE_JS}<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{{"token": "5bfd6f8b561c42e982e52bf2a553ff60"}}'></script><!-- End Cloudflare Web Analytics --></body></html>"""
     fp=f"{OUT}/{path}"; os.makedirs(os.path.dirname(fp),exist_ok=True); open(fp,"w").write(doc)
     if not index: return
     PAGES.append(url)
@@ -422,9 +439,29 @@ def product_alt(d):
     size=sz(d.get("size") or "")
     if size and size.lower() not in name.lower(): return f"{name} {size}"
     return name
+def hosted_photo_slug(slug, remote=""):
+    """Site path for a product photo. Existing files win. A plain merchant image URL is cached later under the same name."""
+    slug=(slug or "").strip().strip("/")
+    if not slug or "/" in slug or slug.startswith("."): return ""
+    rel=f"/media/products/{slug}.jpg"
+    roots=[]
+    if _media_tmp: roots.append(f"{_media_tmp}/media/products")
+    roots.append(f"{OUT}/media/products")
+    for root in roots:
+        path=os.path.join(root, f"{slug}.jpg")
+        if os.path.isfile(path) and os.path.getsize(path)>0: return rel
+    remote=(remote or "").strip() if isinstance(remote, str) else ""
+    if not remote.startswith(("http://","https://")): return ""
+    if links.is_tracking_url(remote) or links.is_internal_redirect(remote): return ""
+    host=(urllib.parse.urlparse(remote).hostname or "").lower()
+    if not host or "macys" in host: return ""
+    return rel
+def hosted_photo(d):
+    slug=frag_slug(d) if d.get("brand") and d.get("name") else ""
+    return hosted_photo_slug(slug, retailer_image(d))
 def card_img(d, eager=False, alt=None):
     """Same img markup as the roundup cards: dimensions, lazy (unless the LCP slot), async decode."""
-    src=retailer_image(d)
+    src=hosted_photo(d)
     if not src:
         src=PLACEHOLDER_SRC
         key=d.get("id") or product_alt(d)
@@ -497,8 +534,8 @@ def prod_ld(d, name=None, brand=None):
         brand=canon(d["brand"]) if d.get("brand") else (d.get("dupe") or "").split(" ")[0]
     product={"@context":"https://schema.org","@type":"Product","name":name,"description":product_description(d)}
     if brand: product["brand"]={"@type":"Brand","name":brand}
-    img=retailer_image(d)
-    if img: product["image"]=img
+    img=hosted_photo(d)
+    if img: product["image"]=f"{BASE}{PREFIX}{img}"
     offers=aggregate_offer(d)
     if offers: product["offers"]=offers
     return product
@@ -833,7 +870,13 @@ def fs_fold_html(rows, pins=()):
     pool=[d for d in rows if fs_fold_ok(d)]
     pool.sort(key=lambda d:(-(d.get("pct_off") or 0), d["price"], d.get("id") or ""))
     pinned=_fold_pins(pool, pins)
-    rest=[d for d in pool if d not in pinned]
+    hero=None
+    if rows:
+        live=[row for row in rows if row.get("in_stock") is not False]
+        hero=min(live or list(rows), key=lambda row:(row["price"], -(row.get("pct_off") or 0), row.get("id") or ""))
+    hero_id=hero.get("id") if isinstance(hero, dict) else None
+    # The lead Buy already shows the hero. A filler must not repeat it. An explicit pin still stays.
+    rest=[d for d in pool if d not in pinned and d.get("id")!=hero_id]
     n=max(3, len(pinned))
     picks=(pinned+rest)[:n]
     if len(picks)<3: return ""
@@ -849,6 +892,11 @@ def fs_fold_html(rows, pins=()):
             "</div>")
     return ("<div class='fold-deals' id='fs-deals'><p class='meta'>Top FragranceShop deals · Price checked "
             f"{e(upd_h)}</p>"+"".join(bits)+"</div>")
+def more_grid(inner, limit=12):
+    """Long grids stay in the HTML. A short script hides the tail until Show more."""
+    n=inner.count('<article class="card">')+inner.count("<article class='card'>")
+    if n<=limit: return f"<div class='grid'>{inner}</div>"
+    return f"<div class='grid more-grid' data-more='{limit}'>{inner}</div>"
 use_sid("home")
 _home_lo=min(d["price"] for d in deals)
 _home_mx=max(d["pct_off"] for d in deals)
@@ -871,8 +919,8 @@ page("index.html",fit([f"Buy Fragrance Deals Today: From ${_home_lo:.2f} ({_home
  +MONEY_MARK
  +NEW_HOLIDAY_MARK
  +BREVO_FORM
- +f"<div class='grid'>{''.join(card(d,i<2) for i,d in enumerate(deals))}</div><!--sales-push--><p class='chips'><a href='{PREFIX}/gifts/'>Holiday fragrance gifts</a>"
- +"".join(f"<a href='{PREFIX}/gifts/{slug}/'>{e(label)}</a>" for slug,label in SEO_GIFTS)+"</p>"+GIFT_HOME_MARK+bestchips()
+ +more_grid("".join(card(d,i<2) for i,d in enumerate(deals)))
+ +"<!--sales-push-->"+bestchips()
  +"<section class='box'><h2 style='margin-top:0'>Why trust these deals?</h2><p>We only list authorized or long-established retailers (no anonymous marketplace sellers), re-check every price and stock status daily, and drop expired deals automatically. Want the smell for less? See our <a href='"+PREFIX+"/dupes/'>dupes directory</a>.</p></section>",
  [itemlist(deals,"Today's designer fragrance deals"),{"@context":"https://schema.org","@type":"WebSite","name":NAME,"url":BASE+PREFIX+"/"}])
 # confirmation page for the Brevo double opt-in email; not for search
@@ -888,10 +936,23 @@ page("subscribed/index.html",f"You're subscribed | {NAME}",
  index=False)
 # dupes
 use_sid("dupes")
+def source_link(u, i):
+    """Visible source name. The href is still the stored URL. Tracking hosts are not requested."""
+    host=(urllib.parse.urlparse(u).hostname or "").lower()
+    if host.startswith("www."): host=host[4:]
+    label=host or f"source {i+1}"
+    if is_perfumania(u):
+        return f'<a href="{e(affiliate_url(u, "src"))}" rel="nofollow sponsored noopener" target="_blank">{e(label)}</a>'
+    return f"<a href='{e(u)}' rel='noopener' target='_blank'>{e(label)}</a>"
+def designer_price_text(d):
+    raw=re.sub(r"\s+"," ",str(d.get("original_price") or "")).strip()
+    if not raw or raw.lower() in ("varies","price: varies"):
+        return "Not checked on the designer site"
+    return raw
 rows="".join(f"""<tr><td><b>{e(d['original'])}</b>{('<div class=meta>'+e(d['original_price'])+'</div>') if d.get('original_price') else ''}</td>
 <td><b><a href='{PREFIX}/dupe/{slug(d["original"]+" dupe "+d["dupe"])}/'>{e(d['dupe'])}</a></b><div class=meta>{e(d['notes'])}</div></td>
-<td>{(f"<b>${d['price']:.2f}</b> ({e(d['size'])}) {ext_a(d['url'], e(d.get('retailer') or 'Retailer'), placement='table')}<div class=meta>checked {upd_h}</div>") if d['price'] else "<span class=meta>Not tracked yet — price check coming</span>"}</td>
-<td class=meta>{' '.join((f'<a href="{e(affiliate_url(s, "src"))}" rel="nofollow sponsored noopener" target="_blank">[{i+1}]</a>' if is_perfumania(s) else f"<a href='{e(s)}' rel=noopener target=_blank>[{i+1}]</a>") for i,s in enumerate(d['sources']))}</td></tr>""" for d in D["dupes"])
+<td><b>${d['price']:.2f}</b> ({e(d['size'])}) {ext_a(d['url'], e(d.get('retailer') or 'Retailer'), placement='table')}<div class=meta>checked {upd_h}</div></td>
+<td class=meta>{' '.join(source_link(s, i) for i,s in enumerate(d['sources']))}</td></tr>""" for d in D["dupes"] if isinstance(d.get("price"),(int,float)) and not isinstance(d.get("price"),bool))
 faq={"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":f"What is the best dupe for {d['original']}?","acceptedAnswer":{"@type":"Answer","text":f"{d['dupe']} is a widely cited alternative to {d['original']} ({d['notes']})."+(f" It was ${d['price']:.2f} for {d['size']} at {d.get('retailer') or 'the retailer'} as of {upd:%Y-%m-%d}." if d['price'] else "")}} for d in D["dupes"]]}
 _dupe_priced=[d for d in D["dupes"] if isinstance(d.get("price"),(int,float)) and not isinstance(d.get("price"),bool)]
 _dupe_lo=min(_dupe_priced,key=lambda d:d["price"]) if _dupe_priced else None
@@ -1251,6 +1312,26 @@ page("disclosure/index.html",fit(["Affiliate Disclosure: Commissions at No Extra
 <p>Some links on this site are affiliate links, including links to Perfumania, FragranceShop, and FragranceNet. If you buy through them, we may earn a commission at no extra cost to you. This never changes which deals we list. When the same sealed bottle is in stock at more than one of these stores and the higher price is within $2 of the cheapest, the buy button goes to the higher-commission store. A wider gap keeps the lower price. The other stores are noted beside it.</p>
 <p>As an Amazon Associate we may earn from qualifying purchases (once enrolled). Sponsored placements are always labeled "Sponsored".</p>
 <p>"Was" prices are the retailer's own listed compare-at / retail price at the time we checked. Prices and stock change; always confirm at checkout.</p></div>""")
+page("about/index.html", fit(["About ScentDealsDaily: How Prices Are Checked", "About ScentDealsDaily"]),
+ fit([
+    "ScentDealsDaily is an independent deal site. We read prices on Perfumania, FragranceShop, and FragranceNet pages. Affiliate commissions do not change the price, and we do not invent one.",
+    "Independent deal site. Prices are read on the retailers' own pages. We may earn an affiliate commission and we do not invent a price.",
+ ], 160),
+ """<h1>About ScentDealsDaily</h1>
+<div class='box'><p>ScentDealsDaily is an independent deal site. We are not a fragrance house and we do not sell the bottles ourselves.</p>
+<p>Each price is read on the retailer's own product page at Perfumania, FragranceShop, or FragranceNet. If that page does not show a price, we do not invent one, and the bottle is left off the deal list.</p>
+<p>Some links are affiliate links. If you buy through one, we may earn a commission at no extra cost to you. That commission does not change the price on the retailer's page, and it does not add a price we did not read there.</p>
+<p>The date on a deal is the last time that price was checked. Stock and prices change. Confirm the amount at checkout.</p></div>""")
+page("privacy/index.html", fit(["Privacy Policy | ScentDealsDaily", "Privacy at ScentDealsDaily"]),
+ fit([
+    "Email signup goes to Brevo. Page analytics use Cloudflare. Affiliate links may set a cookie at the retailer. We do not sell personal information.",
+    "How ScentDealsDaily handles email, analytics, and affiliate cookies. Signup uses Brevo. Analytics use Cloudflare.",
+ ], 160),
+ """<h1>Privacy</h1>
+<div class='box'><p>The Friday email signup form is provided by Brevo. The address you submit is sent to Brevo so they can send the confirmation and the weekly note. We do not run that mailing list on this server.</p>
+<p>Page analytics are provided by Cloudflare Web Analytics. Cloudflare receives the usual request data for that beacon. We use it to see which pages are opened.</p>
+<p>A buy button leaves this site for a retailer. That retailer, and the affiliate network in front of it, may set a cookie so a purchase can be credited. Those cookies are theirs. We do not sell personal information.</p>
+<p>Questions: <a href="mailto:hello@scentdealsdaily.com">hello@scentdealsdaily.com</a>.</p></div>""")
 open(f"{OUT}/style.css","w").write(CSS)
 if CUSTOM_DOMAIN: open(f"{OUT}/CNAME","w").write(CUSTOM_DOMAIN+"\n")
 open(f"{OUT}/robots.txt","w").write(
@@ -1461,13 +1542,7 @@ def proven_help(d):
     """Size, smell, and occasion for a bottle that has sold. Notes are the stored brand copy."""
     copy=PROVEN_COPY.get(d.get("id"))
     if not copy: return "", []
-    sibs=[x for x in deals if x.get("id")!=d.get("id") and seller_line(x)==seller_line(d)]
-    sibs.sort(key=lambda x:(x["price"], x["id"]))
     size_p=(f"This bottle is {sz(d.get('size') or '')} {d.get('type') or 'fragrance'} at ${d['price']:.2f}.")
-    if sibs:
-        size_p+=" Also in this check: "+", ".join(
-            f"{fullname(x)} is {sz(x.get('size') or '')} {x.get('type') or 'fragrance'} at ${x['price']:.2f}" for x in sibs
-        )+"."
     if copy.get("size_note"):
         size_p+=" "+copy["size_note"]
     chips=_present_chips(copy["links"])
@@ -1551,8 +1626,8 @@ def seller_family_links(d):
     others.sort(key=lambda x:(x["price"], x["id"]))
     if not others: return ""
     label={"ck":"Other Calvin Klein bottles","replica":"Other Replica scents","le-male":"Other Le Male colognes","lancome":"Other Lancôme perfumes","carolina":"Other Carolina Herrera bottles"}[line]
-    bits=[f"<a href='{PREFIX}/fragrance/{frag_slug(x)}/'>{e(fullname(x))}</a> · ${x['price']:.2f}" for x in others]
-    return f"<div class='also'>{e(label)}: "+" · ".join(bits)+"</div>"
+    bits=[f"<a href='{PREFIX}/fragrance/{frag_slug(x)}/'>{e(fullname(x))} · ${x['price']:.2f}</a>" for x in others]
+    return f"<p class='chips'><span class='meta'>{e(label)}</span>{''.join(bits)}</p>"
 SELLER_PAGES=[]
 KW=[]
 for d in deals:
@@ -1594,7 +1669,7 @@ for d in deals:
         head=(f"<h1>{e(full)} {e(sz(d['size']))}: cheapest price today</h1><p class='sub'>Lowest verified price: <b class='price'>${d['price']:.2f}</b> <span class='was'>${d['was']:.2f}</span> <span class='badge'>-{d['pct_off']}%</span> at {e(d['retailer'])} · checked {checked_h(d.get('checked'))}</p>"
           +buy(d['url'],d['retailer'], frag_slug(d))+also_line(d)+also_popular(d))
     body=(head
-      +f"<div class='box' style='display:flex;gap:16px;flex-wrap:wrap'><img src='{e(d['image'] or '')}' alt='{e(full)}' width=220 height=220 fetchpriority=high decoding=async style='object-fit:contain'><div style='flex:1;min-width:220px'><h2 style='margin-top:0'>Price comparison</h2><table><thead><tr><th>Retailer</th><th>Size</th><th>Price</th><th>Checked</th></tr></thead><tbody>{comprows(d)}</tbody></table><p class=meta>More retailers are added as we verify them. We never list unverified prices.</p></div></div>"
+      +f"<div class='box' style='display:flex;gap:16px;flex-wrap:wrap'><img src='{e(hosted_photo(d) or PLACEHOLDER_SRC)}' alt='{e(full)}' width=220 height=220 fetchpriority=high decoding=async style='object-fit:contain'><div style='flex:1;min-width:220px'><h2 style='margin-top:0'>Price comparison</h2><table><thead><tr><th>Retailer</th><th>Size</th><th>Price</th><th>Checked</th></tr></thead><tbody>{comprows(d)}</tbody></table><p class=meta>More retailers are added as we verify them. We never list unverified prices.</p></div></div>"
       +BREVO_FORM
       +f"<p>{e(full)} is one of today's best {gl} deals: {d['pct_off']}% {('below the '+e(d['was_label'])+' price') if d.get('was_label') else 'off the listed price'}, a {d['type'].lower() or 'fragrance'} from {e(d['brand'])} (<a href='{PREFIX}/brands/{bslug(d['brand'])}/'>all {e(canon(d['brand']))} deals</a>{"".join(", <a href='"+PREFIX+"/best/"+ru['slug']+"/'>"+e(ru['title'].lower().replace('best ','more '))+"</a>" for ru in rus)}).</p>"
       +"".join(f"<p><b>Comparing?</b> <a href='{PREFIX}/vs/{v['slug']}/'>{e(v['title'])}: prices, size and notes side by side</a></p>" for v in vs_of(d))
@@ -1851,7 +1926,7 @@ for d in D["dupes"]:
         (f"Where can I buy {d['dupe']} cheapest?",f"The lowest price we verified is {pr}" + (f" (checked {upd_h})." if d['price'] else ". Check back; we add prices only after verifying them."))]
     body=(f"<h1>Best {e(o)} dupe: {e(d['dupe'])}</h1><p class='sub'>{e(d['notes'])} · {('<b class=price>$%.2f</b> today at %s' % (d['price'],e(d['retailer']))) if d['price'] else 'price not verified yet'}</p>"
       +((buy(d['url'],d['retailer'])+also_line(d)) if d['price'] else "")
-      +f"<div class='box'><h2 style='margin-top:0'>{e(o)} vs {e(d['dupe'])}</h2><table><thead><tr><th></th><th>{e(o)}</th><th>{e(d['dupe'])}</th></tr></thead><tbody><tr><td>Price</td><td>{e(d.get('original_price') or 'varies')}</td><td>{('$%.2f (%s)' % (d['price'],e(d['size']))) if d['price'] else '—'}</td></tr><tr><td>Profile</td><td colspan=2>{e(d['notes'])}</td></tr><tr><td>Sources</td><td colspan=2>{' '.join((f'<a href="{e(affiliate_url(x, "src"))}" rel="nofollow sponsored noopener" target="_blank">[{i+1}]</a>' if is_perfumania(x) else f'<a href={e(x)} rel=noopener target=_blank>[{i+1}]</a>') for i,x in enumerate(d['sources']))}</td></tr></tbody></table></div>"
+      +f"<div class='box'><h2 style='margin-top:0'>{e(o)} vs {e(d['dupe'])}</h2><table><thead><tr><th></th><th>{e(o)}</th><th>{e(d['dupe'])}</th></tr></thead><tbody><tr><td>Designer price</td><td>{e(designer_price_text(d))}</td><td>{('$%.2f (%s)' % (d['price'],e(d['size']))) if d['price'] else 'Not in this check'}</td></tr><tr><td>Profile</td><td colspan=2>{e(d['notes'])}</td></tr><tr><td>Sources</td><td colspan=2>{' '.join(source_link(x, i) for i,x in enumerate(d.get('sources') or [])) or 'None stored'}</td></tr></tbody></table></div>"
       +((f"<div class='box'><h2 style='margin-top:0'>Where to buy {e(d['dupe'])} cheapest</h2><table><thead><tr><th>Retailer</th><th>Size</th><th>Price</th><th>Checked</th></tr></thead><tbody>{comprows(d)}</tbody></table></div>") if d.get('comps') else "")+dupe_deals_html(d)+faqhtml(qs)+related_dupes_section(d))
     DUPE_PAGES.append((f"dupe/{s}/index.html", d))
     lds=[faqld(qs)]+([prod_ld(d, name=d['dupe'], brand=d['dupe'].split()[0])] if d['price'] else [])
@@ -1929,7 +2004,7 @@ for r in ROUNDUPS:
     title_cands += [f"{head} Today ({upd:%b %-d}): {n} Authentic Picks | {NAME}", f"{head} Today: {n} Picks From {CP}", f"{head}: {n} Picks From {CP}", f"{n} Picks From {CP}: {head}", f"From {CP}: {head}", f"{head} ({upd:%b %Y})"]
     page(f"best/{r['slug']}/index.html",fit(title_cands),
       fit(meta_cands,160),body,[il,faqld(qs)])
-def srclinks(srcs): return " ".join((f'<a href="{e(affiliate_url(u, "src"))}" rel="nofollow sponsored noopener" target="_blank">[{i+1}]</a>' if is_perfumania(u) else f"<a href='{e(u)}' rel=noopener target=_blank>[{i+1}]</a>") for i,u in enumerate(srcs))
+def srclinks(srcs): return " ".join(source_link(u, i) for i,u in enumerate(srcs))
 def hubrow(x):
     link=f"{PREFIX}/dupe/{slug(x['original']+' dupe '+x['dupe'])}/"
     op=f"<div class=meta>{e(x['original_price'])}</div>" if x.get('original_price') else ""
@@ -1979,7 +2054,7 @@ for v in VS:
     cheaper=min((A,B),key=lambda d:d['price']); value=min((A,B),key=lambda d:per_oz(d) or 999); bigger=max((A,B),key=lambda d:d['pct_off'])
     ca,cb=conc(A['type']),conc(B['type'])
     def cell(d): return f"<b>${d['price']:.2f}</b> <span class=was>${d['was']:.2f}</span> <span class=badge>-{d['pct_off']}%</span>"
-    def bt(d): return ext_a(d['url'], f"Buy at {e(d['retailer'])}", cls="btn", placement="table", product=frag_slug(d))
+    def bt(d): return ext_a(d['url'], f"Buy {e(d.get('name') or fullname(d))} at {e(d['retailer'])}", cls="btn", placement="table", product=frag_slug(d))
     rows=(f"<tr><td>Price today</td><td>{cell(A)}</td><td>{cell(B)}</td></tr>"
       f"<tr><td>Size</td><td>{e(sz(A['size']))}</td><td>{e(sz(B['size']))}</td></tr>"
       f"<tr><td>Price per ounce</td><td>{('$%.2f' % pa) if pa else '—'}</td><td>{('$%.2f' % pb) if pb else '—'}</td></tr>"
@@ -2125,10 +2200,12 @@ def gift_card(d, notes=None):
 {label}<div class="meta">at {e(d['retailer'])} · checked {upd_h}</div>
 {also_line(d)}
 {ext_a(d['url'], f"Buy at {e(d['retailer'])}", cls="btn", placement="grid", product=frag_slug(d) if d.get("brand") and d.get("name") else "")}</article>"""
-def gift_table(ds, notes=None):
+def gift_table(ds, notes=None, more=False):
     notes=notes or {}
     if not ds: return ""
-    return "<div class='grid'>"+"".join(gift_card(d, notes) for d in ds)+"</div>"
+    inner="".join(gift_card(d, notes) for d in ds)
+    if more: return more_grid(inner)
+    return "<div class='grid'>"+inner+"</div>"
 def gift_sections(ds):
     groups={}; order=[]
     for d in sorted(ds, key=lambda d:(canon(d["brand"]).lower(), d["price"], d["id"])):
@@ -3655,14 +3732,8 @@ def apply_gift_guide_links():
         if h1!=title:
             raise SystemExit(f"gift guide {slug}: link title {title!r} is not the page h1 {h1!r}")
     by_slug=dict(GIFT_SUBPAGES)
-    home_pairs=[(slug, by_slug[slug]) for slug in HOME_GIFT_SLUGS if slug in by_slug]
-    if len(home_pairs)<4:
-        raise SystemExit("homepage holiday gift guides: fewer than 4 guides were generated")
     hub_html=gift_guide_section("Gift guides", GIFT_SUBPAGES)
-    home_extra=((f"{PREFIX}/gifts/", "All holiday gift guides"), (f"{PREFIX}{BF_HUB_PATH}", "Black Friday hub"))
-    home_html=gift_guide_section("Holiday gift guides", home_pairs, extra=home_extra)
     _splice_mark("gifts/index.html", GIFT_HUB_MARK, hub_html)
-    _splice_mark("index.html", GIFT_HOME_MARK, home_html)
     def _gender_holiday_pairs(gender):
         pairs=[]; seen=set()
         by_slug=dict(GIFT_SUBPAGES)
@@ -3708,16 +3779,15 @@ def apply_gift_guide_links():
     expect=[(f"{PREFIX}/gifts/{slug}/", title) for slug, title in GIFT_SUBPAGES]
     if hub_links!=expect:
         raise SystemExit("hub Gift guides section does not list every gift page by its title")
-    home_links=_section_anchors("index.html", "Holiday gift guides")
-    home_expect=[(f"{PREFIX}/gifts/{slug}/", title) for slug, title in home_pairs]+list(home_extra)
-    if home_links!=home_expect:
-        raise SystemExit("homepage Holiday gift guides section is missing a guide or the /gifts/ link")
+    home_text=open(f"{OUT}/index.html", encoding="utf-8").read()
+    if ">Holiday gift guides</h2>" in home_text:
+        raise SystemExit("homepage still has the duplicate Holiday gift guides block")
     for slug, title in GIFT_SUBPAGES:
         more=_section_anchors(f"gifts/{slug}/index.html", "More gift guides")
         more_expect=[(f"{PREFIX}/gifts/{s}/", t) for s, t in GIFT_SUBPAGES if s!=slug]
         if more!=more_expect:
             raise SystemExit(f"{slug}: More gift guides does not link the other gift pages")
-    print(f"gift guide links: {len(GIFT_SUBPAGES)} subpages listed on /gifts/ by page title; homepage links {len(home_pairs)} plus /gifts/")
+    print(f"gift guide links: {len(GIFT_SUBPAGES)} subpages listed on /gifts/ by page title; homepage uses the short chip row")
 apply_gift_guide_links()
 # ---------- Black Friday & Cyber Monday (/black-friday-fragrance-deals/) ----------
 # Generated from deals.json on every build, including the daily refresh, so the
@@ -3751,7 +3821,7 @@ bf_ld=[]
 for anchor,heading,blurb,rows,list_name in bf_sections:
     block=f"<h2 id='{anchor}'>{e(heading)}</h2><p>{e(blurb)}</p>"
     if rows:
-        block+=gift_table(rows)
+        block+=gift_table(rows, more=True)
         bf_ld.append(itemlist(rows, list_name))
     else:
         block+="<div class='box'><p>None of the deals we checked today fit this section.</p></div>"
@@ -4054,18 +4124,8 @@ def _cm_budget_links(path):
             links.append((href,label))
     return links
 def _home_chip(path, label):
-    """Put a new holiday landing on the homepage chip row. The gifts hub already uses gift_nav."""
-    home_fp=f"{OUT}/index.html"
-    if not os.path.isfile(home_fp):
-        return
-    home=open(home_fp, encoding="utf-8").read()
-    chip=f"<a href='{PREFIX}{path}'>{e(label)}</a>"
-    if chip in home:
-        return
-    needle=f"<a href='{PREFIX}/gifts/'>Holiday fragrance gifts</a>"
-    if needle not in home:
-        raise SystemExit("homepage is missing the holiday gifts chip")
-    open(home_fp, "w", encoding="utf-8").write(home.replace(needle, needle+chip, 1))
+    """The homepage chip row is capped. Extra landings stay linked from the sale pages."""
+    return
 def render_cm_budget(path, rows, h1, phrase, noun, who, sid):
     """Men's or women's bottles under $50 for Cyber Monday. Not a copy of the Black Friday gender page."""
     if not rows:
@@ -4180,7 +4240,8 @@ def apply_top_holiday_links():
             mark_at=text.find(NEW_HOLIDAY_MARK)
             if lead_at<0 or mark_at<lead_at:
                 raise SystemExit(f"{fp}: new holiday links are not under the lead Buy button")
-            open(fp, "w", encoding="utf-8").write(text.replace(NEW_HOLIDAY_MARK, block, 1))
+            use="" if os.path.relpath(fp, OUT).replace(os.sep,"/")=="index.html" else block
+            open(fp, "w", encoding="utf-8").write(text.replace(NEW_HOLIDAY_MARK, use, 1))
             found+=1
     if found!=4:
         raise SystemExit(f"new holiday links: expected the mark on 4 hubs, found {found}")
@@ -4262,14 +4323,6 @@ def render_bf_under_30():
         raise SystemExit(f"{BF_U30_PATH}: missing FAQPage")
     if not any(b.get("@type")=="ItemList" for b in blocks if isinstance(b, dict)):
         raise SystemExit(f"{BF_U30_PATH}: missing ItemList")
-    home=open(f"{OUT}/index.html", encoding="utf-8").read()
-    chip=f"<a href='{PREFIX}{BF_U30_PATH}'>Black Friday deals under $30</a>"
-    needle=f"<a href='{PREFIX}/gifts/'>Holiday fragrance gifts</a>"
-    if needle not in home:
-        raise SystemExit("homepage is missing the holiday gifts chip")
-    if chip not in home:
-        home=home.replace(needle, needle+chip, 1)
-        open(f"{OUT}/index.html", "w", encoding="utf-8").write(home)
     print(f"black friday under $30 {BF_U30_PATH}: {len(rows)} bottles, from ${lo['price']:.2f}")
 render_bf_under_30()
 def _seasonal_hub_links():
@@ -4894,7 +4947,29 @@ def apply_money_chips():
             links.append((href, label))
     if len(links)<4:
         raise SystemExit(f"homepage money chips: only {len(links)} of the Black Friday and Cyber Monday pages exist")
-    block="<p class='chips'>"+"".join(f"<a href='{PREFIX}{href}'>{e(label)}</a>" for href, label in links)+"</p>"
+    home_specs=(
+        ("/black-friday/","Black Friday"),
+        ("/best-sellers/","Best sellers"),
+        ("/men/","Men"),
+        ("/women/","Women"),
+        ("/gifts/","Gift guides"),
+        (BF_COLOGNE_PATH,"Black Friday cologne"),
+        (BF_PERFUME_PATH,"Black Friday perfume"),
+        (BF_U30_PATH,"Under $30"),
+        (CM_PATH,"Cyber Monday"),
+        ("/gifts/black-friday-gift-sets/","Gift sets"),
+        ("/gifts/la-vie-est-belle-christmas-gifts/","La Vie Est Belle"),
+        ("/gifts/le-male-christmas-gifts/","Le Male"),
+    )
+    bits=[]
+    for href, label in home_specs:
+        rel=href.strip("/")
+        fp_page=f"{OUT}/{rel}/index.html"
+        if os.path.isfile(fp_page):
+            bits.append(f"<a href='{PREFIX}{href if href.endswith('/') else href+'/'}'>{e(label)}</a>")
+    if len(bits)>12:
+        bits=bits[:12]
+    block="<p class='chips' id='home-chips'>"+"".join(bits)+"</p>"
     fp=f"{OUT}/index.html"
     text=open(fp, encoding="utf-8").read()
     if text.count(MONEY_MARK)!=1:
@@ -5080,7 +5155,27 @@ if _MEDIA_BEFORE:
         raise SystemExit("existing media changed or deleted: "+", ".join(changed[:12]))
     print(f"media preserved: {len(_MEDIA_BEFORE)-len(_GIFT_PINS_WRITTEN & set(_MEDIA_BEFORE))} existing files unchanged")
 
-product_images.cache(deals, f"{OUT}/media/products", frag_slug, retailer_image)
+_photo_rows=list(deals)
+_photo_ids={id(row) for row in _photo_rows}
+for _row in (D.get("gifts") or []):
+    if id(_row) not in _photo_ids:
+        _photo_rows.append(_row)
+        _photo_ids.add(id(_row))
+product_images.cache(_photo_rows, f"{OUT}/media/products", frag_slug, retailer_image)
+def _sales_photo_slug(row):
+    return slug(f"{row.get('brand') or ''} {row.get('name') or ''}")
+def _sales_photo_url(row):
+    url=row.get("image") if isinstance(row.get("image"), str) else ""
+    return url or ""
+if os.path.isfile(f"{ROOT}/data/sales.json"):
+    _sales_rows=[]
+    _sales_doc=json.load(open(f"{ROOT}/data/sales.json"))
+    _best=_sales_doc.get("bestsellers") or {}
+    for _key in ("fragranceshop","fragrancenet"):
+        _sales_rows.extend(_best.get(_key) or [])
+    _sales_rows.extend(_sales_doc.get("gift_sets") or [])
+    _sales_rows.extend(_sales_doc.get("le_male") or [])
+    product_images.cache(_sales_rows, f"{OUT}/media/products", _sales_photo_slug, _sales_photo_url)
 
 # Parent crumb labels. The current page uses its own h1. A section missing from
 # the built files is not linked, so /fragrance/, /dupe/, /best/, and /vs/ stay
@@ -6239,8 +6334,10 @@ def audit_holiday_hub_links():
     home=open(f"{OUT}/index.html", encoding="utf-8").read()
     if not has(home, f"{PREFIX}{BF_HUB_PATH}"):
         raise SystemExit("homepage does not link /black-friday/")
-    if ">Holiday gift guides</h2>" not in home:
-        raise SystemExit("homepage is missing the Holiday gift guides block")
+    if ">Holiday gift guides</h2>" in home:
+        raise SystemExit("homepage still has the duplicate Holiday gift guides block")
+    if "id='home-chips'" not in home:
+        raise SystemExit("homepage is missing the short chip row")
     nav=re.search(r"<nav>(.*?)</nav>", home, re.S)
     if not nav or not has(nav.group(1), f"{PREFIX}{BF_HUB_PATH}"):
         raise SystemExit("site nav does not link /black-friday/")
@@ -6733,8 +6830,10 @@ def audit_nov12_pages():
             raise SystemExit(f"{rel}: brand page does not link it")
         if f"href='{href}'" not in bf_text[slug] and f'href="{href}"' not in bf_text[slug]:
             raise SystemExit(f"{rel}: Black Friday brand page does not link it")
-        if len(inbound)<3:
-            raise SystemExit(f"{rel}: only {len(inbound)} hub links ({inbound})")
+        if "gifts/index.html" not in inbound:
+            raise SystemExit(f"{rel}: /gifts/ does not link it ({inbound})")
+        if not any(h in inbound for h in ("men/index.html","women/index.html","unisex/index.html")):
+            raise SystemExit(f"{rel}: no gender page links it ({inbound})")
         print(f"{rel}: {title} ({len(title)}) / meta {len(desc)} / {len(key)} bottles / hubs {', '.join(inbound)}")
 audit_nov12_pages()
 def _card_names(html_blob):
@@ -6838,12 +6937,12 @@ def audit_nov13_pages():
             raise SystemExit(f"{rel}: missing BreadcrumbList")
         href=f"{PREFIX}/gifts/{slug}/"
         inbound=[hub for hub, blob in hub_text.items() if f"href='{href}'" in blob or f'href="{href}"' in blob]
-        if slug=="famous-fragrance-gifts-under-100" and len(inbound)<4:
+        if slug=="famous-fragrance-gifts-under-100" and len(inbound)<3:
             raise SystemExit(f"{rel}: only {len(inbound)} hub links ({inbound})")
         if slug!="famous-fragrance-gifts-under-100" and "women/index.html" not in inbound:
             raise SystemExit(f"{rel}: /women/ does not link it ({inbound})")
-        if "gifts/index.html" not in inbound or "index.html" not in inbound:
-            raise SystemExit(f"{rel}: homepage or /gifts/ does not link it ({inbound})")
+        if "gifts/index.html" not in inbound:
+            raise SystemExit(f"{rel}: /gifts/ does not link it ({inbound})")
         print(f"{rel}: {title} ({len(title)}) / meta {len(desc)} / {len(key)} bottles / hubs {', '.join(inbound)}")
     replica=open(f"{OUT}/gifts/replica-christmas-gifts/index.html", encoding="utf-8").read()
     if "/fragrance/maison-margiela-replica-bubble-bath/" not in replica:
@@ -6981,6 +7080,80 @@ def audit_bf_ctr_pages():
         print(f"{rel}: {title} ({len(title)}) / meta {len(desc)}")
     print(f"men/index.html: {men_title} ({len(men_title)}) / meta {len(men_desc)}")
 audit_bf_ctr_pages()
+def audit_layout_fixes():
+    """Visual fixes stay in the generator: fold label, short homepage chips, local photos, about and privacy."""
+    css=open(f"{OUT}/style.css", encoding="utf-8").read()
+    if ".fold-deals>.meta{grid-column:1/-1}" not in css:
+        raise SystemExit("fold label does not span the row")
+    if "nav-scroll::after" not in css:
+        raise SystemExit("mobile nav is missing the fade cue")
+    home=open(f"{OUT}/index.html", encoding="utf-8").read()
+    chips=re.search(r"id='home-chips'>(.*?)</p>", home, re.S)
+    if not chips:
+        raise SystemExit("homepage chip row is missing")
+    chip_n=len(re.findall(r"<a\b", chips.group(1)))
+    if not 6<=chip_n<=12:
+        raise SystemExit(f"homepage chip row has {chip_n} links")
+    if ">Holiday gift guides</h2>" in home:
+        raise SystemExit("homepage still has the duplicate Holiday gift guides block")
+    if home.count('<article class="card">')>12 and "more-grid" not in home:
+        raise SystemExit("homepage long grid has no show-more hook")
+    bf=open(f"{OUT}/black-friday-fragrance-deals/index.html", encoding="utf-8").read()
+    if "more-grid" not in bf:
+        raise SystemExit("black friday fragrance page has no show-more hook")
+    women=open(f"{OUT}/women/index.html", encoding="utf-8").read()
+    lead=re.search(r"<div class='lead-offer'>.*?lead-name'><b>(.*?)</b>", women, re.S)
+    fold=re.search(r"id='fs-deals'>(.*?)</div></div>", women, re.S)
+    if not lead or not fold:
+        raise SystemExit("women page is missing the lead or the fold")
+    if html.unescape(lead.group(1)) in html.unescape(fold.group(1)):
+        raise SystemExit("women fold repeats the hero bottle")
+    best=open(f"{OUT}/best-sellers/index.html", encoding="utf-8").read()
+    if "Price not listed" in best:
+        raise SystemExit("best sellers still has an unpriced card")
+    head=best.split("<h2>",1)[0]
+    if "Replica Jazz Club" not in head:
+        raise SystemExit("best sellers does not lead with Jazz Club")
+    brands=open(f"{OUT}/brands/index.html", encoding="utf-8").read()
+    intro=brands.split("How to use this list",1)[-1].split("</section>",1)[0]
+    if "Bright Crystal" in intro:
+        raise SystemExit("brands intro still names Bright Crystal")
+    sm=open(f"{OUT}/sitemap.xml", encoding="utf-8").read()
+    for path in ("/about/","/privacy/"):
+        if not os.path.isfile(f"{OUT}/{path.strip('/')}/index.html"):
+            raise SystemExit(f"missing {path}")
+        if f"<loc>{BASE}{PREFIX}{path}</loc>" not in sm:
+            raise SystemExit(f"{path} is not in the sitemap")
+        text=open(f"{OUT}/{path.strip('/')}/index.html", encoding="utf-8").read()
+        if f"href='{PREFIX}{path}'" not in text and f'href="{PREFIX}{path}"' not in text:
+            raise SystemExit(f"footer does not link {path}")
+    dupes=open(f"{OUT}/dupes/index.html", encoding="utf-8").read()
+    if "Not tracked yet" in dupes or "price check coming" in dupes:
+        raise SystemExit("dupes index still lists an untracked row")
+    sample=next((rel for rel,_d in DUPE_PAGES), None)
+    if sample:
+        dupe=open(f"{OUT}/{sample}", encoding="utf-8").read()
+        if ">varies<" in dupe or ">[1]<" in dupe or ">[1]</a>" in dupe:
+            raise SystemExit(f"{sample}: dupe price or sources still look unfinished")
+    vs=next((f"vs/{v['slug']}/index.html" for v in VS), None)
+    if vs:
+        text=open(f"{OUT}/{vs}", encoding="utf-8").read()
+        table=re.search(r"Side by side</h2><table>(.*?)</table>", text, re.S)
+        if not table or re.search(r">Buy at [^<]+<", table.group(1)):
+            raise SystemExit(f"{vs}: comparison button does not name the product")
+    hot=re.compile(r"""src=['"]https?://[^'"]*(?:fragranceshop\.com|fragrancenet\.com|cdn\.shopify\.com)""", re.I)
+    for rel in ("index.html","women/index.html","best-sellers/index.html","men/index.html"):
+        text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+        if hot.search(text):
+            raise SystemExit(f"{rel}: a product photo is still hotlinked")
+    missing=[]
+    for src in re.findall(r'''src=["'](/media/products/[^"']+\.jpg)["']''', home):
+        if not os.path.isfile(f"{OUT}{src}"):
+            missing.append(src)
+    if missing:
+        raise SystemExit("homepage photo was not saved locally: "+", ".join(missing[:8]))
+    print(f"layout: {chip_n} home chips, fold label spans, photos local, about and privacy in the sitemap")
+audit_layout_fixes()
 import subprocess, sys
 _validator=subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "validate_jsonld.py")])
 if _validator.returncode!=0:

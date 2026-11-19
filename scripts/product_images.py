@@ -19,11 +19,6 @@ import urllib.request
 
 import links
 
-try:
-    from PIL import Image
-except ImportError as exc:
-    raise SystemExit("product pin images need Pillow. Install it with: python3 -m pip install pillow") from exc
-
 UA = "ScentDealsDaily/1.0 (+https://scentdealsdaily.com)"
 MAX_BYTES = 8 * 1024 * 1024
 TIMEOUT = 25
@@ -94,6 +89,10 @@ def _fetch(url: str) -> bytes:
 
 
 def _to_jpeg(data: bytes) -> bytes:
+    try:
+        from PIL import Image
+    except ImportError as exc:
+        raise RuntimeError("Pillow is not installed") from exc
     im = Image.open(io.BytesIO(data))
     im = im.convert("RGB")
     if min(im.size) < 200:
