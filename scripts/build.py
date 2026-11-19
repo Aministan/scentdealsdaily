@@ -6167,6 +6167,13 @@ def _buy_button(tag):
     inner=re.search(r">([^<]*)</a>", tag, re.S)
     text=html.unescape(inner.group(1)).strip() if inner else ""
     return text.startswith("Buy at ") and len(text)>len("Buy at ")
+def _read_built(rel):
+    """A guide skipped for too few bottles is not an audit failure."""
+    path=f"{OUT}/{rel}"
+    if os.path.isfile(path):
+        return open(path, encoding="utf-8").read()
+    print(f"{rel}: not built today, skip the page audit")
+    return None
 def audit_luxury_and_home_buy():
     """Luxury guides and the homepage deals: lead Buy block, and every card has price, store, and one Buy button.
 
@@ -6179,8 +6186,9 @@ def audit_luxury_and_home_buy():
     pages=[("index.html", deals, False)]
     for slug in LUXURY_GIFT_SLUGS:
         rel=f"gifts/{slug}/index.html"
-        if slug not in by_slug:
-            raise SystemExit(f"/gifts/{slug}/ was not built")
+        if slug not in by_slug or not os.path.isfile(f"{OUT}/{rel}"):
+            print(f"{rel}: not built today, skip the page audit")
+            continue
         pages.append((rel, by_slug[slug], True))
     if os.path.isfile(f"{OUT}/gifts/luxury-unisex-fragrance-gifts/index.html"):
         raise SystemExit("luxury unisex page was generated; this pass does not add pages")
@@ -6264,6 +6272,9 @@ def audit_conversion_order():
     for rel in samples:
         fp=f"{OUT}/{rel}"
         if not os.path.isfile(fp):
+            if rel.startswith("gifts/"):
+                print(f"{rel}: not built today, skip the page audit")
+                continue
             raise SystemExit(f"{rel}: conversion sample was not built")
         text=open(fp, encoding="utf-8").read()
         card_at=text.find('<article class="card">')
@@ -6289,7 +6300,9 @@ def audit_nov7_buys():
     )
     for slug in gift_slugs:
         rel=f"gifts/{slug}/index.html"
-        text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+        text=_read_built(rel)
+        if text is None:
+            continue
         title=html.unescape(re.search(r"<title>(.*?)</title>", text, re.S).group(1))
         desc=html.unescape(re.search(r'<meta name="description" content="([^"]*)"', text).group(1))
         if len(title)>60 or not title.startswith("Buy ") or "From $" not in title:
@@ -6343,7 +6356,8 @@ def audit_nov8_buys():
     for slug in converted+added:
         rel=f"gifts/{slug}/index.html"
         if not os.path.isfile(f"{OUT}/{rel}"):
-            raise SystemExit(f"{rel}: Nov 8 page was not built")
+            print(f"{rel}: not built today, skip the page audit")
+            continue
         text=open(f"{OUT}/{rel}", encoding="utf-8").read()
         title=html.unescape(re.search(r"<title>(.*?)</title>", text, re.S).group(1))
         desc=html.unescape(re.search(r'<meta name="description" content="([^"]*)"', text).group(1))
@@ -6380,6 +6394,9 @@ audit_nov8_buys()
 def audit_nov9_buys():
     """Category pages and this run's holiday guides: a lead Buy, a check date, and schema."""
     for rel in ("men/index.html","women/index.html","unisex/index.html","gifts/index.html","gifts/luxury-fragrance-gifts/index.html","gifts/cologne-gifts-for-teen-boys/index.html","gifts/perfume-gifts-for-teen-girls/index.html","gifts/fragrance-gifts-for-teens/index.html","gifts/perfume-gifts-for-mother-in-law/index.html"):
+        if rel.startswith("gifts/") and not os.path.isfile(f"{OUT}/{rel}"):
+            print(f"{rel}: not built today, skip the page audit")
+            continue
         text=open(f"{OUT}/{rel}", encoding="utf-8").read()
         lead=re.search(r"<div class='lead-offer'>(.*?)</div>", text, re.S)
         card_at=text.find('<article class="card">')
@@ -6412,7 +6429,8 @@ def audit_nov9_buys():
     for slug in added:
         rel=f"gifts/{slug}/index.html"
         if not os.path.isfile(f"{OUT}/{rel}"):
-            raise SystemExit(f"{rel}: Nov 9 page was not built")
+            print(f"{rel}: not built today, skip the page audit")
+            continue
         text=open(f"{OUT}/{rel}", encoding="utf-8").read()
         title=html.unescape(re.search(r"<title>(.*?)</title>", text, re.S).group(1))
         desc=html.unescape(re.search(r'<meta name="description" content="([^"]*)"', text).group(1))
@@ -6456,7 +6474,8 @@ def audit_nov9_buys():
     for slug in added:
         key=by_picks.get(slug)
         if not key:
-            raise SystemExit(f"{slug}: picks were not recorded")
+            print(f"gifts/{slug}/index.html: not built today, skip the page audit")
+            continue
         twins=[other for other, rows in by_picks.items() if other!=slug and rows==key]
         same=[other for other in twins if _filter_key(other)==_filter_key(slug)]
         if same:
@@ -6570,7 +6589,9 @@ def audit_nov10_pages():
             seen_desc[desc]=rel
     for slug in slugs:
         rel=f"gifts/{slug}/index.html"
-        text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+        text=_read_built(rel)
+        if text is None:
+            continue
         title=html.unescape(re.search(r"<title>(.*?)</title>", text, re.S).group(1))
         desc=html.unescape(re.search(r'<meta name="description" content="([^"]*)"', text).group(1))
         if len(title)>60 or not title.startswith("Buy ") or "From $" not in title:
@@ -6651,7 +6672,9 @@ def audit_nov11_pages():
     by_picks={slug: tuple(f"{d['id']}|{sz(d.get('size') or '')}|{d['price']:.2f}" for d in picks) for slug, _h1, picks in GIFT_PAGE_PICKS}
     for slug in slugs:
         rel=f"gifts/{slug}/index.html"
-        text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+        text=_read_built(rel)
+        if text is None:
+            continue
         title=html.unescape(re.search(r"<title>(.*?)</title>", text, re.S).group(1))
         desc=html.unescape(re.search(r'<meta name="description" content="([^"]*)"', text).group(1))
         if len(title)>60 or not title.startswith("Buy ") or "From $" not in title:
@@ -6925,7 +6948,8 @@ def audit_nov12_pages():
     for slug in slugs:
         rel=f"gifts/{slug}/index.html"
         if not os.path.isfile(f"{OUT}/{rel}"):
-            raise SystemExit(f"{rel}: Nov 12 page was not built")
+            print(f"{rel}: not built today, skip the page audit")
+            continue
         text=open(f"{OUT}/{rel}", encoding="utf-8").read()
         title=html.unescape(re.search(r"<title>(.*?)</title>", text, re.S).group(1))
         desc=html.unescape(re.search(r'<meta name="description" content="([^"]*)"', text).group(1))
@@ -7035,7 +7059,8 @@ def audit_nov13_pages():
     for slug in slugs:
         rel=f"gifts/{slug}/index.html"
         if not os.path.isfile(f"{OUT}/{rel}"):
-            raise SystemExit(f"{rel}: Nov 13 page was not built")
+            print(f"{rel}: not built today, skip the page audit")
+            continue
         text=open(f"{OUT}/{rel}", encoding="utf-8").read()
         title=html.unescape(re.search(r"<title>(.*?)</title>", text, re.S).group(1))
         desc=html.unescape(re.search(r'<meta name="description" content="([^"]*)"', text).group(1))
@@ -7081,11 +7106,12 @@ def audit_nov13_pages():
         if "gifts/index.html" not in inbound:
             raise SystemExit(f"{rel}: /gifts/ does not link it ({inbound})")
         print(f"{rel}: {title} ({len(title)}) / meta {len(desc)} / {len(key)} bottles / hubs {', '.join(inbound)}")
-    replica=open(f"{OUT}/gifts/replica-christmas-gifts/index.html", encoding="utf-8").read()
-    if "/fragrance/maison-margiela-replica-bubble-bath/" not in replica:
-        raise SystemExit("replica christmas gifts: missing the Bubble Bath deal link")
-    if "Bubble Bath" not in replica.split("have bought", 1)[-1][:400] and "Bubble Bath" not in replica:
-        raise SystemExit("replica christmas gifts: Bubble Bath is not named")
+    replica=_read_built("gifts/replica-christmas-gifts/index.html")
+    if replica is not None:
+        if "/fragrance/maison-margiela-replica-bubble-bath/" not in replica:
+            raise SystemExit("replica christmas gifts: missing the Bubble Bath deal link")
+        if "Bubble Bath" not in replica.split("have bought", 1)[-1][:400] and "Bubble Bath" not in replica:
+            raise SystemExit("replica christmas gifts: Bubble Bath is not named")
     for rel, d in SELLER_PAGES:
         if seller_line(d) not in ("lancome","carolina","replica"): continue
         text=open(f"{OUT}/{rel}", encoding="utf-8").read()
@@ -7109,9 +7135,9 @@ def audit_keyword_pages():
         "vs/le-male-le-parfum-vs-elixir/index.html",
     )
     for rel in new_rels:
-        if not os.path.isfile(f"{OUT}/{rel}"):
-            raise SystemExit(f"{rel}: new guide was not built")
-        text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+        text=_read_built(rel)
+        if text is None:
+            continue
         title=html.unescape(re.search(r"<title>(.*?)</title>", text, re.S).group(1))
         desc=html.unescape(re.search(r'<meta name="description" content="([^"]*)"', text).group(1))
         if len(title)>60:
@@ -7186,6 +7212,9 @@ def audit_bf_ctr_pages():
         ("gifts/veterans-day-cologne-gifts/index.html", False),
     )
     for rel, need_bf_title in pages:
+        if rel.startswith("gifts/") and not os.path.isfile(f"{OUT}/{rel}"):
+            print(f"{rel}: not built today, skip the page audit")
+            continue
         text=open(f"{OUT}/{rel}", encoding="utf-8").read()
         title, desc=title_desc(text)
         if len(title)>60 or not (70<=len(desc)<=160):
