@@ -1,5 +1,30 @@
 # ScentDealsDaily CEO log
 
+## 2026-11-20 (Fri) — proven houses get a Buy button, four under-$100 gift pages
+
+**Refresh status:** origin/main at the start of this pass was 82f73202 "daily refresh". data/deals.json is stamped 2026-11-20T14:32:26Z (Nov 20, 2026 9:32 AM ET): 83 live deals. This pass did not edit data/deals.json and did not re-fetch prices. The push triggers daily-refresh, which owns the next price check and the IndexNow ping.
+
+**Muse result:** muse_deals.json is unchanged (sha1 26cbc2509317eb00083be99cb218afc8c4359a31). Nothing merged. No prices were invented.
+
+**Merchant order:** scripts/merchants.py was not changed. Higher commission still wins only when the higher price is within $2 of the cheapest. The build logged no buy-button move.
+
+**Conversion (generator, so the daily refresh keeps it)**
+The eight proven FragranceShop bottles already had a Buy button above the photo, an also-popular row, and a price in the title. Those deal pages were left as they were.
+- Jean Paul Gaultier, Lancôme, Carolina Herrera, Maison Margiela, and Paco Rabanne brand pages now use the same lead as Calvin Klein: one Buy button for the lowest checked bottle, above the house essay and above the photos. An also-popular row under that button links the eight bottles that have sold, at the prices in deals.json. Titles: "Buy Jean Paul Gaultier Cologne: From $77.95" (43) / meta 152, "Buy Lancôme Perfume: From $61.95" (32) / meta 130, "Buy Carolina Herrera Perfume & Cologne: From $76.95" (51) / meta 160, "Buy Maison Margiela Fragrance: From $78.95" (42) / meta 156, "Buy Paco Rabanne Perfume & Cologne: From $59.95" (47) / meta 157.
+- /men/, /women/, and /unisex/ already led with Buy and a from-price. The same also-popular row now sits under that button. /men/ keeps its Proven picks row.
+
+**New pages (4, config `gift_guides`, so they survive the rebuild). Prices are the Nov 20 deals.json prices. Black Friday brand pages for Lancôme, Carolina Herrera, Jean Paul Gaultier, and Maison Margiela already exist, so they were not added again.**
+- /gifts/perfume-gifts-for-wife-under-100/: Very Good Girl 1.7 oz $76.95, Poeme 3.4 oz $83.95 at Perfumania, Black Opium 1.6 oz $84.95, Good Girl 2.7 oz $91.95, La Vie Est Belle 3.4 oz $93.95, Idôle 3.4 oz $97.95. The rest are FragranceShop. Title: "Buy Wife Perfume Under $100: From $76.95" (40). Meta 111. 283 inbound links.
+- /gifts/cologne-gifts-for-husband-under-100/: Stronger With You Intensely 1.7 oz $70.95, Ultra Male 4.2 oz $77.95, 1 Million Lucky 3.4 oz $77.95, Le Beau 4.2 oz $78.95, 1 Million Royal 3.4 oz $90.95, Le Male Le Parfum 4.2 oz $93.95. All FragranceShop. Title: "Buy Husband Cologne Under $100: From $70.95" (43). Meta 114. 289 inbound links.
+- /gifts/cologne-gifts-for-boyfriend-under-100/: Ultra Male $77.95, 1 Million Lucky $77.95, Bad Boy 3.4 oz $78.95, Le Beau $78.95, Jazz Club 3.4 oz $81.95, 1 Million Royal $90.95. All FragranceShop. Title: "Buy Boyfriend Cologne Under $100: From $77.95" (45). Meta 116. 289 inbound links.
+- /gifts/best-selling-fragrance-deals-this-week/: 1 Million Lucky $77.95, Afternoon Delight $78.95, Bubble Bath $81.95, Jazz Club $81.95, Good Girl $91.95, Le Male Le Parfum $93.95, La Vie Est Belle 3.4 oz $93.95. All FragranceShop. These are bottles shoppers have bought here, not a unit-sales chart. CK Free stays on the Calvin Klein page because it is under this band. Title: "Buy Fragrance Deals This Week: From $77.95" (42). Meta 116. 307 inbound links.
+
+Each new page has ItemList (Product with AggregateOffer), FAQPage, and BreadcrumbList JSON-LD, a canonical on https://scentdealsdaily.com/gifts/<slug>/, a lead price plus Buy button before the cards, and links from the homepage, /gifts/, the matching gender page, the brand pages, and the bottle pages. Good Girl Blush and the original Prada Luna Rossa are not in this price check. /gifts/good-girl-perfume-gift-deals/ needs three bottles and only two remain, so it is not built. /black-friday/prada/ stays up and noindex at two bottles.
+
+**Checks:** local build on the 2026-11-20T14:32:26Z deals file. 0 broken internal links. JSON-LD parsed. Sitemap and llms.txt include the four URLs. Every canonical is on https://scentdealsdaily.com. CNAME is scentdealsdaily.com. Both Google site-verification meta tags stay on every page. data/deals.json was not edited. Affiliate hrefs were checked as strings only. No request was made to a CJ, Awin, Rakuten, or /go URL.
+
+**Deploy:** this push goes straight to main and triggers daily-refresh (refresh + build + IndexNow + Pages). Live 200s are checked after that run.
+
 ## 2026-11-19 (Thu evening) — buy button first on the pages Google already shows
 
 **Refresh status:** origin/main at the start of this pass was b9a1a5cf "daily refresh", which includes 1434f66e and d5027206. data/deals.json is stamped 2026-11-19T19:28:37Z (Nov 19, 2026 2:28 PM ET): 85 live deals. This pass did not edit data/deals.json and did not re-fetch prices. The push triggers daily-refresh, which owns the next price check and the IndexNow ping.
