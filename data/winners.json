@@ -1,0 +1,138 @@
+{
+  "source": "CJ FragranceShop export",
+  "period": "2026-10-15/2026-11-20",
+  "merchant": "FragranceShop",
+  "orders": 15,
+  "commission": 62.95,
+  "note": "Per-SKU commission was not in the export, so each row leaves commission null. Sale is orders times the unit price only when the export stated both for that SKU alone. A shared group does not split orders or sale across its SKUs. slug is set only when data/deals.json has that exact sku. A missing slug is null.",
+  "winners": [
+    {
+      "sku": "FS191154",
+      "orders": 6,
+      "unit_price": 93.95,
+      "sale": 563.70,
+      "commission": null,
+      "deal_id": "fs-jpg-le-male-le-parfum-4-2",
+      "slug": "jean-paul-gaultier-le-male-le-parfum-cologne"
+    },
+    {
+      "sku": "FS36521",
+      "orders": 2,
+      "unit_price": 93.95,
+      "sale": 187.90,
+      "commission": null,
+      "deal_id": "fs-lancome-la-vie-est-belle-edp-3-4",
+      "slug": "lanc-me-la-vie-est-belle-perfume-3-4-oz"
+    },
+    {
+      "sku": "FS1609839",
+      "orders": null,
+      "orders_group": "fs1609839-fs1609727",
+      "orders_group_count": 2,
+      "unit_price": 81.95,
+      "sale": null,
+      "commission": null,
+      "deal_id": "fs-mm-jazz-club-edt-3-4",
+      "slug": "maison-margiela-replica-jazz-club",
+      "note": "The export grouped this SKU with FS1609727 as two orders and did not split them. deals.json maps this SKU to Replica Jazz Club."
+    },
+    {
+      "sku": "FS1609727",
+      "orders": null,
+      "orders_group": "fs1609839-fs1609727",
+      "orders_group_count": 2,
+      "unit_price": 78.95,
+      "sale": null,
+      "commission": null,
+      "deal_id": "fs-mm-afternoon-delight-edt-3-4",
+      "slug": "maison-margiela-replica-afternoon-delight",
+      "note": "Same unsplit pair of orders as FS1609839. deals.json maps this SKU to Replica Afternoon Delight, not Jazz Club."
+    },
+    {
+      "sku": "FS89601",
+      "orders": null,
+      "orders_group": "fs89601-fs190011",
+      "orders_group_count": 1,
+      "unit_price": null,
+      "sale": null,
+      "commission": null,
+      "deal_id": null,
+      "slug": null,
+      "note": "The export called this a 1 Million Lucky bundle with FS190011. Neither SKU is a sku field in deals.json."
+    },
+    {
+      "sku": "FS190011",
+      "orders": null,
+      "orders_group": "fs89601-fs190011",
+      "orders_group_count": 1,
+      "unit_price": null,
+      "sale": null,
+      "commission": null,
+      "deal_id": null,
+      "slug": null,
+      "note": "Paired with FS89601. Not a sku field in deals.json."
+    },
+    {
+      "sku": "FS192762",
+      "orders": 1,
+      "unit_price": 20.95,
+      "sale": 20.95,
+      "commission": null,
+      "deal_id": null,
+      "slug": null
+    },
+    {
+      "sku": "FS21361",
+      "orders": 1,
+      "unit_price": 17.95,
+      "sale": 17.95,
+      "commission": null,
+      "deal_id": null,
+      "slug": null
+    },
+    {
+      "sku": "FS9237",
+      "orders": null,
+      "orders_group": "fs9237-fs22172",
+      "orders_group_count": 1,
+      "unit_price": null,
+      "sale": null,
+      "group_sale": 55.90,
+      "commission": null,
+      "deal_id": null,
+      "slug": null,
+      "note": "One order with FS22172. The export gave $55.90 for the pair, not a price for this SKU alone."
+    },
+    {
+      "sku": "FS22172",
+      "orders": null,
+      "orders_group": "fs9237-fs22172",
+      "orders_group_count": 1,
+      "unit_price": null,
+      "sale": null,
+      "group_sale": 55.90,
+      "commission": null,
+      "deal_id": null,
+      "slug": null,
+      "note": "One order with FS9237. The export gave $55.90 for the pair, not a price for this SKU alone."
+    },
+    {
+      "sku": "FS88558",
+      "orders": 1,
+      "unit_price": 91.95,
+      "sale": 91.95,
+      "commission": null,
+      "deal_id": "fs-ch-good-girl-edp-2-7",
+      "slug": "carolina-herrera-good-girl-perfume"
+    },
+    {
+      "sku": "FS1191489",
+      "orders": 1,
+      "unit_price": 55.95,
+      "sale": 55.95,
+      "commission": null,
+      "deal_id": null,
+      "slug": null
+    }
+  ]
+}

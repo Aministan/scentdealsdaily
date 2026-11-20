@@ -770,9 +770,74 @@
      "The stored brand copy calls both stronger versions of mint-and-vanilla Le Male. It does not publish a separate note pyramid for Le Parfum versus Elixir. Ultra Male is the sweeter flanker."
     ]
    ]
+  },
+  {
+   "slug": "jazz-club-vs-bubble-bath",
+   "title": "Jazz Club vs Bubble Bath",
+   "a": "fs-mm-jazz-club-edt-3-4",
+   "b": "fs-mm-bubble-bath-edt-3-4",
+   "lead_first": true,
+   "a_notes": "Tobacco, rum, and vanilla. A sweet smoky evening scent.",
+   "b_notes": "Soap, lavender, and clean musk. Meant to smell like a warm bath.",
+   "intro": "Two Replica eau de toilette bottles at the same checked price, both 3.4 oz. Jazz Club is the smoky one. Bubble Bath is the clean one. The note lines are the ones already stored for those bottles. This is not a wear-time test. Afternoon Delight is the vanilla Replica and is a different bottle.",
+   "difference": "Jazz Club is tobacco, rum, and vanilla. Bubble Bath is soap, lavender, and clean musk. Both are listed as 3.4 oz eau de toilette. The checked prices are the ones on the cards. Neither line is a wear-time test.",
+   "pick": "Pick Jazz Club for a smoky evening scent. Pick Bubble Bath for a clean soapy scent. The prices are the ones we checked. Afternoon Delight is the vanilla Replica and stays on its own page.",
+   "title_tag": "Buy Jazz Club or Bubble Bath",
+   "meta_hook": "Buy the smoky Replica or the clean one."
   }
  ],
  "roundups": [
+  {
+   "slug": "le-male-le-parfum-deal",
+   "title": "Le Male Le Parfum Deal",
+   "title_tag": "Buy the Le Male Le Parfum Deal",
+   "noun": "cologne",
+   "who": "men's",
+   "scope": "in the Le Male line",
+   "lead_id": "fs-jpg-le-male-le-parfum-4-2",
+   "rule": "the bottle is Le Male Le Parfum, Le Male Elixir, or Ultra Male, and it is still in the price check",
+   "lead": "Le Male Le Parfum is the bottle with the most FragranceShop orders in the Oct 15 to Nov 20, 2026 commission file. Elixir and Ultra Male are the other Le Male bottles in the same check.",
+   "meta_lead": "Le Male Le Parfum, Elixir, and Ultra Male.",
+   "items": [
+    {"id": "fs-jpg-le-male-le-parfum-4-2", "notes": "Eau de parfum intense. The stronger Le Male. Mint and vanilla in the stored brand copy."},
+    {"id": "fs-jpg-le-male-elixir-parfum-4-2", "notes": "Parfum. Grouped with Le Parfum as a stronger Le Male. Mint and vanilla in the stored copy."},
+    {"id": "fs-jpg-ultra-male-edt-4-2", "notes": "Eau de toilette. The sweeter Le Male flanker."}
+   ],
+   "links": [
+    {"href": "/vs/le-male-le-parfum-vs-elixir/", "label": "Le Male Le Parfum vs Elixir"},
+    {"href": "/gifts/le-male-christmas-gifts/", "label": "Le Male Christmas cologne deals"},
+    {"href": "/jean-paul-gaultier-le-male-deals/", "label": "All Le Male deals"}
+   ],
+   "faq": [
+    ["Is this a separate Le Male sale price?", "No. Each price is the one already in the daily price check. The page drops a bottle that leaves that check."],
+    ["Where is the original Le Male eau de toilette?", "It is not in this price check. This page is Le Male Le Parfum, Le Male Elixir, and Ultra Male."]
+   ]
+  },
+  {
+   "slug": "la-vie-est-belle-deal",
+   "title": "La Vie Est Belle Deal",
+   "title_tag": "Buy the La Vie Est Belle Deal",
+   "noun": "perfume",
+   "who": "women's",
+   "scope": "around La Vie Est Belle",
+   "lead_id": "fs-lancome-la-vie-est-belle-edp-3-4",
+   "rule": "the bottle is the 3.4 oz La Vie Est Belle, the 1.0 oz of the same perfume, or Idôle, and it is still in the price check",
+   "lead": "The 3.4 oz La Vie Est Belle is the second FragranceShop SKU in the Oct 15 to Nov 20, 2026 commission file. The 1.0 oz is the same perfume. Idôle is the other Lancôme perfume kept on this short list.",
+   "meta_lead": "La Vie Est Belle 3.4 oz, the 1.0 oz, and Idôle.",
+   "items": [
+    {"id": "fs-lancome-la-vie-est-belle-edp-3-4", "notes": "Eau de parfum. Pear, iris, jasmine, orange blossom, praline, vanilla, and tonka."},
+    {"id": "lancome-la-vie-est-belle-perfume-eau-de-parfum-for-women", "notes": "The same eau de parfum in the 1.0 oz size."},
+    {"id": "fs-lancome-idole-edp-3-4", "notes": "The cleaner modern Lancôme floral. Not another size of La Vie Est Belle."}
+   ],
+   "links": [
+    {"href": "/gifts/la-vie-est-belle-christmas-gifts/", "label": "La Vie Est Belle Christmas gifts"},
+    {"href": "/best/la-vie-est-belle-alternatives/", "label": "La Vie Est Belle alternatives"}
+   ],
+   "faq": [
+    ["Is the 1.0 oz a different perfume?", "No. It is the same La Vie Est Belle eau de parfum in a smaller bottle. Idôle is a different Lancôme perfume."],
+    ["Is this a separate sale price?", "No. Each price is the one already in the daily price check."]
+   ]
+  },
   {
    "slug": "mens-fragrances-under-100",
    "title": "Best Men's Fragrances Under $100",
@@ -8395,6 +8460,112 @@
    {"href": "/black-friday-cologne-deals/", "label": "Black Friday cologne deals"},
    {"href": "/cyber-monday-cologne-deals/", "label": "Cyber Monday cologne deals"},
    {"href": "/men/", "label": "All men's deals"}
+  ]
+ },
+ {
+  "slug": "cologne-gifts-for-him-under-100",
+  "title": "Cologne gifts for him under $100",
+  "title_tag": "Buy Cologne Gifts for Him Under $100",
+  "buy_meta": true,
+  "chip": "Cologne gifts for him under $100",
+  "gender": "men",
+  "max_price": 100,
+  "exclude_mini": true,
+  "exclude_set": true,
+  "min_bottles": 4,
+  "ids": [
+    "fs-jpg-le-male-le-parfum-4-2",
+    "fs-jpg-le-male-elixir-parfum-4-2",
+    "fs-jpg-ultra-male-edt-4-2",
+    "fs-paco-1-million-lucky-edt-3-4",
+    "stronger-with-you-intensely-cologne-for-men"
+  ],
+  "filled_label": "men's cologne gifts under $100",
+  "intro": "Men's cologne gifts whose checked price is under $100, lowest price first. Le Male Le Parfum leads the commission file. Elixir and Ultra Male are the other Le Male bottles in the same check. 1 Million Lucky and Stronger With You Intensely are the other men's bottles on this short list. A bottle at $100 or more drops off on the next rebuild. Christmas cologne gifts under $100 is the longer men's list and is not this five-bottle set.",
+  "empty": "None of these men's colognes are under $100 in the price check, so this page has no list.",
+  "empty_desc": "Cologne gifts for him under $100: none of these bottles are under $100 in the price check.",
+  "choose": [
+    "Start with Le Male Le Parfum when the gift is the bottle with the most orders in the commission file. Elixir is the parfum in the same line. Ultra Male is the sweeter eau de toilette. 1 Million Lucky and Stronger With You Intensely are the other men's bottles on this page.",
+    "Use Christmas cologne gifts under $100 when the gift can be any men's cologne under $100. This page is five bottles, not that longer list."
+  ],
+  "faq": [
+    ["What counts as under $100?", "The checked price has to be under $100. A bottle at $100 or more drops off on the next rebuild."],
+    ["Is this every men's cologne under $100?", "No. Christmas cologne gifts under $100 is the longer list. This page is Le Male Le Parfum, Elixir, Ultra Male, 1 Million Lucky, and Stronger With You Intensely."],
+    ["Are these separate sale prices?", "No. Each card uses the price already in the daily price check."]
+  ],
+  "links": [
+    {"href": "/best/le-male-le-parfum-deal/", "label": "Le Male Le Parfum deal"},
+    {"href": "/gifts/le-male-christmas-gifts/", "label": "Le Male Christmas cologne deals"},
+    {"href": "/gifts/best-selling-mens-cologne-black-friday/", "label": "Best-selling men's cologne for Black Friday"},
+    {"href": "/men/", "label": "All men's deals"}
+  ]
+ },
+ {
+  "slug": "best-selling-mens-cologne-black-friday",
+  "title": "Best-selling men's cologne for Black Friday",
+  "title_tag": "Buy Best-Selling Men's Cologne",
+  "buy_meta": true,
+  "chip": "Best-selling men's cologne",
+  "gender": "men",
+  "exclude_mini": true,
+  "exclude_set": true,
+  "min_bottles": 3,
+  "ids": [
+    "fs-jpg-le-male-le-parfum-4-2",
+    "fs-jpg-le-male-elixir-parfum-4-2",
+    "fs-jpg-ultra-male-edt-4-2",
+    "fs-paco-1-million-lucky-edt-3-4"
+  ],
+  "filled_label": "best-selling men's cologne for Black Friday",
+  "intro": "A men's cologne list for Black Friday, lowest checked price first, built around Le Male Le Parfum. That bottle is the FragranceShop SKU with the most orders in the Oct 15 to Nov 20, 2026 commission file. Elixir and Ultra Male are the other Le Male bottles in the same check. 1 Million Lucky is the other men's bottle on this page. Best-selling cologne gifts for Black Friday also includes Jazz Club and Afternoon Delight, which this page leaves off. This is not a unit-sales chart for the bottles that were not in that file.",
+  "empty": "None of these men's colognes are in the price check, so this page has no list.",
+  "empty_desc": "Best-selling men's cologne for Black Friday: none of these bottles are in the price check.",
+  "choose": [
+    "Start with Le Male Le Parfum. It is the SKU with the most orders in the commission file. Elixir is the parfum. Ultra Male is the sweeter eau de toilette. 1 Million Lucky is the other men's bottle here.",
+    "Use best-selling cologne gifts for Black Friday when the gift can include Jazz Club and Afternoon Delight. Those unisex bottles stay off this page."
+  ],
+  "faq": [
+    ["Which bottle on this page has the order count?", "Le Male Le Parfum. The commission file counted six FragranceShop orders for that SKU from Oct 15 to Nov 20, 2026. The other bottles are on the page because they are in the same check, not because this file counted them."],
+    ["How is this different from best-selling cologne gifts for Black Friday?", "That page includes Jazz Club, Afternoon Delight, and Stronger With You Intensely. This page is men's cologne only: Le Male Le Parfum, Elixir, Ultra Male, and 1 Million Lucky."],
+    ["Are these separate Black Friday prices?", "No. Each card uses the price already in the daily price check. Black Friday 2026 is November 27."]
+  ],
+  "links": [
+    {"href": "/best/le-male-le-parfum-deal/", "label": "Le Male Le Parfum deal"},
+    {"href": "/gifts/cologne-gifts-for-him-under-100/", "label": "Cologne gifts for him under $100"},
+    {"href": "/black-friday-cologne-deals/", "label": "Black Friday cologne deals"},
+    {"href": "/men/", "label": "All men's deals"}
+  ]
+ },
+ {
+  "slug": "good-girl-black-friday-deal",
+  "title": "Good Girl Black Friday deal",
+  "title_tag": "Buy the Good Girl Deal",
+  "buy_meta": true,
+  "chip": "Good Girl Black Friday deal",
+  "exclude_mini": true,
+  "exclude_set": true,
+  "min_bottles": 2,
+  "ids": [
+    "fs-ch-good-girl-edp-2-7",
+    "fs-ch-very-good-girl-edp-1-7"
+  ],
+  "filled_label": "the Good Girl deal",
+  "intro": "Good Girl and Very Good Girl, lowest checked price first. Good Girl is a FragranceShop SKU in the Oct 15 to Nov 20, 2026 commission file. Very Good Girl is the flanker in the same check. Good Girl Blush is not in this price check, so this page does not price it. A boxed Good Girl set stays on the gift-set guides.",
+  "empty": "Neither Good Girl nor Very Good Girl is in the price check, so this page has no list.",
+  "empty_desc": "Good Girl Black Friday deal: neither bottle is in the price check.",
+  "choose": [
+    "Start with Good Girl when the gift is the original cocoa-and-jasmine perfume. Very Good Girl is the red-berry flanker. They are not the same bottle.",
+    "Use Good Girl perfume gift deals when that page is up. This page is only the two bottles still in the price check."
+  ],
+  "faq": [
+    ["Is Good Girl Blush on this page?", "No. It is not in this price check. This page does not invent a price for it."],
+    ["Is Very Good Girl the same as Good Girl?", "No. Very Good Girl is the flanker. Good Girl is the original. Both prices are the ones we checked."],
+    ["Is this a separate Black Friday price?", "No. Each card uses the price already in the daily price check. Black Friday 2026 is November 27."]
+  ],
+  "links": [
+    {"href": "/gifts/good-girl-perfume-gift-deals/", "label": "Good Girl perfume gift deals"},
+    {"href": "/best/good-girl-alternatives/", "label": "Good Girl alternatives"},
+    {"href": "/black-friday/carolina-herrera/", "label": "Carolina Herrera Black Friday deals"}
   ]
  }
  ],

@@ -1,5 +1,25 @@
 # ScentDealsDaily CEO log
 
+## 2026-11-20 (Fri) — winners file and six pages around the bottles that sold
+
+**Refresh status:** origin/main at the start of this pass was ca053cbe "daily refresh". data/deals.json was not edited. Prices on the new pages come from that file. The push triggers daily-refresh, which owns the next price check and the IndexNow ping.
+
+**Winners:** data/winners.json is the FragranceShop commission export for Oct 15 to Nov 20, 2026: 15 orders, $62.95 commission. A slug is set only when that exact SKU is in deals.json. FS191154 is Le Male Le Parfum. FS36521 is La Vie Est Belle 3.4 oz. FS1609839 is Jazz Club. FS1609727 is Afternoon Delight, even though the export grouped it with Jazz Club. FS88558 is Good Girl. FS89601, FS190011, FS192762, FS21361, FS9237, FS22172, and FS1191489 have no sku in deals.json, so their slug is null. Per-SKU commission was not in the export. docs/WHAT_WORKS.md says future builds should read this file first.
+
+The homepage and /best-sellers/ proven-picks row sorts by that order count: Le Male Le Parfum, then Jazz Club, then 1 Million Lucky. Lucky has no mapped SKU, so it stays last.
+
+**New pages**
+- /best/le-male-le-parfum-deal/
+- /best/la-vie-est-belle-deal/
+- /vs/jazz-club-vs-bubble-bath/ (both are $81.95 in the price check)
+- /gifts/cologne-gifts-for-him-under-100/
+- /gifts/best-selling-mens-cologne-black-friday/
+- /gifts/good-girl-black-friday-deal/
+
+Each has a price-led title, a Buy button before the photo, an also-popular row, and Product/Offer plus FAQ JSON-LD. Sitemap and llms.txt include them. CNAME and the Google verification tags are unchanged. No request was made to a CJ, Awin, Rakuten, or /go URL.
+
+**Deploy:** this push goes straight to main. Live 200s are checked after the Pages run.
+
 ## 2026-11-20 (Fri) — proven houses get a Buy button, four under-$100 gift pages
 
 **Refresh status:** origin/main at the start of this pass was 82f73202 "daily refresh". data/deals.json is stamped 2026-11-20T14:32:26Z (Nov 20, 2026 9:32 AM ET): 83 live deals. This pass did not edit data/deals.json and did not re-fetch prices. The push triggers daily-refresh, which owns the next price check and the IndexNow ping.
