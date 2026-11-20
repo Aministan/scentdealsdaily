@@ -427,20 +427,27 @@ def _write_best(ns, groups, linked):
     when = ns["upd_h"]
     priced = [row for row, _href, _new in linked if _money(row.get("price")) is not None]
     lo = min(priced, key=lambda r: r["price"]) if priced else None
-    lo_bit = f"${lo['price']:.2f}" if lo else ""
+    shoppers = ns["shopper_picks"]()
+    lead_row = min(shoppers, key=lambda r: (r["price"], r.get("id") or "")) if shoppers else None
+    lo_bit = f"${lead_row['price']:.2f}" if lead_row else (f"${lo['price']:.2f}" if lo else "")
+    when_short = f"{ns['upd']:%b %-d, %Y}"
+    names = ", ".join(ns["_pick_label"](d) for d in shoppers)
     title = ns["fit"]([
-        f"Best Sellers From {lo_bit}: Checked Store Lists" if lo_bit else "Best Sellers From the Store Lists",
-        f"Best Sellers From {lo_bit}" if lo_bit else "Best Sellers",
+        f"Buy Best Sellers Black Friday 2026: From {lo_bit}" if lo_bit else "Best Sellers",
+        f"Buy Best Sellers: From {lo_bit}" if lo_bit else "Best Sellers",
         "Best Sellers",
     ])
     desc = ns["fit"]([
-        f"Best sellers from FragranceShop and FragranceNet" + (f", from {lo_bit}" if lo_bit else "") + f". Prices were read on the store pages. Checked {when}.",
-        f"Shop the public FragranceShop and FragranceNet bestseller lists" + (f" from {lo_bit}" if lo_bit else "") + f". Checked {when}.",
+        f"Buy best sellers for Black Friday 2026 from {lo_bit}. Proven picks: {names}. Prices checked {when_short}.",
+        f"Buy best sellers for Black Friday 2026 from {lo_bit}. Prices checked {when_short}.",
+        f"Shop the FragranceShop and FragranceNet lists from {lo_bit}. Prices checked {when_short}.",
     ], 160)
     parts = [
         "<h1>Best sellers</h1>",
-        f"<p class='sub'>Ranked the way FragranceShop and FragranceNet list them. Prices were read on those pages. Checked {ns['e'](when)}.</p>",
-        "<p>A bottle with no sealed-spray price on the store page is listed without one. This page does not add ratings.</p>",
+        f"<p class='sub'>Prices checked {ns['e'](when_short)}. <a href='{ns['PREFIX']}/black-friday-fragrance-deals/'>Black Friday fragrance deals</a>.</p>",
+        ns["shopper_lead"](),
+        ns["proven_picks_html"](),
+        "<p>Ranked the way FragranceShop and FragranceNet list them. A bottle with no sealed-spray price is listed without one. This page does not add ratings.</p>",
     ]
     parts.append(ns["fs_fold_html"](ns["deals"], (
         {"brand":"margiela","name_is":"replica jazz club","size":"3.4"},

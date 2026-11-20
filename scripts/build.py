@@ -241,6 +241,7 @@ main{max-width:1100px;margin:0 auto;padding:16px}h1{font-size:26px;line-height:1
 .fold-deal{background:#fff;border:1px solid #ece7e1;border-radius:12px;padding:8px 10px}
 .fold-deal .lead-name,.fold-deal .lead-price{margin:2px 0}.fold-deal .price{font-size:20px}.fold-deal .btn{margin-top:6px;padding:8px 10px}
 .bf-banner{background:#1d1b20;color:#fff;text-align:center;margin:0;padding:6px 12px;font-size:14px}.bf-banner a{color:#e7b75f;font-weight:700;text-decoration:none}
+.proven-picks{margin:0 0 8px;font-size:14px;line-height:1.4}.proven-picks a{display:inline-block;margin:0 8px 4px 0}
 .promo-callout{background:#fff8ea;border:1px solid #e7b75f;border-radius:12px;padding:8px 12px;margin:0 0 12px}
 .fs-picks{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin:0 0 14px}
 .fs-pick{background:#fff;border:1px solid #ece7e1;border-radius:12px;padding:8px;display:flex;flex-direction:column}
@@ -909,6 +910,42 @@ def more_grid(inner, limit=12):
     if n<=limit: return f"<div class='grid'>{inner}</div>"
     return f"<div class='grid more-grid' data-more='{limit}'>{inner}</div>"
 _LUCKY_PIN={"brand":"paco","name":"1 million lucky","size":"3.4"}
+_SHOPPER_SPECS=(
+    "le male le parfum",
+    {"brand":"margiela","name":"jazz club","size":"3.4"},
+    _LUCKY_PIN,
+)
+def shopper_picks():
+    """Le Male Le Parfum, Jazz Club, and 1 Million Lucky, when they are still FragranceShop deals."""
+    found=[]
+    for spec in _SHOPPER_SPECS:
+        hit=next((d for d in deals if fs_fold_ok(d) and _fold_match(d, spec) and d not in found), None)
+        if hit: found.append(hit)
+    return found
+def _pick_label(d):
+    full=fullname(d)
+    for prefix in ("Jean Paul Gaultier ", "Maison Margiela ", "Paco Rabanne "):
+        if full.startswith(prefix): return full[len(prefix):]
+    return full
+def proven_picks_html():
+    """Short row: the three bottles shoppers bought, at the prices in deals.json, plus the Black Friday list."""
+    rows=shopper_picks()
+    if not rows: return ""
+    bits=[f"<a href='{PREFIX}/fragrance/{frag_slug(d)}/'>{e(_pick_label(d))} ${d['price']:.2f}</a>" for d in rows]
+    bf=f"<a href='{PREFIX}/black-friday-fragrance-deals/'>Black Friday fragrance deals</a>"
+    return "<p class='proven-picks'><b>Proven picks</b> "+" ".join(bits)+" "+bf+"</p>"
+def shopper_lead():
+    """One Buy button for the lowest of those three. Not the cheapest bottle on a mixed page."""
+    rows=shopper_picks()
+    if not rows: return ""
+    d=min(rows, key=lambda row:(row["price"], row.get("id") or ""))
+    size=sz(d.get("size") or "")
+    size_bit=f" · {e(size)}" if size else ""
+    label="Buy at "+e(d["retailer"])+" →"
+    return (f"<div class='lead-offer'><p class='meta'>Proven pick · Price checked {e(upd_h)}</p>"
+            f"<p class='lead-name'><b>{e(fullname(d))}</b>{size_bit}</p>"
+            f"<p class='lead-price'><span class='price'>${d['price']:.2f}</span> <span class='meta'>at {e(d['retailer'])}</span></p>"
+            f"{ext_a(d['url'], label, cls='btn', style='max-width:340px', placement='cta', product=frag_slug(d))}</div>")
 _PROVEN_GRID=(
     "le male le parfum",
     {"brand":"lanc","name_is":"la vie est belle perfume","size":"3.4"},
@@ -1016,22 +1053,27 @@ _home_lo=min(d["price"] for d in deals)
 _home_mx=max(d["pct_off"] for d in deals)
 _home_when=f"{upd:%b %-d, %Y}"
 _home_desc=fit([
+    f"Buy Black Friday 2026 perfume and cologne from ${_home_lo:.2f}, up to {_home_mx}% off. {len(deals)} deals. Prices checked {_home_when}.",
     f"Buy {len(deals)} perfume and cologne deals from ${_home_lo:.2f}, up to {_home_mx}% off. Prices checked {_home_when}.",
-    f"Shop {len(deals)} authentic perfume and cologne deals from ${_home_lo:.2f}, up to {_home_mx}% off. Prices checked {_home_when}.",
     f"Buy designer perfume and cologne from ${_home_lo:.2f}, up to {_home_mx}% off. Prices checked {_home_when}.",
 ],160)
 if not (70<=len(_home_desc)<=160) or "Prices checked" not in _home_desc or _home_when not in _home_desc or f"${_home_lo:.2f}" not in _home_desc:
     raise SystemExit(f"homepage meta is {len(_home_desc)} chars or misses the price or the check date ({_home_desc})")
-page("index.html",fit([f"Buy Fragrance Deals Today: From ${_home_lo:.2f} ({_home_mx}% Off)",f"Fragrance Deals Today: From ${_home_lo:.2f} ({_home_mx}% Off) | {NAME}",f"Fragrance Deals Today: From ${_home_lo:.2f} ({_home_mx}% Off)",f"Fragrance Deals Today: Up to {_home_mx}% Off | {NAME}"]),
+page("index.html",fit([
+    f"Buy Fragrance Deals Black Friday 2026: From ${_home_lo:.2f}",
+    f"Buy Fragrance Deals Today: From ${_home_lo:.2f} ({_home_mx}% Off)",
+    f"Fragrance Deals Today: From ${_home_lo:.2f} ({_home_mx}% Off)",
+ ]),
  _home_desc,
  f"<h1>Today's best designer fragrance deals</h1><p class='sub'>Prices checked {e(_home_when)}. {len(deals)} live deals · <a href='{PREFIX}/black-friday/'>Black Friday perfume and cologne deals</a></p>"
  +promo_callout()
- +fs_bf_section()
  +lead_offer(deals)
+ +proven_picks_html()
  +fs_fold_html(deals, (
     {"brand":"lanc","name_is":"la vie est belle perfume","size":"3.4"},
     {"brand":"carolina","name_is":"good girl perfume","size":"2.7"},
     "le male le parfum", _LUCKY_PIN, "afternoon delight", "free cologne"))
+ +fs_bf_section()
  +MONEY_MARK
  +NEW_HOLIDAY_MARK
  +BREVO_FORM
@@ -1214,6 +1256,7 @@ for g,label in [("men","Men's Cologne"),("women","Women's Perfume"),("unisex","U
       gdesc,
       f"<h1>{label} deals</h1><p class='sub'>Prices checked {e(when)}.{sub_links}</p>"
       +lead_offer(ds)
+      +(proven_picks_html() if g=="men" else "")
       +fold_html
       +f"<p>{e(sale.capitalize())} on sale at authorized retailers. The button above is the lowest price on this page.{order_line}</p>"
       +f"<div class='grid'>{''.join(card(d) for d in ds)}</div>"
@@ -1454,7 +1497,8 @@ open(f"{OUT}/robots.txt","w").write(
     "User-agent: *\nAllow: /\n"
     "Disallow: /go/\nDisallow: /out/\nDisallow: /redirect/\nDisallow: /r/\n\n"
     f"Sitemap: {BASE}{PREFIX}/sitemap.xml\n")
-open(f"{OUT}/sitemap.xml","w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+"".join(f"<url><loc>{u}</loc><lastmod>{upd:%Y-%m-%d}</lastmod></url>" for u in PAGES)+"</urlset>\n")
+_sitemap_day=max(upd.astimezone(ET).date(), datetime.datetime.now(ET).date())
+open(f"{OUT}/sitemap.xml","w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+"".join(f"<url><loc>{u}</loc><lastmod>{_sitemap_day:%Y-%m-%d}</lastmod></url>" for u in PAGES)+"</urlset>\n")
 use_sid("llms")
 def plain_url(url):
     """Retailer or citation URL safe to publish where a bot will fetch every link."""
@@ -1729,6 +1773,11 @@ def seller_title_meta(d):
     pct=d.get("pct_off") or 0
     proven=d.get("id") in PROVEN_IDS
     title_cands=[]
+    if d.get("id") in {x.get("id") for x in shopper_picks()}:
+        title_cands += (
+            f"Buy {label} Black Friday 2026 Deal: {P}",
+            f"Buy {label} Deal: {P}",
+        )
     if proven:
         title_cands += (
             f"Buy {label} {Z} Deal: {P}",
@@ -1744,6 +1793,11 @@ def seller_title_meta(d):
     if not title:
         raise SystemExit(f"{d.get('id')}: seller title does not fit")
     meta_cands=[]
+    if d.get("id") in {x.get("id") for x in shopper_picks()}:
+        meta_cands += (
+            f"Buy {label} for Black Friday 2026 at {P}, {pct}% off at {d['retailer']}. Prices checked {when}.",
+            f"Buy the {label} {Z} deal for Black Friday 2026 at {P}. Prices checked {when}.",
+        )
     if proven:
         meta_cands += (
             f"Buy the {label} {Z} deal for {P} at {d['retailer']}, {pct}% off. Cheapest price we checked. Prices checked {when}.",
@@ -1793,6 +1847,7 @@ for d in deals:
         others=sorted(others, key=lambda x:(x.get("in_stock") is False, x["price"], x["id"]))[:4]
     else:
         others=others[:4]
+    shopper_row=proven_picks_html() if d.get("id") in {x.get("id") for x in shopper_picks()} or d.get("id")=="stronger-with-you-intensely-cologne-for-men" else ""
     _lower=[c for c in (d.get("comps") or []) if c.get("retailer")!=d.get("retailer") and c.get("retailer") in merchants.AFFILIATE_COMMISSION and isinstance(c.get("price"),(int,float)) and not isinstance(c.get("price"),bool) and float(c["price"])+0.009<float(d["price"])]
     if _lower:
         _lo=min(_lower, key=lambda c: float(c["price"]))
@@ -1812,11 +1867,11 @@ for d in deals:
         day=re.match(r"(.+?\d{4})", when_row)
         when_day=day.group(1) if day else f"{upd:%b %-d, %Y}"
         head=(f"<h1>{e(full)} {e(sz(d['size']))}</h1><p class='sub'>Prices checked {e(when_day)}. {season_links_text()}.</p>"
-          +seller_lead(d)+also_line(d))
+          +seller_lead(d)+shopper_row+also_line(d))
     elif line:
         when_row=checked_h(d.get("checked"))
         head=(f"<h1>{e(seller_h1(d))}</h1><p class='sub'>Prices checked {e(when_row)}.</p>"
-          +seller_lead(d)+seller_family_links(d)+also_popular(d)+also_line(d))
+          +seller_lead(d)+shopper_row+seller_family_links(d)+also_popular(d)+also_line(d))
     else:
         head=(f"<h1>{e(full)} {e(sz(d['size']))}: cheapest price today</h1><p class='sub'>Lowest verified price: <b class='price'>${d['price']:.2f}</b> <span class='was'>${d['was']:.2f}</span> <span class='badge'>-{d['pct_off']}%</span> at {e(d['retailer'])} · checked {checked_h(d.get('checked'))}</p>"
           +buy(d['url'],d['retailer'], frag_slug(d))+also_line(d)+also_popular(d))
@@ -2747,11 +2802,12 @@ def render_seo_gift(slug_s, h1, intro, picks, faqs, empty_html, empty_desc, fill
     else:
         listing=empty_html
     ld=([itemlist(picks, h1)] if picks else [])+[faqld(faqs)]
-    top, rest_html=fold_offer(lead_offer(picks), intro, listing)
+    row=proven_picks_html() if slug_s in ("veterans-day-cologne-gifts","stocking-stuffer-minis","perfume-gifts-for-mother-in-law") else ""
     banner=veterans_banner() if slug_s=="veterans-day-cologne-gifts" else ""
-    sub_extra=(f" {season_links_text()}." if slug_s in ("stocking-stuffer-minis","perfume-gifts-for-mother-in-law") else "")
+    top, rest_html=fold_offer((lead_offer(picks) if picks else "")+row+banner, intro, listing)
+    sub_extra=(f" {season_links_text()}." if slug_s in ("stocking-stuffer-minis","perfume-gifts-for-mother-in-law","veterans-day-cologne-gifts") else "")
     page(f"gifts/{slug_s}/index.html", title, desc,
-      f"<h1>{e(h1)}</h1><p class='sub'>Prices checked {e(f'{upd:%b %-d, %Y}')}.{sub_extra}</p>{banner}{top}{gift_nav()}{rest_html}{GIFT_DISC}{extra}{extra_html}{faqhtml(faqs)}{BREVO_FORM}{GIFT_MORE_MARK}<p class='meta'>Prices are the ones we checked. A name links to a price comparison only when that same size already has a deal page. We do not invent a price, and we do not list testers, decants, or Amazon.</p>",
+      f"<h1>{e(h1)}</h1><p class='sub'>Prices checked {e(f'{upd:%b %-d, %Y}')}.{sub_extra}</p>{top}{gift_nav()}{rest_html}{GIFT_DISC}{extra}{extra_html}{faqhtml(faqs)}{BREVO_FORM}{GIFT_MORE_MARK}<p class='meta'>Prices are the ones we checked. A name links to a price comparison only when that same size already has a deal page. We do not invent a price, and we do not list testers, decants, or Amazon.</p>",
       ld, image=image, feed=bool(picks))
     KW.append(h1.lower())
 her_under_50=by_price([d for d in eligible if d["gender"]=="women" and d["price"]<50])
@@ -3096,7 +3152,7 @@ def luxury_ctr_meta(h1, picks):
     return desc
 for spec in GIFT_GUIDES:
     picks=spec["picks"]
-    h1=spec["title"]
+    h1="Holiday cologne gifts, 3 oz and up" if spec["slug"]=="veterans-day-cologne-gifts" else spec["title"]
     cap=spec.get("max_price")
     floor=spec.get("min_was")
     bits=[spec["intro"]]
@@ -3183,6 +3239,12 @@ for spec in GIFT_GUIDES:
             "Buy Mother-in-Law Perfume Black Friday 2026: From {price}",
         ])
         desc_override=holiday_ctr_meta("perfume for a mother-in-law", picks)
+    if spec["slug"]=="veterans-day-cologne-gifts" and picks:
+        title_full=holiday_ctr_title(picks, [
+            "Buy Holiday Cologne Black Friday 2026: From {price}",
+            "Buy Christmas Cologne Black Friday 2026: From {price}",
+        ])
+        desc_override=holiday_ctr_meta("holiday cologne gifts, 3 oz and up", picks)
     render_seo_gift(spec["slug"], h1, intro, picks, faqs,
         check_back_note(spec["empty"]), spec["empty_desc"], spec["filled_label"], notes=notes, extra_html=extra, extra=choose_html, title_tag=spec.get("title_tag"), desc_override=desc_override, title_full=title_full)
 def write_gift_aliases():
@@ -4054,9 +4116,12 @@ if CM_ROWS:
     cm_back=(f"<p><a href='{PREFIX}{CM_PATH}'>Cyber Monday fragrance deals</a> "
              "lists the checked bottles in one list, largest discount first, for November 30.</p>")
 use_sid("bfcm", "fragrance-deals")
-_bf_top, _bf_rest=fold_offer(lead_offer(bf_singles)+fs_fold_html(bf_singles, ("le male le parfum", {"brand":"lanc","name_is":"la vie est belle perfume","size":"3.4"}, {"brand":"carolina","name_is":"good girl perfume","size":"2.7"}, {"brand":"margiela","name_is":"replica jazz club","size":"3.4"})), bf_intro, "".join(bf_parts))
+_bf_lead=(lead_offer(bf_singles)+proven_picks_html()
+    +fs_fold_html(bf_singles, ("le male le parfum", {"brand":"lanc","name_is":"la vie est belle perfume","size":"3.4"}, {"brand":"carolina","name_is":"good girl perfume","size":"2.7"}, {"brand":"margiela","name_is":"replica jazz club","size":"3.4"}))
+    +fs_bf_section()+promo_upcoming())
+_bf_top, _bf_rest=fold_offer(_bf_lead, bf_intro, "".join(bf_parts))
 page("black-friday-fragrance-deals/index.html", bf_title, bf_desc,
- f"<h1>{e(bf_h1)}</h1><p class='sub'>Last updated {e(bf_when)}. Checked {e(upd_h)}.</p>{promo_callout()}{fs_bf_section()}{promo_upcoming()}{_bf_top}{NEW_HOLIDAY_MARK}{gift_nav()}{bf_jumps}{_bf_rest}{bf_seasonal_note()}{cm_back}{GIFT_DISC}{faqhtml(bf_faqs)}{BREVO_FORM}<p class='meta'>Prices and photos come from the deals we already checked. We do not invent a price or a photo, and we do not list testers, decants, or Amazon.</p>",
+ f"<h1>{e(bf_h1)}</h1><p class='sub'>Last updated {e(bf_when)}. Checked {e(upd_h)}.</p>{promo_callout()}{_bf_top}{NEW_HOLIDAY_MARK}{gift_nav()}{bf_jumps}{_bf_rest}{bf_seasonal_note()}{cm_back}{GIFT_DISC}{faqhtml(bf_faqs)}{BREVO_FORM}<p class='meta'>Prices and photos come from the deals we already checked. We do not invent a price or a photo, and we do not list testers, decants, or Amazon.</p>",
  bf_ld+[faqld(bf_faqs)], image="/media/pins/holiday-fragrance-gifts.png", feed=bool(bf_ids))
 KW+=["black friday perfume deals 2026","cyber monday cologne deals"]
 print(f"black friday page: {len(bf_ids)} unique deals, {bf_cards} cards; men {len(bf_men)}, women {len(bf_women)}, sets {len(bf_sets)}, under $50 {len(bf_u50)}")
@@ -5250,7 +5315,8 @@ def assert_404_unlisted():
         raise SystemExit(f"sitemap has {n} urls, page index has {len(PAGES)}")
     print(f"404.html excluded from sitemap ({n} urls), llms.txt, feed.xml, and IndexNow")
 # rewrite sitemap with new pages + keyword list + IndexNow key
-open(f"{OUT}/sitemap.xml","w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+"".join(f"<url><loc>{u}</loc><lastmod>{upd:%Y-%m-%d}</lastmod></url>" for u in PAGES)+"</urlset>\n")
+_sitemap_day=max(upd.astimezone(ET).date(), datetime.datetime.now(ET).date())
+open(f"{OUT}/sitemap.xml","w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+"".join(f"<url><loc>{u}</loc><lastmod>{_sitemap_day:%Y-%m-%d}</lastmod></url>" for u in PAGES)+"</urlset>\n")
 def audit_vs_gift_links():
     """Every sitemap /vs/ URL links the gift guides that list either bottle, or the /gifts/ hub."""
     paths=_sitemap_paths()
@@ -7321,6 +7387,65 @@ def audit_bf_ctr_pages():
         print(f"{rel}: {title} ({len(title)}) / meta {len(desc)}")
     print(f"men/index.html: {men_title} ({len(men_title)}) / meta {len(men_desc)}")
 audit_bf_ctr_pages()
+def audit_shopper_row():
+    """The pages Google already shows lead with a price, a Buy button, and the three bottles that sold."""
+    rows=shopper_picks()
+    if len(rows)<3:
+        print(f"proven picks: only {len(rows)} of Le Male, Jazz Club, and 1 Million Lucky are in today's deals")
+    if not rows:
+        print("proven picks: none of those three bottles are in today's deals, skip the row audit")
+        return
+    rels=[
+        "index.html",
+        "black-friday-fragrance-deals/index.html",
+        "best-sellers/index.html",
+        "men/index.html",
+        "gifts/veterans-day-cologne-gifts/index.html",
+        "gifts/stocking-stuffer-minis/index.html",
+        "gifts/perfume-gifts-for-mother-in-law/index.html",
+        "fragrance/giorgio-armani-stronger-with-you-intensely-cologne/index.html",
+    ]
+    rels += [f"fragrance/{frag_slug(d)}/index.html" for d in rows]
+    for rel in rels:
+        fp=f"{OUT}/{rel}"
+        if not os.path.isfile(fp):
+            print(f"{rel}: not built today, skip the proven-picks audit")
+            continue
+        text=open(fp, encoding="utf-8").read()
+        row=re.search(r"<p class='proven-picks'>(.*?)</p>", text, re.S)
+        if not row:
+            raise SystemExit(f"{rel}: missing the Proven picks row")
+        plain=html.unescape(row.group(1))
+        if "Proven picks" not in plain or "/black-friday-fragrance-deals/" not in row.group(1):
+            raise SystemExit(f"{rel}: Proven picks row is missing the label or the Black Friday link")
+        for d in rows:
+            if f"${d['price']:.2f}" not in plain:
+                raise SystemExit(f"{rel}: Proven picks row is missing ${d['price']:.2f}")
+        lead_at=text.find("class='lead-offer'")
+        row_at=text.find("class='proven-picks'")
+        if lead_at<0 or row_at<lead_at:
+            raise SystemExit(f"{rel}: the Buy button is not above the Proven picks row")
+        if "Buy at " not in text[lead_at:row_at]:
+            raise SystemExit(f"{rel}: the first screen has no Buy button")
+    vet_fp=f"{OUT}/gifts/veterans-day-cologne-gifts/index.html"
+    if not os.path.isfile(vet_fp):
+        print("veterans page was not built today, skip the holiday title audit")
+        print(f"proven picks: {len(rels)} pages")
+        return
+    vet=open(vet_fp, encoding="utf-8").read()
+    vtitle=html.unescape(re.search(r"<title>(.*?)</title>", vet, re.S).group(1))
+    vh1=html.unescape(re.search(r"<h1>(.*?)</h1>", vet, re.S).group(1))
+    vdesc=html.unescape(re.search(r'<meta name="description" content="([^"]*)"', vet).group(1))
+    if not vtitle.startswith("Buy ") or "Black Friday 2026" not in vtitle or "From $" not in vtitle or len(vtitle)>60:
+        raise SystemExit(f"veterans title is not a holiday Buy title ({vtitle})")
+    if vh1!="Holiday cologne gifts, 3 oz and up":
+        raise SystemExit(f"veterans H1 is still the old holiday ({vh1})")
+    if "Black Friday 2026" not in vdesc or "Prices checked" not in vdesc or not vdesc.startswith("Buy "):
+        raise SystemExit(f"veterans meta is not a holiday Buy snippet ({vdesc})")
+    if "Veterans Day has passed" not in vet:
+        raise SystemExit("veterans page dropped the note that the holiday has passed")
+    print(f"proven picks: {len(rels)} pages, veterans title {vtitle}")
+audit_shopper_row()
 def audit_layout_fixes():
     """Visual fixes stay in the generator: fold label, short homepage chips, local photos, about and privacy."""
     css=open(f"{OUT}/style.css", encoding="utf-8").read()

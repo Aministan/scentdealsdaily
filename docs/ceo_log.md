@@ -1,5 +1,29 @@
 # ScentDealsDaily CEO log
 
+## 2026-11-19 (Thu evening) — buy button first on the pages Google already shows
+
+**Refresh status:** origin/main at the start of this pass was b9a1a5cf "daily refresh", which includes 1434f66e and d5027206. data/deals.json is stamped 2026-11-19T19:28:37Z (Nov 19, 2026 2:28 PM ET): 85 live deals. This pass did not edit data/deals.json and did not re-fetch prices. The push triggers daily-refresh, which owns the next price check and the IndexNow ping.
+
+**Search Console:** docs/ has no impressions export. The pages treated as already shown are the ones named in the Nov 17 entry of this log, plus the homepage, the Black Friday fragrance list, best sellers, and the three bottles shoppers have bought.
+
+**Conversion (generator, so the daily refresh keeps it)**
+The price and the Buy button sit above the long grids. A Proven picks row follows that button. The prices are the ones in deals.json: Le Male Le Parfum $93.95, Replica Jazz Club $81.95, and 1 Million Lucky $77.95, all at FragranceShop. The row links each bottle page and /black-friday-fragrance-deals/.
+- Homepage title: "Buy Fragrance Deals Black Friday 2026: From $17.95" (50). Meta 108. The Buy button is the lowest checked price, then the Proven picks row, then the FragranceShop fold. The long picks grid is below that.
+- /black-friday-fragrance-deals/: same order. Title stays "Buy Black Friday Perfume Deals 2026 Now: From $17.95" (52). Meta 157.
+- /best-sellers/: a Proven pick Buy button for the lowest of those three, then the row, then the Jazz Club fold. Title: "Buy Best Sellers Black Friday 2026: From $77.95" (47). Meta 80.
+- /men/: the existing lowest-price Buy button stays first. The Proven picks row is under it. Title is unchanged: Buy, Black Friday 2026, from-price, and percent off.
+- /gifts/stocking-stuffer-minis/, /gifts/perfume-gifts-for-mother-in-law/, and /fragrance/giorgio-armani-stronger-with-you-intensely-cologne/: the existing Buy button stays first, with the Proven picks row under it. Their Black Friday 2026 titles are unchanged.
+- Bottle pages for Le Male Le Parfum, Jazz Club, and 1 Million Lucky: the bottle's own Buy button stays first, then the row. Titles: "Buy Le Male Le Parfum Cologne Black Friday 2026 Deal: $93.95" (60), "Buy Replica Jazz Club Black Friday 2026 Deal: $81.95" (52), "Buy 1 Million Lucky Cologne Black Friday 2026 Deal: $77.95" (58).
+
+**Veterans Day URL**
+/gifts/veterans-day-cologne-gifts/ keeps its address. Veterans Day 2026 was November 11, and the banner still says that. The H1 is now "Holiday cologne gifts, 3 oz and up". Title: "Buy Holiday Cologne Black Friday 2026: From $17.95" (50). Meta 134 names Black Friday 2026, the from-price, and the check date. The list is still the 3 oz-and-up men's colognes we checked. It is not a new sale price.
+
+**Sitemap:** lastmod is 2026-11-19, the later of the deals date and today's Eastern Time date. IndexNow runs in daily-refresh after the build, the same step as before. No request was made to a CJ, Awin, Rakuten, or /go URL.
+
+**Checks:** local build on the 2026-11-19T19:28:37Z deals file, then the same build from a clean clone. Affiliate hrefs were checked as strings only.
+
+**Deploy:** this push goes straight to main and triggers daily-refresh (refresh + build + IndexNow + Pages). Live 200s are checked after that run.
+
 ## 2026-11-19 (Thu) — 1 Million Lucky joins the bottles that sold
 
 **Refresh status:** origin/main at the start of this pass was 7603b6ce "daily refresh". data/deals.json is stamped 2026-11-19T02:58:54Z (Nov 18, 2026 9:58 PM ET): 85 live deals. This pass did not edit data/deals.json and did not re-fetch prices. The push triggers daily-refresh, which owns the next price check.
