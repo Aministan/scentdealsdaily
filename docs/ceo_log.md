@@ -31,7 +31,7 @@ Each new page has a lead price and a Buy button before the photo, an also-popula
 
 **Checks:** local build on the 2026-11-21T05:35:26Z deals file. Sitemap 361 URLs. 0 broken internal links. JSON-LD parsed (1,178 blocks). 0 github.io links. Every canonical is on https://scentdealsdaily.com. CNAME is scentdealsdaily.com. Both Google site-verification meta tags stay on every page. The Black Friday week window test accepts Nov 21 noon and Dec 1 11:59:59 PM ET, and rejects Nov 20 and Dec 2. data/deals.json was not edited. Affiliate hrefs were checked as strings only. Affiliate hosts were mapped to localhost for the local render. No request was made to a CJ, Awin, Rakuten, or /go URL.
 
-**Deploy:** this push goes straight to main and triggers daily-refresh (refresh + build + IndexNow + Pages). The workflow result and live HTTP status are added after that run.
+**Deploy:** commit ce3cfad5 was pushed to main. daily-refresh run 44925360337 finished success (build and Pages deploy). The job's price check committed 0435156b "daily refresh" and restamped data/deals.json to 2026-11-21T16:35:04Z. The eight proven prices and the five new-page prices listed above did not change. Live HTTP, with no redirect followed: /best/good-girl-deal/ 200, /best/1-million-lucky-deal/ 200, /best/afternoon-delight-deal/ 200, /best/cyber-monday-cologne-deal/ 200, /gifts/christmas-cologne-gifts-for-dad-under-100/ 200. Le Male Le Parfum, Good Girl, and CK Free also returned 200 and show the Black Friday week price label.
 
 ## 2026-11-20 (Fri) — winners file and six pages around the bottles that sold
 
