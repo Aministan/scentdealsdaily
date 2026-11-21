@@ -1,34 +1,97 @@
 {
-  "note": "Perfumania offers from the publisher email. Shown only while the build time is inside start and end in Eastern Time. The text is printed exactly. An empty offers list renders nothing.",
-  "merchant_url": "https://www.perfumania.com/",
+  "note": "Perfumania codes only. FragranceShop has no active code. Shown when the clock is inside start and end in America/New_York. The text is the banner line. A build renders the live window, and a small script removes a code whose window has not started or has ended.",
+  "merchant": "Perfumania",
+  "advertiser_id": "904674",
   "offers": [
     {
       "id": "early-savings",
-      "text": "$10 off orders of $99+ at Perfumania with code EARLYSAVINGS",
+      "code": "EarlySavings",
+      "text": "Perfumania code EarlySavings: $10 off $99+ (online only, ends Nov 22)",
       "start": "2026-11-20T00:00:00-05:00",
       "end": "2026-11-22T23:59:59-05:00",
-      "where": "Online only"
+      "where": "Online only",
+      "landing": "https://perfumania.com/collections/black-friday-fragrance-deals"
     },
     {
-      "id": "black-friday",
-      "text": "Perfumania Black Friday: Buy More, Save More, up to $40 off",
+      "id": "bf-bonus-10",
+      "code": "BFBonus10",
+      "text": "Perfumania code BFBonus10: $10 off $100+ (online and in-store, ends Nov 27)",
       "start": "2026-11-26T00:00:00-05:00",
       "end": "2026-11-27T23:59:59-05:00",
-      "where": "Online and in-store"
+      "where": "Online and in-store",
+      "landing": "https://perfumania.com/collections/black-friday-fragrance-deals"
     },
     {
-      "id": "black-friday-weekend",
-      "text": "Perfumania Black Friday Weekend: save up to $35 online",
+      "id": "bf-bonus-25",
+      "code": "BFBonus25",
+      "text": "Perfumania code BFBonus25: $25 off $200+ (online and in-store, ends Nov 27)",
+      "start": "2026-11-26T00:00:00-05:00",
+      "end": "2026-11-27T23:59:59-05:00",
+      "where": "Online and in-store",
+      "landing": "https://perfumania.com/collections/black-friday-fragrance-deals"
+    },
+    {
+      "id": "bf-bonus-40",
+      "code": "BFBonus40",
+      "text": "Perfumania code BFBonus40: $40 off $300+ (online and in-store, ends Nov 27)",
+      "start": "2026-11-26T00:00:00-05:00",
+      "end": "2026-11-27T23:59:59-05:00",
+      "where": "Online and in-store",
+      "landing": "https://perfumania.com/collections/black-friday-fragrance-deals"
+    },
+    {
+      "id": "bf-online-10",
+      "code": "BFOnline10",
+      "text": "Perfumania code BFOnline10: $10 off $100+ (online only, ends Nov 29)",
       "start": "2026-11-28T00:00:00-05:00",
       "end": "2026-11-29T23:59:59-05:00",
-      "where": ""
+      "where": "Online only",
+      "landing": "https://perfumania.com/collections/black-friday-fragrance-deals"
     },
     {
-      "id": "cyber-monday",
-      "text": "Perfumania Cyber Monday: up to 20% off online",
+      "id": "bf-online-20",
+      "code": "BFOnline20",
+      "text": "Perfumania code BFOnline20: $20 off $200+ (online only, ends Nov 29)",
+      "start": "2026-11-28T00:00:00-05:00",
+      "end": "2026-11-29T23:59:59-05:00",
+      "where": "Online only",
+      "landing": "https://perfumania.com/collections/black-friday-fragrance-deals"
+    },
+    {
+      "id": "bf-online-35",
+      "code": "BFOnline35",
+      "text": "Perfumania code BFOnline35: $35 off $300+ (online only, ends Nov 29)",
+      "start": "2026-11-28T00:00:00-05:00",
+      "end": "2026-11-29T23:59:59-05:00",
+      "where": "Online only",
+      "landing": "https://perfumania.com/collections/black-friday-fragrance-deals"
+    },
+    {
+      "id": "save-cm-10",
+      "code": "SAVECM10",
+      "text": "Perfumania code SAVECM10: 10% off $129+ (ends Dec 1)",
       "start": "2026-11-30T00:00:00-05:00",
       "end": "2026-12-01T23:59:59-05:00",
-      "where": ""
+      "where": "",
+      "landing": "https://perfumania.com/collections/cyber-monday-fragrance-deals"
+    },
+    {
+      "id": "save-cm-15",
+      "code": "SAVECM15",
+      "text": "Perfumania code SAVECM15: 15% off $229+ (ends Dec 1)",
+      "start": "2026-11-30T00:00:00-05:00",
+      "end": "2026-12-01T23:59:59-05:00",
+      "where": "",
+      "landing": "https://perfumania.com/collections/cyber-monday-fragrance-deals"
+    },
+    {
+      "id": "save-cm-20",
+      "code": "SAVECM20",
+      "text": "Perfumania code SAVECM20: 20% off $329+ (ends Dec 1)",
+      "start": "2026-11-30T00:00:00-05:00",
+      "end": "2026-12-01T23:59:59-05:00",
+      "where": "",
+      "landing": "https://perfumania.com/collections/cyber-monday-fragrance-deals"
     }
   ]
 }

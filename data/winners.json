@@ -53,24 +53,24 @@
       "orders": null,
       "orders_group": "fs89601-fs190011",
       "orders_group_count": 1,
-      "unit_price": null,
+      "unit_price": 122.95,
       "sale": null,
       "commission": null,
-      "deal_id": null,
-      "slug": null,
-      "note": "The export called this a 1 Million Lucky bundle with FS190011. Neither SKU is a sku field in deals.json."
+      "deal_id": "fs-paco-1-million-lucky-edt-3-4",
+      "slug": "paco-rabanne-1-million-lucky-cologne",
+      "note": "1 Million Lucky EDT 6.7 oz at $122.95 in the export. Same fragrance as the 3.4 oz deal. The site price stays the checked 3.4 oz price in deals.json. One order shared with FS190011."
     },
     {
       "sku": "FS190011",
       "orders": null,
       "orders_group": "fs89601-fs190011",
       "orders_group_count": 1,
-      "unit_price": null,
+      "unit_price": 57.95,
       "sale": null,
       "commission": null,
       "deal_id": null,
       "slug": null,
-      "note": "Paired with FS89601. Not a sku field in deals.json."
+      "note": "Abercrombie & Fitch Fierce cologne 6.7 oz at $57.95 in the export. Not in deals.json. The FragranceShop store API did not return a product, so no price was added."
     },
     {
       "sku": "FS192762",
@@ -78,8 +78,9 @@
       "unit_price": 20.95,
       "sale": 20.95,
       "commission": null,
-      "deal_id": null,
-      "slug": null
+      "deal_id": "peace-love-juicy-couture-by-juicy-couture-for-women-edp-spray",
+      "slug": "juicy-couture-peace-love-juicy-couture-perfume",
+      "note": "Peace Love & Juicy Couture EDP 3.4 oz."
     },
     {
       "sku": "FS21361",
@@ -87,21 +88,22 @@
       "unit_price": 17.95,
       "sale": 17.95,
       "commission": null,
-      "deal_id": null,
-      "slug": null
+      "deal_id": "calvin-klein-free-mens-eau-de-toilette-spray",
+      "slug": "calvin-klein-free-cologne",
+      "note": "CK Free EDT 3.4 oz. The export price is $17.95. The page shows the checked price in deals.json."
     },
     {
       "sku": "FS9237",
       "orders": null,
       "orders_group": "fs9237-fs22172",
       "orders_group_count": 1,
-      "unit_price": null,
+      "unit_price": 31.95,
       "sale": null,
       "group_sale": 55.90,
       "commission": null,
-      "deal_id": null,
-      "slug": null,
-      "note": "One order with FS22172. The export gave $55.90 for the pair, not a price for this SKU alone."
+      "deal_id": "burberry-london-perfume-eau-de-parfum-for-women",
+      "slug": "burberry-london-perfume",
+      "note": "Burberry London EDP 3.3 oz at $31.95 in the export. Same fragrance as the catalog bottle. The page shows the checked price in deals.json. One order shared with FS22172 at $55.90 for the pair."
     },
     {
       "sku": "FS22172",
@@ -112,9 +114,9 @@
       "sale": null,
       "group_sale": 55.90,
       "commission": null,
-      "deal_id": null,
-      "slug": null,
-      "note": "One order with FS9237. The export gave $55.90 for the pair, not a price for this SKU alone."
+      "deal_id": "calvin-klein-beauty-perfume-eau-de-parfum-for-women",
+      "slug": "calvin-klein-beauty-perfume",
+      "note": "CK Beauty EDP 3.4 oz. One order shared with FS9237. The export did not give this SKU its own price."
     },
     {
       "sku": "FS88558",
@@ -131,8 +133,9 @@
       "unit_price": 55.95,
       "sale": 55.95,
       "commission": null,
-      "deal_id": null,
-      "slug": null
+      "deal_id": "the-most-wanted-parfum-cologne",
+      "slug": "azzaro-the-most-wanted-parfum-cologne",
+      "note": "Azzaro The Most Wanted Parfum 1.7 oz."
     }
   ]
 }

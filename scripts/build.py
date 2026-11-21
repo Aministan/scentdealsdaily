@@ -242,7 +242,8 @@ main{max-width:1100px;margin:0 auto;padding:16px}h1{font-size:26px;line-height:1
 .fold-deal .lead-name,.fold-deal .lead-price{margin:2px 0}.fold-deal .price{font-size:20px}.fold-deal .btn{margin-top:6px;padding:8px 10px}
 .bf-banner{background:#1d1b20;color:#fff;text-align:center;margin:0;padding:6px 12px;font-size:14px}.bf-banner a{color:#e7b75f;font-weight:700;text-decoration:none}
 .proven-picks{margin:0 0 8px;font-size:14px;line-height:1.4}.proven-picks a{display:inline-block;margin:0 8px 4px 0}
-.promo-callout{background:#fff8ea;border:1px solid #e7b75f;border-radius:12px;padding:8px 12px;margin:0 0 12px}
+.promo-callout,.promo-code{background:#fff8ea;border:1px solid #e7b75f;border-radius:12px;padding:8px 12px;margin:0 0 10px}.promo-code{font-weight:650}
+.badge.best{background:#1d1b20}
 .fs-picks{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin:0 0 14px}
 .fs-pick{background:#fff;border:1px solid #ece7e1;border-radius:12px;padding:8px;display:flex;flex-direction:column}
 .fs-pick img{width:100%;aspect-ratio:1;object-fit:contain;background:#fff}
@@ -398,7 +399,7 @@ def page(path,title,desc,body,jsonld=None,index=True,image=None,feed=True,canoni
 <link rel="alternate" type="application/rss+xml" title="ScentDealsDaily" href="{FEED_HREF}">
 {social}<link rel="preconnect" href="https://cdn.shopify.com"><style>{CSS}</style>{brevo_head}{ld}</head><body>
 <header><a class="logo" href="{p}/">Scent<span>Deals</span>Daily</a><div class="nav-scroll"><nav><a href="{p}/">Today's deals</a><a href="{p}/best-sellers/">Best sellers</a><a href="{p}/jean-paul-gaultier-le-male-deals/">Le Male</a><a href="{p}/fragrance-gift-sets/">Gift sets</a><a href="{p}/black-friday/">Black Friday</a><a href="{p}/dupes/">Dupes</a><a href="{p}/men/">Men</a><a href="{p}/women/">Women</a><a href="{p}/brands/">Brands</a><a href="{p}/sponsor/">Sponsor</a></nav></div></header>{fs_sale_banner()}
-<main>{body}</main><footer>{NL_FOOT}<p>We may earn a commission when you buy through our links, at no extra cost to you. Affiliate links go to Perfumania, FragranceShop, and FragranceNet.</p>
+<main>{("" if "class='promo-code'" in body else promo_code_banner()) if _show_code_banner(path) else ""}{body}</main><footer>{NL_FOOT}<p>We may earn a commission when you buy through our links, at no extra cost to you. Affiliate links go to Perfumania, FragranceShop, and FragranceNet.</p>
 <p><b>Affiliate disclosure:</b> some links may earn us a commission at no cost to you. <a href="{p}/disclosure/">Details</a>.
 We list only authorized or long-established retailers, never gray-market marketplaces. Prices change fast; each deal shows when we last checked it. Not affiliated with any brand.</p>
 <p>© {upd.year} {NAME} · <a href="{p}/about/">About</a> · <a href="{p}/privacy/">Privacy</a> · <a href="{p}/gifts/">Holiday gifts</a> · <a href="{p}/llms.txt">llms.txt</a> · <a href="{p}/sitemap.xml">sitemap</a></p>
@@ -483,8 +484,9 @@ def card_img(d, eager=False, alt=None):
     alt=product_alt(d) if alt is None else alt
     return f'<img {ld} decoding="async" src="{e(src)}" alt="{e(alt)}" width="400" height="400">'
 def card(d,eager=False):
+    sold="<span class='badge best'>Best seller</span>" if _deal_orders(d)>0 else ""
     return f"""<article class="card">{card_img(d, eager, alt=fullname(d))}
-<div><span class="badge">-{d['pct_off']}%</span></div><div class="brand">{e(canon(d['brand']))}</div><div class="nm"><a href="{PREFIX}/fragrance/{frag_slug(d)}/">{e(d['name'])}</a> · {e(d['size'])}</div>
+<div><span class="badge">-{d['pct_off']}%</span>{sold}</div><div class="brand">{e(canon(d['brand']))}</div><div class="nm"><a href="{PREFIX}/fragrance/{frag_slug(d)}/">{e(d['name'])}</a> · {e(d['size'])}</div>
 <div><span class="price">${d['price']:.2f}</span><span class="was">${d['was']:.2f}</span></div>
 <div class="meta">at {e(d['retailer'])} · checked {checked_h(d.get('checked'))} · {('crossed-out = price at '+e(d['was_label'])) if d.get('was_label') else '"was" = retailer\'s listed compare-at price'}</div>
 {also_line(d)}
@@ -829,10 +831,11 @@ def lead_offer(rows):
     size=sz(d.get("size") or "")
     size_bit=f" · {e(size)}" if size else ""
     label="Buy at "+e(d["retailer"])+" →"
+    ship="<p class='meta'>Free U.S. shipping on orders over $50</p>" if d.get("retailer")=="FragranceShop" else ""
     return (f"<div class='lead-offer'><p class='meta'>Best price on this page · Price checked {e(upd_h)}</p>"
             f"<p class='lead-name'><b>{e(fullname(d))}</b>{size_bit}</p>"
             f"<p class='lead-price'><span class='price'>${d['price']:.2f}</span> <span class='meta'>at {e(d['retailer'])}</span></p>"
-            f"{ext_a(d['url'], label, cls='btn', style='max-width:340px', placement='cta', product=frag_slug(d) if d.get('brand') and d.get('name') else '')}</div>")
+            f"{ext_a(d['url'], label, cls='btn', style='max-width:340px', placement='cta', product=frag_slug(d) if d.get('brand') and d.get('name') else '')}{ship}</div>")
 def fs_fold_ok(d):
     """A sealed FragranceShop bottle with a checked price. Sets, testers, and decants stay out."""
     if d.get("retailer")!="FragranceShop" or d.get("in_stock") is False: return False
@@ -927,10 +930,22 @@ def _winner_orders():
         if not isinstance(orders, int) or isinstance(orders, bool):
             orders=row.get("orders_group_count")
         if not isinstance(orders, int) or isinstance(orders, bool): continue
-        sku=row.get("sku")
-        if isinstance(sku, str) and sku:
-            ranks[sku]=max(ranks.get(sku, 0), orders)
+        for key in (row.get("sku"), row.get("deal_id"), row.get("slug")):
+            if isinstance(key, str) and key:
+                ranks[key]=max(ranks.get(key, 0), orders)
     return ranks
+def _deal_orders(d):
+    """Order count for a checked bottle. Matches the SKU, the deal id, or the page slug."""
+    ranks=_winner_orders()
+    if not ranks or not isinstance(d, dict): return 0
+    keys=[d.get("sku"), d.get("id")]
+    if d.get("brand") and d.get("name"):
+        keys.append(frag_slug(d))
+    best=0
+    for key in keys:
+        if isinstance(key, str) and key:
+            best=max(best, ranks.get(key, 0))
+    return best
 def shopper_picks():
     """Le Male Le Parfum, Jazz Club, and 1 Million Lucky, when they are still FragranceShop deals.
 
@@ -940,8 +955,7 @@ def shopper_picks():
     for spec in _SHOPPER_SPECS:
         hit=next((d for d in deals if fs_fold_ok(d) and _fold_match(d, spec) and d not in found), None)
         if hit: found.append(hit)
-    ranks=_winner_orders()
-    found.sort(key=lambda d:(-(ranks.get(d.get("sku") or "") or 0), d.get("price") or 0, d.get("id") or ""))
+    found.sort(key=lambda d:(-_deal_orders(d), d.get("price") or 0, d.get("id") or ""))
     return found
 def _pick_label(d):
     full=fullname(d)
@@ -963,10 +977,11 @@ def shopper_lead():
     size=sz(d.get("size") or "")
     size_bit=f" · {e(size)}" if size else ""
     label="Buy at "+e(d["retailer"])+" →"
+    ship="<p class='meta'>Free U.S. shipping on orders over $50</p>" if d.get("retailer")=="FragranceShop" else ""
     return (f"<div class='lead-offer'><p class='meta'>Proven pick · Price checked {e(upd_h)}</p>"
             f"<p class='lead-name'><b>{e(fullname(d))}</b>{size_bit}</p>"
             f"<p class='lead-price'><span class='price'>${d['price']:.2f}</span> <span class='meta'>at {e(d['retailer'])}</span></p>"
-            f"{ext_a(d['url'], label, cls='btn', style='max-width:340px', placement='cta', product=frag_slug(d))}</div>")
+            f"{ext_a(d['url'], label, cls='btn', style='max-width:340px', placement='cta', product=frag_slug(d))}{ship}</div>")
 _PROVEN_GRID=(
     "le male le parfum",
     {"brand":"lanc","name_is":"la vie est belle perfume","size":"3.4"},
@@ -1010,12 +1025,39 @@ def _promo_dates(row):
     if start.year==end.year and start.month==end.month:
         return f"{start:%b} {start.day}–{end.day}"
     return f"{start:%b} {start.day}–{end:%b} {end.day}"
+_PROMO_JS=("<script>(function(){var n=Date.now();document.querySelectorAll('[data-promo-start]').forEach(function(el){"
+            "var s=Date.parse(el.getAttribute('data-promo-start')),e=Date.parse(el.getAttribute('data-promo-end'));"
+            "if(!(s<=n&&n<=e))el.remove();});})();</script>")
+def promo_code_banner():
+    """Active Perfumania codes only. Each link is the existing CJ deep link. JS removes a code outside its window."""
+    rows=promo_groups()[0]
+    if not rows: return ""
+    bits=[]
+    for row in rows:
+        landing=(row.get("landing") or PM_HOME).strip()
+        start,end=_promo_when(row)
+        bits.append(
+            f"<p class='promo-code' data-promo-start='{start.isoformat()}' data-promo-end='{end.isoformat()}'>"
+            +ext_a(landing, e(row["text"].strip()), placement="link")
+            +"</p>")
+    return "".join(bits)+_PROMO_JS
+def _show_code_banner(path):
+    rel=path.replace("\\","/")
+    stem=rel[:-len("index.html")].strip("/") if rel.endswith("index.html") else rel.strip("/")
+    if stem in ("","men","women","unisex","best-sellers","black-friday"):
+        return True
+    if stem.startswith("black-friday/"):
+        return True
+    if stem in ("best/le-male-le-parfum-deal","best/la-vie-est-belle-deal"):
+        return True
+    if stem.startswith("gifts/") and ("black-friday" in stem or "cyber-monday" in stem):
+        return True
+    if stem.startswith("fragrance/"):
+        return _winner_orders().get(stem.split("/",1)[1], 0)>0
+    return False
 def promo_callout():
     """The offer that is live in Eastern Time. Nothing before it starts or after it ends."""
-    bits=[]
-    for row in promo_groups()[0]:
-        bits.append("<p class='promo-callout'>"+ext_a(PM_HOME, e(row["text"].strip()), placement="link")+"</p>")
-    return "".join(bits)
+    return promo_code_banner()
 def promo_upcoming():
     """Dated list of offers that have not ended, so a shopper can plan. Ended offers are left off."""
     rows=promo_groups()[0]+promo_groups()[1]
@@ -1024,7 +1066,8 @@ def promo_upcoming():
     for row in rows:
         where=str(row.get("where") or "").strip()
         where_bit=f" <span class='meta'>{e(where)}</span>" if where else ""
-        items.append(f"<li><span class='meta'>{e(_promo_dates(row))}</span> "+ext_a(PM_HOME, e(row["text"].strip()), placement="link")+where_bit+"</li>")
+        landing=(row.get("landing") or PM_HOME).strip()
+        items.append(f"<li><span class='meta'>{e(_promo_dates(row))}</span> "+ext_a(landing, e(row["text"].strip()), placement="link")+where_bit+"</li>")
     return "<section class='box' id='perfumania-offers'><h2 style='margin-top:0'>Upcoming Perfumania offers</h2><ul>"+"".join(items)+"</ul></section>"
 def fs_sale_banner():
     """Slim sitewide link. Hidden after December 1, 2026, 11:59 PM ET."""
@@ -1897,10 +1940,11 @@ def seller_lead(d):
     size_bit=f" · {e(size)}" if size else ""
     when=checked_h(d.get("checked"))
     label="Buy at "+e(d["retailer"])+" →"
+    ship="<p class='meta'>Free U.S. shipping on orders over $50</p>" if d.get("retailer")=="FragranceShop" else ""
     return (f"<div class='lead-offer'><p class='meta'>Best price · Price checked {e(when)}</p>"
             f"<p class='lead-name'><b>{e(fullname(d))}</b>{size_bit}</p>"
             f"<p class='lead-price'><span class='price'>${d['price']:.2f}</span> <span class='was'>${d['was']:.2f}</span> <span class='badge'>-{d['pct_off']}%</span> <span class='meta'>at {e(d['retailer'])}</span></p>"
-            f"{ext_a(d['url'], label, cls='btn', style='max-width:340px', placement='cta', product=frag_slug(d))}</div>")
+            f"{ext_a(d['url'], label, cls='btn', style='max-width:340px', placement='cta', product=frag_slug(d))}{ship}</div>")
 def seller_family_links(d):
     """Internal links to the other bottles in this line. Prices come from deals.json."""
     line=seller_line(d)
@@ -7652,14 +7696,20 @@ def audit_promos_and_picks():
     gap=datetime.datetime(2026, 11, 23, 12, 0, tzinfo=ET)
     last_minute=datetime.datetime(2026, 11, 27, 23, 59, 59, tzinfo=ET)
     after=datetime.datetime(2026, 11, 28, 0, 0, tzinfo=ET)
-    if [r["text"] for r in promo_groups(early)[0]]!=["$10 off orders of $99+ at Perfumania with code EARLYSAVINGS"]:
+    early_text="Perfumania code EarlySavings: $10 off $99+ (online only, ends Nov 22)"
+    bf_texts=[
+        "Perfumania code BFBonus10: $10 off $100+ (online and in-store, ends Nov 27)",
+        "Perfumania code BFBonus25: $25 off $200+ (online and in-store, ends Nov 27)",
+        "Perfumania code BFBonus40: $40 off $300+ (online and in-store, ends Nov 27)",
+    ]
+    if [r["text"] for r in promo_groups(early)[0]]!=[early_text]:
         raise SystemExit("Nov 20–22 promo did not turn on")
     if promo_groups(gap)[0]:
         raise SystemExit("a promo is still active on Nov 23")
-    if [r["text"] for r in promo_groups(last_minute)[0]]!=["Perfumania Black Friday: Buy More, Save More, up to $40 off"]:
-        raise SystemExit("the Black Friday promo is missing at 11:59 PM ET on Nov 27")
-    if any(r.get("id")=="black-friday" for r in promo_groups(after)[0]):
-        raise SystemExit("the Black Friday promo did not hide after Nov 27")
+    if [r["text"] for r in promo_groups(last_minute)[0]]!=bf_texts:
+        raise SystemExit("the Black Friday codes are missing at 11:59 PM ET on Nov 27")
+    if any(str(r.get("code") or "").startswith("BFBonus") for r in promo_groups(after)[0]):
+        raise SystemExit("the Black Friday codes did not hide after Nov 27")
     now=_promo_now()
     active, later=promo_groups(now)
     home=open(f"{OUT}/index.html", encoding="utf-8").read()
