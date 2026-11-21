@@ -777,7 +777,7 @@ def bestchips(): return ("<section class='box'><h2 style='margin-top:0'>Shop by 
     +"".join(f"<a href='{PREFIX}/dupes/{h['slug']}/'>{e(h['title'])}</a>" for h in HUBS)
     +"".join(f"<a href='{PREFIX}/vs/{v['slug']}/'>{e(v['title'])}</a>" for v in VS)+"</div></section>") if (ROUNDUPS or HUBS or VS) else ""
 # New holiday landings lead the chip row. A guide that missed its bottle minimum is already gone.
-_NEW_GIFT_SLUGS=("perfume-gifts-for-wife-under-100","cologne-gifts-for-husband-under-100","cologne-gifts-for-boyfriend-under-100","best-selling-fragrance-deals-this-week","paco-rabanne-christmas-gifts","1-million-christmas-cologne-deals","best-selling-cologne-gifts-black-friday","black-friday-best-selling-perfume-gifts","la-vie-est-belle-christmas-gifts","good-girl-perfume-gift-deals","best-selling-womens-perfume-gifts-under-100","famous-fragrance-gifts-under-100","le-male-christmas-gifts","replica-christmas-gifts","calvin-klein-christmas-fragrance-deals","black-friday-calvin-klein-under-30","christmas-gift-sets-for-her-under-50","christmas-gift-sets-for-men-under-100","christmas-cologne-gifts-under-50","christmas-perfume-gifts-under-50","perfume-gifts-for-her-under-25","christmas-cologne-gifts-under-100","christmas-perfume-gifts-under-100","black-friday-unisex-fragrance-deals","cyber-monday-luxury-fragrance-deals","stocking-stuffers-for-men","stocking-stuffers-for-her","black-friday-designer-cologne","black-friday-luxury-perfume","cyber-monday-perfume-gift-sets","veterans-day-cologne-gifts","cyber-monday-cologne-under-40","christmas-fragrance-gifts-under-30","black-friday-perfume-under-30","friendsgiving-fragrance-gifts","early-black-friday-fragrance-deals","last-minute-christmas-fragrance-gifts","christmas-vanilla-fragrance-gifts","christmas-minis-under-40","black-friday-cologne-under-40","black-friday-perfume-under-40","thanksgiving-fragrance-gifts","cyber-monday-gift-sets","cyber-monday-perfume-under-30")
+_NEW_GIFT_SLUGS=("christmas-cologne-gifts-for-dad-under-100","perfume-gifts-for-wife-under-100","cologne-gifts-for-husband-under-100","cologne-gifts-for-boyfriend-under-100","best-selling-fragrance-deals-this-week","paco-rabanne-christmas-gifts","1-million-christmas-cologne-deals","best-selling-cologne-gifts-black-friday","black-friday-best-selling-perfume-gifts","la-vie-est-belle-christmas-gifts","good-girl-perfume-gift-deals","best-selling-womens-perfume-gifts-under-100","famous-fragrance-gifts-under-100","le-male-christmas-gifts","replica-christmas-gifts","calvin-klein-christmas-fragrance-deals","black-friday-calvin-klein-under-30","christmas-gift-sets-for-her-under-50","christmas-gift-sets-for-men-under-100","christmas-cologne-gifts-under-50","christmas-perfume-gifts-under-50","perfume-gifts-for-her-under-25","christmas-cologne-gifts-under-100","christmas-perfume-gifts-under-100","black-friday-unisex-fragrance-deals","cyber-monday-luxury-fragrance-deals","stocking-stuffers-for-men","stocking-stuffers-for-her","black-friday-designer-cologne","black-friday-luxury-perfume","cyber-monday-perfume-gift-sets","veterans-day-cologne-gifts","cyber-monday-cologne-under-40","christmas-fragrance-gifts-under-30","black-friday-perfume-under-30","friendsgiving-fragrance-gifts","early-black-friday-fragrance-deals","last-minute-christmas-fragrance-gifts","christmas-vanilla-fragrance-gifts","christmas-minis-under-40","black-friday-cologne-under-40","black-friday-perfume-under-40","thanksgiving-fragrance-gifts","cyber-monday-gift-sets","cyber-monday-perfume-under-30")
 _PRIORITY_GIFT_SLUGS=_NEW_GIFT_SLUGS+("christmas-cologne-gifts-for-son","christmas-cologne-gifts-for-brother","christmas-perfume-gifts-for-sister","winter-cologne-gifts","black-friday-gift-sets","christmas-cologne-gift-sets","christmas-perfume-gift-sets","white-elephant-fragrances-under-25","fragrance-gifts-for-him-under-25")
 _guide_chip={g["slug"]: (g.get("chip") or g["title"]) for g in GIFT_GUIDES}
 SEO_GIFTS=[(slug, _guide_chip[slug]) for slug in _NEW_GIFT_SLUGS if slug in _guide_chip]+[
@@ -1009,6 +1009,16 @@ def _promo_when(row):
     return start, end
 def _promo_now():
     return datetime.datetime.now(ET)
+def bf_week_on(now=None):
+    """Black Friday week label and titles: Nov 21 through Dec 1, 2026, Eastern Time.
+
+    Dec 1 is included through 11:59:59 PM. The next day's rebuild drops the label
+    and the Black Friday title lines. Prices stay the checked deals.json prices.
+    """
+    now=now or _promo_now()
+    start=datetime.datetime(2026, 11, 21, 0, 0, 0, tzinfo=ET)
+    end=datetime.datetime(2026, 12, 1, 23, 59, 59, tzinfo=ET)
+    return start<=now<=end
 def promo_groups(now=None):
     """Active offers are inside start/end. Later offers have not started. Ended offers are omitted."""
     now=now or _promo_now()
@@ -1048,7 +1058,7 @@ def _show_code_banner(path):
         return True
     if stem.startswith("black-friday/"):
         return True
-    if stem in ("best/le-male-le-parfum-deal","best/la-vie-est-belle-deal"):
+    if stem in ("best/le-male-le-parfum-deal","best/la-vie-est-belle-deal","best/good-girl-deal","best/1-million-lucky-deal","best/afternoon-delight-deal","best/cyber-monday-cologne-deal"):
         return True
     if stem.startswith("gifts/") and ("black-friday" in stem or "cyber-monday" in stem):
         return True
@@ -1241,7 +1251,7 @@ def veterans_banner():
             "</p></div>")
 # gender/category pages
 _GENDER_FOCUS={
- "men":(("best-selling-mens-cologne-black-friday","Best-selling men's cologne for Black Friday"),("cologne-gifts-for-him-under-100","Cologne gifts for him under $100"),("cologne-gifts-for-husband-under-100","Cologne gifts for husband under $100"),("cologne-gifts-for-boyfriend-under-100","Cologne gifts for boyfriend under $100"),("best-selling-fragrance-deals-this-week","Best-selling fragrance deals this week"),("paco-rabanne-christmas-gifts","Paco Rabanne Christmas gifts"),("1-million-christmas-cologne-deals","1 Million cologne deals"),("best-selling-cologne-gifts-black-friday","Best-selling cologne gifts"),("famous-fragrance-gifts-under-100","Famous fragrance gifts under $100"),("christmas-cologne-gifts-under-50","Christmas cologne gifts under $50"),("christmas-gift-sets-for-men-under-100","Christmas gift sets for men under $100"),("stocking-stuffers-for-men","Stocking stuffers for men"),("black-friday-designer-cologne","Black Friday designer cologne deals"),("christmas-cologne-gifts-under-100","Christmas cologne gifts under $100")),
+ "men":(("christmas-cologne-gifts-for-dad-under-100","Christmas cologne for dad under $100"),("best-selling-mens-cologne-black-friday","Best-selling men's cologne for Black Friday"),("cologne-gifts-for-him-under-100","Cologne gifts for him under $100"),("cologne-gifts-for-husband-under-100","Cologne gifts for husband under $100"),("cologne-gifts-for-boyfriend-under-100","Cologne gifts for boyfriend under $100"),("best-selling-fragrance-deals-this-week","Best-selling fragrance deals this week"),("paco-rabanne-christmas-gifts","Paco Rabanne Christmas gifts"),("1-million-christmas-cologne-deals","1 Million cologne deals"),("best-selling-cologne-gifts-black-friday","Best-selling cologne gifts"),("famous-fragrance-gifts-under-100","Famous fragrance gifts under $100"),("christmas-cologne-gifts-under-50","Christmas cologne gifts under $50"),("christmas-gift-sets-for-men-under-100","Christmas gift sets for men under $100"),("stocking-stuffers-for-men","Stocking stuffers for men"),("black-friday-designer-cologne","Black Friday designer cologne deals"),("christmas-cologne-gifts-under-100","Christmas cologne gifts under $100")),
  "women":(("good-girl-black-friday-deal","Good Girl Black Friday deal"),("perfume-gifts-for-wife-under-100","Perfume gifts for wife under $100"),("best-selling-fragrance-deals-this-week","Best-selling fragrance deals this week"),("black-friday-best-selling-perfume-gifts","Black Friday perfume gifts shoppers bought"),("la-vie-est-belle-christmas-gifts","La Vie Est Belle Christmas gifts"),("good-girl-perfume-gift-deals","Good Girl perfume gift deals"),("best-selling-womens-perfume-gifts-under-100","Best-selling women's perfume gifts under $100"),("christmas-perfume-gifts-under-50","Christmas perfume gifts under $50"),("christmas-gift-sets-for-her-under-50","Christmas gift sets for her under $50"),("stocking-stuffers-for-her","Stocking stuffers for her"),("perfume-gifts-for-her-under-25","Perfume gifts for her under $25"),("christmas-perfume-gifts-under-100","Christmas perfume gifts under $100"),("black-friday-luxury-perfume","Black Friday luxury perfume deals"),("cyber-monday-perfume-gift-sets","Cyber Monday perfume gift sets for her")),
  "unisex":(("best-selling-fragrance-deals-this-week","Best-selling fragrance deals this week"),("cologne-gifts-for-boyfriend-under-100","Cologne gifts for boyfriend under $100"),("black-friday-best-selling-perfume-gifts","Black Friday perfume gifts shoppers bought"),("best-selling-cologne-gifts-black-friday","Best-selling cologne gifts"),("famous-fragrance-gifts-under-100","Famous fragrance gifts under $100"),("black-friday-unisex-fragrance-deals","Black Friday unisex fragrance deals"),),
 }
@@ -1714,6 +1724,8 @@ PROVEN_COPY={
             ("/best/mens-fragrances-under-100/", "Men's fragrances under $100"),
             ("/best/long-lasting-cologne-deals/", "Long-lasting men's cologne deals"),
             ("/best/le-male-le-parfum-deal/", "Le Male Le Parfum deal"),
+            ("/best/cyber-monday-cologne-deal/", "Cyber Monday cologne deal"),
+            ("/gifts/christmas-cologne-gifts-for-dad-under-100/", "Christmas cologne for dad under $100"),
             ("/gifts/best-selling-mens-cologne-black-friday/", "Best-selling men's cologne for Black Friday"),
             ("/gifts/cologne-gifts-for-him-under-100/", "Cologne gifts for him under $100"),
             ("/gifts/le-male-christmas-gifts/", "Le Male Christmas cologne deals"),
@@ -1736,6 +1748,7 @@ PROVEN_COPY={
             ("/vs/la-vie-est-belle-vs-donna-born-in-roma/", "La Vie Est Belle vs Donna Born in Roma"),
             ("/vs/eilish-vs-la-vie-est-belle/", "Eilish vs La Vie Est Belle"),
             ("/best/la-vie-est-belle-deal/", "La Vie Est Belle deal"),
+            ("/best/good-girl-deal/", "Good Girl deal"),
             ("/gifts/la-vie-est-belle-christmas-gifts/", "La Vie Est Belle Christmas gift deals"),
             ("/gifts/perfume-gifts-for-wife-under-100/", "Perfume gifts for wife under $100"),
             ("/gifts/best-selling-fragrance-deals-this-week/", "Best-selling fragrance deals this week"),
@@ -1750,6 +1763,7 @@ PROVEN_COPY={
         "set_q": "Is the Good Girl mini set on this page?",
         "set_a": "No. A boxed mini set stays on the gift-set guides. This page is the 2.7 oz eau de parfum.",
         "links": (
+            ("/best/good-girl-deal/", "Good Girl deal"),
             ("/best/good-girl-alternatives/", "Good Girl alternatives"),
             ("/best/womens-perfumes-under-100/", "Women's perfumes under $100"),
             ("/best/la-vie-est-belle-alternatives/", "La Vie Est Belle alternatives"),
@@ -1768,6 +1782,7 @@ PROVEN_COPY={
         "set_q": "Is Replica Bubble Bath an eau de parfum?",
         "set_a": "No. The retailer lists Bubble Bath, Afternoon Delight, and Jazz Club as eau de toilette. This page is the 3.4 oz Bubble Bath bottle.",
         "links": (
+            ("/best/afternoon-delight-deal/", "Afternoon Delight deal"),
             ("/best/maison-margiela-replica-scents/", "Best Replica scents"),
             ("/gifts/replica-christmas-gifts/", "Replica Christmas fragrance deals"),
             ("/gifts/best-selling-fragrance-deals-this-week/", "Best-selling fragrance deals this week"),
@@ -1782,6 +1797,7 @@ PROVEN_COPY={
         "set_q": "Does Afternoon Delight smell like Bubble Bath?",
         "set_a": "No. Afternoon Delight is madeleine, vanilla, and a soft musk. Bubble Bath is soap, lavender, and clean musk. Both are Replica eau de toilette, and they are different scents.",
         "links": (
+            ("/best/afternoon-delight-deal/", "Afternoon Delight deal"),
             ("/best/maison-margiela-replica-scents/", "Best Replica scents"),
             ("/best/la-vie-est-belle-alternatives/", "La Vie Est Belle alternatives"),
             ("/gifts/replica-christmas-gifts/", "Replica Christmas fragrance deals"),
@@ -1797,6 +1813,9 @@ PROVEN_COPY={
         "set_q": "Is the Paco Rabanne mini set the same as this 3.4 oz bottle?",
         "set_a": "No. A boxed mini set stays on the gift-set guides. This page is the 3.4 oz 1 Million Lucky eau de toilette.",
         "links": (
+            ("/best/1-million-lucky-deal/", "1 Million Lucky deal"),
+            ("/best/cyber-monday-cologne-deal/", "Cyber Monday cologne deal"),
+            ("/gifts/christmas-cologne-gifts-for-dad-under-100/", "Christmas cologne for dad under $100"),
             ("/gifts/paco-rabanne-christmas-gifts/", "Paco Rabanne Christmas gifts"),
             ("/gifts/1-million-christmas-cologne-deals/", "1 Million Christmas cologne deals"),
             ("/gifts/best-selling-cologne-gifts-black-friday/", "Best-selling cologne gifts for Black Friday"),
@@ -1816,6 +1835,8 @@ PROVEN_COPY={
         "set_q": "Is Replica Jazz Club an eau de parfum?",
         "set_a": "No. The retailer lists Jazz Club, Afternoon Delight, and Bubble Bath as eau de toilette. This page is the 3.4 oz Jazz Club bottle.",
         "links": (
+            ("/best/afternoon-delight-deal/", "Afternoon Delight deal"),
+            ("/best/cyber-monday-cologne-deal/", "Cyber Monday cologne deal"),
             ("/vs/jazz-club-vs-bubble-bath/", "Jazz Club vs Bubble Bath"),
             ("/best/maison-margiela-replica-scents/", "Best Replica scents"),
             ("/gifts/replica-christmas-gifts/", "Replica Christmas fragrance deals"),
@@ -1834,6 +1855,8 @@ PROVEN_COPY={
         "set_q": "Is CK Free the same as CK One?",
         "set_a": "No. CK Free is a woody men's eau de toilette. CK One is the citrus unisex. Both can be in the same price check, and they are different bottles.",
         "links": (
+            ("/best/cyber-monday-cologne-deal/", "Cyber Monday cologne deal"),
+            ("/gifts/christmas-cologne-gifts-for-dad-under-100/", "Christmas cologne for dad under $100"),
             ("/best/mens-fragrances-under-100/", "Men's fragrances under $100"),
             ("/vs/ck-defy-vs-ck-free/", "CK Defy vs CK Free"),
             ("/gifts/calvin-klein-christmas-fragrance-deals/", "Calvin Klein Christmas fragrance deals"),
@@ -1893,10 +1916,11 @@ def seller_title_meta(d):
     pct=d.get("pct_off") or 0
     proven=d.get("id") in PROVEN_IDS
     title_cands=[]
-    if d.get("id") in {x.get("id") for x in shopper_picks()}:
+    if proven and bf_week_on():
         title_cands += (
             f"Buy {label} Black Friday 2026 Deal: {P}",
-            f"Buy {label} Deal: {P}",
+            f"Buy {label} Black Friday Deal: {P}",
+            f"Buy {label} {Z} Black Friday Deal: {P}",
         )
     if proven:
         title_cands += (
@@ -1913,10 +1937,11 @@ def seller_title_meta(d):
     if not title:
         raise SystemExit(f"{d.get('id')}: seller title does not fit")
     meta_cands=[]
-    if d.get("id") in {x.get("id") for x in shopper_picks()}:
+    if proven and bf_week_on():
         meta_cands += (
-            f"Buy {label} for Black Friday 2026 at {P}, {pct}% off at {d['retailer']}. Prices checked {when}.",
-            f"Buy the {label} {Z} deal for Black Friday 2026 at {P}. Prices checked {when}.",
+            f"Buy {label} for Black Friday week at {P}, {pct}% off at {d['retailer']}. Prices checked {when}.",
+            f"Buy the {label} {Z} deal for Black Friday week at {P}. Prices checked {when}.",
+            f"Buy {label} for Black Friday week at {P}. Prices checked {when}.",
         )
     if proven:
         meta_cands += (
@@ -1941,9 +1966,12 @@ def seller_lead(d):
     when=checked_h(d.get("checked"))
     label="Buy at "+e(d["retailer"])+" →"
     ship="<p class='meta'>Free U.S. shipping on orders over $50</p>" if d.get("retailer")=="FragranceShop" else ""
+    week=""
+    if d.get("id") in PROVEN_IDS and bf_week_on():
+        week=" <span class='meta'>Black Friday week price</span>"
     return (f"<div class='lead-offer'><p class='meta'>Best price · Price checked {e(when)}</p>"
             f"<p class='lead-name'><b>{e(fullname(d))}</b>{size_bit}</p>"
-            f"<p class='lead-price'><span class='price'>${d['price']:.2f}</span> <span class='was'>${d['was']:.2f}</span> <span class='badge'>-{d['pct_off']}%</span> <span class='meta'>at {e(d['retailer'])}</span></p>"
+            f"<p class='lead-price'><span class='price'>${d['price']:.2f}</span>{week} <span class='was'>${d['was']:.2f}</span> <span class='badge'>-{d['pct_off']}%</span> <span class='meta'>at {e(d['retailer'])}</span></p>"
             f"{ext_a(d['url'], label, cls='btn', style='max-width:340px', placement='cta', product=frag_slug(d))}{ship}</div>")
 def seller_family_links(d):
     """Internal links to the other bottles in this line. Prices come from deals.json."""
@@ -2323,8 +2351,15 @@ for r in ROUNDUPS:
     lead_row=next((d for d in ds if d.get("id")==r.get("lead_id")), None) if r.get("lead_id") else None
     if lead_row:
         lead_others=[d for d in ds if d is not lead_row]
+        also_rows=[]
+        seen=set()
+        pool=list(_CONVERTERS) if r.get("proven_also") else []
+        for other in pool+lead_others:
+            if other.get("id")==lead_row.get("id") or other.get("id") in seen: continue
+            seen.add(other.get("id"))
+            also_rows.append(other)
         also=("<p class='also'>also popular: "+" · ".join(
-            f"<a href='{PREFIX}/fragrance/{frag_slug(d)}/'>{e(fullname(d))}</a> · ${d['price']:.2f}" for d in lead_others)+"</p>") if lead_others else ""
+            f"<a href='{PREFIX}/fragrance/{frag_slug(d)}/'>{e(fullname(d))}</a> · ${d['price']:.2f}" for d in also_rows)+"</p>") if also_rows else ""
         lead_html=lead_offer([lead_row])+also
     body=(f"<h1>{e(r['title'])} ({upd:%b %-d, %Y})</h1><p class='sub'>{n} authentic {r['who']} fragrances {SC}, each at least 15% below its listed price · checked {upd_h}</p>"
       +lead_html
@@ -2849,7 +2884,7 @@ for path,sid_slug,title,short,intro,picks,list_name in gift_pages:
         who_extra=f"<p>Higher compare-at bottles for him are on <a href='{PREFIX}/gifts/luxury-cologne-gifts-for-him/'>luxury cologne gifts for him</a>.</p>"
         if any(g["slug"]=="christmas-cologne-gifts-for-him" for g in GIFT_GUIDES):
             who_extra+=f"<p>Every men's cologne we checked for Christmas is on <a href='{PREFIX}/gifts/christmas-cologne-gifts-for-him/'>Christmas cologne gifts for him</a>.</p>"
-        _him_new=[_filled_guide_link(s) for s in ("cologne-gifts-for-husband-under-100","cologne-gifts-for-boyfriend-under-100","best-selling-fragrance-deals-this-week","paco-rabanne-christmas-gifts","1-million-christmas-cologne-deals","best-selling-cologne-gifts-black-friday","famous-fragrance-gifts-under-100","christmas-cologne-gifts-under-50","christmas-gift-sets-for-men-under-100","stocking-stuffers-for-men","black-friday-designer-cologne","christmas-cologne-gifts-under-100","cyber-monday-luxury-fragrance-deals","veterans-day-cologne-gifts","cyber-monday-cologne-under-40","christmas-fragrance-gifts-under-30","early-black-friday-fragrance-deals","last-minute-christmas-fragrance-gifts","christmas-vanilla-fragrance-gifts","christmas-minis-under-40","black-friday-cologne-under-40","christmas-cologne-gifts-for-son","christmas-cologne-gifts-for-brother","winter-cologne-gifts","black-friday-gift-sets","fragrance-gifts-for-him-under-25","christmas-cologne-gift-sets")]
+        _him_new=[_filled_guide_link(s) for s in ("christmas-cologne-gifts-for-dad-under-100","cologne-gifts-for-husband-under-100","cologne-gifts-for-boyfriend-under-100","best-selling-fragrance-deals-this-week","paco-rabanne-christmas-gifts","1-million-christmas-cologne-deals","best-selling-cologne-gifts-black-friday","famous-fragrance-gifts-under-100","christmas-cologne-gifts-under-50","christmas-gift-sets-for-men-under-100","stocking-stuffers-for-men","black-friday-designer-cologne","christmas-cologne-gifts-under-100","cyber-monday-luxury-fragrance-deals","veterans-day-cologne-gifts","cyber-monday-cologne-under-40","christmas-fragrance-gifts-under-30","early-black-friday-fragrance-deals","last-minute-christmas-fragrance-gifts","christmas-vanilla-fragrance-gifts","christmas-minis-under-40","black-friday-cologne-under-40","christmas-cologne-gifts-for-son","christmas-cologne-gifts-for-brother","winter-cologne-gifts","black-friday-gift-sets","fragrance-gifts-for-him-under-25","christmas-cologne-gift-sets")]
         _him_new=[x for x in _him_new if x]
         if _him_new:
             who_extra+="<p>"+" ".join(_him_new)+".</p>"
@@ -2940,7 +2975,9 @@ def render_seo_gift(slug_s, h1, intro, picks, faqs, empty_html, empty_desc, fill
     row=proven_picks_html() if slug_s in ("veterans-day-cologne-gifts","stocking-stuffer-minis","perfume-gifts-for-mother-in-law") else ""
     banner=veterans_banner() if slug_s=="veterans-day-cologne-gifts" else ""
     also=""
-    if slug_s in ("cologne-gifts-for-him-under-100","best-selling-mens-cologne-black-friday","good-girl-black-friday-deal") and picks:
+    if slug_s=="christmas-cologne-gifts-for-dad-under-100" and picks:
+        also=proven_also_html()
+    elif slug_s in ("cologne-gifts-for-him-under-100","best-selling-mens-cologne-black-friday","good-girl-black-friday-deal") and picks:
         also="<p class='also'>also popular: "+" · ".join(
             f"<a href='{PREFIX}/fragrance/{frag_slug(d)}/'>{e(fullname(d))}</a> · ${d['price']:.2f}" for d in picks)+"</p>"
     top, rest_html=fold_offer((lead_offer(picks) if picks else "")+also+row+banner, intro, listing)
@@ -3266,6 +3303,9 @@ if any(g["slug"]=="cologne-gifts-for-husband-under-100" and g.get("picks") for g
 if any(g["slug"]=="cologne-gifts-for-boyfriend-under-100" and g.get("picks") for g in GIFT_GUIDES):
     for _slug in ("cologne-gifts-for-boyfriend","christmas-cologne-gifts-for-boyfriend","best-selling-cologne-gifts-black-friday","1-million-christmas-cologne-deals","replica-christmas-gifts","cologne-gifts-for-husband"):
         _prepend_gift_link(_slug, "/gifts/cologne-gifts-for-boyfriend-under-100/", "Cologne gifts for boyfriend under $100")
+if any(g["slug"]=="christmas-cologne-gifts-for-dad-under-100" and g.get("picks") for g in GIFT_GUIDES):
+    for _slug in ("christmas-cologne-gifts-for-dad","cologne-gifts-for-dad","cologne-gifts-for-him-under-100","best-selling-mens-cologne-black-friday","cologne-gifts-for-husband-under-100","le-male-christmas-gifts","1-million-christmas-cologne-deals","christmas-cologne-gifts-under-100"):
+        _prepend_gift_link(_slug, "/gifts/christmas-cologne-gifts-for-dad-under-100/", "Christmas cologne for dad under $100")
 if any(g["slug"]=="best-selling-fragrance-deals-this-week" and g.get("picks") for g in GIFT_GUIDES):
     for _slug in ("best-selling-perfumes-2026","best-selling-colognes-2026","famous-fragrance-gifts-under-100","black-friday-best-selling-perfume-gifts","best-selling-cologne-gifts-black-friday","best-selling-womens-perfume-gifts-under-100"):
         _prepend_gift_link(_slug, "/gifts/best-selling-fragrance-deals-this-week/", "Best-selling fragrance deals this week")
@@ -4646,7 +4686,7 @@ def apply_top_holiday_links():
                 raise SystemExit(f"{fp}: new holiday links are not under the lead Buy button")
             rel=os.path.relpath(fp, OUT).replace(os.sep,"/")
             if rel=="index.html":
-                today=[(slug, by[slug]) for slug in ("perfume-gifts-for-wife-under-100","cologne-gifts-for-husband-under-100","cologne-gifts-for-boyfriend-under-100","best-selling-fragrance-deals-this-week","paco-rabanne-christmas-gifts","1-million-christmas-cologne-deals","best-selling-cologne-gifts-black-friday","black-friday-best-selling-perfume-gifts") if slug in by]
+                today=[(slug, by[slug]) for slug in ("christmas-cologne-gifts-for-dad-under-100","perfume-gifts-for-wife-under-100","cologne-gifts-for-husband-under-100","cologne-gifts-for-boyfriend-under-100","best-selling-fragrance-deals-this-week","paco-rabanne-christmas-gifts","1-million-christmas-cologne-deals","best-selling-cologne-gifts-black-friday","black-friday-best-selling-perfume-gifts") if slug in by]
                 use=("<p class='chips'>"+"".join(f"<a href='{PREFIX}/gifts/{slug}/'>{e(title)}</a>" for slug, title in today)+"</p>") if today else ""
             else:
                 use=block
@@ -7821,6 +7861,91 @@ def audit_nov20_pages():
         print(f"{rel}: {title} ({len(title)}) / meta {len(desc)} / {len(key)} bottles / {inbound} inbound")
     print("nov 20: four buying pages, each with its own bottles")
 audit_nov20_pages()
+def audit_nov21_pages():
+    """Black Friday week is date-gated. New buying pages keep a lead Buy, proven links, and schema."""
+    noon=datetime.datetime(2026, 11, 21, 12, 0, tzinfo=ET)
+    edge=datetime.datetime(2026, 12, 1, 23, 59, 59, tzinfo=ET)
+    after=datetime.datetime(2026, 12, 2, 0, 0, 1, tzinfo=ET)
+    before=datetime.datetime(2026, 11, 20, 23, 59, tzinfo=ET)
+    if not (bf_week_on(noon) and bf_week_on(edge) and not bf_week_on(after) and not bf_week_on(before)):
+        raise SystemExit("Black Friday week window is not Nov 21 through Dec 1 ET")
+    on=bf_week_on()
+    for rel, d in SELLER_PAGES:
+        if d.get("id") not in PROVEN_IDS: continue
+        text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+        title=html.unescape(re.search(r"<title>(.*?)</title>", text, re.S).group(1))
+        desc=html.unescape(re.search(r'<meta name="description" content="([^"]*)"', text).group(1))
+        lead_at=text.find("class='lead-offer'")
+        img_at=text.find("<img")
+        if lead_at<0 or img_at<lead_at:
+            raise SystemExit(f"{rel}: the photo is above the Buy button")
+        block=text[lead_at:img_at]
+        if on:
+            if "Black Friday week price" not in block or f"${d['price']:.2f}" not in block or "Buy at " not in block:
+                raise SystemExit(f"{rel}: Black Friday week price is not next to the checked price and Buy button")
+            if "Black Friday" not in title or "Deal:" not in title or f"${d['price']:.2f}" not in title or len(title)>60:
+                raise SystemExit(f"{rel}: Black Friday title does not fit ({len(title)}) {title}")
+            if not (70<=len(desc)<=160) or "Black Friday" not in desc or f"${d['price']:.2f}" not in desc or "Prices checked" not in desc:
+                raise SystemExit(f"{rel}: Black Friday meta is {len(desc)} chars ({desc})")
+        else:
+            if "Black Friday week price" in text:
+                raise SystemExit(f"{rel}: Black Friday week price is still on the page")
+            if "Black Friday" in title:
+                raise SystemExit(f"{rel}: Black Friday title did not revert ({title})")
+        print(f"{rel}: {title} ({len(title)}) / meta {len(desc)} / week label {'on' if on else 'off'}")
+    sm=open(f"{OUT}/sitemap.xml", encoding="utf-8").read()
+    llms=open(f"{OUT}/llms.txt", encoding="utf-8").read()
+    feed=open(f"{OUT}/feed.xml", encoding="utf-8").read()
+    html_files=[]
+    for dirpath, _, files in os.walk(OUT):
+        for fn in files:
+            if fn.endswith(".html"):
+                html_files.append(os.path.join(dirpath, fn))
+    blobs=[open(fp, encoding="utf-8").read() for fp in html_files]
+    pages=(
+        ("best/good-girl-deal/index.html", "/best/good-girl-deal/"),
+        ("best/1-million-lucky-deal/index.html", "/best/1-million-lucky-deal/"),
+        ("best/afternoon-delight-deal/index.html", "/best/afternoon-delight-deal/"),
+        ("best/cyber-monday-cologne-deal/index.html", "/best/cyber-monday-cologne-deal/"),
+        ("gifts/christmas-cologne-gifts-for-dad-under-100/index.html", "/gifts/christmas-cologne-gifts-for-dad-under-100/"),
+    )
+    for rel, href in pages:
+        text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+        title=html.unescape(re.search(r"<title>(.*?)</title>", text, re.S).group(1))
+        desc=html.unescape(re.search(r'<meta name="description" content="([^"]*)"', text).group(1))
+        if len(title)>60 or "$" not in title:
+            raise SystemExit(f"{rel}: title is {len(title)} chars or has no price ({title})")
+        if not (70<=len(desc)<=160):
+            raise SystemExit(f"{rel}: meta is {len(desc)} chars ({desc})")
+        lead=re.search(r"<div class='lead-offer'>(.*?)</div>", text, re.S)
+        card_at=text.find('<article class="card">')
+        img_at=text.find("<img")
+        if not lead or "Buy at " not in lead.group(1) or "Price checked " not in lead.group(1) or "<img" in lead.group(1):
+            raise SystemExit(f"{rel}: lead Buy is missing the price or sits under a photo")
+        if img_at<0 or text.find("lead-offer")>img_at:
+            raise SystemExit(f"{rel}: the photo is above the Buy button")
+        if card_at>=0 and text.find("lead-offer")>card_at:
+            raise SystemExit(f"{rel}: cards are above the lead Buy")
+        if "also popular:" not in text[text.find("lead-offer"):img_at]:
+            raise SystemExit(f"{rel}: also popular is not between the Buy button and the photo")
+        for kind in ("FAQPage", "ItemList", "Offer", "BreadcrumbList"):
+            if kind not in text:
+                raise SystemExit(f"{rel}: missing {kind}")
+        loc=f"{BASE}{PREFIX}{href}"
+        canon=re.search(r'<link rel="canonical" href="([^"]+)"', text)
+        if not canon or canon.group(1)!=loc or not loc.startswith("https://scentdealsdaily.com/"):
+            raise SystemExit(f"{rel}: canonical is not {loc}")
+        if f"<loc>{loc}</loc>" not in sm or loc not in llms or loc not in feed:
+            raise SystemExit(f"{loc} missing from sitemap, llms.txt, or feed.xml")
+        inbound=0
+        for fp, blob in zip(html_files, blobs):
+            if os.path.relpath(fp, OUT).replace(os.sep, "/")==rel: continue
+            inbound += blob.count(f"href='{PREFIX}{href}'")+blob.count(f'href="{PREFIX}{href}"')
+        if inbound<8:
+            raise SystemExit(f"{rel}: only {inbound} inbound links")
+        print(f"{rel}: {title} ({len(title)}) / meta {len(desc)} / {inbound} inbound")
+    print("nov 21: Black Friday week gate and five buying pages")
+audit_nov21_pages()
 import subprocess, sys
 _validator=subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "validate_jsonld.py")])
 if _validator.returncode!=0:

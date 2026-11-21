@@ -1,5 +1,38 @@
 # ScentDealsDaily CEO log
 
+## 2026-11-21 (Sat) — Black Friday week label and five buying pages
+
+**Refresh status:** origin/main at the start of this pass was d4b9f8c9 "daily refresh". data/deals.json is stamped 2026-11-21T05:35:26Z. The built pages print that check as Nov 21, 2026 1:35 AM ET. This pass did not edit data/deals.json and did not re-fetch prices. The push triggers daily-refresh, which owns the next price check and the IndexNow ping.
+
+**Muse result:** muse_deals.json is unchanged (sha1 26cbc2509317eb00083be99cb218afc8c4359a31). Nothing merged. No prices were invented.
+
+**Merchant order:** scripts/merchants.py was not changed. Higher commission still wins only when the higher price is within $2 of the cheapest. The build logged no buy-button move.
+
+**Conversion (generator, so the daily refresh keeps it)**
+For Nov 21 through Dec 1, 2026, Eastern Time, inclusive through 11:59:59 PM on Dec 1, the eight proven FragranceShop bottle pages add the words "Black Friday week price" next to the checked price, above the photo and next to the Buy button. The check time stays on that block. There is no countdown and no second price. The Dec 2 rebuild drops the label. The same window puts "Black Friday 2026 Deal" into those eight titles when it fits in 60 characters with the checked price. After Dec 1 those title and meta lines are not generated, and the title falls back to Buy, the size, Deal, and the checked price.
+- CK Free: "Buy CK Free Cologne Black Friday 2026 Deal: $20.95" (50). Meta 107. Price $20.95 at FragranceShop, 70% off.
+- Jazz Club: "Buy Replica Jazz Club Black Friday 2026 Deal: $81.95" (52). Meta 109. $81.95, 52% off.
+- Afternoon Delight: "Buy Replica Afternoon Delight Black Friday 2026 Deal: $78.95" (60). Meta 117. $78.95, 52% off.
+- Bubble Bath: "Buy Replica Bubble Bath Black Friday 2026 Deal: $81.95" (54). Meta 111. $81.95, 50% off.
+- Le Male Le Parfum: "Buy Le Male Le Parfum Cologne Black Friday 2026 Deal: $93.95" (60). Meta 117. $93.95, 34% off. The title string was already this shape. The meta now says Black Friday week.
+- La Vie Est Belle 3.4 oz: "Buy La Vie Est Belle Perfume Black Friday 2026 Deal: $93.95" (59). Meta 116. $93.95, 24% off.
+- Good Girl: "Buy Good Girl Perfume Black Friday 2026 Deal: $91.95" (52). Meta 109. $91.95, 23% off.
+- 1 Million Lucky: "Buy 1 Million Lucky Cologne Black Friday 2026 Deal: $77.95" (58). Meta 115. $77.95, 15% off. The title string was already this shape. The meta now says Black Friday week.
+Jazz Club's title was already "Black Friday 2026 Deal" as well. The five pages that did not have Black Friday in the title now do, until Dec 2.
+
+**New pages (5). Prices are the Nov 21 deals.json prices. Good Girl Blush is not in the check, so it is not priced. /cyber-monday-cologne-deals/ and /cyber-monday-perfume-deals/ already exist as the under-$50 lists, so they were not added again. /gifts/christmas-cologne-gifts-for-dad/ already exists and is a different $50-and-up list, so it was not replaced.**
+- /best/good-girl-deal/: Good Girl 2.7 oz $91.95 leads. Very Good Girl 1.7 oz $76.95 and La Vie Est Belle 3.4 oz $93.95 are the other two. All FragranceShop. Title: "Buy the Good Girl Deal: 3 Picks From $76.95" (43). Meta 154. 39 inbound links.
+- /best/1-million-lucky-deal/: 1 Million Lucky 3.4 oz $77.95 leads. Invictus 3.4 oz $63.95 and 1 Million Royal 3.4 oz $90.95 are the other two. All FragranceShop. Olympéa stays off. Title: "Buy the 1 Million Lucky Deal: 3 Picks From $63.95" (49). Meta 136. 38 inbound links.
+- /best/afternoon-delight-deal/: Afternoon Delight 3.4 oz $78.95 leads. Bubble Bath $81.95 and Jazz Club $81.95 are the other two. All FragranceShop. The Replica scents page still sorts the same three by price per ounce. Title: "Buy the Afternoon Delight Deal: 3 Picks From $78.95" (51). Meta 147. 39 inbound links.
+- /best/cyber-monday-cologne-deal/: Le Male Le Parfum $93.95 leads. Lucky $77.95, Jazz Club $81.95, and CK Free $20.95 follow. Cyber Monday 2026 is November 30. This is not the under-$50 cologne list. Title: "Buy Cyber Monday Cologne: 4 Picks From $20.95" (45). Meta 160. 51 inbound links.
+- /gifts/christmas-cologne-gifts-for-dad-under-100/: CK Free $20.95, The Most Wanted Parfum 1.7 oz $55.95, Ultra Male 4.2 oz $77.95, 1 Million Lucky $77.95, Le Male Le Parfum $93.95. All FragranceShop. The lead Buy is CK Free. Title: "Buy Dad Cologne Under $100: From $20.95" (39). Meta 157. 303 inbound links.
+
+Each new page has a lead price and a Buy button before the photo, an also-popular row of the proven bottles at the deals.json prices, and ItemList with Offer, FAQPage, and BreadcrumbList JSON-LD. Canonicals are on https://scentdealsdaily.com. The homepage, /men/, /women/, /unisex/, the brand pages, and the bottle pages link them.
+
+**Checks:** local build on the 2026-11-21T05:35:26Z deals file. Sitemap 361 URLs. 0 broken internal links. JSON-LD parsed (1,178 blocks). 0 github.io links. Every canonical is on https://scentdealsdaily.com. CNAME is scentdealsdaily.com. Both Google site-verification meta tags stay on every page. The Black Friday week window test accepts Nov 21 noon and Dec 1 11:59:59 PM ET, and rejects Nov 20 and Dec 2. data/deals.json was not edited. Affiliate hrefs were checked as strings only. Affiliate hosts were mapped to localhost for the local render. No request was made to a CJ, Awin, Rakuten, or /go URL.
+
+**Deploy:** this push goes straight to main and triggers daily-refresh (refresh + build + IndexNow + Pages). The workflow result and live HTTP status are added after that run.
+
 ## 2026-11-20 (Fri) — winners file and six pages around the bottles that sold
 
 **Refresh status:** origin/main at the start of this pass was ca053cbe "daily refresh". data/deals.json was not edited. Prices on the new pages come from that file. The push triggers daily-refresh, which owns the next price check and the IndexNow ping.

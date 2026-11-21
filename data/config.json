@@ -839,6 +839,124 @@
    ]
   },
   {
+   "slug": "good-girl-deal",
+   "title": "Good Girl Deal",
+   "title_tag": "Buy the Good Girl Deal",
+   "noun": "perfume",
+   "who": "women's",
+   "scope": "around Good Girl",
+   "lead_id": "fs-ch-good-girl-edp-2-7",
+   "proven_also": true,
+   "rule": "the bottle is Good Girl, the Very Good Girl flanker, or the 3.4 oz La Vie Est Belle, and it is still in the price check",
+   "lead": "Good Girl is a FragranceShop bottle in the Oct 15 to Nov 20, 2026 commission file. Very Good Girl is the flanker in the same check. La Vie Est Belle 3.4 oz is the other women's bottle in that file. Good Girl Blush is not in this price check, so this page does not price it.",
+   "meta_lead": "Good Girl, Very Good Girl, and La Vie Est Belle 3.4 oz.",
+   "items": [
+    {"id": "fs-ch-good-girl-edp-2-7", "notes": "Eau de parfum: almond, jasmine, tonka, and cocoa."},
+    {"id": "fs-ch-very-good-girl-edp-1-7", "notes": "The red-berry floral flanker. Not the original Good Girl."},
+    {"id": "fs-lancome-la-vie-est-belle-edp-3-4", "notes": "A different perfume: pear, iris, praline, vanilla, and tonka. The 3.4 oz."}
+   ],
+   "links": [
+    {"href": "/gifts/good-girl-black-friday-deal/", "label": "Good Girl Black Friday deal"},
+    {"href": "/best/la-vie-est-belle-deal/", "label": "La Vie Est Belle deal"},
+    {"href": "/best/good-girl-alternatives/", "label": "Good Girl alternatives"},
+    {"href": "/brands/carolina-herrera/", "label": "Carolina Herrera deals"}
+   ],
+   "faq": [
+    ["Is Very Good Girl the same bottle as Good Girl?", "No. Very Good Girl is the flanker. Good Girl is the original. Both prices are the ones in the daily price check."],
+    ["Is Good Girl Blush on this page?", "No. It is not in this price check. This page does not invent a price for it."],
+    ["Is this a separate sale price?", "No. Each price is the one already in the daily price check."]
+   ]
+  },
+  {
+   "slug": "1-million-lucky-deal",
+   "title": "1 Million Lucky Deal",
+   "title_tag": "Buy the 1 Million Lucky Deal",
+   "noun": "cologne",
+   "who": "men's",
+   "scope": "in the 1 Million family",
+   "lead_id": "fs-paco-1-million-lucky-edt-3-4",
+   "proven_also": true,
+   "rule": "the bottle is 1 Million Lucky, 1 Million Royal, or Invictus, and it is still in the price check",
+   "lead": "1 Million Lucky is in the Oct 15 to Nov 20, 2026 commission file, on the same unsplit order as another SKU. Royal is the parfum flanker in this check. Invictus is the fresh sporty cologne. Olympéa is the women's perfume and stays off this page.",
+   "meta_lead": "1 Million Lucky, Invictus, and 1 Million Royal.",
+   "items": [
+    {"id": "fs-paco-1-million-lucky-edt-3-4", "notes": "Eau de toilette. A flanker in the sweet 1 Million family. The stored copy does not split a separate note pyramid for Lucky."},
+    {"id": "fs-paco-invictus-edt-3-4", "notes": "Eau de toilette. The fresh, sporty, aquatic cologne. Not a 1 Million flanker."},
+    {"id": "fs-paco-1-million-royal-parfum-3-4", "notes": "Parfum. The other 1 Million flanker in this check."}
+   ],
+   "links": [
+    {"href": "/gifts/1-million-christmas-cologne-deals/", "label": "1 Million Christmas cologne deals"},
+    {"href": "/gifts/paco-rabanne-christmas-gifts/", "label": "Paco Rabanne Christmas gifts"},
+    {"href": "/best/cyber-monday-cologne-deal/", "label": "Cyber Monday cologne deal"},
+    {"href": "/brands/paco-rabanne/", "label": "Paco Rabanne deals"}
+   ],
+   "faq": [
+    ["Is Invictus a 1 Million flanker?", "No. Invictus is the fresh sporty cologne. Lucky and Royal are the 1 Million flankers in this check."],
+    ["Where is Olympéa?", "Olympéa is the women's perfume. It stays on the Paco Rabanne Christmas page when that bottle is still in the price check."],
+    ["Is this a separate sale price?", "No. Each price is the one already in the daily price check."]
+   ]
+  },
+  {
+   "slug": "afternoon-delight-deal",
+   "title": "Afternoon Delight Deal",
+   "title_tag": "Buy the Afternoon Delight Deal",
+   "noun": "fragrance",
+   "who": "unisex",
+   "scope": "around Afternoon Delight",
+   "lead_id": "fs-mm-afternoon-delight-edt-3-4",
+   "proven_also": true,
+   "rule": "the bottle is Replica Afternoon Delight, Bubble Bath, or Jazz Club, and it is still in the price check",
+   "lead": "Afternoon Delight is in the Oct 15 to Nov 20, 2026 commission file, grouped with Jazz Club and not split. Bubble Bath is the other Replica bottle shoppers have bought. The three are different eaux de toilette. This page leads with Afternoon Delight. The Replica scents page lists the same three and sorts by price per ounce.",
+   "meta_lead": "Afternoon Delight, Bubble Bath, and Jazz Club.",
+   "items": [
+    {"id": "fs-mm-afternoon-delight-edt-3-4", "notes": "Eau de toilette: madeleine, vanilla, and a soft musk."},
+    {"id": "fs-mm-bubble-bath-edt-3-4", "notes": "Eau de toilette: soap, lavender, and clean musk."},
+    {"id": "fs-mm-jazz-club-edt-3-4", "notes": "Eau de toilette: tobacco, rum, and vanilla."}
+   ],
+   "links": [
+    {"href": "/best/maison-margiela-replica-scents/", "label": "Best Replica scents"},
+    {"href": "/vs/jazz-club-vs-bubble-bath/", "label": "Jazz Club vs Bubble Bath"},
+    {"href": "/gifts/replica-christmas-gifts/", "label": "Replica Christmas gifts"},
+    {"href": "/brands/maison-margiela/", "label": "Maison Margiela deals"}
+   ],
+   "faq": [
+    ["Does Afternoon Delight smell like Jazz Club?", "No. Afternoon Delight is madeleine, vanilla, and a soft musk. Jazz Club is tobacco, rum, and vanilla. Bubble Bath is soap, lavender, and clean musk."],
+    ["How is this different from the Replica scents page?", "That page sorts the same three bottles by price per ounce. This page leads with the Afternoon Delight price and Buy button."],
+    ["Is this a separate sale price?", "No. Each price is the one already in the daily price check."]
+   ]
+  },
+  {
+   "slug": "cyber-monday-cologne-deal",
+   "title": "Cyber Monday Cologne Deal",
+   "title_tag": "Buy Cyber Monday Cologne",
+   "noun": "cologne",
+   "who": "men's and unisex",
+   "scope": "for Cyber Monday",
+   "lead_id": "fs-jpg-le-male-le-parfum-4-2",
+   "proven_also": true,
+   "rule": "the bottle is Le Male Le Parfum, 1 Million Lucky, Jazz Club, or CK Free, and it is still in the price check",
+   "lead": "Cyber Monday 2026 is November 30. This page is four bottles from the Oct 15 to Nov 20, 2026 commission file: Le Male Le Parfum, 1 Million Lucky, Jazz Club, and CK Free. The Cyber Monday cologne page under $50 is a different list and leaves off the bottles at $50 and up. This is not a separate Cyber Monday price.",
+   "meta_lead": "Cyber Monday cologne from Le Male Le Parfum, Lucky, Jazz Club, and CK Free.",
+   "items": [
+    {"id": "fs-jpg-le-male-le-parfum-4-2", "notes": "Eau de parfum intense. The stronger Le Male. Mint and vanilla in the stored brand copy."},
+    {"id": "fs-paco-1-million-lucky-edt-3-4", "notes": "Eau de toilette. A flanker in the sweet 1 Million family."},
+    {"id": "fs-mm-jazz-club-edt-3-4", "notes": "Unisex eau de toilette: tobacco, rum, and vanilla."},
+    {"id": "calvin-klein-free-mens-eau-de-toilette-spray", "notes": "Eau de toilette: juniper, star anise, coffee, cedar, oak, and patchouli."}
+   ],
+   "links": [
+    {"href": "/cyber-monday-cologne-deals/", "label": "Cyber Monday cologne under $50"},
+    {"href": "/cyber-monday-fragrance-deals/", "label": "Cyber Monday fragrance deals"},
+    {"href": "/best/le-male-le-parfum-deal/", "label": "Le Male Le Parfum deal"},
+    {"href": "/best/1-million-lucky-deal/", "label": "1 Million Lucky deal"},
+    {"href": "/gifts/christmas-cologne-gifts-for-dad-under-100/", "label": "Christmas cologne for dad under $100"}
+   ],
+   "faq": [
+    ["When is Cyber Monday 2026?", "Cyber Monday 2026 is Monday, November 30."],
+    ["Is this the under-$50 Cyber Monday cologne list?", "No. That page is every men's cologne under $50, sorted by the discount. This page is four bottles from the commission file, including bottles over $50."],
+    ["Are these separate Cyber Monday prices?", "No. Each price is the one already in the daily price check."]
+   ]
+  },
+  {
    "slug": "mens-fragrances-under-100",
    "title": "Best Men's Fragrances Under $100",
    "title_tag": "Men's Fragrances Under $100",
@@ -8566,6 +8684,46 @@
     {"href": "/gifts/good-girl-perfume-gift-deals/", "label": "Good Girl perfume gift deals"},
     {"href": "/best/good-girl-alternatives/", "label": "Good Girl alternatives"},
     {"href": "/black-friday/carolina-herrera/", "label": "Carolina Herrera Black Friday deals"}
+  ]
+ },
+ {
+  "slug": "christmas-cologne-gifts-for-dad-under-100",
+  "title": "Christmas cologne gifts for dad under $100",
+  "title_tag": "Buy Dad Cologne Under $100",
+  "buy_meta": true,
+  "chip": "Dad cologne under $100",
+  "gender": "men",
+  "max_price": 100,
+  "exclude_mini": true,
+  "exclude_set": true,
+  "min_bottles": 4,
+  "ids": [
+    "calvin-klein-free-mens-eau-de-toilette-spray",
+    "the-most-wanted-parfum-cologne",
+    "fs-jpg-ultra-male-edt-4-2",
+    "fs-paco-1-million-lucky-edt-3-4",
+    "fs-jpg-le-male-le-parfum-4-2"
+  ],
+  "filled_label": "Christmas cologne gifts for dad under $100",
+  "intro": "Men's cologne for a dad, under $100, lowest checked price first. CK Free, The Most Wanted Parfum, and 1 Million Lucky are in the Oct 15 to Nov 20, 2026 commission file. Le Male Le Parfum is the SKU with the most orders in that file. Ultra Male is the sweeter Le Male in the same check, and that file did not count it on its own. Christmas cologne gifts for dad is a different list, at $50 or more, and it keeps Legend Spirit, Acqua di Gio, Le Beau, and the two Uomo bottles. Jazz Club stays on the Cyber Monday cologne deal because it is unisex. A bottle at $100 or more drops off on the next rebuild. We do not call a scent a dad cologne. For Christmas shopping through December 25, 2026.",
+  "empty": "None of these men's colognes are under $100 in the price check, so this page has no list.",
+  "empty_desc": "Christmas cologne for dad under $100: none of these bottles are under $100 in the price check.",
+  "choose": [
+    "Start with Le Male Le Parfum when the gift is the bottle with the most orders in the commission file. Ultra Male is the sweeter eau de toilette in that line. 1 Million Lucky is the sweet flanker. The Most Wanted Parfum is ginger, wood, and bourbon vanilla. CK Free is the woody everyday bottle and the lowest price on this page.",
+    "Use Christmas cologne gifts for dad when the gift should be the fresh noted list at $50 or more. This page is five bottles that have sold here, or that sit next to one that has, and every one is under $100."
+  ],
+  "faq": [
+    ["How is this different from Christmas cologne gifts for dad?", "That page keeps Legend Spirit, Acqua di Gio, Le Beau, Uomo Born in Roma, Uomo Born in Roma Intense, and Mefisto, at $50 or more. This page leaves those off. It keeps CK Free, The Most Wanted, Ultra Male, 1 Million Lucky, and Le Male Le Parfum."],
+    ["Is Jazz Club on this page?", "No. Jazz Club is unisex. It is on the Cyber Monday cologne deal and on the Afternoon Delight deal."],
+    ["Are these separate Christmas prices?", "No. Each card uses the price already in the daily price check. A bottle at $100 or more drops off on the next rebuild."]
+  ],
+  "links": [
+    {"href": "/gifts/christmas-cologne-gifts-for-dad/", "label": "Christmas cologne gifts for dad"},
+    {"href": "/best/cyber-monday-cologne-deal/", "label": "Cyber Monday cologne deal"},
+    {"href": "/best/le-male-le-parfum-deal/", "label": "Le Male Le Parfum deal"},
+    {"href": "/best/1-million-lucky-deal/", "label": "1 Million Lucky deal"},
+    {"href": "/gifts/for-him/", "label": "Fragrance gifts for him"},
+    {"href": "/men/", "label": "All men's deals"}
   ]
  }
  ],
