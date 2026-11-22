@@ -1058,7 +1058,7 @@ def _show_code_banner(path):
         return True
     if stem.startswith("black-friday/"):
         return True
-    if stem in ("best/le-male-le-parfum-deal","best/la-vie-est-belle-deal","best/good-girl-deal","best/1-million-lucky-deal","best/afternoon-delight-deal","best/cyber-monday-cologne-deal"):
+    if stem in ("best/le-male-le-parfum-deal","best/la-vie-est-belle-deal","best/good-girl-deal","best/1-million-lucky-deal","best/afternoon-delight-deal","best/cyber-monday-cologne-deal","best/ck-free-deal","best/jazz-club-deal","best/acqua-di-gio-deal","best/donna-born-in-roma-deal","best/invictus-deal"):
         return True
     if stem.startswith("gifts/") and ("black-friday" in stem or "cyber-monday" in stem):
         return True
@@ -1724,6 +1724,7 @@ PROVEN_COPY={
             ("/best/mens-fragrances-under-100/", "Men's fragrances under $100"),
             ("/best/long-lasting-cologne-deals/", "Long-lasting men's cologne deals"),
             ("/best/le-male-le-parfum-deal/", "Le Male Le Parfum deal"),
+            ("/best/jazz-club-deal/", "Jazz Club deal"),
             ("/best/cyber-monday-cologne-deal/", "Cyber Monday cologne deal"),
             ("/gifts/christmas-cologne-gifts-for-dad-under-100/", "Christmas cologne for dad under $100"),
             ("/gifts/best-selling-mens-cologne-black-friday/", "Best-selling men's cologne for Black Friday"),
@@ -1814,6 +1815,7 @@ PROVEN_COPY={
         "set_a": "No. A boxed mini set stays on the gift-set guides. This page is the 3.4 oz 1 Million Lucky eau de toilette.",
         "links": (
             ("/best/1-million-lucky-deal/", "1 Million Lucky deal"),
+            ("/best/invictus-deal/", "Invictus deal"),
             ("/best/cyber-monday-cologne-deal/", "Cyber Monday cologne deal"),
             ("/gifts/christmas-cologne-gifts-for-dad-under-100/", "Christmas cologne for dad under $100"),
             ("/gifts/paco-rabanne-christmas-gifts/", "Paco Rabanne Christmas gifts"),
@@ -1835,6 +1837,7 @@ PROVEN_COPY={
         "set_q": "Is Replica Jazz Club an eau de parfum?",
         "set_a": "No. The retailer lists Jazz Club, Afternoon Delight, and Bubble Bath as eau de toilette. This page is the 3.4 oz Jazz Club bottle.",
         "links": (
+            ("/best/jazz-club-deal/", "Jazz Club deal"),
             ("/best/afternoon-delight-deal/", "Afternoon Delight deal"),
             ("/best/cyber-monday-cologne-deal/", "Cyber Monday cologne deal"),
             ("/vs/jazz-club-vs-bubble-bath/", "Jazz Club vs Bubble Bath"),
@@ -1855,6 +1858,7 @@ PROVEN_COPY={
         "set_q": "Is CK Free the same as CK One?",
         "set_a": "No. CK Free is a woody men's eau de toilette. CK One is the citrus unisex. Both can be in the same price check, and they are different bottles.",
         "links": (
+            ("/best/ck-free-deal/", "CK Free deal"),
             ("/best/cyber-monday-cologne-deal/", "Cyber Monday cologne deal"),
             ("/gifts/christmas-cologne-gifts-for-dad-under-100/", "Christmas cologne for dad under $100"),
             ("/best/mens-fragrances-under-100/", "Men's fragrances under $100"),
@@ -4995,6 +4999,7 @@ def bf_brand_page_links(brand, rows):
         links.append((path, fullname(d)))
     for href, label in {
         "Jean Paul Gaultier": (
+            ("/best/jazz-club-deal/", "Jazz Club deal"),
             ("/jean-paul-gaultier-le-male-deals/", "Le Male deals"),
             ("/gifts/le-male-christmas-gifts/", "Le Male Christmas gifts"),
             ("/gifts/cologne-gifts-for-husband-under-100/", "Cologne gifts for husband under $100"),
@@ -5004,6 +5009,7 @@ def bf_brand_page_links(brand, rows):
             ("/gifts/best-selling-cologne-gifts-black-friday/", "Best-selling cologne gifts for Black Friday"),
         ),
         "Maison Margiela": (
+            ("/best/jazz-club-deal/", "Jazz Club deal"),
             ("/gifts/replica-christmas-gifts/", "Replica Christmas gifts"),
             ("/gifts/best-selling-fragrance-deals-this-week/", "Best-selling fragrance deals this week"),
             ("/gifts/cologne-gifts-for-boyfriend-under-100/", "Cologne gifts for boyfriend under $100"),
@@ -5029,10 +5035,15 @@ def bf_brand_page_links(brand, rows):
             ("/gifts/black-friday-best-selling-perfume-gifts/", "Black Friday perfume gifts shoppers bought"),
         ),
         "Calvin Klein": (
+            ("/best/ck-free-deal/", "CK Free deal"),
             ("/gifts/calvin-klein-christmas-fragrance-deals/", "Calvin Klein Christmas fragrance deals"),
             ("/gifts/black-friday-calvin-klein-under-30/", "Black Friday Calvin Klein under $30"),
         ),
+        "Valentino": (
+            ("/best/donna-born-in-roma-deal/", "Donna Born in Roma deal"),
+        ),
         "Paco Rabanne": (
+            ("/best/invictus-deal/", "Invictus deal"),
             ("/gifts/paco-rabanne-christmas-gifts/", "Paco Rabanne Christmas gifts"),
             ("/gifts/1-million-christmas-cologne-deals/", "1 Million Christmas cologne deals"),
             ("/gifts/cologne-gifts-for-husband-under-100/", "Cologne gifts for husband under $100"),
@@ -5041,6 +5052,7 @@ def bf_brand_page_links(brand, rows):
             ("/gifts/best-selling-cologne-gifts-black-friday/", "Best-selling cologne gifts for Black Friday"),
         ),
         "Giorgio Armani": (
+            ("/best/acqua-di-gio-deal/", "Acqua di Gio deal"),
             ("/gifts/best-selling-cologne-gifts-black-friday/", "Best-selling cologne gifts for Black Friday"),
         ),
     }.get(brand, ()):
@@ -7946,6 +7958,117 @@ def audit_nov21_pages():
         print(f"{rel}: {title} ({len(title)}) / meta {len(desc)} / {inbound} inbound")
     print("nov 21: Black Friday week gate and five buying pages")
 audit_nov21_pages()
+def audit_nov22_pages():
+    """Five bottle deal pages. Prices are the ones in deals.json. Affiliate URLs are not requested."""
+    specs=(
+        ("best/ck-free-deal/index.html","/best/ck-free-deal/","calvin-klein-free-mens-eau-de-toilette-spray",
+         ("calvin-klein-free-mens-eau-de-toilette-spray","calvin-klein-defy-eau-de-toilette-for-men","calvin-klein-eternity-cologne-eau-de-toilette"),
+         ("men/index.html",),"brands/calvin-klein/index.html","black-friday/calvin-klein/index.html","fragrance/calvin-klein-free-cologne/index.html"),
+        ("best/jazz-club-deal/index.html","/best/jazz-club-deal/","fs-mm-jazz-club-edt-3-4",
+         ("fs-mm-jazz-club-edt-3-4","fs-mm-bubble-bath-edt-3-4","fs-jpg-le-male-le-parfum-4-2"),
+         ("unisex/index.html","men/index.html"),"brands/maison-margiela/index.html","black-friday/maison-margiela/index.html","fragrance/maison-margiela-replica-jazz-club/index.html"),
+        ("best/acqua-di-gio-deal/index.html","/best/acqua-di-gio-deal/","giorgio-armani-acqua-di-gio-eau-de-toilette-cologne-for-men",
+         ("giorgio-armani-acqua-di-gio-eau-de-toilette-cologne-for-men","fs-armani-acqua-di-gio-profondo-edp-3-3","fs-armani-code-edt-4-2"),
+         ("men/index.html",),"brands/giorgio-armani/index.html","black-friday/giorgio-armani/index.html","fragrance/giorgio-armani-acqua-di-gio-cologne/index.html"),
+        ("best/donna-born-in-roma-deal/index.html","/best/donna-born-in-roma-deal/","valentino-donna-born-in-roma-perfume-eau-de-parfum-for-women",
+         ("valentino-donna-born-in-roma-perfume-eau-de-parfum-for-women","valentino-uomo-born-in-roma-cologne-eau-de-toilette-for-men","uomo-intense-by-valentino-for-men-eau-de-parfum-spray"),
+         ("women/index.html","men/index.html"),"brands/valentino/index.html","black-friday/valentino/index.html","fragrance/valentino-donna-born-in-roma-perfume/index.html"),
+        ("best/invictus-deal/index.html","/best/invictus-deal/","fs-paco-invictus-edt-3-4",
+         ("fs-paco-invictus-edt-3-4","olympea-eau-de-parfum-spray-for-women-by-paco-rabanne","fs-paco-1-million-lucky-edt-3-4"),
+         ("men/index.html","women/index.html"),"brands/paco-rabanne/index.html","black-friday/paco-rabanne/index.html","fragrance/paco-rabanne-invictus-cologne/index.html"),
+    )
+    by_slug={r["slug"]: tuple(sorted(d.get("id") for d in r["items"])) for r in ROUNDUPS}
+    for rel, _href, _lead, ids, _genders, _brand, _bf, _frag in specs:
+        slug=rel.split("/")[1]
+        if slug not in by_slug:
+            raise SystemExit(f"{slug}: roundup was not built")
+        if by_slug[slug]!=tuple(sorted(ids)):
+            raise SystemExit(f"{slug}: bottles are {by_slug[slug]}")
+        twins=[other for other, key in by_slug.items() if other!=slug and key==by_slug[slug]]
+        if twins:
+            raise SystemExit(f"{slug}: same bottles as {', '.join(twins)}")
+        for i in ids:
+            d=BYID.get(i)
+            if not d:
+                raise SystemExit(f"{slug}: {i} is not in deals.json")
+            if (d.get("pct_off") or 0)<15:
+                raise SystemExit(f"{slug}: {i} is under 15% off")
+            if d.get("retailer") not in merchants.AFFILIATE_COMMISSION:
+                raise SystemExit(f"{slug}: {i} is not at an approved merchant")
+    if open(f"{OUT}/CNAME", encoding="utf-8").read().strip()!="scentdealsdaily.com":
+        raise SystemExit("CNAME is not scentdealsdaily.com")
+    sm=open(f"{OUT}/sitemap.xml", encoding="utf-8").read()
+    llms=open(f"{OUT}/llms.txt", encoding="utf-8").read()
+    feed=open(f"{OUT}/feed.xml", encoding="utf-8").read()
+    home=open(f"{OUT}/index.html", encoding="utf-8").read()
+    if "Shop by budget" not in home:
+        raise SystemExit("homepage is missing the deal-page section")
+    home_section=home.split("Shop by budget",1)[1].split("</section>",1)[0]
+    html_files=[]
+    for dirpath, _, files in os.walk(OUT):
+        for fn in files:
+            if fn.endswith(".html"):
+                html_files.append(os.path.join(dirpath, fn))
+    blobs=[open(fp, encoding="utf-8").read() for fp in html_files]
+    seen_titles=set()
+    for rel, href, lead_id, ids, genders, brand, bf, frag in specs:
+        text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+        title=html.unescape(re.search(r"<title>(.*?)</title>", text, re.S).group(1))
+        desc=html.unescape(re.search(r'<meta name="description" content="([^"]*)"', text).group(1))
+        lead=BYID[lead_id]
+        if title in seen_titles or len(title)>60 or not title.startswith("Buy ") or "$" not in title:
+            raise SystemExit(f"{rel}: title is {len(title)} chars ({title})")
+        seen_titles.add(title)
+        if not (70<=len(desc)<=160):
+            raise SystemExit(f"{rel}: meta is {len(desc)} chars ({desc})")
+        if "github.io" in text:
+            raise SystemExit(f"{rel}: github.io link")
+        for tag in ("GASeKy1uEWpsrSn1II701znBYlw6mBhAwvimW0Yi8Io","AnNdRzKxRNra8nkj3gri7zC9kJYJ-aZehksWkrfImx4"):
+            if tag not in text:
+                raise SystemExit(f"{rel}: missing a Google site-verification tag")
+        loc=f"{BASE}{PREFIX}{href}"
+        canon=re.search(r'<link rel="canonical" href="([^"]+)"', text)
+        if not canon or canon.group(1)!=loc or not loc.startswith("https://scentdealsdaily.com/best/"):
+            raise SystemExit(f"{rel}: canonical is not {loc}")
+        if f"<loc>{loc}</loc>" not in sm or loc not in llms or loc not in feed:
+            raise SystemExit(f"{loc} missing from sitemap, llms.txt, or feed.xml")
+        lead_html=re.search(r"<div class='lead-offer'>(.*?)</div>", text, re.S)
+        img_at=text.find("<img")
+        lead_at=text.find("lead-offer")
+        if not lead_html or f"${lead['price']:.2f}" not in lead_html.group(1) or f"Buy at {lead['retailer']}" not in lead_html.group(1) or "Price checked " not in lead_html.group(1):
+            raise SystemExit(f"{rel}: lead Buy is not {fullname(lead)} at ${lead['price']:.2f}")
+        if lead_at<0 or img_at<lead_at:
+            raise SystemExit(f"{rel}: the photo is above the Buy button")
+        if "also popular:" not in text[lead_at:img_at]:
+            raise SystemExit(f"{rel}: also popular is not between the Buy button and the photo")
+        for i in ids:
+            d=BYID[i]
+            if f"${d['price']:.2f}" not in text:
+                raise SystemExit(f"{rel}: missing ${d['price']:.2f} for {i}")
+        for kind in ("FAQPage","ItemList","AggregateOffer","Offer","BreadcrumbList"):
+            if kind not in text:
+                raise SystemExit(f"{rel}: missing {kind}")
+        if href not in home_section:
+            raise SystemExit(f"homepage deal section does not link {href}")
+        for surface in genders+(brand, bf, frag):
+            blob=open(f"{OUT}/{surface}", encoding="utf-8").read()
+            if f"href='{PREFIX}{href}'" not in blob and f'href="{PREFIX}{href}"' not in blob:
+                raise SystemExit(f"{surface} does not link {href}")
+        if "jean-paul-gaultier" in rel or lead_id=="fs-mm-jazz-club-edt-3-4":
+            for surface in ("brands/jean-paul-gaultier/index.html","black-friday/jean-paul-gaultier/index.html"):
+                blob=open(f"{OUT}/{surface}", encoding="utf-8").read()
+                if f"href='{PREFIX}{href}'" not in blob and f'href="{PREFIX}{href}"' not in blob:
+                    raise SystemExit(f"{surface} does not link {href}")
+        inbound=0
+        for fp, blob in zip(html_files, blobs):
+            if os.path.relpath(fp, OUT).replace(os.sep, "/")==rel: continue
+            inbound += blob.count(f"href='{PREFIX}{href}'")+blob.count(f'href="{PREFIX}{href}"')
+        if inbound<8:
+            raise SystemExit(f"{rel}: only {inbound} inbound links")
+        others=[BYID[i] for i in ids if i!=lead_id]
+        print(f"{rel}: {title} ({len(title)}) / meta {len(desc)} / lead ${lead['price']:.2f} at {lead['retailer']} / related ${others[0]['price']:.2f}, ${others[1]['price']:.2f} / {inbound} inbound")
+    print("nov 22: five bottle deal pages")
+audit_nov22_pages()
 import subprocess, sys
 _validator=subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "validate_jsonld.py")])
 if _validator.returncode!=0:

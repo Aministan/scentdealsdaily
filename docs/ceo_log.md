@@ -1,5 +1,28 @@
 # ScentDealsDaily CEO log
 
+## 2026-11-22 (Sun) — five bottle deal pages before Black Friday
+
+**Refresh status:** origin/main at the start of this pass was 0044b834 "daily refresh". data/deals.json is stamped 2026-11-22T14:34:58Z. The built pages print that check as Nov 22, 2026 10:34 AM ET. This pass did not edit data/deals.json and did not re-fetch prices. The push triggers daily-refresh, which owns the next price check and the IndexNow ping.
+
+**Muse result:** muse_deals.json is unchanged (sha1 26cbc2509317eb00083be99cb218afc8c4359a31). Nothing merged. No prices were invented.
+
+**Merchant order:** scripts/merchants.py was not changed. Higher commission still wins only when the higher price is within $2 of the cheapest. The build logged no buy-button move.
+
+**Skipped.** These were named and are not a new page. Dior Sauvage eau de parfum is not in the price check. Sauvage Elixir is $162.95, over $100. Eau Sauvage is $101.95 and is the classic citrus, not Sauvage. YSL Libre is $113.95 and Y Intense is $109.95, both over $100. My Way is not in the check. Versace Eros is $52.95 and Eros Flame is $45.95, both under $60. Burberry Her is not in the check. CK Free is $20.95, under $60, and is included because it is a proven seller.
+
+**New pages (5). Prices are the Nov 22 deals.json prices. Each leads with that bottle's checked price and a Buy button above the photo, then two related picks. ItemList with AggregateOffer, FAQPage, and BreadcrumbList. Canonicals are on https://scentdealsdaily.com.**
+- /best/ck-free-deal/: CK Free 3.4 oz $20.95 at FragranceShop, 70% off, leads. Defy 3.4 oz $39.99 at Perfumania and Eternity for men 3.3 oz $51.99 at FragranceNet are the other two. Title: "Buy the CK Free Deal: 3 Picks From $20.95" (41). Meta 119. 44 inbound links.
+- /best/jazz-club-deal/: Jazz Club 3.4 oz $81.95 at FragranceShop, 52% off, leads. Bubble Bath $81.95 and Le Male Le Parfum $93.95 are the other two. All FragranceShop. This is not the Afternoon Delight page, which leads with Afternoon Delight. Title: "Buy the Jazz Club Deal: 3 Picks From $81.95" (43). Meta 139. 50 inbound links.
+- /best/acqua-di-gio-deal/: Acqua di Gio 3.4 oz $66.95 at FragranceShop, 32% off, leads. Profondo 3.3 oz $95.95 and Code 4.2 oz $70.95 are the other two. All FragranceShop. My Way is not priced. Title: "Buy the Acqua di Gio Deal: 3 Picks From $66.95" (46). Meta 128. 45 inbound links.
+- /best/donna-born-in-roma-deal/: Donna Born in Roma 1.7 oz $94.95 at FragranceShop, 35% off, leads. Uomo 1.7 oz $91.95 at Perfumania and Uomo Intense 3.4 oz $117.95 at FragranceShop are the other two. Voce Viva is not priced. Title: "Buy the Donna Born in Roma Deal: 3 Picks From $91.95" (52). Meta 138. 44 inbound links.
+- /best/invictus-deal/: Invictus 3.4 oz $63.95 at FragranceShop, 24% off, leads. Olympéa 1.7 oz $59.95 at Perfumania and 1 Million Lucky $77.95 at FragranceShop are the other two. The 1 Million Lucky page still leads with Lucky and leaves Olympéa off. Title: "Buy the Invictus Deal: 3 Picks From $59.95" (42). Meta 127. 43 inbound links.
+
+The homepage section that lists deal pages, /men/, /women/, /unisex/, the matching brand page, the Black Friday brand page, and each lead bottle's /fragrance/ page link them. Jazz Club is also linked from the Jean Paul Gaultier brand page and its Black Friday page, because Le Male Le Parfum is the third pick.
+
+**Checks:** local build on the 2026-11-22T14:34:58Z deals file. Sitemap 366 URLs. 0 broken internal links. JSON-LD parsed (371 pages, 368 breadcrumbs, 291 item lists, 2,197 product offers, 355 FAQ pages). 0 github.io links. Every new canonical is on https://scentdealsdaily.com/best/. CNAME is scentdealsdaily.com. Both Google site-verification meta tags stay on every page. data/deals.json was not edited. Affiliate hrefs were checked as strings only. Affiliate hosts were mapped to localhost for the local render. No request was made to a CJ, Awin, Rakuten, or /go URL.
+
+**Deploy:** this push goes straight to main and triggers daily-refresh (refresh + build + IndexNow + Pages). Live 200s are checked after that run.
+
 ## 2026-11-21 (Sat) — Black Friday week label and five buying pages
 
 **Refresh status:** origin/main at the start of this pass was d4b9f8c9 "daily refresh". data/deals.json is stamped 2026-11-21T05:35:26Z. The built pages print that check as Nov 21, 2026 1:35 AM ET. This pass did not edit data/deals.json and did not re-fetch prices. The push triggers daily-refresh, which owns the next price check and the IndexNow ping.

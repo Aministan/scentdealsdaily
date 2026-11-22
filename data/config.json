@@ -888,6 +888,7 @@
     {"href": "/gifts/1-million-christmas-cologne-deals/", "label": "1 Million Christmas cologne deals"},
     {"href": "/gifts/paco-rabanne-christmas-gifts/", "label": "Paco Rabanne Christmas gifts"},
     {"href": "/best/cyber-monday-cologne-deal/", "label": "Cyber Monday cologne deal"},
+    {"href": "/best/invictus-deal/", "label": "Invictus deal"},
     {"href": "/brands/paco-rabanne/", "label": "Paco Rabanne deals"}
    ],
    "faq": [
@@ -915,6 +916,7 @@
    ],
    "links": [
     {"href": "/best/maison-margiela-replica-scents/", "label": "Best Replica scents"},
+    {"href": "/best/jazz-club-deal/", "label": "Jazz Club deal"},
     {"href": "/vs/jazz-club-vs-bubble-bath/", "label": "Jazz Club vs Bubble Bath"},
     {"href": "/gifts/replica-christmas-gifts/", "label": "Replica Christmas gifts"},
     {"href": "/brands/maison-margiela/", "label": "Maison Margiela deals"}
@@ -948,12 +950,170 @@
     {"href": "/cyber-monday-fragrance-deals/", "label": "Cyber Monday fragrance deals"},
     {"href": "/best/le-male-le-parfum-deal/", "label": "Le Male Le Parfum deal"},
     {"href": "/best/1-million-lucky-deal/", "label": "1 Million Lucky deal"},
+    {"href": "/best/ck-free-deal/", "label": "CK Free deal"},
+    {"href": "/best/jazz-club-deal/", "label": "Jazz Club deal"},
     {"href": "/gifts/christmas-cologne-gifts-for-dad-under-100/", "label": "Christmas cologne for dad under $100"}
    ],
    "faq": [
     ["When is Cyber Monday 2026?", "Cyber Monday 2026 is Monday, November 30."],
     ["Is this the under-$50 Cyber Monday cologne list?", "No. That page is every men's cologne under $50, sorted by the discount. This page is four bottles from the commission file, including bottles over $50."],
     ["Are these separate Cyber Monday prices?", "No. Each price is the one already in the daily price check."]
+   ]
+  },
+  {
+   "slug": "ck-free-deal",
+   "title": "CK Free Deal",
+   "title_tag": "Buy the CK Free Deal",
+   "noun": "cologne",
+   "who": "men's",
+   "scope": "around CK Free",
+   "lead_id": "calvin-klein-free-mens-eau-de-toilette-spray",
+   "proven_also": true,
+   "rule": "the bottle is CK Free, CK Defy, or Eternity for men, and it is still in the price check",
+   "lead": "CK Free is a FragranceShop bottle in the Oct 15 to Nov 20, 2026 commission file. Defy is the cleaner everyday Calvin Klein, compared with Free on its own page. Eternity for men is a separate cologne, not the women's Eternity floral. CK One is the unisex citrus and stays off this page.",
+   "meta_lead": "CK Free, Defy, and men's Eternity.",
+   "items": [
+    {"id": "calvin-klein-free-mens-eau-de-toilette-spray", "notes": "Eau de toilette: juniper, star anise, coffee, cedar, oak, and patchouli."},
+    {"id": "calvin-klein-defy-eau-de-toilette-for-men", "notes": "Eau de toilette: bergamot, lavender, vetiver, and amber. The cleaner everyday Calvin Klein."},
+    {"id": "calvin-klein-eternity-cologne-eau-de-toilette", "notes": "Eau de toilette for men: lavender, mandarin, coriander, lily, and sandalwood. Not the women's Eternity."}
+   ],
+   "links": [
+    {"href": "/vs/ck-defy-vs-ck-free/", "label": "CK Defy vs CK Free"},
+    {"href": "/fragrance/calvin-klein-free-cologne/", "label": "CK Free price"},
+    {"href": "/brands/calvin-klein/", "label": "Calvin Klein deals"},
+    {"href": "/black-friday/calvin-klein/", "label": "Calvin Klein Black Friday deals"},
+    {"href": "/men/", "label": "Men's cologne deals"},
+    {"href": "/gifts/calvin-klein-christmas-fragrance-deals/", "label": "Calvin Klein Christmas fragrance deals"},
+    {"href": "/best/cyber-monday-cologne-deal/", "label": "Cyber Monday cologne deal"}
+   ],
+   "faq": [
+    ["Is CK Free the same as CK One?", "No. CK Free is a woody men's eau de toilette. CK One is the citrus unisex. This page does not price CK One."],
+    ["Is Defy the same bottle as CK Free?", "No. Defy is bergamot, lavender, vetiver, and amber. Free is juniper, star anise, coffee, and wood. The side-by-side is the Defy versus Free page."],
+    ["Is this a separate sale price?", "No. Each price is the one already in the daily price check."]
+   ]
+  },
+  {
+   "slug": "jazz-club-deal",
+   "title": "Jazz Club Deal",
+   "title_tag": "Buy the Jazz Club Deal",
+   "noun": "fragrance",
+   "who": "unisex and men's",
+   "scope": "around Jazz Club",
+   "lead_id": "fs-mm-jazz-club-edt-3-4",
+   "proven_also": true,
+   "rule": "the bottle is Replica Jazz Club, Replica Bubble Bath, or Le Male Le Parfum, and it is still in the price check",
+   "lead": "Jazz Club is in the Oct 15 to Nov 20, 2026 commission file, grouped with Afternoon Delight and not split. Bubble Bath is the clean Replica. Le Male Le Parfum is a different perfume, and it is the bottle with the most orders in that file. The Afternoon Delight deal leads with Afternoon Delight. This page leads with Jazz Club.",
+   "meta_lead": "Jazz Club, Bubble Bath, and Le Male Le Parfum.",
+   "items": [
+    {"id": "fs-mm-jazz-club-edt-3-4", "notes": "Eau de toilette: tobacco, rum, and vanilla."},
+    {"id": "fs-mm-bubble-bath-edt-3-4", "notes": "Eau de toilette: soap, lavender, and clean musk."},
+    {"id": "fs-jpg-le-male-le-parfum-4-2", "notes": "Eau de parfum intense. The stronger Le Male. Mint and vanilla in the stored brand copy."}
+   ],
+   "links": [
+    {"href": "/vs/jazz-club-vs-bubble-bath/", "label": "Jazz Club vs Bubble Bath"},
+    {"href": "/best/afternoon-delight-deal/", "label": "Afternoon Delight deal"},
+    {"href": "/fragrance/maison-margiela-replica-jazz-club/", "label": "Jazz Club price"},
+    {"href": "/brands/maison-margiela/", "label": "Maison Margiela deals"},
+    {"href": "/black-friday/maison-margiela/", "label": "Maison Margiela Black Friday deals"},
+    {"href": "/unisex/", "label": "Unisex fragrance deals"},
+    {"href": "/gifts/replica-christmas-gifts/", "label": "Replica Christmas gifts"}
+   ],
+   "faq": [
+    ["Does Jazz Club smell like Bubble Bath?", "No. Jazz Club is tobacco, rum, and vanilla. Bubble Bath is soap, lavender, and clean musk."],
+    ["How is this different from the Afternoon Delight deal?", "That page leads with Afternoon Delight and also lists Bubble Bath and Jazz Club. This page leads with Jazz Club and lists Le Male Le Parfum instead of Afternoon Delight."],
+    ["Is this a separate sale price?", "No. Each price is the one already in the daily price check."]
+   ]
+  },
+  {
+   "slug": "acqua-di-gio-deal",
+   "title": "Acqua di Gio Deal",
+   "title_tag": "Buy the Acqua di Gio Deal",
+   "noun": "cologne",
+   "who": "men's",
+   "scope": "around Acqua di Gio",
+   "lead_id": "giorgio-armani-acqua-di-gio-eau-de-toilette-cologne-for-men",
+   "proven_also": true,
+   "rule": "the bottle is Acqua di Gio, Acqua di Gio Profondo, or Code, and it is still in the price check",
+   "lead": "Acqua di Gio is the fresh citrus men's Armani in this price check. Profondo is the fresher, more marine flanker. Code is a different cologne, the sweeter evening Armani. My Way is not in this price check, so this page does not price it. Stronger With You Intensely stays on its own bottle page.",
+   "meta_lead": "Acqua di Gio, Profondo, and Code.",
+   "items": [
+    {"id": "giorgio-armani-acqua-di-gio-eau-de-toilette-cologne-for-men", "notes": "Eau de toilette: citrus, neroli, marine notes, and white musk."},
+    {"id": "fs-armani-acqua-di-gio-profondo-edp-3-3", "notes": "Eau de parfum flanker. The stored copy calls it the fresher, more marine Acqua di Gio."},
+    {"id": "fs-armani-code-edt-4-2", "notes": "Eau de toilette. A different Armani cologne, sweeter and more for evening than Acqua di Gio. The stored copy does not publish a separate note pyramid for Code."}
+   ],
+   "links": [
+    {"href": "/fragrance/giorgio-armani-acqua-di-gio-cologne/", "label": "Acqua di Gio price"},
+    {"href": "/brands/giorgio-armani/", "label": "Giorgio Armani deals"},
+    {"href": "/black-friday/giorgio-armani/", "label": "Giorgio Armani Black Friday deals"},
+    {"href": "/men/", "label": "Men's cologne deals"},
+    {"href": "/best/mens-fragrances-under-100/", "label": "Men's fragrances under $100"}
+   ],
+   "faq": [
+    ["Is Profondo the same bottle as Acqua di Gio?", "No. Profondo is the flanker. The stored copy calls it fresher and more marine. Both prices are the ones in the daily price check."],
+    ["Is My Way on this page?", "No. It is not in this price check. This page does not invent a price for it."],
+    ["Is this a separate sale price?", "No. Each price is the one already in the daily price check."]
+   ]
+  },
+  {
+   "slug": "donna-born-in-roma-deal",
+   "title": "Donna Born in Roma Deal",
+   "title_tag": "Buy the Donna Born in Roma Deal",
+   "noun": "fragrance",
+   "who": "women's and men's",
+   "scope": "in the Born in Roma line",
+   "lead_id": "valentino-donna-born-in-roma-perfume-eau-de-parfum-for-women",
+   "proven_also": true,
+   "rule": "the bottle is Donna Born in Roma, Uomo Born in Roma, or Uomo Born in Roma Intense, and it is still in the price check",
+   "lead": "Donna Born in Roma is the women's jasmine-and-vanilla perfume in this price check. Uomo is the fresher men's eau de toilette. Uomo Intense is the sweeter men's eau de parfum. Voce Viva is not in this price check, so this page does not price it.",
+   "meta_lead": "Donna Born in Roma, Uomo, and Uomo Intense.",
+   "items": [
+    {"id": "valentino-donna-born-in-roma-perfume-eau-de-parfum-for-women", "notes": "Eau de parfum: black currant, jasmine, and bourbon vanilla."},
+    {"id": "valentino-uomo-born-in-roma-cologne-eau-de-toilette-for-men", "notes": "Eau de toilette: a salt accord, violet leaf, ginger, sage, and vetiver. Not the Intense."},
+    {"id": "uomo-intense-by-valentino-for-men-eau-de-parfum-spray", "notes": "Eau de parfum: vanilla, lavender, and vetiver. Sweeter than the Uomo eau de toilette."}
+   ],
+   "links": [
+    {"href": "/vs/la-vie-est-belle-vs-donna-born-in-roma/", "label": "La Vie Est Belle vs Donna Born in Roma"},
+    {"href": "/vs/valentino-uomo-born-in-roma-vs-intense/", "label": "Uomo Born in Roma vs Intense"},
+    {"href": "/fragrance/valentino-donna-born-in-roma-perfume/", "label": "Donna Born in Roma price"},
+    {"href": "/brands/valentino/", "label": "Valentino deals"},
+    {"href": "/black-friday/valentino/", "label": "Valentino Black Friday deals"},
+    {"href": "/women/", "label": "Women's perfume deals"}
+   ],
+   "faq": [
+    ["Is Uomo the men's Donna Born in Roma?", "They share the Born in Roma name and they are different perfumes. Donna is jasmine and bourbon vanilla. Uomo eau de toilette is mineral and fresh. Intense is vanilla and lavender."],
+    ["Is Voce Viva on this page?", "No. It is not in this price check. This page does not invent a price for it."],
+    ["Is this a separate sale price?", "No. Each price is the one already in the daily price check."]
+   ]
+  },
+  {
+   "slug": "invictus-deal",
+   "title": "Invictus Deal",
+   "title_tag": "Buy the Invictus Deal",
+   "noun": "fragrance",
+   "who": "men's and women's",
+   "scope": "around Invictus",
+   "lead_id": "fs-paco-invictus-edt-3-4",
+   "proven_also": true,
+   "rule": "the bottle is Invictus, Olympéa, or 1 Million Lucky, and it is still in the price check",
+   "lead": "Invictus is the fresh sporty Paco Rabanne cologne in this price check. Olympéa is the salty vanilla women's perfume. 1 Million Lucky is the sweet flanker shoppers have bought here. The 1 Million Lucky deal leads with Lucky and leaves Olympéa off. This page leads with Invictus.",
+   "meta_lead": "Invictus, Olympéa, and 1 Million Lucky.",
+   "items": [
+    {"id": "fs-paco-invictus-edt-3-4", "notes": "Eau de toilette. The fresh, sporty, aquatic cologne. Not a 1 Million flanker."},
+    {"id": "olympea-eau-de-parfum-spray-for-women-by-paco-rabanne", "notes": "Eau de parfum: water jasmine and mandarin over vanilla, a salt accord, and sandalwood."},
+    {"id": "fs-paco-1-million-lucky-edt-3-4", "notes": "Eau de toilette. A flanker in the sweet 1 Million family. The stored copy does not split a separate note pyramid for Lucky."}
+   ],
+   "links": [
+    {"href": "/best/1-million-lucky-deal/", "label": "1 Million Lucky deal"},
+    {"href": "/fragrance/paco-rabanne-invictus-cologne/", "label": "Invictus price"},
+    {"href": "/brands/paco-rabanne/", "label": "Paco Rabanne deals"},
+    {"href": "/black-friday/paco-rabanne/", "label": "Paco Rabanne Black Friday deals"},
+    {"href": "/men/", "label": "Men's cologne deals"},
+    {"href": "/gifts/paco-rabanne-christmas-gifts/", "label": "Paco Rabanne Christmas gifts"}
+   ],
+   "faq": [
+    ["Is Invictus a 1 Million flanker?", "No. Invictus is the fresh sporty cologne. 1 Million Lucky is the sweet flanker. Olympéa is the women's perfume."],
+    ["How is this different from the 1 Million Lucky deal?", "That page leads with 1 Million Lucky and lists Invictus and 1 Million Royal. This page leads with Invictus and lists Olympéa instead of Royal."],
+    ["Is this a separate sale price?", "No. Each price is the one already in the daily price check."]
    ]
   },
   {
