@@ -1,5 +1,39 @@
 # ScentDealsDaily CEO log
 
+## 2026-11-23 (Mon) — Black Friday week line on the bottles that sold, five buy pages
+
+**Refresh status:** origin/main at the start of this pass was ac195fa0 "daily refresh". data/deals.json is stamped 2026-11-22T18:29:40Z. The built pages print that check as Nov 22, 2026 2:29 PM ET. This pass did not edit data/deals.json and did not re-fetch prices. The push triggers daily-refresh, which owns the next price check and the IndexNow ping.
+
+**Muse result:** muse_deals.json is unchanged (sha1 26cbc2509317eb00083be99cb218afc8c4359a31). Nothing merged. No prices were invented.
+
+**Merchant order:** scripts/merchants.py was not changed. Higher commission still wins only when the higher price is within $2 of the cheapest. CK Free stays at FragranceShop $20.95. Perfumania is $19.95, inside $2, so the 5% store stays the button. The build logged no buy-button move.
+
+**Conversion (generator, so the daily refresh keeps it)**
+On the five bottles that have sold at FragranceShop, and on the /best/ page that leads with each one, the line above the price is now "Black Friday week price, checked Nov 22, 2026 2:29 PM ET". The checked price and the FragranceShop Buy button stay above the photo. On a 390px-wide render the photo sits under that button. The same window as before applies: Nov 21 through Dec 1, 2026, Eastern Time, through 11:59:59 PM on Dec 1. The Dec 2 rebuild drops the line. There is no countdown and no second price.
+- Le Male Le Parfum 4.2 oz $93.95. Title stays "Buy Le Male Le Parfum Cologne Black Friday 2026 Deal: $93.95" (60).
+- La Vie Est Belle 3.4 oz $93.95. Title stays "Buy La Vie Est Belle Perfume Black Friday 2026 Deal: $93.95" (59).
+- Good Girl 2.7 oz $91.95. Title stays "Buy Good Girl Perfume Black Friday 2026 Deal: $91.95" (52).
+- Afternoon Delight 3.4 oz $78.95. Title stays "Buy Replica Afternoon Delight Black Friday 2026 Deal: $78.95" (60).
+- CK Free 3.4 oz $20.95. Title stays "Buy CK Free Cologne Black Friday 2026 Deal: $20.95" (50).
+The matching /best/ pages use the same line on the lead Buy: /best/le-male-le-parfum-deal/, /best/la-vie-est-belle-deal/, /best/good-girl-deal/, /best/afternoon-delight-deal/, /best/ck-free-deal/.
+
+The homepage and /black-friday/ put those five bottles, at the deals.json prices, in a Deal pages row under the lead Buy and above the first photo. Each name links to the bottle page. Each "deal" link goes to that bottle's /best/ page. The hub fold Buy buttons are Le Male Le Parfum, La Vie Est Belle 3.4 oz, Good Girl, Afternoon Delight, and CK Free, in that order.
+
+**Skipped.** /vs/le-male-le-parfum-vs-elixir/ already exists, so it was not added again. /gifts/good-girl-black-friday-deal/ already exists. /cyber-monday-perfume-deals/ is the under-$50 list, so it was not replaced. CK Free is $20.95, under $60, so it is not on a new list. It stays on its deal page because it has sold.
+
+**New pages (5). Prices are the Nov 22 deals.json prices. Each leads with the lowest checked price on that page and a Buy button above the photo. ItemList with AggregateOffer, FAQPage, and BreadcrumbList. Canonicals are on https://scentdealsdaily.com.**
+- /gifts/la-vie-est-belle-black-friday-deal/: La Vie Est Belle 1.0 oz $61.95 and the 3.4 oz $93.95, both FragranceShop. Title: "Buy La Vie Est Belle Black Friday: From $61.95" (46). Meta 156. 297 inbound links.
+- /gifts/good-girl-vs-la-vie-est-belle/: Good Girl 2.7 oz $91.95 and La Vie Est Belle 3.4 oz $93.95, both FragranceShop. Title: "Buy Good Girl vs La Vie Est Belle: From $91.95" (46). Meta 158. 296 inbound links.
+- /gifts/cyber-monday-womens-perfume-under-100/: La Vie Est Belle 1.0 oz $61.95, Very Good Girl 1.7 oz $76.95, Good Girl 2.7 oz $91.95, La Vie Est Belle 3.4 oz $93.95, Idôle 3.4 oz $97.95. All FragranceShop. Cyber Monday 2026 is November 30. This is not the under-$50 perfume list. Title: "Buy Cyber Monday Womens Perfume: From $61.95" (44). Meta 117. 302 inbound links.
+- /gifts/le-male-le-parfum-or-elixir/: Le Male Le Parfum 4.2 oz $93.95 and Le Male Elixir 4.2 oz $94.95, both FragranceShop. The two prices are within $2 and the merchant is the same, so the lower price leads. The versus page stays the concentration table. Title: "Buy Le Male Le Parfum or Elixir: From $93.95" (44). Meta 105. 293 inbound links.
+- /gifts/afternoon-delight-good-girl-gift/: Afternoon Delight 3.4 oz $78.95, Good Girl 2.7 oz $91.95, La Vie Est Belle 3.4 oz $93.95. All FragranceShop. Title: "Buy Afternoon Delight Gift Picks: From $78.95" (45). Meta 128. 299 inbound links.
+
+The homepage, /women/ or /men/ or /unisex/, the matching brand page, the Black Friday brand page, and the matching bottle and /best/ pages link them.
+
+**Checks:** local build on the 2026-11-22T18:29:40Z deals file. Sitemap 371 URLs. 0 broken internal links. JSON-LD parsed (376 pages, 373 breadcrumbs, 296 item lists, 2,211 product offers, 360 FAQ pages). 0 github.io links. Every new canonical is on https://scentdealsdaily.com/gifts/. CNAME is scentdealsdaily.com. Both Google site-verification meta tags stay on every page. data/deals.json was not edited. Affiliate hrefs were checked as strings only. Affiliate hosts were mapped to localhost for the local phone-width render. No request was made to a CJ, Awin, Rakuten, or /go URL.
+
+**Deploy:** this push goes straight to main and triggers daily-refresh (refresh + build + IndexNow + Pages). Live 200s are checked after that run.
+
 ## 2026-11-22 (Sun) — five bottle deal pages before Black Friday
 
 **Refresh status:** origin/main at the start of this pass was 0044b834 "daily refresh". data/deals.json is stamped 2026-11-22T14:34:58Z. The built pages print that check as Nov 22, 2026 10:34 AM ET. This pass did not edit data/deals.json and did not re-fetch prices. The push triggers daily-refresh, which owns the next price check and the IndexNow ping.

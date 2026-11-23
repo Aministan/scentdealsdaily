@@ -804,6 +804,7 @@
     {"id": "fs-jpg-ultra-male-edt-4-2", "notes": "Eau de toilette. The sweeter Le Male flanker."}
    ],
    "links": [
+    {"href": "/gifts/le-male-le-parfum-or-elixir/", "label": "Le Male Le Parfum or Elixir"},
     {"href": "/vs/le-male-le-parfum-vs-elixir/", "label": "Le Male Le Parfum vs Elixir"},
     {"href": "/gifts/le-male-christmas-gifts/", "label": "Le Male Christmas cologne deals"},
     {"href": "/jean-paul-gaultier-le-male-deals/", "label": "All Le Male deals"}
@@ -830,6 +831,9 @@
     {"id": "fs-lancome-idole-edp-3-4", "notes": "The cleaner modern Lancôme floral. Not another size of La Vie Est Belle."}
    ],
    "links": [
+    {"href": "/gifts/la-vie-est-belle-black-friday-deal/", "label": "La Vie Est Belle Black Friday deal"},
+    {"href": "/gifts/good-girl-vs-la-vie-est-belle/", "label": "Good Girl vs La Vie Est Belle"},
+    {"href": "/gifts/cyber-monday-womens-perfume-under-100/", "label": "Cyber Monday women's perfume under $100"},
     {"href": "/gifts/la-vie-est-belle-christmas-gifts/", "label": "La Vie Est Belle Christmas gifts"},
     {"href": "/best/la-vie-est-belle-alternatives/", "label": "La Vie Est Belle alternatives"}
    ],
@@ -856,6 +860,8 @@
     {"id": "fs-lancome-la-vie-est-belle-edp-3-4", "notes": "A different perfume: pear, iris, praline, vanilla, and tonka. The 3.4 oz."}
    ],
    "links": [
+    {"href": "/gifts/good-girl-vs-la-vie-est-belle/", "label": "Good Girl vs La Vie Est Belle"},
+    {"href": "/gifts/cyber-monday-womens-perfume-under-100/", "label": "Cyber Monday women's perfume under $100"},
     {"href": "/gifts/good-girl-black-friday-deal/", "label": "Good Girl Black Friday deal"},
     {"href": "/best/la-vie-est-belle-deal/", "label": "La Vie Est Belle deal"},
     {"href": "/best/good-girl-alternatives/", "label": "Good Girl alternatives"},
@@ -915,6 +921,7 @@
     {"id": "fs-mm-jazz-club-edt-3-4", "notes": "Eau de toilette: tobacco, rum, and vanilla."}
    ],
    "links": [
+    {"href": "/gifts/afternoon-delight-good-girl-gift/", "label": "Afternoon Delight, Good Girl, and La Vie Est Belle"},
     {"href": "/best/maison-margiela-replica-scents/", "label": "Best Replica scents"},
     {"href": "/best/jazz-club-deal/", "label": "Jazz Club deal"},
     {"href": "/vs/jazz-club-vs-bubble-bath/", "label": "Jazz Club vs Bubble Bath"},
@@ -8884,6 +8891,199 @@
     {"href": "/best/1-million-lucky-deal/", "label": "1 Million Lucky deal"},
     {"href": "/gifts/for-him/", "label": "Fragrance gifts for him"},
     {"href": "/men/", "label": "All men's deals"}
+  ]
+ },
+ {
+  "slug": "la-vie-est-belle-black-friday-deal",
+  "title": "La Vie Est Belle Black Friday deal",
+  "title_tag": "Buy La Vie Est Belle Black Friday",
+  "buy_meta": true,
+  "chip": "La Vie Est Belle Black Friday deal",
+  "gender": "women",
+  "min_price": 60,
+  "max_price": 100,
+  "exclude_mini": true,
+  "exclude_set": true,
+  "min_bottles": 2,
+  "ids": [
+    "lancome-la-vie-est-belle-perfume-eau-de-parfum-for-women",
+    "fs-lancome-la-vie-est-belle-edp-3-4"
+  ],
+  "filled_label": "the La Vie Est Belle Black Friday deal",
+  "intro": "The two La Vie Est Belle sizes still in the price check, lowest checked price first. The 3.4 oz is the FragranceShop bottle shoppers have bought here. The 1.0 oz is the same eau de parfum. Poeme and Idôle stay on the La Vie Est Belle Christmas page. This is not a separate Black Friday price. Black Friday 2026 is November 27.",
+  "empty": "Neither La Vie Est Belle size is in the $60 to $100 price check, so this page has no list.",
+  "empty_desc": "La Vie Est Belle Black Friday deal: neither size is in the price check.",
+  "choose": [
+    "Start with the 3.4 oz when the gift is the bottle shoppers have bought here. The 1.0 oz is the same perfume in a smaller bottle.",
+    "Use the La Vie Est Belle Christmas page when the gift can include Poeme and Idôle. Those two stay off this page."
+  ],
+  "faq": [
+    ["Is the 1.0 oz a different perfume?", "No. It is the same La Vie Est Belle eau de parfum in a smaller bottle. The 3.4 oz is the size shoppers have bought here."],
+    ["Is this a separate Black Friday price?", "No. Each card uses the price already in the daily price check. Black Friday 2026 is November 27."],
+    ["Where are Poeme and Idôle?", "They are on the La Vie Est Belle Christmas page when those bottles are still in the price check. This page is only the two La Vie Est Belle sizes."]
+  ],
+  "links": [
+    {"href": "/best/la-vie-est-belle-deal/", "label": "La Vie Est Belle deal"},
+    {"href": "/gifts/la-vie-est-belle-christmas-gifts/", "label": "La Vie Est Belle Christmas gifts"},
+    {"href": "/gifts/good-girl-vs-la-vie-est-belle/", "label": "Good Girl vs La Vie Est Belle"},
+    {"href": "/fragrance/lanc-me-la-vie-est-belle-perfume-3-4-oz/", "label": "La Vie Est Belle 3.4 oz price"},
+    {"href": "/women/", "label": "Women's perfume deals"},
+    {"href": "/black-friday/lancome/", "label": "Lancôme Black Friday deals"}
+  ]
+ },
+ {
+  "slug": "good-girl-vs-la-vie-est-belle",
+  "title": "Good Girl vs La Vie Est Belle gift",
+  "title_tag": "Buy Good Girl vs La Vie Est Belle",
+  "buy_meta": true,
+  "chip": "Good Girl vs La Vie Est Belle",
+  "min_price": 60,
+  "max_price": 100,
+  "exclude_mini": true,
+  "exclude_set": true,
+  "min_bottles": 2,
+  "ids": [
+    "fs-ch-good-girl-edp-2-7",
+    "fs-lancome-la-vie-est-belle-edp-3-4"
+  ],
+  "filled_label": "Good Girl or La Vie Est Belle",
+  "intro": "Two women's bottles shoppers have bought here, lowest checked price first. Good Girl is almond, jasmine, tonka, and cocoa. La Vie Est Belle 3.4 oz is pear, iris, praline, vanilla, and tonka. They are different perfumes. Very Good Girl and the 1.0 oz La Vie Est Belle stay on their own pages. Good Girl Blush is not in this price check, so this page does not price it. This is a gift choice, not a wear-time test, and it is not a separate sale price.",
+  "empty": "Good Girl and La Vie Est Belle 3.4 oz are not both in the price check, so this page has no list.",
+  "empty_desc": "Good Girl vs La Vie Est Belle: one of the two bottles is not in the price check.",
+  "choose": [
+    "Pick Good Girl when the gift is the cocoa-and-jasmine original. Pick La Vie Est Belle 3.4 oz when the gift is the sweet floral with praline and vanilla.",
+    "Use the Good Girl deal page when the gift can include Very Good Girl. Use the La Vie Est Belle deal page when the gift can include the 1.0 oz."
+  ],
+  "faq": [
+    ["Does Good Girl smell like La Vie Est Belle?", "No. Good Girl is almond, jasmine, tonka, and cocoa. La Vie Est Belle is pear, iris, praline, vanilla, and tonka. Both are eaux de parfum, and they are different perfumes."],
+    ["Is Good Girl Blush on this page?", "No. It is not in this price check. This page does not invent a price for it."],
+    ["Is this a separate gift price?", "No. Each card uses the price already in the daily price check."]
+  ],
+  "links": [
+    {"href": "/best/good-girl-deal/", "label": "Good Girl deal"},
+    {"href": "/best/la-vie-est-belle-deal/", "label": "La Vie Est Belle deal"},
+    {"href": "/gifts/good-girl-black-friday-deal/", "label": "Good Girl Black Friday deal"},
+    {"href": "/gifts/la-vie-est-belle-black-friday-deal/", "label": "La Vie Est Belle Black Friday deal"},
+    {"href": "/women/", "label": "Women's perfume deals"},
+    {"href": "/black-friday/", "label": "Black Friday hub"}
+  ]
+ },
+ {
+  "slug": "cyber-monday-womens-perfume-under-100",
+  "title": "Cyber Monday women's perfume under $100",
+  "title_tag": "Buy Cyber Monday Womens Perfume",
+  "buy_meta": true,
+  "chip": "Cyber Monday women's perfume under $100",
+  "gender": "women",
+  "min_price": 60,
+  "max_price": 100,
+  "exclude_mini": true,
+  "exclude_set": true,
+  "min_bottles": 4,
+  "ids": [
+    "lancome-la-vie-est-belle-perfume-eau-de-parfum-for-women",
+    "fs-ch-very-good-girl-edp-1-7",
+    "fs-ch-good-girl-edp-2-7",
+    "fs-lancome-la-vie-est-belle-edp-3-4",
+    "fs-lancome-idole-edp-3-4"
+  ],
+  "filled_label": "Cyber Monday women's perfume under $100",
+  "intro": "Cyber Monday 2026 is November 30. This page is five women's perfumes whose checked price is at least $60 and under $100: both La Vie Est Belle sizes, Very Good Girl, Good Girl, and Idôle. Good Girl and the 3.4 oz La Vie Est Belle are bottles shoppers have bought here. The Cyber Monday perfume page under $50 is a different list and leaves these bottles off. Best-selling women's perfume under $100 keeps Black Opium and Donna Born in Roma, which this page leaves off. This is not a separate Cyber Monday price.",
+  "empty": "None of these women's perfumes are in the $60 to $100 price check, so this page has no list.",
+  "empty_desc": "Cyber Monday women's perfume under $100: none of these bottles are in that price band.",
+  "choose": [
+    "Start with Good Girl or the 3.4 oz La Vie Est Belle when the gift is a bottle shoppers have bought here. Very Good Girl is the flanker. The 1.0 oz is the same La Vie Est Belle in a smaller bottle. Idôle is the cleaner Lancôme floral.",
+    "Use Cyber Monday perfume deals under $50 when the gift has to stay under $50. This page starts at $60."
+  ],
+  "faq": [
+    ["When is Cyber Monday 2026?", "Cyber Monday 2026 is Monday, November 30."],
+    ["Is this the under-$50 Cyber Monday perfume list?", "No. That page is women's perfume under $50. This page is five bottles from $60 to under $100."],
+    ["Are these separate Cyber Monday prices?", "No. Each card uses the price already in the daily price check. A bottle under $60 or at $100 or more drops off on the next rebuild."]
+  ],
+  "links": [
+    {"href": "/cyber-monday-perfume-deals/", "label": "Cyber Monday perfume under $50"},
+    {"href": "/cyber-monday-fragrance-deals/", "label": "Cyber Monday fragrance deals"},
+    {"href": "/best/good-girl-deal/", "label": "Good Girl deal"},
+    {"href": "/best/la-vie-est-belle-deal/", "label": "La Vie Est Belle deal"},
+    {"href": "/gifts/best-selling-womens-perfume-gifts-under-100/", "label": "Best-selling women's perfume under $100"},
+    {"href": "/women/", "label": "Women's perfume deals"}
+  ]
+ },
+ {
+  "slug": "le-male-le-parfum-or-elixir",
+  "title": "Le Male Le Parfum or Elixir",
+  "title_tag": "Buy Le Male Le Parfum or Elixir",
+  "buy_meta": true,
+  "chip": "Le Male Le Parfum or Elixir",
+  "gender": "men",
+  "min_price": 60,
+  "max_price": 100,
+  "exclude_mini": true,
+  "exclude_set": true,
+  "min_bottles": 2,
+  "ids": [
+    "fs-jpg-le-male-le-parfum-4-2",
+    "fs-jpg-le-male-elixir-parfum-4-2"
+  ],
+  "filled_label": "Le Male Le Parfum or Elixir",
+  "intro": "The two stronger Le Male bottles in this price check, both 4.2 oz, lowest checked price first. Le Male Le Parfum is the eau de parfum intense and the FragranceShop SKU with the most orders in the Oct 15 to Nov 20, 2026 commission file. Le Male Elixir is the parfum. The stored brand copy calls both stronger versions of mint-and-vanilla Le Male and does not publish a separate note list for one versus the other. The comparison page is the concentration table. This page is the two checked prices and a Buy button. Ultra Male is the sweeter eau de toilette and stays on the Le Male Christmas page. The original Le Male eau de toilette is not in this price check.",
+  "empty": "Le Male Le Parfum and Le Male Elixir are not both in the price check, so this page has no list.",
+  "empty_desc": "Le Male Le Parfum or Elixir: one of the two bottles is not in the price check.",
+  "choose": [
+    "Start with Le Male Le Parfum. It is the bottle with the most orders in the commission file. Elixir is the parfum in the same line, at the other checked price.",
+    "Use the Le Male Le Parfum versus Elixir page when you want the concentration table. Use the Le Male Christmas page when the gift can include Ultra Male."
+  ],
+  "faq": [
+    ["Is this the same page as Le Male Le Parfum versus Elixir?", "No. That page is the concentration and notes table. This page leads with the checked price and a Buy button for the lower of the two."],
+    ["Where is the original Le Male eau de toilette?", "It is not in this price check. Ultra Male is the eau de toilette on the Le Male Christmas page."],
+    ["Is this a separate sale price?", "No. Each card uses the price already in the daily price check."]
+  ],
+  "links": [
+    {"href": "/vs/le-male-le-parfum-vs-elixir/", "label": "Le Male Le Parfum vs Elixir"},
+    {"href": "/best/le-male-le-parfum-deal/", "label": "Le Male Le Parfum deal"},
+    {"href": "/gifts/le-male-christmas-gifts/", "label": "Le Male Christmas cologne deals"},
+    {"href": "/fragrance/jean-paul-gaultier-le-male-le-parfum-cologne/", "label": "Le Male Le Parfum price"},
+    {"href": "/men/", "label": "Men's cologne deals"},
+    {"href": "/black-friday/jean-paul-gaultier/", "label": "Jean Paul Gaultier Black Friday deals"}
+  ]
+ },
+ {
+  "slug": "afternoon-delight-good-girl-gift",
+  "title": "Afternoon Delight, Good Girl, and La Vie Est Belle",
+  "title_tag": "Buy Afternoon Delight Gift Picks",
+  "buy_meta": true,
+  "chip": "Afternoon Delight, Good Girl, and La Vie Est Belle",
+  "min_price": 60,
+  "max_price": 100,
+  "exclude_mini": true,
+  "exclude_set": true,
+  "min_bottles": 3,
+  "ids": [
+    "fs-mm-afternoon-delight-edt-3-4",
+    "fs-ch-good-girl-edp-2-7",
+    "fs-lancome-la-vie-est-belle-edp-3-4"
+  ],
+  "filled_label": "Afternoon Delight, Good Girl, or La Vie Est Belle",
+  "intro": "Three bottles shoppers have bought here, lowest checked price first, each still under $100. Afternoon Delight is the vanilla Replica eau de toilette. Good Girl is the cocoa-and-jasmine perfume. La Vie Est Belle 3.4 oz is the sweet floral. Bubble Bath and Jazz Club stay on the Afternoon Delight deal page. Very Good Girl stays on the Good Girl deal page. This is not a unit-sales chart and it is not a separate sale price.",
+  "empty": "These three bottles are not all in the $60 to $100 price check, so this page has no list.",
+  "empty_desc": "Afternoon Delight, Good Girl, and La Vie Est Belle: one of the bottles is not in the price check.",
+  "choose": [
+    "Pick Afternoon Delight for vanilla and a bakery note. Pick Good Girl for cocoa and jasmine. Pick La Vie Est Belle 3.4 oz for pear, praline, and vanilla.",
+    "Use the Afternoon Delight deal when the gift can include Bubble Bath and Jazz Club. Use Good Girl versus La Vie Est Belle when the gift is only those two perfumes."
+  ],
+  "faq": [
+    ["Does Afternoon Delight smell like Good Girl?", "No. Afternoon Delight is madeleine, vanilla, and a soft musk. Good Girl is almond, jasmine, tonka, and cocoa. La Vie Est Belle is pear, iris, praline, vanilla, and tonka."],
+    ["Why are Bubble Bath and Jazz Club not here?", "They are on the Afternoon Delight deal page. This page is the three bottles shoppers have bought: Afternoon Delight, Good Girl, and La Vie Est Belle 3.4 oz."],
+    ["Is this a separate sale price?", "No. Each card uses the price already in the daily price check."]
+  ],
+  "links": [
+    {"href": "/best/afternoon-delight-deal/", "label": "Afternoon Delight deal"},
+    {"href": "/best/good-girl-deal/", "label": "Good Girl deal"},
+    {"href": "/best/la-vie-est-belle-deal/", "label": "La Vie Est Belle deal"},
+    {"href": "/gifts/good-girl-vs-la-vie-est-belle/", "label": "Good Girl vs La Vie Est Belle"},
+    {"href": "/unisex/", "label": "Unisex fragrance deals"},
+    {"href": "/women/", "label": "Women's perfume deals"},
+    {"href": "/black-friday/", "label": "Black Friday hub"}
   ]
  }
  ],
