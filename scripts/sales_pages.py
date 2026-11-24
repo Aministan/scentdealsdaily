@@ -390,8 +390,9 @@ def _price_drops(ns):
     for deal in shown:
         gap = deal["was"] - deal["price"]
         href = f"/fragrance/{_deal_slug(ns, deal)}/"
+        thumb = ns["bottle_thumb"](deal, False)
         bits.append(
-            "<div class='fold-deal'>"
+            f"{ns['_price_card_open']('fold-deal', thumb)}"
             f"<p class='lead-name'><a href='{ns['PREFIX']}{href}'><b>{ns['e'](ns['fullname'](deal))}</b></a>"
             f" · {ns['e'](ns['sz'](deal.get('size') or ''))}</p>"
             f"<p class='lead-price'><span class='price'>${deal['price']:.2f}</span> "
@@ -486,11 +487,15 @@ def _write_family(ns, family, sets):
         f"Jean Paul Gaultier Le Male Le Parfum is {price} ({ns['sz'](lead.get('size') or '')}) at {lead['retailer']}. Elixir, Le Beau, and the gift sets we priced. Checked {when}.",
         f"Le Male Le Parfum is {price} at {lead['retailer']}. Other Le Male bottles in this price check are listed under it. Checked {when}.",
     ], 160)
+    thumb = ns["bottle_thumb"](lead, True)
     bits = [
         "<h1>Jean Paul Gaultier Le Male deals</h1>",
         f"<p class='sub'>Le Male Le Parfum first. Prices checked {ns['e'](when)}.</p>",
-        f"<p><b>{ns['e'](ns['fullname'](lead))}</b> · {ns['e'](ns['sz'](lead.get('size') or ''))} · <span class='price'>{price}</span> at {ns['e'](lead['retailer'])}</p>",
-        ns["ext_a"](lead["url"], f"Buy at {ns['e'](lead['retailer'])}", cls="btn", placement="cta", product=_deal_slug(ns, lead)),
+        f"{ns['_price_card_open']('lead-offer', thumb)}"
+        f"<p class='lead-name'><b>{ns['e'](ns['fullname'](lead))}</b> · {ns['e'](ns['sz'](lead.get('size') or ''))}</p>"
+        f"<p class='lead-price'><span class='price'>{price}</span> <span class='meta'>at {ns['e'](lead['retailer'])}</span></p>"
+        + ns["ext_a"](lead["url"], f"Buy at {ns['e'](lead['retailer'])}", cls="btn", style="max-width:340px", placement="cta", product=_deal_slug(ns, lead))
+        + "</div>",
         "<h2>The rest of the line</h2><div class='grid'>",
     ]
     for deal in family:

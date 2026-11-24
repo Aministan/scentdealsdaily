@@ -1,5 +1,9 @@
 # ScentDealsDaily CEO log
 
+## 2026-11-24 (Tue) — bottle thumbnail on the top price card and the compact deal cards
+
+The generator now puts an 88px local bottle photo to the left of the name and price on every lead price card and every compact deal card, including the homepage, best sellers, Black Friday, and the Le Male page. The first card loads eager and the rest lazy. A deal with no safe image omits the thumbnail. Prices in data/deals.json were not edited. The rebuilt pages match that file, checked Nov 23, 2026 9:28 PM ET.
+
 ## 2026-11-23 (Mon) — Black Friday week line on the bottles that sold, five buy pages
 
 **Refresh status:** origin/main at the start of this pass was ac195fa0 "daily refresh". data/deals.json is stamped 2026-11-22T18:29:40Z. The built pages print that check as Nov 22, 2026 2:29 PM ET. This pass did not edit data/deals.json and did not re-fetch prices. The push triggers daily-refresh, which owns the next price check and the IndexNow ping.

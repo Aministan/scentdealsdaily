@@ -240,6 +240,11 @@ main{max-width:1100px;margin:0 auto;padding:16px}h1{font-size:26px;line-height:1
 .fold-deals>.meta{grid-column:1/-1}
 .fold-deal{background:#fff;border:1px solid #ece7e1;border-radius:12px;padding:8px 10px}
 .fold-deal .lead-name,.fold-deal .lead-price{margin:2px 0}.fold-deal .price{font-size:20px}.fold-deal .btn{margin-top:6px;padding:8px 10px}
+.bottle-thumb{width:88px;height:88px;object-fit:contain;background:#faf8f5;border-radius:10px;display:block}
+.lead-offer:has(>.bottle-thumb),.fold-deal:has(>.bottle-thumb){display:grid;grid-template-columns:88px minmax(0,1fr);column-gap:10px;align-items:center}
+.lead-offer:has(>.bottle-thumb)>.meta,.lead-offer:has(>.bottle-thumb)>.btn,.fold-deal:has(>.bottle-thumb)>.btn{grid-column:1/-1}
+.lead-offer:has(>.bottle-thumb)>.bottle-thumb,.fold-deal:has(>.bottle-thumb)>.bottle-thumb{grid-column:1;grid-row:auto/span 2;align-self:center}
+.lead-offer:has(>.bottle-thumb)>.lead-name,.lead-offer:has(>.bottle-thumb)>.lead-price,.fold-deal:has(>.bottle-thumb)>.lead-name,.fold-deal:has(>.bottle-thumb)>.lead-price{grid-column:2;min-width:0}
 .bf-banner{background:#1d1b20;color:#fff;text-align:center;margin:0;padding:6px 12px;font-size:14px}.bf-banner a{color:#e7b75f;font-weight:700;text-decoration:none}
 .proven-picks{margin:0 0 8px;font-size:14px;line-height:1.4}.proven-picks a{display:inline-block;margin:0 8px 4px 0}
 .promo-callout,.promo-code{background:#fff8ea;border:1px solid #e7b75f;border-radius:12px;padding:8px 12px;margin:0 0 10px}.promo-code{font-weight:650}
@@ -483,6 +488,34 @@ def card_img(d, eager=False, alt=None):
     ld='fetchpriority="high"' if eager else 'loading="lazy"'
     alt=product_alt(d) if alt is None else alt
     return f'<img {ld} decoding="async" src="{e(src)}" alt="{e(alt)}" width="400" height="400">'
+THUMB_PX=88
+def _safe_photo(d):
+    """Local product photo already stored for this deal. Never a tracking or remote URL."""
+    src=hosted_photo(d)
+    if not isinstance(src, str) or not src.startswith("/"): return ""
+    if src.startswith(("http://","https://","data:")): return ""
+    if links.is_tracking_url(src) or links.is_internal_redirect(src): return ""
+    return src
+def bottle_thumb(d, eager=False):
+    """88px bottle photo to the left of the name and price. Omitted when the deal has no safe image."""
+    src=_safe_photo(d)
+    if not src: return ""
+    loading="eager" if eager else "lazy"
+    return (f"<img class='bottle-thumb' loading='{loading}' decoding='async' src='{e(src)}' "
+            f"alt='{e(product_alt(d))}' width='{THUMB_PX}' height='{THUMB_PX}'>")
+def _price_card_open(kind, thumb=""):
+    return f"<div class='{kind}'>{thumb}"
+def _is_thumb_tag(tag):
+    return "bottle-thumb" in (tag or "")
+def _lead_photo(fragment):
+    """A product photo inside a price card, other than the small bottle thumbnail."""
+    return any(not _is_thumb_tag(tag) for tag in re.findall(r"<img\b[^>]*>", fragment or "", re.I))
+def _photo_at(text, start=0):
+    """Index of the first product photo. Bottle thumbnails on price cards do not count."""
+    for m in re.finditer(r"<img\b[^>]*>", (text or "")[start:], re.I):
+        if not _is_thumb_tag(m.group(0)):
+            return start+m.start()
+    return -1
 def card(d,eager=False):
     sold="<span class='badge best'>Best seller</span>" if _deal_orders(d)>0 else ""
     return f"""<article class="card">{card_img(d, eager, alt=fullname(d))}
@@ -858,7 +891,8 @@ def lead_offer(rows, week_row=None):
     stamp=f"Best price on this page · Price checked {e(upd_h)}"
     if week_row and week_row.get("id") in _SOLD_DEAL_IDS and bf_week_on():
         stamp=f"Black Friday week price, checked {e(checked_h(week_row.get('checked')))}"
-    return (f"<div class='lead-offer'><p class='meta'>{stamp}</p>"
+    thumb=bottle_thumb(d, True)
+    return (f"<div class='lead-offer'><p class='meta'>{stamp}</p>{thumb}"
             f"<p class='lead-name'><b>{e(fullname(d))}</b>{size_bit}</p>"
             f"<p class='lead-price'><span class='price'>${d['price']:.2f}</span> <span class='meta'>at {e(d['retailer'])}</span></p>"
             f"{ext_a(d['url'], label, cls='btn', style='max-width:340px', placement='cta', product=frag_slug(d) if d.get('brand') and d.get('name') else '')}{ship}</div>")
@@ -925,8 +959,9 @@ def fs_fold_html(rows, pins=()):
     for d in picks:
         size=sz(d.get("size") or "")
         size_bit=f" · {e(size)}" if size else ""
+        thumb=bottle_thumb(d, False)
         bits.append(
-            "<div class='fold-deal'>"
+            f"{_price_card_open('fold-deal', thumb)}"
             f"<p class='lead-name'><b>{e(fullname(d))}</b>{size_bit}</p>"
             f"<p class='lead-price'><span class='price'>${d['price']:.2f}</span> <span class='meta'>at FragranceShop</span></p>"
             f"{ext_a(d['url'], 'Buy at FragranceShop →', cls='btn', placement='cta', product=frag_slug(d))}"
@@ -1023,7 +1058,8 @@ def shopper_lead():
     size_bit=f" · {e(size)}" if size else ""
     label="Buy at "+e(d["retailer"])+" →"
     ship="<p class='meta'>Free U.S. shipping on orders over $50</p>" if d.get("retailer")=="FragranceShop" else ""
-    return (f"<div class='lead-offer'><p class='meta'>Proven pick · Price checked {e(upd_h)}</p>"
+    thumb=bottle_thumb(d, True)
+    return (f"<div class='lead-offer'><p class='meta'>Proven pick · Price checked {e(upd_h)}</p>{thumb}"
             f"<p class='lead-name'><b>{e(fullname(d))}</b>{size_bit}</p>"
             f"<p class='lead-price'><span class='price'>${d['price']:.2f}</span> <span class='meta'>at {e(d['retailer'])}</span></p>"
             f"{ext_a(d['url'], label, cls='btn', style='max-width:340px', placement='cta', product=frag_slug(d))}{ship}</div>")
@@ -1708,7 +1744,7 @@ def splice_proven_also():
         text=text.replace("<!--proven-also-->", row, 1)
         lead_at=text.find("class='lead-offer'")
         row_at=text.find("also popular:")
-        img_at=text.find("<img", lead_at)
+        img_at=_photo_at(text, lead_at)
         if lead_at<0 or row_at<lead_at or img_at<0 or row_at>img_at:
             raise SystemExit(f"{rel}: also popular is not between the Buy button and the photo")
         for other in _CONVERTERS:
@@ -2030,7 +2066,8 @@ def seller_lead(d):
         stamp=f"Best price · Price checked {e(when)}"
         if d.get("id") in PROVEN_IDS and bf_week_on():
             week=" <span class='meta'>Black Friday week price</span>"
-    return (f"<div class='lead-offer'><p class='meta'>{stamp}</p>"
+    thumb=bottle_thumb(d, True)
+    return (f"<div class='lead-offer'><p class='meta'>{stamp}</p>{thumb}"
             f"<p class='lead-name'><b>{e(fullname(d))}</b>{size_bit}</p>"
             f"<p class='lead-price'><span class='price'>${d['price']:.2f}</span>{week} <span class='was'>${d['was']:.2f}</span> <span class='badge'>-{d['pct_off']}%</span> <span class='meta'>at {e(d['retailer'])}</span></p>"
             f"{ext_a(d['url'], label, cls='btn', style='max-width:340px', placement='cta', product=frag_slug(d))}{ship}</div>")
@@ -6810,7 +6847,7 @@ def audit_nov8_buys():
         lead=re.search(r"<div class='lead-offer'>(.*?)</div>", text, re.S)
         if not lead or "Price checked " not in lead.group(1) or "Buy at " not in lead.group(1):
             raise SystemExit(f"{rel}: lead Buy is missing the price-checked date")
-        if "<img" in lead.group(1):
+        if _lead_photo(lead.group(1)):
             raise SystemExit(f"{rel}: lead block has an image")
         card_at=text.find('<article class="card">')
         nav_at=text.find("Black Friday &amp; Cyber Monday")
@@ -6838,7 +6875,7 @@ def audit_nov9_buys():
         text=open(f"{OUT}/{rel}", encoding="utf-8").read()
         lead=re.search(r"<div class='lead-offer'>(.*?)</div>", text, re.S)
         card_at=text.find('<article class="card">')
-        if not lead or "Buy at " not in lead.group(1) or "<img" in lead.group(1):
+        if not lead or "Buy at " not in lead.group(1) or _lead_photo(lead.group(1)):
             raise SystemExit(f"{rel}: missing the above-the-fold Buy block")
         if "Price checked " not in lead.group(1) and "Prices checked " not in text[:card_at if card_at>0 else 800]:
             raise SystemExit(f"{rel}: missing the prices-checked line above the cards")
@@ -6877,7 +6914,7 @@ def audit_nov9_buys():
         if not (70<=len(desc)<=160) or not desc.startswith("Buy ") or "from $" not in desc:
             raise SystemExit(f"{rel}: meta is {len(desc)} chars or misses Buy / from price ({desc})")
         lead=re.search(r"<div class='lead-offer'>(.*?)</div>", text, re.S)
-        if not lead or "Price checked " not in lead.group(1) or "Buy at " not in lead.group(1) or "<img" in lead.group(1):
+        if not lead or "Price checked " not in lead.group(1) or "Buy at " not in lead.group(1) or _lead_photo(lead.group(1)):
             raise SystemExit(f"{rel}: lead Buy is missing the price-checked date")
         card_at=text.find('<article class="card">')
         if card_at<0 or text.find("lead-offer")>card_at:
@@ -7048,7 +7085,7 @@ def audit_nov10_pages():
             raise SystemExit(f"{loc} missing from sitemap, llms.txt, or feed.xml")
         lead=re.search(r"<div class='lead-offer'>(.*?)</div>", text, re.S)
         card_at=text.find('<article class="card">')
-        if not lead or "Price checked " not in lead.group(1) or "Buy at " not in lead.group(1) or "<img" in lead.group(1):
+        if not lead or "Price checked " not in lead.group(1) or "Buy at " not in lead.group(1) or _lead_photo(lead.group(1)):
             raise SystemExit(f"{rel}: lead Buy is missing the price-checked date")
         if card_at<0 or text.find("lead-offer")>card_at:
             raise SystemExit(f"{rel}: cards are above the lead Buy")
@@ -7332,7 +7369,7 @@ def audit_seller_pages():
         card_at=text.find('<article class="card">')
         if not lead or "Buy at " not in lead.group(1) or price not in lead.group(1) or ("Price checked " not in lead.group(1) and "Black Friday week price, checked " not in lead.group(1)):
             raise SystemExit(f"{rel}: lead Buy is missing the price or the check date")
-        if "<img" in lead.group(1):
+        if _lead_photo(lead.group(1)):
             raise SystemExit(f"{rel}: lead block has an image")
         if lead_at<0 or card_at<0 or lead_at>card_at:
             raise SystemExit(f"{rel}: cards are above the lead Buy")
@@ -7419,7 +7456,7 @@ def audit_nov12_pages():
             raise SystemExit(f"{rel}: canonical is not {loc}")
         lead=re.search(r"<div class='lead-offer'>(.*?)</div>", text, re.S)
         card_at=text.find('<article class="card">')
-        if not lead or "Price checked " not in lead.group(1) or "Buy at " not in lead.group(1) or "<img" in lead.group(1):
+        if not lead or "Price checked " not in lead.group(1) or "Buy at " not in lead.group(1) or _lead_photo(lead.group(1)):
             raise SystemExit(f"{rel}: lead Buy is missing the price-checked date")
         if card_at<0 or text.find("lead-offer")>card_at:
             raise SystemExit(f"{rel}: cards are above the lead Buy")
@@ -7533,7 +7570,7 @@ def audit_nov13_pages():
             raise SystemExit(f"{rel}: canonical is not on the live host")
         lead=re.search(r"<div class='lead-offer'>(.*?)</div>", text, re.S)
         card_at=text.find('<article class="card">')
-        if not lead or "Price checked " not in lead.group(1) or "Buy at " not in lead.group(1) or "<img" in lead.group(1):
+        if not lead or "Price checked " not in lead.group(1) or "Buy at " not in lead.group(1) or _lead_photo(lead.group(1)):
             raise SystemExit(f"{rel}: lead Buy is missing the price-checked date")
         if card_at<0 or text.find("lead-offer")>card_at:
             raise SystemExit(f"{rel}: cards are above the lead Buy")
@@ -7563,7 +7600,7 @@ def audit_nov13_pages():
     for rel, d in SELLER_PAGES:
         if seller_line(d) not in ("lancome","carolina","replica","paco"): continue
         text=open(f"{OUT}/{rel}", encoding="utf-8").read()
-        img_at=text.find("<img")
+        img_at=_photo_at(text)
         lead_at=text.find("lead-offer")
         if img_at<0 or lead_at<0 or img_at<lead_at:
             raise SystemExit(f"{rel}: the photo is above the Buy button")
@@ -7606,7 +7643,7 @@ def audit_keyword_pages():
         if d.get("id") not in PROVEN_IDS: continue
         text=open(f"{OUT}/{rel}", encoding="utf-8").read()
         lead_at=text.find("lead-offer")
-        img_at=text.find("<img")
+        img_at=_photo_at(text)
         if lead_at<0 or img_at<lead_at:
             raise SystemExit(f"{rel}: the photo is above the Buy button")
         if ">Size and concentration</h2>" not in text or ">How it smells</h2>" not in text:
@@ -7944,7 +7981,7 @@ def audit_nov20_pages():
             raise SystemExit(f"{rel}: canonical is not {loc}")
         lead=re.search(r"<div class='lead-offer'>(.*?)</div>", text, re.S)
         card_at=text.find('<article class="card">')
-        if not lead or "Buy at " not in lead.group(1) or "Price checked " not in lead.group(1) or "<img" in lead.group(1):
+        if not lead or "Buy at " not in lead.group(1) or "Price checked " not in lead.group(1) or _lead_photo(lead.group(1)):
             raise SystemExit(f"{rel}: lead Buy is missing the price or sits under a photo")
         if card_at<0 or text.find("lead-offer")>card_at:
             raise SystemExit(f"{rel}: cards are above the lead Buy")
@@ -7976,7 +8013,7 @@ def audit_nov21_pages():
         title=html.unescape(re.search(r"<title>(.*?)</title>", text, re.S).group(1))
         desc=html.unescape(re.search(r'<meta name="description" content="([^"]*)"', text).group(1))
         lead_at=text.find("class='lead-offer'")
-        img_at=text.find("<img")
+        img_at=_photo_at(text)
         if lead_at<0 or img_at<lead_at:
             raise SystemExit(f"{rel}: the photo is above the Buy button")
         block=text[lead_at:img_at]
@@ -8019,8 +8056,8 @@ def audit_nov21_pages():
             raise SystemExit(f"{rel}: meta is {len(desc)} chars ({desc})")
         lead=re.search(r"<div class='lead-offer'>(.*?)</div>", text, re.S)
         card_at=text.find('<article class="card">')
-        img_at=text.find("<img")
-        if not lead or "Buy at " not in lead.group(1) or ("Price checked " not in lead.group(1) and "Black Friday week price, checked " not in lead.group(1)) or "<img" in lead.group(1):
+        img_at=_photo_at(text)
+        if not lead or "Buy at " not in lead.group(1) or ("Price checked " not in lead.group(1) and "Black Friday week price, checked " not in lead.group(1)) or _lead_photo(lead.group(1)):
             raise SystemExit(f"{rel}: lead Buy is missing the price or sits under a photo")
         if img_at<0 or text.find("lead-offer")>img_at:
             raise SystemExit(f"{rel}: the photo is above the Buy button")
@@ -8121,7 +8158,7 @@ def audit_nov22_pages():
         if f"<loc>{loc}</loc>" not in sm or loc not in llms or loc not in feed:
             raise SystemExit(f"{loc} missing from sitemap, llms.txt, or feed.xml")
         lead_html=re.search(r"<div class='lead-offer'>(.*?)</div>", text, re.S)
-        img_at=text.find("<img")
+        img_at=_photo_at(text)
         lead_at=text.find("lead-offer")
         if not lead_html or f"${lead['price']:.2f}" not in lead_html.group(1) or f"Buy at {lead['retailer']}" not in lead_html.group(1) or ("Price checked " not in lead_html.group(1) and "Black Friday week price, checked " not in lead_html.group(1)):
             raise SystemExit(f"{rel}: lead Buy is not {fullname(lead)} at ${lead['price']:.2f}")
@@ -8166,7 +8203,7 @@ def audit_nov23_pages():
         rel=f"fragrance/{frag_slug(d)}/index.html"
         text=open(f"{OUT}/{rel}", encoding="utf-8").read()
         lead_at=text.find("class='lead-offer'")
-        img_at=text.find("<img")
+        img_at=_photo_at(text)
         if lead_at<0 or img_at<lead_at:
             raise SystemExit(f"{rel}: the photo is above the Buy button")
         block=text[lead_at:img_at]
@@ -8175,7 +8212,7 @@ def audit_nov23_pages():
         best=f"/best/{_SOLD_BEST[deal_id]}/index.html"
         best_text=open(f"{OUT}/{best}", encoding="utf-8").read()
         best_lead=best_text.find("class='lead-offer'")
-        best_img=best_text.find("<img")
+        best_img=_photo_at(best_text)
         if best_lead<0 or best_img<best_lead:
             raise SystemExit(f"{best}: the photo is above the Buy button")
         best_block=best_text[best_lead:best_img]
@@ -8184,7 +8221,7 @@ def audit_nov23_pages():
         print(f"{rel}: week line above the photo, ${d['price']:.2f} at FragranceShop")
     for rel in ("index.html","black-friday/index.html"):
         text=open(f"{OUT}/{rel}", encoding="utf-8").read()
-        img_at=text.find("<img")
+        img_at=_photo_at(text)
         row=text.find("id='sold-deal-pages'")
         if row<0 or img_at<row:
             raise SystemExit(f"{rel}: deal-page links are not above the first photo")
@@ -8239,8 +8276,8 @@ def audit_nov23_pages():
             if tag not in text:
                 raise SystemExit(f"{rel}: missing a Google site-verification tag")
         lead=re.search(r"<div class='lead-offer'>(.*?)</div>", text, re.S)
-        img_at=text.find("<img")
-        if not lead or "Buy at " not in lead.group(1) or "Price checked " not in lead.group(1) or "<img" in lead.group(1):
+        img_at=_photo_at(text)
+        if not lead or "Buy at " not in lead.group(1) or "Price checked " not in lead.group(1) or _lead_photo(lead.group(1)):
             raise SystemExit(f"{rel}: lead Buy is missing the price or sits under a photo")
         if img_at<0 or text.find("lead-offer")>img_at:
             raise SystemExit(f"{rel}: the photo is above the Buy button")
@@ -8262,6 +8299,63 @@ def audit_nov23_pages():
         raise SystemExit("CNAME is not scentdealsdaily.com")
     print("nov 23: week line on five sellers, five new buying pages")
 audit_nov23_pages()
+def audit_bottle_thumbs():
+    """Price cards keep a small local bottle photo beside the name. A deal with no safe image has no img."""
+    css=open(f"{OUT}/style.css", encoding="utf-8").read()
+    if ".bottle-thumb{width:88px;height:88px;object-fit:contain" not in css:
+        raise SystemExit("bottle thumbnail CSS is missing")
+    if "grid-template-columns:88px" not in css or ".lead-offer:has(>.bottle-thumb)" not in css or ".fold-deal:has(>.bottle-thumb)" not in css:
+        raise SystemExit("bottle thumbnail row CSS is missing")
+    tag_re=re.compile(r"<img\b[^>]*class='bottle-thumb'[^>]*>", re.I)
+    block_re=re.compile(r"<div class='(lead-offer|fold-deal)'>(.*?)</div>", re.S)
+    focus=("index.html","best-sellers/index.html","black-friday/index.html","jean-paul-gaultier-le-male-deals/index.html")
+    seen=0
+    focused=0
+    for dirpath, _, files in os.walk(OUT):
+        for fn in files:
+            if not fn.endswith(".html"): continue
+            rel=os.path.relpath(os.path.join(dirpath, fn), OUT).replace(os.sep, "/")
+            text=open(os.path.join(dirpath, fn), encoding="utf-8").read()
+            blocks=list(block_re.finditer(text))
+            for m in blocks:
+                kind, inner=m.group(1), m.group(2)
+                thumbs=tag_re.findall(inner)
+                if len(thumbs)>1:
+                    raise SystemExit(f"{rel}: {kind} card has more than one bottle thumbnail")
+                if not thumbs and "<img" in inner:
+                    raise SystemExit(f"{rel}: price card has an image without a stored photo")
+                for tag in thumbs:
+                    src_m=re.search(r"src='([^']*)'", tag)
+                    alt_m=re.search(r"alt='([^']*)'", tag)
+                    width_m=re.search(r"width='(\d+)'", tag)
+                    height_m=re.search(r"height='(\d+)'", tag)
+                    load_m=re.search(r"loading='(eager|lazy)'", tag)
+                    if not src_m or not alt_m or not alt_m.group(1).strip() or not width_m or not height_m or not load_m:
+                        raise SystemExit(f"{rel}: bottle thumbnail is missing src, alt, size, or loading")
+                    if width_m.group(1)!=str(THUMB_PX) or height_m.group(1)!=str(THUMB_PX):
+                        raise SystemExit(f"{rel}: bottle thumbnail is not {THUMB_PX}px")
+                    expect="eager" if kind=="lead-offer" else "lazy"
+                    if load_m.group(1)!=expect:
+                        raise SystemExit(f"{rel}: {kind} thumbnail loading is {load_m.group(1)}, expected {expect}")
+                    url=html.unescape(src_m.group(1))
+                    if url.startswith(("http://","https://","data:")) or links.is_tracking_url(url) or links.is_internal_redirect(url):
+                        raise SystemExit(f"{rel}: bottle thumbnail is not a local product image")
+                    if not _local_file(url.split("?")[0]):
+                        raise SystemExit(f"{rel}: bottle thumbnail file is missing ({url})")
+                    if "Buy at " in inner and inner.find("bottle-thumb")>inner.find("Buy at "):
+                        raise SystemExit(f"{rel}: bottle thumbnail is not beside the name and price")
+                    seen+=1
+            if rel in focus:
+                top=blocks[0] if blocks else None
+                if not top or top.group(1)!="lead-offer" or "Buy at " not in top.group(0):
+                    raise SystemExit(f"{rel}: the top price card is missing its Buy button")
+                if "bottle-thumb" not in top.group(0):
+                    raise SystemExit(f"{rel}: the top price card has no bottle thumbnail")
+                focused+=1
+    if focused!=len(focus) or seen<focused:
+        raise SystemExit(f"bottle thumbnails: {seen} photos, {focused} top cards")
+    print(f"bottle thumbnails: {seen} price-card photos, {focused} top cards eager")
+audit_bottle_thumbs()
 import subprocess, sys
 _validator=subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "validate_jsonld.py")])
 if _validator.returncode!=0:
