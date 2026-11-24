@@ -1,10 +1,10 @@
 {
   "source": "CJ FragranceShop export",
-  "period": "2026-10-15/2026-11-20",
+  "period": "2026-10-15/2026-11-24",
   "merchant": "FragranceShop",
-  "orders": 15,
-  "commission": 62.95,
-  "note": "Per-SKU commission was not in the export, so each row leaves commission null. Sale is orders times the unit price only when the export stated both for that SKU alone. A shared group does not split orders or sale across its SKUs. slug is set only when data/deals.json has that exact sku. A missing slug is null.",
+  "orders": 18,
+  "commission": 75.491,
+  "note": "Per-SKU commission was not in the first export, so those rows leave commission null. Sale is orders times the unit price only when the export stated both for that SKU alone. A shared group does not split orders or sale across its SKUs. slug is set only when data/deals.json has that exact sku. A missing slug is null. Rows added from the Commission Detail API on 2026-11-24 store that action's sale and commission.",
   "winners": [
     {
       "sku": "FS191154",
@@ -136,6 +136,36 @@
       "deal_id": "the-most-wanted-parfum-cologne",
       "slug": "azzaro-the-most-wanted-parfum-cologne",
       "note": "Azzaro The Most Wanted Parfum 1.7 oz."
+    },
+    {
+      "sku": "FS90184",
+      "orders": 1,
+      "unit_price": null,
+      "sale": 70.95,
+      "commission": 3.547,
+      "deal_id": null,
+      "slug": null,
+      "note": "Posted 2026-11-23. Not in deals.json. No bottle name assigned."
+    },
+    {
+      "sku": "FS42082",
+      "orders": 1,
+      "unit_price": null,
+      "sale": 101.95,
+      "commission": 5.097,
+      "deal_id": null,
+      "slug": null,
+      "note": "Posted 2026-11-23. Not in deals.json. Not the same SKU as FS42081."
+    },
+    {
+      "sku": "FS191156",
+      "orders": 1,
+      "unit_price": 77.95,
+      "sale": 77.95,
+      "commission": 3.897,
+      "deal_id": "fs-jpg-ultra-male-edt-4-2",
+      "slug": "jean-paul-gaultier-ultra-male-cologne",
+      "note": "Exact sku match in deals.json: Jean Paul Gaultier Ultra Male Cologne, 4.2 oz, Eau de Toilette. Posted 2026-11-24."
     }
   ]
 }
