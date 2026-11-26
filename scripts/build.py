@@ -1045,9 +1045,9 @@ def proven_deal_links_html():
         label=_pick_label(d)
         bits.append(f"<a href='{PREFIX}/fragrance/{frag_slug(d)}/'>{e(label)} ${d['price']:.2f}</a>")
         best=_SOLD_BEST.get(deal_id)
-        if best:
+        if best and any(r["slug"]==best for r in ROUNDUPS):
             bits.append(f"<a href='{PREFIX}/best/{best}/'>{e(label)} deal</a>")
-    if len(bits)<10: return ""
+    if len(bits)<5: return ""
     return "<p class='proven-picks' id='sold-deal-pages'><b>Deal pages</b> "+" ".join(bits)+"</p>"
 def shopper_lead():
     """One Buy button for the lowest of those three. Not the cheapest bottle on a mixed page."""
@@ -2440,6 +2440,8 @@ for r in ROUNDUPS:
             href=l["href"]
             slug_s=href.strip("/").split("/")[-1]
             if href.startswith("/vs/") and slug_s not in built_vs:
+                continue
+            if href.startswith("/best/") and slug_s not in {r["slug"] for r in ROUNDUPS}:
                 continue
             if href.startswith("/gifts/") and href.strip("/")!="gifts" and slug_s not in built_gifts:
                 continue
@@ -8103,8 +8105,14 @@ def audit_nov22_pages():
          ("men/index.html","women/index.html"),"brands/paco-rabanne/index.html","black-friday/paco-rabanne/index.html","fragrance/paco-rabanne-invictus-cologne/index.html"),
     )
     by_slug={r["slug"]: tuple(sorted(d.get("id") for d in r["items"])) for r in ROUNDUPS}
+    skipped=set()
     for rel, _href, _lead, ids, _genders, _brand, _bf, _frag in specs:
         slug=rel.split("/")[1]
+        missing=[i for i in ids if i not in BYID]
+        if missing:
+            print(f"{slug}: not built today, missing {', '.join(missing)}")
+            skipped.add(slug)
+            continue
         if slug not in by_slug:
             raise SystemExit(f"{slug}: roundup was not built")
         if by_slug[slug]!=tuple(sorted(ids)):
@@ -8137,6 +8145,8 @@ def audit_nov22_pages():
     blobs=[open(fp, encoding="utf-8").read() for fp in html_files]
     seen_titles=set()
     for rel, href, lead_id, ids, genders, brand, bf, frag in specs:
+        if rel.split("/")[1] in skipped:
+            continue
         text=open(f"{OUT}/{rel}", encoding="utf-8").read()
         title=html.unescape(re.search(r"<title>(.*?)</title>", text, re.S).group(1))
         desc=html.unescape(re.search(r'<meta name="description" content="([^"]*)"', text).group(1))
@@ -8209,7 +8219,11 @@ def audit_nov23_pages():
         block=text[lead_at:img_at]
         if not when_re.search(block) or f"${d['price']:.2f}" not in block or "Buy at FragranceShop" not in block:
             raise SystemExit(f"{rel}: missing the Black Friday week line, the checked price, or the FragranceShop Buy button")
-        best=f"/best/{_SOLD_BEST[deal_id]}/index.html"
+        best_slug=_SOLD_BEST[deal_id]
+        if not any(r["slug"]==best_slug for r in ROUNDUPS):
+            print(f"{rel}: week line above the photo, ${d['price']:.2f} at FragranceShop; /best/{best_slug}/ is not in this build")
+            continue
+        best=f"/best/{best_slug}/index.html"
         best_text=open(f"{OUT}/{best}", encoding="utf-8").read()
         best_lead=best_text.find("class='lead-offer'")
         best_img=_photo_at(best_text)
@@ -8229,9 +8243,12 @@ def audit_nov23_pages():
         for deal_id in _SOLD_DEAL_IDS:
             d=by_id[deal_id]
             href=f"{PREFIX}/fragrance/{frag_slug(d)}/"
-            best_href=f"{PREFIX}/best/{_SOLD_BEST[deal_id]}/"
-            if href not in head or best_href not in head or f"${d['price']:.2f}" not in head:
+            best_slug=_SOLD_BEST[deal_id]
+            best_href=f"{PREFIX}/best/{best_slug}/"
+            if href not in head or f"${d['price']:.2f}" not in head:
                 raise SystemExit(f"{rel}: fold is missing {d['id']} at ${d['price']:.2f}")
+            if any(r["slug"]==best_slug for r in ROUNDUPS) and best_href not in head:
+                raise SystemExit(f"{rel}: fold is missing the {best_slug} page for {d['id']}")
         print(f"{rel}: five sold bottles link to their deal pages above the photo")
     sm=open(f"{OUT}/sitemap.xml", encoding="utf-8").read()
     llms=open(f"{OUT}/llms.txt", encoding="utf-8").read()
