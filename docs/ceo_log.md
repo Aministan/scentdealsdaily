@@ -1,5 +1,48 @@
 # ScentDealsDaily CEO log
 
+## 2026-11-26 (Thu) — Black Friday Buy line on every sold bottle, five buying pages
+
+**Refresh status:** origin/main at the start of this pass was the latest daily refresh. data/deals.json is stamped 2026-11-26T14:30:47Z. The built pages print that check as Nov 26, 2026. This pass did not edit data/deals.json and did not re-fetch prices. The push triggers daily-refresh, which owns the next price check and the IndexNow ping.
+
+**Muse result:** muse_deals.json is unchanged (sha1 26cbc2509317eb00083be99cb218afc8c4359a31, 56 rows). Nothing merged. No prices were invented. Skipped, same reasons as the earlier passes, checked again against the file:
+- 13 eBay rows. Marketplace sellers. Not an approved retailer.
+- Walmart (PerfumesAmerica). Marketplace seller.
+- Sephora Phantom row. It is marked reference, not a discount, and Sephora is not a buy button.
+- 9 Nordstrom Rack rows. Nordstrom Rack is not a buy merchant the site already uses. The file has one price and no compare-at, so none is a verified 15% discount. The Calvin Klein Obsession women URL returned HTTP 200. The price in the file was not copied onto a deal.
+- 32 Ulta rows. Ulta stays compare-only. Each row is one shelf price, with no list price beside it, so none is a verified 15% discount versus Ulta's own compare-at. The Cloud and La Vie Est Belle 1.0 oz URLs returned HTTP 200. The HTML was a shell with no price, so no compare-at was read from the page.
+
+**Merchant order:** scripts/merchants.py was not changed. Higher commission still wins only when the higher price is within $2 of the cheapest. The build logged no buy-button move.
+
+**Winners:** data/winners.json is the FragranceShop commission file through Nov 25, 2026: 20 orders. A slug is set only when that SKU is in deals.json. FS190011 (Fierce), FS90184, FS42082, FS1719, and FS190120 have no deal, so no price was added. CK Defy is not in this price check, so /best/ck-free-deal/ and /vs/ck-defy-vs-ck-free/ are not in this build. CK Free stays on its bottle page.
+
+**Conversion (generator, so the daily refresh keeps it)**
+Every winners.json bottle that is still a FragranceShop deal now uses the seller lead: checked price, Black Friday week price, and the Buy button above the photo, plus an also-popular row of the other sold bottles at the deals.json prices. Titles keep Black Friday and the checked price. Both hooks do not fit in 60 characters on the longest names, so the title stays Black Friday. Cyber Monday is a valid hook from Nov 27, 2026, 12:00 AM ET, through Dec 1, 11:59:59 PM ET. In that window the meta adds "Cyber Monday" and the line next to the price says "Cyber Monday is November 30." Nov 26 does not. Dec 2 drops the Black Friday week line and the Cyber Monday line together. There is no countdown and no second price.
+- Le Male Le Parfum 4.2 oz $93.95. "Buy Le Male Le Parfum Cologne Black Friday 2026 Deal: $93.95" (60). Meta 117.
+- La Vie Est Belle 3.4 oz $93.95. "Buy La Vie Est Belle Perfume Black Friday 2026 Deal: $93.95" (59). Meta 116.
+- Jazz Club 3.4 oz $81.95. "Buy Replica Jazz Club Black Friday 2026 Deal: $81.95" (52). Meta 109.
+- Afternoon Delight 3.4 oz $78.95. "Buy Replica Afternoon Delight Black Friday 2026 Deal: $78.95" (60). Meta 117.
+- 1 Million Lucky 3.4 oz $77.95. "Buy 1 Million Lucky Cologne Black Friday 2026 Deal: $77.95" (58). Meta 115.
+- Ultra Male 4.2 oz $77.95. "Buy Ultra Male Black Friday 2026 Deal: $77.95" (45). Meta 102. New to this row. Sold Nov 24.
+- The Most Wanted Parfum 1.7 oz $55.95. "Buy Most Wanted Parfum Black Friday 2026 Deal: $55.95" (53). Meta 110.
+- CK Beauty 3.4 oz $23.95. "Buy CK Beauty Perfume Black Friday 2026 Deal: $23.95" (52). Meta 109.
+- Burberry London 1.0 oz $21.95. "Buy Burberry London Black Friday 2026 Deal: $21.95" (50). Meta 107. The export named a larger London bottle. This page keeps the 1.0 oz price in deals.json.
+- Peace Love & Juicy Couture 3.4 oz $20.95. "Buy Peace Love Perfume Black Friday 2026 Deal: $20.95" (53). Meta 110.
+- CK Free 3.4 oz $20.95. "Buy CK Free Cologne Black Friday 2026 Deal: $20.95" (50). Meta 107.
+Bubble Bath stays on the also-popular row. It was already a proven bottle.
+
+**New pages (5). Prices are the Nov 26 deals.json prices. Each leads with a checked price and a Buy button above the photo, then an also-popular row. ItemList with Offer, FAQPage, and BreadcrumbList. Canonicals are on https://scentdealsdaily.com. /cyber-monday-fragrance-deals/ stays the wide list. /best/cyber-monday-cologne-deal/ stays the four-bottle cologne list. /gifts/cyber-monday-womens-perfume-under-100/ stays the women's list.**
+- /best/ultra-male-deal/: Ultra Male 4.2 oz $77.95 leads. Le Beau 4.2 oz $78.95 and Le Male Le Parfum 4.2 oz $93.95 are the other two. All FragranceShop. The Le Male deal lists Elixir instead of Le Beau. Title: "Buy the Ultra Male Deal: 3 Picks From $77.95" (44). Meta 140. 47 inbound links.
+- /best/most-wanted-parfum-deal/: The Most Wanted Parfum 1.7 oz $55.95 leads. Wanted by Night 3.4 oz $60.95 and Stronger With You Intensely 1.7 oz $70.95 are the other two. All FragranceShop. Title: "Buy the Most Wanted Deal: 3 Picks From $55.95" (45). Meta 140. 48 inbound links.
+- /best/black-opium-deal/: Black Opium 1.6 oz $84.95 leads. Good Girl 2.7 oz $91.95 and La Vie Est Belle 3.4 oz $93.95 are the other two. All FragranceShop. Title: "Buy the Black Opium Deal: 3 Picks From $84.95" (45). Meta 150. 50 inbound links.
+- /gifts/cyber-monday-famous-fragrance-deals/: Stronger With You Intensely $70.95, Ultra Male $77.95, Le Beau $78.95, Black Opium $84.95, Good Girl $91.95, Le Male Le Parfum $93.95. All FragranceShop. The lead Buy is Stronger With You Intensely. Cyber Monday 2026 is November 30. Title: "Buy Cyber Monday Fragrance: From $70.95" (39). Meta 113. 321 inbound links.
+- /gifts/best-selling-perfume-deals-black-friday/: Gucci Bloom $74.95, Black Opium $84.95, Good Girl $91.95, La Vie Est Belle 3.4 oz $93.95, Donna Born in Roma $94.95. Donna is FragranceShop. The lead Buy is Bloom. Bloom has no stored note line, so the page does not describe the smell. This is not a national sales chart. Title: "Buy Black Friday Perfume Deals: From $74.95" (43). Meta 153. 310 inbound links.
+
+The homepage, /men/ or /women/, the matching brand page, and the matching bottle pages link them.
+
+**Checks:** local build on the 2026-11-26T14:30:47Z deals file. Sitemap 375 URLs. JSON-LD parsed. 0 github.io links on the new pages. Every new canonical is on https://scentdealsdaily.com. CNAME is scentdealsdaily.com. Both Google site-verification meta tags stay on every page. data/deals.json was not edited. Affiliate hrefs were checked as strings only. No request was made to a CJ, Awin, Rakuten, or /go URL. Plain retailer URLs were checked only for the Muse skip notes above.
+
+**Deploy:** this push goes straight to main and triggers daily-refresh (refresh + build + IndexNow + Pages). Live 200s are checked after that run.
+
 ## 2026-11-24 (Tue) — bottle thumbnail on the top price card and the compact deal cards
 
 The generator now puts an 88px local bottle photo to the left of the name and price on every lead price card and every compact deal card, including the homepage, best sellers, Black Friday, and the Le Male page. The first card loads eager and the rest lazy. A deal with no safe image omits the thumbnail. Prices in data/deals.json were not edited. The rebuilt pages match that file, checked Nov 23, 2026 9:28 PM ET.

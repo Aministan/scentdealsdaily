@@ -788,6 +788,96 @@
  ],
  "roundups": [
   {
+   "slug": "ultra-male-deal",
+   "title": "Ultra Male Deal",
+   "title_tag": "Buy the Ultra Male Deal",
+   "noun": "cologne",
+   "who": "men's",
+   "scope": "around Ultra Male",
+   "lead_id": "fs-jpg-ultra-male-edt-4-2",
+   "proven_also": true,
+   "rule": "the bottle is Ultra Male, Le Beau, or Le Male Le Parfum, and it is still in the price check",
+   "lead": "Ultra Male is a FragranceShop bottle that sold on November 24, 2026. It is the sweeter eau de toilette in the Le Male line. Le Beau is coconut and tonka, a different Jean Paul Gaultier bottle. Le Male Le Parfum is the eau de parfum intense and the bottle with the most orders in the commission file. The Le Male Le Parfum deal lists Elixir instead of Le Beau. This page does not price Elixir.",
+   "meta_lead": "Ultra Male, Le Beau, and Le Male Le Parfum.",
+   "items": [
+    {"id": "fs-jpg-ultra-male-edt-4-2", "notes": "Eau de toilette. The sweeter Le Male flanker. The stored copy does not publish a separate note pyramid for it."},
+    {"id": "le-beau-eau-de-toilette-spray-for-men-by-jean-paul-gaultier", "notes": "Eau de toilette. Coconut and tonka. A different Jean Paul Gaultier line, not a Le Male flanker."},
+    {"id": "fs-jpg-le-male-le-parfum-4-2", "notes": "Eau de parfum intense. The stronger Le Male. Mint and vanilla in the stored brand copy."}
+   ],
+   "links": [
+    {"href": "/best/le-male-le-parfum-deal/", "label": "Le Male Le Parfum deal"},
+    {"href": "/gifts/le-male-christmas-gifts/", "label": "Le Male Christmas gifts"},
+    {"href": "/gifts/cyber-monday-famous-fragrance-deals/", "label": "Cyber Monday famous fragrance deals"},
+    {"href": "/vs/le-beau-vs-versace-eros/", "label": "Le Beau vs Versace Eros"},
+    {"href": "/jean-paul-gaultier-le-male-deals/", "label": "All Le Male deals"}
+   ],
+   "faq": [
+    ["Is Ultra Male the same as Le Male Le Parfum?", "No. Ultra Male is the sweeter eau de toilette. Le Male Le Parfum is the eau de parfum intense. Both prices are the ones in the daily price check."],
+    ["Why is Le Beau on this page?", "Le Beau is the other famous Jean Paul Gaultier bottle in this price check. It is coconut and tonka, not a Le Male flanker. The Le Male deal page leaves it off."],
+    ["Is this a separate sale price?", "No. Each price is the one already in the daily price check."]
+   ]
+  },
+  {
+   "slug": "most-wanted-parfum-deal",
+   "title": "The Most Wanted Parfum Deal",
+   "title_tag": "Buy the Most Wanted Deal",
+   "noun": "cologne",
+   "who": "men's",
+   "scope": "around The Most Wanted Parfum",
+   "lead_id": "the-most-wanted-parfum-cologne",
+   "proven_also": true,
+   "rule": "the bottle is The Most Wanted Parfum, Wanted by Night, or Stronger With You Intensely, and it is still in the price check",
+   "lead": "The Most Wanted Parfum is a FragranceShop bottle in the commission file, posted as a 1.7 oz parfum. Wanted by Night is a different Azzaro cologne in the same check. Stronger With You Intensely is the toffee and cinnamon eau de parfum compared with The Most Wanted on its own page. This is not that comparison table.",
+   "meta_lead": "The Most Wanted Parfum, Wanted by Night, and Stronger With You Intensely.",
+   "items": [
+    {"id": "the-most-wanted-parfum-cologne", "notes": "Parfum. Ginger, woods, and bourbon vanilla in the stored comparison."},
+    {"id": "azzaro-wanted-by-night-cologne-eau-de-parfum-for-men", "notes": "A different Azzaro cologne. Not The Most Wanted Parfum."},
+    {"id": "stronger-with-you-intensely-cologne-for-men", "notes": "Eau de parfum. Toffee, cinnamon, and vanilla in the stored comparison."}
+   ],
+   "links": [
+    {"href": "/vs/most-wanted-vs-stronger-with-you/", "label": "Most Wanted vs Stronger With You Intensely"},
+    {"href": "/vs/eros-flame-vs-the-most-wanted-parfum/", "label": "Eros Flame vs The Most Wanted Parfum"},
+    {"href": "/gifts/christmas-cologne-gifts-for-dad-under-100/", "label": "Christmas cologne for dad under $100"},
+    {"href": "/brands/azzaro/", "label": "Azzaro deals"},
+    {"href": "/men/", "label": "Men's cologne deals"}
+   ],
+   "faq": [
+    ["Is Wanted by Night the same bottle as The Most Wanted Parfum?", "No. The Most Wanted Parfum is the 1.7 oz parfum that sold here. Wanted by Night is a different Azzaro cologne in the price check."],
+    ["How is this different from Most Wanted vs Stronger With You?", "That page is the side-by-side of two bottles. This page leads with the checked Most Wanted price and adds Wanted by Night."],
+    ["Is this a separate sale price?", "No. Each price is the one already in the daily price check."]
+   ]
+  },
+  {
+   "slug": "black-opium-deal",
+   "title": "Black Opium Deal",
+   "title_tag": "Buy the Black Opium Deal",
+   "noun": "perfume",
+   "who": "women's",
+   "scope": "around Black Opium",
+   "lead_id": "fs-ysl-black-opium-edp-1-6",
+   "proven_also": true,
+   "rule": "the bottle is Black Opium, Good Girl, or La Vie Est Belle 3.4 oz, and it is still in the price check",
+   "lead": "Black Opium is the coffee-and-vanilla Yves Saint Laurent perfume in this price check. Good Girl and La Vie Est Belle 3.4 oz are bottles shoppers have bought from this site. The Good Girl deal leads with Good Girl and lists Very Good Girl instead of Black Opium. This page leads with Black Opium. Good Girl Blush is not in this price check.",
+   "meta_lead": "Black Opium, Good Girl, and La Vie Est Belle 3.4 oz.",
+   "items": [
+    {"id": "fs-ysl-black-opium-edp-1-6", "notes": "Eau de parfum. Coffee and vanilla in the stored comparison. Not the same perfume as Good Girl or La Vie Est Belle."},
+    {"id": "fs-ch-good-girl-edp-2-7", "notes": "Eau de parfum: almond, jasmine, tonka, and cocoa."},
+    {"id": "fs-lancome-la-vie-est-belle-edp-3-4", "notes": "Eau de parfum. Pear, iris, praline, and vanilla. The 3.4 oz."}
+   ],
+   "links": [
+    {"href": "/best/good-girl-deal/", "label": "Good Girl deal"},
+    {"href": "/best/la-vie-est-belle-deal/", "label": "La Vie Est Belle deal"},
+    {"href": "/gifts/best-selling-perfume-deals-black-friday/", "label": "Best-selling perfume deals this Black Friday"},
+    {"href": "/gifts/perfume-gifts-for-wife-under-100/", "label": "Perfume gifts for wife under $100"},
+    {"href": "/brands/yves-saint-laurent/", "label": "Yves Saint Laurent deals"}
+   ],
+   "faq": [
+    ["Does Black Opium smell like Good Girl?", "No. The stored comparison calls Black Opium coffee and vanilla. Good Girl is almond, jasmine, tonka, and cocoa. La Vie Est Belle is pear, iris, and praline."],
+    ["How is this different from the Good Girl deal?", "That page leads with Good Girl and lists Very Good Girl. This page leads with Black Opium and leaves Very Good Girl off."],
+    ["Is this a separate sale price?", "No. Each price is the one already in the daily price check."]
+   ]
+  },
+  {
    "slug": "le-male-le-parfum-deal",
    "title": "Le Male Le Parfum Deal",
    "title_tag": "Buy the Le Male Le Parfum Deal",
@@ -1881,6 +1971,135 @@
   }
  ],
  "gift_guides": [
+{
+  "slug": "cyber-monday-famous-fragrance-deals",
+  "title": "Cyber Monday famous fragrance deals",
+  "title_tag": "Buy Cyber Monday Fragrance",
+  "buy_meta": true,
+  "chip": "Cyber Monday famous fragrances",
+  "min_price": 70,
+  "max_price": 100,
+  "exclude_mini": true,
+  "exclude_set": true,
+  "min_bottles": 4,
+  "ids": [
+    "stronger-with-you-intensely-cologne-for-men",
+    "fs-jpg-ultra-male-edt-4-2",
+    "le-beau-eau-de-toilette-spray-for-men-by-jean-paul-gaultier",
+    "fs-ysl-black-opium-edp-1-6",
+    "fs-ch-good-girl-edp-2-7",
+    "fs-jpg-le-male-le-parfum-4-2"
+  ],
+  "filled_label": "Cyber Monday famous fragrance deals from $70 to $100",
+  "intro": "Famous bottles from $70 up to $100, lowest checked price first, for Cyber Monday on November 30, 2026. The list is Stronger With You Intensely, Ultra Male, Le Beau, Black Opium, Good Girl, and Le Male Le Parfum. Ultra Male, Good Girl, and Le Male Le Parfum are bottles shoppers have bought from this site. The Cyber Monday fragrance deals page is the wider list and includes bottles under $70. The Cyber Monday cologne deal is Le Male Le Parfum, 1 Million Lucky, Jazz Club, and CK Free. Cyber Monday women's perfume under $100 leaves the men's bottles off. This is not a separate Cyber Monday price.",
+  "empty": "None of these bottles are still between $70 and $100 in the price check, so this page has no list. These guides have bottles we priced.",
+  "empty_desc": "Cyber Monday famous fragrance deals: none of these bottles are between $70 and $100 in the price check. Other gift guides list bottles we did price.",
+  "choose": [
+    "Start with Le Male Le Parfum, Ultra Male, or Good Girl when the gift is a bottle shoppers have already bought here. Stronger With You Intensely is toffee and cinnamon. Le Beau is coconut and tonka. Black Opium is coffee and vanilla. Read the size on the card.",
+    "Use the Cyber Monday cologne deal when the list should be the four commission-file colognes, including CK Free. Use Cyber Monday women's perfume under $100 when the list should stay on women's perfume.",
+    "The buy button is the checked offer. When two stores for the same bottle are within $2, the higher-commission store is the button. A wider gap keeps the lower price."
+  ],
+  "faq": [
+    [
+      "When is Cyber Monday 2026?",
+      "Cyber Monday 2026 is Monday, November 30. Black Friday is November 27. The prices on this page are the daily check. They are not a second Cyber Monday price."
+    ],
+    [
+      "How is this different from Cyber Monday fragrance deals?",
+      "That page is the wider Cyber Monday list, including bottles under $70. This page is six famous bottles from $70 up to $100."
+    ],
+    [
+      "How is this different from the Cyber Monday cologne deal?",
+      "That page is Le Male Le Parfum, 1 Million Lucky, Jazz Club, and CK Free. This page keeps Le Male Le Parfum and adds Ultra Male, Le Beau, Stronger With You Intensely, Black Opium, and Good Girl."
+    ],
+    [
+      "Which bottles on this page have sold from this site?",
+      "Le Male Le Parfum, Ultra Male, and Good Girl. The other three are famous bottles in the same price check that meet this page's band."
+    ]
+  ],
+  "keywords": [
+    "cyber monday fragrance deals",
+    "cyber monday perfume deals 2026",
+    "le male le parfum cyber monday",
+    "black opium deal",
+    "ultra male deal"
+  ],
+  "links": [
+    {"href": "/cyber-monday-fragrance-deals/", "label": "Cyber Monday fragrance deals"},
+    {"href": "/best/cyber-monday-cologne-deal/", "label": "Cyber Monday cologne deal"},
+    {"href": "/gifts/cyber-monday-womens-perfume-under-100/", "label": "Cyber Monday women's perfume under $100"},
+    {"href": "/best/ultra-male-deal/", "label": "Ultra Male deal"},
+    {"href": "/best/black-opium-deal/", "label": "Black Opium deal"},
+    {"href": "/best/le-male-le-parfum-deal/", "label": "Le Male Le Parfum deal"},
+    {"href": "/fragrance/jean-paul-gaultier-le-male-le-parfum-cologne/", "label": "Le Male Le Parfum price"},
+    {"href": "/black-friday/", "label": "Black Friday hub"}
+  ]
+},
+{
+  "slug": "best-selling-perfume-deals-black-friday",
+  "title": "Best-selling perfume deals this Black Friday",
+  "title_tag": "Buy Black Friday Perfume Deals",
+  "buy_meta": true,
+  "chip": "Black Friday perfume deals",
+  "min_price": 70,
+  "max_price": 100,
+  "exclude_mini": true,
+  "exclude_set": true,
+  "min_bottles": 4,
+  "ids": [
+    "fs-gucci-bloom-edp-3-3",
+    "fs-ysl-black-opium-edp-1-6",
+    "fs-ch-good-girl-edp-2-7",
+    "fs-lancome-la-vie-est-belle-edp-3-4",
+    "valentino-donna-born-in-roma-perfume-eau-de-parfum-for-women"
+  ],
+  "filled_label": "best-selling perfume deals this Black Friday",
+  "intro": "Women's perfume from $70 up to $100 for Black Friday on November 27, 2026, lowest checked price first. The list is Gucci Bloom, Black Opium, Good Girl, La Vie Est Belle 3.4 oz, and Donna Born in Roma. Good Girl and La Vie Est Belle are bottles shoppers have bought from this site. Black Friday perfume gifts shoppers bought is the Replica trio plus Good Girl and La Vie Est Belle, and it leaves Bloom, Black Opium, and Donna off. Best-selling women's perfume gifts under $100 keeps Very Good Girl and leaves Bloom off. This page is not a national sales chart. Gucci Bloom has no stored note line, so this page does not describe how it smells.",
+  "empty": "None of these perfumes are still between $70 and $100 in the price check, so this page has no list. These guides have bottles we priced.",
+  "empty_desc": "Best-selling perfume deals this Black Friday: none of these bottles are between $70 and $100 in the price check. Other gift guides list bottles we did price.",
+  "choose": [
+    "Start with Good Girl or La Vie Est Belle 3.4 oz when the gift is a bottle shoppers have already bought here. Black Opium is coffee and vanilla. Donna Born in Roma is jasmine and bourbon vanilla. Gucci Bloom is the other famous bottle in this band. This page does not add a note line for Bloom. Read the size on the card.",
+    "Use Black Friday perfume gifts shoppers bought when the list should be the Replica bottles. Use best-selling women's perfume gifts under $100 when the fifth bottle should be Very Good Girl instead of Bloom.",
+    "The buy button is the checked offer. When two stores for the same bottle are within $2, the higher-commission store is the button. A wider gap keeps the lower price."
+  ],
+  "faq": [
+    [
+      "Are these the best-selling perfumes in the country?",
+      "No. Good Girl and La Vie Est Belle 3.4 oz are bottles shoppers have bought from this site. Bloom, Black Opium, and Donna Born in Roma are famous women's perfumes in the same price check. This is not a national sales chart."
+    ],
+    [
+      "How is this different from Black Friday perfume gifts shoppers bought?",
+      "That page is Afternoon Delight, Bubble Bath, Jazz Club, Good Girl, and La Vie Est Belle. This page keeps Good Girl and La Vie Est Belle and adds Bloom, Black Opium, and Donna Born in Roma."
+    ],
+    [
+      "How is this different from best-selling women's perfume gifts under $100?",
+      "That page keeps Very Good Girl and leaves Gucci Bloom off. This page keeps Bloom and leaves Very Good Girl off. Both pages keep Black Opium, Good Girl, La Vie Est Belle, and Donna Born in Roma."
+    ],
+    [
+      "What does Gucci Bloom smell like?",
+      "This price check does not store a note line for Bloom. The page does not guess one. Black Opium is coffee and vanilla. Good Girl is almond, jasmine, and cocoa. La Vie Est Belle is pear, iris, and praline. Donna Born in Roma is jasmine and bourbon vanilla."
+    ]
+  ],
+  "keywords": [
+    "best selling perfume deals black friday",
+    "black friday perfume deals 2026",
+    "good girl black friday",
+    "la vie est belle black friday",
+    "black opium black friday"
+  ],
+  "links": [
+    {"href": "/gifts/black-friday-best-selling-perfume-gifts/", "label": "Black Friday perfume gifts shoppers bought"},
+    {"href": "/gifts/best-selling-womens-perfume-gifts-under-100/", "label": "Best-selling women's perfume gifts under $100"},
+    {"href": "/best/black-opium-deal/", "label": "Black Opium deal"},
+    {"href": "/best/good-girl-deal/", "label": "Good Girl deal"},
+    {"href": "/best/la-vie-est-belle-deal/", "label": "La Vie Est Belle deal"},
+    {"href": "/best/donna-born-in-roma-deal/", "label": "Donna Born in Roma deal"},
+    {"href": "/fragrance/carolina-herrera-good-girl-perfume/", "label": "Good Girl price"},
+    {"href": "/fragrance/lanc-me-la-vie-est-belle-perfume-3-4-oz/", "label": "La Vie Est Belle 3.4 oz price"},
+    {"href": "/black-friday/", "label": "Black Friday hub"},
+    {"href": "/women/", "label": "Women's perfume deals"}
+  ]
+},
 {
   "slug": "perfume-gifts-for-wife-under-100",
   "title": "Perfume gifts for wife under $100",
