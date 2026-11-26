@@ -41,7 +41,7 @@ The homepage, /men/ or /women/, the matching brand page, and the matching bottle
 
 **Checks:** local build on the 2026-11-26T14:30:47Z deals file. Sitemap 375 URLs. JSON-LD parsed. 0 github.io links on the new pages. Every new canonical is on https://scentdealsdaily.com. CNAME is scentdealsdaily.com. Both Google site-verification meta tags stay on every page. data/deals.json was not edited. Affiliate hrefs were checked as strings only. No request was made to a CJ, Awin, Rakuten, or /go URL. Plain retailer URLs were checked only for the Muse skip notes above.
 
-**Deploy:** this push goes straight to main and triggers daily-refresh (refresh + build + IndexNow + Pages). Live 200s are checked after that run.
+**Deploy:** the first push, 2c8e5ef3, ran daily-refresh 45860568020. Refresh dropped Replica Bubble Bath from the price check. Two gift pages still linked /fragrance/maison-margiela-replica-bubble-bath/, so the build exited before Pages. The link lists now omit a bottle page that this build did not write. A second push follows.
 
 ## 2026-11-24 (Tue) — bottle thumbnail on the top price card and the compact deal cards
 

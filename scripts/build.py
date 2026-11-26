@@ -2081,6 +2081,7 @@ def _present_chips(pairs):
         if href.startswith("/best/") and slug_s not in best: continue
         if href.startswith("/vs/") and slug_s not in vs_slugs: continue
         if href.startswith("/gifts/") and slug_s not in gifts: continue
+        if href.startswith("/fragrance/") and slug_s not in {frag_slug(d) for d in deals}: continue
         bits.append(f"<a href='{PREFIX}{href}'>{e(label)}</a>")
     return "".join(bits)
 def proven_help(d):
@@ -2564,6 +2565,8 @@ for r in ROUNDUPS:
             if href.startswith("/best/") and slug_s not in {r["slug"] for r in ROUNDUPS}:
                 continue
             if href.startswith("/gifts/") and href.strip("/")!="gifts" and slug_s not in built_gifts:
+                continue
+            if href.startswith("/fragrance/") and slug_s not in {frag_slug(d) for d in deals}:
                 continue
             chips.append(f"<a href='{PREFIX}{href}'>{e(l['label'])}</a>")
         link_html=("<p class='chips'>"+"".join(chips)+"</p>") if chips else ""
@@ -3648,6 +3651,8 @@ for spec in GIFT_GUIDES:
             if href.startswith("/best/") and slug_s not in built_best:
                 continue
             if href.startswith("/gifts/") and href.strip("/")!="gifts" and slug_s not in built_gifts:
+                continue
+            if href.startswith("/fragrance/") and slug_s not in {frag_slug(d) for d in deals}:
                 continue
             chips.append(f"<a href='{PREFIX}{href}'>{e(l['label'])}</a>")
         if chips:
