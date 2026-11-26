@@ -1,17 +1,18 @@
 {
   "source": "CJ FragranceShop export",
-  "period": "2026-10-15/2026-11-24",
+  "period": "2026-10-15/2026-11-25",
   "merchant": "FragranceShop",
-  "orders": 18,
-  "commission": 75.491,
+  "orders": 20,
+  "commission": 82.882,
   "note": "Per-SKU commission was not in the first export, so those rows leave commission null. Sale is orders times the unit price only when the export stated both for that SKU alone. A shared group does not split orders or sale across its SKUs. slug is set only when data/deals.json has that exact sku. A missing slug is null. Rows added from the Commission Detail API on 2026-11-24 store that action's sale and commission.",
   "winners": [
     {
       "sku": "FS191154",
-      "orders": 6,
+      "orders": 7,
       "unit_price": 93.95,
-      "sale": 563.70,
-      "commission": null,
+      "sale": 657.65,
+      "commission": 4.697,
+      "commission_note": "Only the 2026-11-24 action. The first six orders have no per-SKU commission.",
       "deal_id": "fs-jpg-le-male-le-parfum-4-2",
       "slug": "jean-paul-gaultier-le-male-le-parfum-cologne"
     },
@@ -166,6 +167,32 @@
       "deal_id": "fs-jpg-ultra-male-edt-4-2",
       "slug": "jean-paul-gaultier-ultra-male-cologne",
       "note": "Exact sku match in deals.json: Jean Paul Gaultier Ultra Male Cologne, 4.2 oz, Eau de Toilette. Posted 2026-11-24."
+    },
+    {
+      "sku": "FS1719",
+      "orders": null,
+      "orders_group": "fs1719-fs190120",
+      "orders_group_count": 1,
+      "unit_price": null,
+      "sale": null,
+      "group_sale": 53.90,
+      "commission": null,
+      "deal_id": null,
+      "slug": null,
+      "note": "One order with FS190120, posted 2026-11-25. Sale $53.90 and commission $2.694 belong to the pair. Not in deals.json."
+    },
+    {
+      "sku": "FS190120",
+      "orders": null,
+      "orders_group": "fs1719-fs190120",
+      "orders_group_count": 1,
+      "unit_price": null,
+      "sale": null,
+      "group_sale": 53.90,
+      "commission": null,
+      "deal_id": null,
+      "slug": null,
+      "note": "One order with FS1719, posted 2026-11-25. Sale $53.90 and commission $2.694 belong to the pair. Not in deals.json."
     }
   ]
 }
