@@ -7534,9 +7534,15 @@ def audit_seller_pages():
             if href not in block or f"${sib['price']:.2f}" not in block:
                 raise SystemExit(f"{rel}: missing the sibling link for {sib.get('id')}")
         print(f"{rel}: {title} ({len(title)}) / meta {len(desc)} / {d['retailer']} {price}")
-    for line, need in (("ck", 8), ("le-male", 3), ("replica", 3), ("lancome", 3), ("carolina", 3), ("paco", 4)):
-        if len(lines.get(line) or [])<need:
-            raise SystemExit(f"seller pages: {line} has {len(lines.get(line) or [])}, need {need}")
+    expected={}
+    for d in deals:
+        line=seller_line(d)
+        if line:
+            expected.setdefault(line, set()).add(d.get("id"))
+    for line, ids in expected.items():
+        got={d.get("id") for d in lines.get(line) or []}
+        if got!=ids:
+            raise SystemExit(f"seller pages: {line} built {sorted(got)} but today's deals are {sorted(ids)}")
     print(f"seller pages: {len(SELLER_PAGES)} Buy titles, lead price above the cards")
 audit_seller_pages()
 def audit_nov12_pages():
@@ -7635,8 +7641,24 @@ def _first_proven(names, specs):
         if spec=="good girl" and "Good Girl Perfume" in plain and "Blush" not in plain and "Very" not in plain: found.append(spec); continue
         if spec=="afternoon" and "Afternoon Delight" in plain: found.append(spec); continue
         if spec=="bubble" and "Bubble Bath" in plain: found.append(spec); continue
+        if spec=="jazz" and "Jazz Club" in plain: found.append(spec); continue
         return found
     return found
+def _proven_grid_labels():
+    """Proven-grid labels for bottles still at FragranceShop, in pin order."""
+    pairs=(
+        ("le male le parfum", "le male"),
+        ({"brand":"lanc","name_is":"la vie est belle perfume","size":"3.4"}, "lveb"),
+        ({"brand":"carolina","name_is":"good girl perfume","size":"2.7"}, "good girl"),
+        ("afternoon delight", "afternoon"),
+        ("bubble bath", "bubble"),
+        ({"brand":"margiela","name_is":"replica jazz club","size":"3.4"}, "jazz"),
+    )
+    labels=[]
+    for spec, label in pairs:
+        if any(d.get("retailer")=="FragranceShop" and _fold_match(d, spec) for d in deals):
+            labels.append(label)
+    return labels
 def audit_proven_grids():
     """The Black Friday cologne page that sold Le Male, and the mixed hubs, lead with the bottles that sold."""
     cologne=open(f"{OUT}/black-friday-cologne-deals/index.html", encoding="utf-8").read()
@@ -7650,16 +7672,17 @@ def audit_proven_grids():
     perfume_lead=_first_proven(perfume_names, ("lveb","good girl"))
     if perfume_lead!=["lveb","good girl"]:
         raise SystemExit(f"black-friday-perfume-deals: expected La Vie Est Belle 3.4 oz then Good Girl, got {perfume_names[:4]}")
+    want=tuple(_proven_grid_labels())
     cyber_names=_card_names(cyber)
-    cyber_lead=_first_proven(cyber_names, ("le male","lveb","good girl","afternoon","bubble"))
-    if cyber_lead!=["le male","lveb","good girl","afternoon","bubble"]:
-        raise SystemExit(f"cyber-monday-fragrance-deals: proven bottles are not the first five cards ({cyber_names[:6]})")
+    cyber_lead=_first_proven(cyber_names, want)
+    if cyber_lead!=list(want):
+        raise SystemExit(f"cyber-monday-fragrance-deals: proven bottles are not the first cards ({cyber_names[:8]})")
     band=hub.split("id='50-100'", 1)[-1]
     band=band.split("<h2", 1)[0]
     band_names=_card_names(band)
-    band_lead=_first_proven(band_names, ("le male","lveb","good girl","afternoon","bubble"))
-    if band_lead!=["le male","lveb","good girl","afternoon","bubble"]:
-        raise SystemExit(f"/black-friday/ $50 to $100: proven bottles are not the first five cards ({band_names[:6]})")
+    band_lead=_first_proven(band_names, want)
+    if band_lead!=list(want):
+        raise SystemExit(f"/black-friday/ $50 to $100: proven bottles are not the first cards ({band_names[:8]})")
     print("proven grids: Le Male leads cologne; La Vie Est Belle and Good Girl lead perfume; five proven bottles lead Cyber Monday and the $50–$100 hub band")
 audit_proven_grids()
 def audit_nov13_pages():
@@ -8191,6 +8214,9 @@ def audit_nov21_pages():
         ("gifts/christmas-cologne-gifts-for-dad-under-100/index.html", "/gifts/christmas-cologne-gifts-for-dad-under-100/"),
     )
     for rel, href in pages:
+        if not os.path.isfile(f"{OUT}/{rel}"):
+            print(f"{rel}: not built today, a listed bottle left the price check")
+            continue
         text=open(f"{OUT}/{rel}", encoding="utf-8").read()
         title=html.unescape(re.search(r"<title>(.*?)</title>", text, re.S).group(1))
         desc=html.unescape(re.search(r'<meta name="description" content="([^"]*)"', text).group(1))
