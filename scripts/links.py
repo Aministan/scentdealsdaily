@@ -99,7 +99,7 @@ def retailer_url(url):
         query = urllib.parse.parse_qs(urllib.parse.urlparse(url).query)
     except Exception:
         query = {}
-    for key in ("url", "murl", "u", "dest", "destination", "redirect"):
+    for key in ("url", "murl", "ued", "u", "dest", "destination", "redirect"):
         candidates.extend(query.get(key) or [])
     decoded = urllib.parse.unquote(url)
     candidates.extend(_http_urls(decoded))
@@ -184,6 +184,18 @@ def affiliate_link_ok(url):
         return False
     query = urllib.parse.parse_qs(parsed.query)
     inner = (query.get("url") or query.get("murl") or [None])[0]
+    if host_is(host, "awin1.com"):
+        # Awin deeplink for Simpletics. Checked as text only; never requested.
+        if (parsed.path or "").rstrip("/") != "/cread.php":
+            return False
+        mid = (query.get("awinmid") or [None])[0]
+        affid = (query.get("awinaffid") or [None])[0]
+        ued = (query.get("ued") or [None])[0]
+        if mid != "117109" or affid != "3128392" or not ued:
+            return False
+        if not host_is(host_of(ued), "simpletics.com"):
+            return False
+        return True
     if host_is(host, "linksynergy.com"):
         # Rakuten Advertising deep link for FragranceNet. Checked as text only.
         if (parsed.path or "").rstrip("/") != "/deeplink":

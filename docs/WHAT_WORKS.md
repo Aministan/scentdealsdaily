@@ -2,7 +2,7 @@
 
 Future builds should read `data/winners.json` before adding pages or reordering the proven-picks row.
 
-The file is the FragranceShop commission record for Oct 15 through Nov 26, 2026: 25 valid orders and $111.663 commission. Le Male Le Parfum (FS191154) is first, with 7 orders. Five orders posted on Nov 26. Only FS1609727 matched a bottle already in the file, Replica Afternoon Delight. FS1191490, FS190074, FS23395, and FS190162 are not in deals.json, so they have no bottle name and no slug.
+The file is the FragranceShop commission record for Oct 15 through Nov 27, 2026: 28 valid orders and $127.489 commission. Le Male Le Parfum (FS191154) is first, with 7 orders. Five orders posted on Nov 26. Only FS1609727 matched a bottle already in the file, Replica Afternoon Delight. FS1191490, FS190074, FS23395, and FS190162 are not in deals.json, so they have no bottle name and no slug. Three orders posted on Nov 27: FS254 ($66.95, commission $3.347), one grouped order FS90358|FS192138|FS90297|FS90529|FL608|FS2119 ($144.70, commission $7.232), and FS1191386 ($104.95, commission $5.247). FS1191386 is Good Girl Blush in deals.json. The other Nov 27 SKUs are not, so their slug stays null.
 
 `slug` is the fragrance page path. `deal_id` is the row in `data/deals.json`. A SKU that is not that row's `sku` field can still point at the same fragrance when the bottle is already in the catalog. FS190011 (Abercrombie & Fitch Fierce 6.7 oz) is not in the catalog. The FragranceShop store API did not return that product, so it was not added and its slug stays null. Prices on the site still come from `deals.json`. An export price for a different size is stored on the winner row and is not printed as a checked price.
 

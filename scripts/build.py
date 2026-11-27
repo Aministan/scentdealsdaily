@@ -374,6 +374,56 @@ def share_image(path, image):
     if chosen.startswith(("http://","https://")): return chosen
     if not chosen.startswith("/"): chosen="/"+chosen
     return f"{BASE}{PREFIX}{chosen}"
+def simpletics_for(path):
+    """Men's gift pages and /men/ only. Women's, unisex-only, and mixed hubs stay clear."""
+    if path=="men/index.html": return True
+    match=re.fullmatch(r"gifts/([^/]+)/index\.html", path or "")
+    if not match: return False
+    slug=match.group(1)
+    blocked={
+        "","under-50","gift-sets","holiday-gift-sets","famous-fragrance-gifts-under-100",
+        "cyber-monday-famous-fragrance-deals","best-selling-fragrance-deals-this-week",
+        "calvin-klein-christmas-fragrance-deals","black-friday-calvin-klein-under-30",
+        "black-friday-unisex-fragrance-deals","cyber-monday-luxury-fragrance-deals",
+        "christmas-fragrance-gifts-under-30","friendsgiving-fragrance-gifts",
+        "early-black-friday-fragrance-deals","last-minute-christmas-fragrance-gifts",
+        "christmas-vanilla-fragrance-gifts","christmas-minis-under-40","thanksgiving-fragrance-gifts",
+        "cyber-monday-gift-sets","black-friday-gift-sets","fragrance-gifts-for-teens",
+        "stocking-stuffer-fragrances","luxury-fragrance-gifts","secret-santa-fragrances-under-30",
+        "fragrance-gifts-for-coworkers-under-40","fragrance-gifts-for-college-students",
+        "fragrance-gifts-for-teachers-under-40","fragrance-gifts-for-boss",
+        "luxury-fragrance-gifts-under-100","his-and-hers-fragrance-gifts","hanukkah-fragrance-gifts",
+        "fragrance-gifts-for-new-mom","fragrance-gifts-for-couples","white-elephant-fragrances-under-25",
+        "paco-rabanne-christmas-gifts","replica-christmas-gifts","good-girl-vs-la-vie-est-belle",
+        "afternoon-delight-good-girl-gift","good-girl-black-friday-deal","best-selling-perfume-deals-black-friday",
+    }
+    if slug in blocked: return False
+    if any(bit in slug for bit in ("perfume","for-her","for-mom","for-wife","for-sister","girlfriend","for-daughter","grandma","niece","for-aunt","hostess","stepmom","womens","women","unisex")):
+        return False
+    spec=next((g for g in GIFT_GUIDES if g.get("slug")==slug), None)
+    if spec:
+        if spec.get("gender") in ("women","unisex"): return False
+        genders=spec.get("genders") or []
+        if "women" in genders: return False
+        if spec.get("gender")=="men" or (genders and "men" in genders): return True
+    if slug in ("for-him","best-mens-cologne-under-40","stocking-stuffers-for-men","classic-cologne-gifts","luxury-cologne-gifts-for-him"):
+        return True
+    if slug.startswith("cologne-gifts-") or slug.startswith("christmas-cologne"): return True
+    if "cologne" in slug or "for-him" in slug or slug.startswith("le-male") or "mens-" in slug or "for-men" in slug:
+        return True
+    return False
+def simpletics_html():
+    """Shared men's add-on. The partial is the only copy of the Awin links."""
+    path=os.path.join(ROOT,"includes","simpletics-men.html")
+    block=open(path,encoding="utf-8").read().strip()
+    if "id=\"simpletics-addon\"" not in block: raise SystemExit("simpletics partial is missing its id")
+    if "awinmid=117109" not in block or "awinaffid=3128392" not in block:
+        raise SystemExit("simpletics partial is missing the Awin publisher ids")
+    if "simpletics.com%2Fproducts%2Ffull-styling-kit" not in block:
+        raise SystemExit("simpletics partial is missing the kit target")
+    if "ued=https%3A%2F%2Fsimpletics.com%2F\"" not in block:
+        raise SystemExit("simpletics partial is missing the homepage target")
+    return block
 def page(path,title,desc,body,jsonld=None,index=True,image=None,feed=True,canonical=None,robots=None):
     if title in TITLES: title=f"{title} ({path.split('/')[0].title()})"
     TITLES.add(title); desc=clip(desc)
@@ -388,6 +438,8 @@ def page(path,title,desc,body,jsonld=None,index=True,image=None,feed=True,canoni
         robots_tag="" if index else '<meta name="robots" content="noindex">'
     else:
         robots_tag=f'<meta name="robots" content="{e(robots)}">'
+    if simpletics_for(path):
+        body=body+simpletics_html()
     img=share_image(path, image)
     social=(f'<meta property="og:type" content="website"><meta property="og:site_name" content="{e(NAME)}">'
              f'<meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}">'
@@ -404,7 +456,7 @@ def page(path,title,desc,body,jsonld=None,index=True,image=None,feed=True,canoni
 <link rel="alternate" type="application/rss+xml" title="ScentDealsDaily" href="{FEED_HREF}">
 {social}<link rel="preconnect" href="https://cdn.shopify.com"><style>{CSS}</style>{brevo_head}{ld}</head><body>
 <header><a class="logo" href="{p}/">Scent<span>Deals</span>Daily</a><div class="nav-scroll"><nav><a href="{p}/">Today's deals</a><a href="{p}/best-sellers/">Best sellers</a><a href="{p}/jean-paul-gaultier-le-male-deals/">Le Male</a><a href="{p}/fragrance-gift-sets/">Gift sets</a><a href="{p}/black-friday/">Black Friday</a><a href="{p}/dupes/">Dupes</a><a href="{p}/men/">Men</a><a href="{p}/women/">Women</a><a href="{p}/brands/">Brands</a><a href="{p}/sponsor/">Sponsor</a></nav></div></header>{fs_sale_banner()}
-<main>{("" if "class='promo-code'" in body else promo_code_banner()) if _show_code_banner(path) else ""}{body}</main><footer>{NL_FOOT}<p>We may earn a commission when you buy through our links, at no extra cost to you. Affiliate links go to Perfumania, FragranceShop, and FragranceNet.</p>
+<main>{("" if "class='promo-code'" in body else promo_code_banner()) if _show_code_banner(path) else ""}{body}</main><footer>{NL_FOOT}<p>We may earn a commission when you buy through our links, at no extra cost to you. Affiliate links go to Perfumania, FragranceShop, and FragranceNet. Men's gift pages may also include a sponsored Simpletics link.</p>
 <p><b>Affiliate disclosure:</b> some links may earn us a commission at no cost to you. <a href="{p}/disclosure/">Details</a>.
 We list only authorized or long-established retailers, never gray-market marketplaces. Prices change fast; each deal shows when we last checked it. Not affiliated with any brand.</p>
 <p>© {upd.year} {NAME} · <a href="{p}/about/">About</a> · <a href="{p}/privacy/">Privacy</a> · <a href="{p}/gifts/">Holiday gifts</a> · <a href="{p}/llms.txt">llms.txt</a> · <a href="{p}/sitemap.xml">sitemap</a></p>
@@ -1646,6 +1698,7 @@ page("sponsor/index.html",f"Advertise on {NAME}: Featured Fragrance Deals","Reac
 page("disclosure/index.html",fit(["Affiliate Disclosure: Commissions at No Extra Cost",f"Affiliate Disclosure | {NAME}"]),"How ScentDealsDaily earns money: retailer affiliate commissions at no extra cost to you and clearly labeled sponsored spots. Deals are always ranked by % off.",
  """<h1>Affiliate disclosure</h1><div class='box'><p>We may earn a commission when you buy through our links, at no extra cost to you.</p>
 <p>Some links on this site are affiliate links, including links to Perfumania, FragranceShop, and FragranceNet. If you buy through them, we may earn a commission at no extra cost to you. This never changes which deals we list. When the same sealed bottle is in stock at more than one of these stores and the higher price is within $2 of the cheapest, the buy button goes to the higher-commission store. A wider gap keeps the lower price. The other stores are noted beside it.</p>
+<p>Men's cologne gift pages may include a sponsored link to Simpletics, a men's hair-styling kit (sea salt spray, texture powder, and hair clay). That link is labeled Sponsored. It does not change the fragrance prices.</p>
 <p>As an Amazon Associate we may earn from qualifying purchases (once enrolled). Sponsored placements are always labeled "Sponsored".</p>
 <p>"Was" prices are the retailer's own listed compare-at / retail price at the time we checked. Prices and stock change; always confirm at checkout.</p></div>""")
 page("about/index.html", fit(["About ScentDealsDaily: How Prices Are Checked", "About ScentDealsDaily"]),
@@ -8657,6 +8710,55 @@ def audit_bottle_thumbs():
         raise SystemExit(f"bottle thumbnails: {seen} photos, {focused} top cards")
     print(f"bottle thumbnails: {seen} price-card photos, {focused} top cards eager")
 audit_bottle_thumbs()
+def audit_simpletics():
+    """The hair-styling add-on is on men's gift pages only. Links are string-checked, never requested."""
+    must=("men/index.html","gifts/for-him/index.html","gifts/cologne-gifts-for-dad/index.html",
+          "gifts/stocking-stuffers-for-men/index.html","gifts/christmas-cologne-gifts-for-him/index.html",
+          "gifts/classic-cologne-gifts/index.html","gifts/luxury-cologne-gifts-for-him/index.html",
+          "gifts/best-mens-cologne-under-40/index.html","gifts/winter-cologne-gifts/index.html",
+          "gifts/le-male-christmas-gifts/index.html")
+    never=("index.html","women/index.html","unisex/index.html","gifts/index.html","gifts/for-her/index.html",
+           "gifts/under-50/index.html","gifts/perfume-gifts-for-wife/index.html","gifts/replica-christmas-gifts/index.html",
+           "gifts/paco-rabanne-christmas-gifts/index.html","gifts/his-and-hers-fragrance-gifts/index.html",
+           "gifts/black-friday-unisex-fragrance-deals/index.html","gifts/luxury-fragrance-gifts/index.html",
+           "disclosure/index.html")
+    kit="ued=https%3A%2F%2Fsimpletics.com%2Fproducts%2Ffull-styling-kit"
+    home="ued=https%3A%2F%2Fsimpletics.com%2F\""
+    got=[]
+    for dirpath, _, files in os.walk(OUT):
+        for fn in files:
+            if not fn.endswith(".html"): continue
+            rel=os.path.relpath(os.path.join(dirpath, fn), OUT)
+            text=open(os.path.join(dirpath, fn), encoding="utf-8").read()
+            n=text.count('id="simpletics-addon"')
+            want=simpletics_for(rel)
+            if want:
+                got.append(rel)
+            if bool(n)!=want or n>1:
+                raise SystemExit(f"{rel}: simpletics block count {n}, expected {1 if want else 0}")
+            if "awin1.com" in text and not want:
+                raise SystemExit(f"{rel}: Awin link on a page that is not a men's gift page")
+            if not want: continue
+            if kit not in text or home not in text:
+                raise SystemExit(f"{rel}: simpletics block is missing a kit or homepage link")
+            if "awinmid=117109" not in text or "awinaffid=3128392" not in text:
+                raise SystemExit(f"{rel}: simpletics block is missing the Awin ids")
+            if "$57.53" not in text:
+                raise SystemExit(f"{rel}: simpletics price was checked and should stay on the block")
+            for tag in re.findall(r"<a\b[^>]*>", text):
+                if "awin1.com" not in tag: continue
+                if not {"nofollow","sponsored","noopener"}<=set(re.search(r'rel="([^"]*)"', tag).group(1).split()):
+                    raise SystemExit(f"{rel}: simpletics link is missing rel sponsored nofollow noopener")
+                if 'target="_blank"' not in tag:
+                    raise SystemExit(f"{rel}: simpletics link is missing target=_blank")
+    missing=[rel for rel in must if rel not in got]
+    if missing:
+        raise SystemExit("simpletics block missing on "+", ".join(missing))
+    leaked=[rel for rel in never if rel in got]
+    if leaked:
+        raise SystemExit("simpletics block leaked onto "+", ".join(leaked))
+    print(f"simpletics: {len(got)} men's pages")
+audit_simpletics()
 import subprocess, sys
 _validator=subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "validate_jsonld.py")])
 if _validator.returncode!=0:
