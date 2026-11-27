@@ -1,5 +1,40 @@
 # ScentDealsDaily CEO log
 
+## 2026-11-27 (Fri) — price history, Black Friday lead Buy, four bottle deal pages
+
+**Refresh status:** origin/main at the start of this pass was the latest daily refresh. data/deals.json is stamped 2026-11-27T15:24:37Z. The built pages print that check as Nov 27, 2026. This pass did not edit data/deals.json and did not re-fetch prices. The push triggers daily-refresh, which owns the next price check and the IndexNow ping.
+
+**Muse result:** muse_deals.json is unchanged (sha1 26cbc2509317eb00083be99cb218afc8c4359a31, 56 rows). Nothing merged. No prices were invented. No row is an approved retailer, and no row has a compare-at price, so none is a verified 15% discount. Skipped without copying a price: 13 eBay, 1 Walmart, 1 Sephora, 9 Nordstrom Rack, 32 Ulta. No request was made to those URLs on this pass.
+
+**RM-03 price history:** scripts/price_history.py appends one `{sku, merchant, price, date}` row per approved merchant per day to data/price-history.json. A second run the same day replaces that day's price. Rows older than 400 days drop off. A missing or unreadable file starts empty. A SKU that leaves the check keeps its older rows. Ulta is not stored. Seeded from the current deals file: 117 rows, 82 SKUs, date 2026-11-27. The daily-refresh commit now includes data/price-history.json. Bottle pages add one line, "Price tracking since Nov 27, 2026." There is no chart and no lowest badge.
+
+**Merchant order:** scripts/merchants.py was not changed. Higher commission still wins only when the higher price is within $2 of the cheapest. The build logged no buy-button move.
+
+**Conversion (generator, so the daily refresh keeps it)**
+Cyber Monday is in the meta from Nov 27, 2026, 12:00 AM ET, through Dec 1, 11:59:59 PM ET. The lead Buy is the proven FragranceShop bottle with the most orders still in the price check. The from-price in the title stays the lowest price on the page. The meta also names the lead price.
+- / : "Buy Fragrance Deals Black Friday 2026: From $17.95" (50). Meta 113. Lead Jean Paul Gaultier Le Male Le Parfum 4.2 oz $98.95 at FragranceShop.
+- /men/ : "Buy Men's Cologne Black Friday 2026: From $17.95 (70% Off)" (58). Meta 132. Same Le Male lead. The fold still starts with Le Male, then 1 Million Lucky.
+- /women/ : "Buy Women's Perfume Black Friday 2026: From $20.95 (76% Off)" (60). Meta 134. Lead Lancôme La Vie Est Belle 3.4 oz $92.95 at FragranceShop.
+- /black-friday-fragrance-deals/ : "Buy Black Friday Perfume Deals 2026 Now: From $17.95" (52). Meta 114. Lead Le Male Le Parfum $98.95. The meta still says Cyber Monday cologne deals.
+- /gifts/ : "Buy Fragrance Gifts Black Friday 2026: From $20.95" (50). Meta 136. Lead Le Male Le Parfum $98.95.
+- /best-sellers/ : "Buy Best Sellers Black Friday 2026: From $75.95" (47). Meta 97. Lead Le Male Le Parfum $98.95. The from-price is the lowest of Le Male, Jazz Club, and 1 Million Lucky.
+
+**New pages (4). Prices are the Nov 27 deals.json prices. Each leads with a checked price and a Buy button above the photo, then an also-popular row. ItemList with Offer, FAQPage, and BreadcrumbList. Canonicals are on https://scentdealsdaily.com. A missing SKU skips that page.**
+- /best/stronger-with-you-intensely-deal/: Stronger With You Intensely 1.7 oz $74.95 leads. Code 4.2 oz $70.95 and Acqua di Gio 3.4 oz $66.95 are the other two. All FragranceShop. Title: "Buy the SWY Intensely Deal: 3 Picks From $66.95" (47). Meta 147.
+- /best/gucci-bloom-deal/: Gucci Bloom 3.3 oz $75.95 leads. Flora Gorgeous Jasmine 3.4 oz $80.95 and Black Opium 1.6 oz $84.95 are the other two. All FragranceShop. Bloom's note line is the stored brand copy: gardenia, jasmine, and honeysuckle. Title: "Buy the Gucci Bloom Deal: 3 Picks From $75.95" (45). Meta 132.
+- /best/uomo-born-in-roma-deal/: Uomo Born in Roma 1.7 oz $91.95 at Perfumania leads. Uomo Intense 3.4 oz $117.95 at FragranceShop and Acqua di Gio 3.4 oz $66.95 at FragranceShop are the other two. The Donna deal still leads with Donna. Title: "Buy the Uomo Born in Roma Deal: 3 Picks From $66.95" (51). Meta 145.
+- /best/bad-boy-deal/: Bad Boy 3.4 oz $78.95 leads. The Most Wanted Parfum 1.7 oz $55.95 and Ultra Male 4.2 oz $77.95 are the other two. All FragranceShop. Title: "Buy the Bad Boy Deal: 3 Picks From $55.95" (41). Meta 145.
+
+The homepage, /men/ or /women/, the matching brand page, and the matching bottle pages link them.
+
+**Skipped.** Not a new page. Dylan Blue Pour Femme is $64.95, under $70. Men's Dylan Blue in this check is a 1.0 oz mini at $49.99. Bleu de Chanel is not priced at an approved merchant. The original YSL Y is not in the check. Y Intense is $109.95 and Libre is $122.95, both over $100. Invictus Victory and Armani My Way are not in the check. Prada Paradoxe is $106.95, over $100. Replica Bubble Bath is already absent, so /best/jazz-club-deal/, /best/afternoon-delight-deal/, and /gifts/replica-christmas-gifts/ are not in this build. CK Defy is not in this check, so /best/ck-free-deal/ is not in this build. No file was deleted.
+
+**Checks:** local build on the 2026-11-27T15:24:37Z deals file. Sitemap 370 URLs. JSON-LD parsed. CNAME is scentdealsdaily.com. Both Google site-verification meta tags stay. data/deals.json was not edited. A second build with Gucci Bloom and Stronger With You Intensely removed from deals.json exited 0 and skipped those two deal pages. The file was restored. Affiliate hrefs were checked as strings only. No request was made to a CJ, Awin, Rakuten, or /go URL.
+
+**IndexNow:** daily-refresh runs scripts/indexnow.py after the build, against the sitemap. That ping includes the new URLs. This pass did not send a separate ping.
+
+**Deploy:** this push goes straight to main and triggers daily-refresh (refresh + build + IndexNow + Pages). Live 200s are checked after that run.
+
 ## 2026-11-26 (Thu) — Black Friday Buy line on every sold bottle, five buying pages
 
 **Refresh status:** origin/main at the start of this pass was the latest daily refresh. data/deals.json is stamped 2026-11-26T14:30:47Z. The built pages print that check as Nov 26, 2026. This pass did not edit data/deals.json and did not re-fetch prices. The push triggers daily-refresh, which owns the next price check and the IndexNow ping.

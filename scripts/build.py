@@ -927,19 +927,25 @@ _SOLD_BEST={
     "fs-mm-afternoon-delight-edt-3-4": "afternoon-delight-deal",
     "calvin-klein-free-mens-eau-de-toilette-spray": "ck-free-deal",
 }
-def lead_offer(rows, week_row=None):
+def lead_offer(rows, week_row=None, prefer=None):
     """Checked price and one Buy button before the rest of the page.
 
-    Same block on gift guides and the homepage. A phone shows the price,
-    the store, and the button without scrolling past the newsletter or the chip list.
-    The row is the lowest checked price. Merchant order is already applied
-    to these deals by merchants.apply_rows.
+    Gift guides use the lowest checked price. prefer is a proven bottle still
+    in the price check; a missing bottle leaves the lowest price. Merchant
+    order is already applied to these deals by merchants.apply_rows.
     week_row adds the Black Friday week line on a proven bottle's /best/ page.
     """
-    if not rows: return ""
-    live=[row for row in rows if row.get("in_stock") is not False]
-    pool=live or list(rows)
-    d=min(pool, key=lambda row:(row["price"], -(row.get("pct_off") or 0), row["id"]))
+    forced=None
+    if isinstance(prefer, dict) and prefer.get("url") and prefer.get("in_stock") is not False and isinstance(prefer.get("price"), (int, float)) and not isinstance(prefer.get("price"), bool):
+        forced=prefer
+    if not rows and not forced: return ""
+    live=[row for row in (rows or []) if row.get("in_stock") is not False]
+    pool=live or list(rows or [])
+    if forced:
+        d=forced
+    else:
+        if not pool: return ""
+        d=min(pool, key=lambda row:(row["price"], -(row.get("pct_off") or 0), row["id"]))
     size=sz(d.get("size") or "")
     size_bit=f" · {e(size)}" if size else ""
     label="Buy at "+e(d["retailer"])+" →"
@@ -947,10 +953,17 @@ def lead_offer(rows, week_row=None):
     stamp=f"Best price on this page · Price checked {e(upd_h)}"
     if week_row and week_row.get("id") in _SOLD_DEAL_IDS and bf_week_on():
         stamp=f"Black Friday week price, checked {e(checked_h(week_row.get('checked')))}"
+    elif forced and d.get("id") in _SOLD_DEAL_IDS and bf_week_on():
+        stamp=f"Black Friday week price, checked {e(checked_h(d.get('checked')))}"
+    elif forced:
+        stamp=f"Price checked {e(upd_h)}"
+    cm=""
+    if d.get("id") in _SOLD_DEAL_IDS and cm_hook_on():
+        cm=" <span class='meta'>Cyber Monday is November 30</span>"
     thumb=bottle_thumb(d, True)
     return (f"<div class='lead-offer'><p class='meta'>{stamp}</p>{thumb}"
             f"<p class='lead-name'><b>{e(fullname(d))}</b>{size_bit}</p>"
-            f"<p class='lead-price'><span class='price'>${d['price']:.2f}</span> <span class='meta'>at {e(d['retailer'])}</span></p>"
+            f"<p class='lead-price'><span class='price'>${d['price']:.2f}</span>{cm} <span class='meta'>at {e(d['retailer'])}</span></p>"
             f"{ext_a(d['url'], label, cls='btn', style='max-width:340px', placement='cta', product=frag_slug(d) if d.get('brand') and d.get('name') else '')}{ship}</div>")
 def fs_fold_ok(d):
     """A sealed FragranceShop bottle with a checked price. Sets, testers, and decants stay out."""
@@ -991,14 +1004,16 @@ def _fold_pins(pool, needles):
         hit=next((d for d in pool if _fold_match(d, needle) and d not in pinned), None)
         if hit: pinned.append(hit)
     return pinned
-def fs_fold_html(rows, pins=()):
+def fs_fold_html(rows, pins=(), skip_ids=()):
     """FragranceShop deals with a price and a Buy button, before the rest of the page.
 
     pins are product names, or name-and-size dicts, already in deals.json. They lead.
     A page with no pins still shows the three steepest FragranceShop discounts.
     Extra pins stay, so a bottle that has sold is not cut off to keep the count at three.
+    skip_ids drops a bottle that is already the lead Buy, so the fold does not repeat it.
     """
-    pool=[d for d in rows if fs_fold_ok(d)]
+    skipped=set(skip_ids or ())
+    pool=[d for d in rows if fs_fold_ok(d) and d.get("id") not in skipped]
     pool.sort(key=lambda d:(-(d.get("pct_off") or 0), d["price"], d.get("id") or ""))
     pinned=_fold_pins(pool, pins)
     hero=None
@@ -1063,6 +1078,22 @@ def _deal_orders(d):
         if isinstance(key, str) and key:
             best=max(best, ranks.get(key, 0))
     return best
+def proven_bottle(rows, gender=None):
+    """Highest winners.json order count still in rows. A dropped SKU returns None.
+
+    FragranceShop only. That is the merchant on every commission row in winners.json.
+    """
+    pool=[]
+    for d in rows or []:
+        if not isinstance(d, dict) or d.get("in_stock") is False: continue
+        if isinstance(d.get("price"), bool) or not isinstance(d.get("price"), (int, float)): continue
+        if not d.get("url") or d.get("retailer")!="FragranceShop": continue
+        if gender and d.get("gender")!=gender: continue
+        if _deal_orders(d)<=0: continue
+        pool.append(d)
+    if not pool: return None
+    pool.sort(key=lambda d:(-_deal_orders(d), d["price"], d.get("id") or ""))
+    return pool[0]
 def shopper_picks():
     """Le Male Le Parfum, Jazz Club, and 1 Million Lucky, when they are still FragranceShop deals.
 
@@ -1106,18 +1137,23 @@ def proven_deal_links_html():
     if len(bits)<5: return ""
     return "<p class='proven-picks' id='sold-deal-pages'><b>Deal pages</b> "+" ".join(bits)+"</p>"
 def shopper_lead():
-    """One Buy button for the lowest of those three. Not the cheapest bottle on a mixed page."""
+    """One Buy button for the proven bottle with the most orders. A missing bottle leaves the row empty."""
     rows=shopper_picks()
     if not rows: return ""
-    d=min(rows, key=lambda row:(row["price"], row.get("id") or ""))
+    d=max(rows, key=lambda row:(_deal_orders(row), -(row.get("price") or 0), row.get("id") or ""))
     size=sz(d.get("size") or "")
     size_bit=f" · {e(size)}" if size else ""
     label="Buy at "+e(d["retailer"])+" →"
     ship="<p class='meta'>Free U.S. shipping on orders over $50</p>" if d.get("retailer")=="FragranceShop" else ""
+    if d.get("id") in _SOLD_DEAL_IDS and bf_week_on():
+        stamp=f"Black Friday week price, checked {e(checked_h(d.get('checked')))}"
+    else:
+        stamp=f"Proven pick · Price checked {e(upd_h)}"
+    cm=" <span class='meta'>Cyber Monday is November 30</span>" if d.get("id") in _SOLD_DEAL_IDS and cm_hook_on() else ""
     thumb=bottle_thumb(d, True)
-    return (f"<div class='lead-offer'><p class='meta'>Proven pick · Price checked {e(upd_h)}</p>{thumb}"
+    return (f"<div class='lead-offer'><p class='meta'>{stamp}</p>{thumb}"
             f"<p class='lead-name'><b>{e(fullname(d))}</b>{size_bit}</p>"
-            f"<p class='lead-price'><span class='price'>${d['price']:.2f}</span> <span class='meta'>at {e(d['retailer'])}</span></p>"
+            f"<p class='lead-price'><span class='price'>${d['price']:.2f}</span>{cm} <span class='meta'>at {e(d['retailer'])}</span></p>"
             f"{ext_a(d['url'], label, cls='btn', style='max-width:340px', placement='cta', product=frag_slug(d))}{ship}</div>")
 _PROVEN_GRID=(
     "le male le parfum",
@@ -1274,11 +1310,19 @@ use_sid("home")
 _home_lo=min(d["price"] for d in deals)
 _home_mx=max(d["pct_off"] for d in deals)
 _home_when=f"{upd:%b %-d, %Y}"
-_home_desc=fit([
+_home_desc_cands=[]
+_home_proven=proven_bottle(deals)
+_home_lead=f"${_home_proven['price']:.2f}" if _home_proven else ""
+if cm_hook_on() and _home_lead:
+    _home_desc_cands.append(f"Buy Black Friday 2026 and Cyber Monday perfume and cologne from ${_home_lo:.2f}. Lead {_home_lead}. Prices checked {_home_when}.")
+if _home_lead:
+    _home_desc_cands.append(f"Buy Black Friday 2026 perfume and cologne from ${_home_lo:.2f}. Lead {_home_lead}. {len(deals)} deals. Prices checked {_home_when}.")
+_home_desc_cands+=[
     f"Buy Black Friday 2026 perfume and cologne from ${_home_lo:.2f}, up to {_home_mx}% off. {len(deals)} deals. Prices checked {_home_when}.",
     f"Buy {len(deals)} perfume and cologne deals from ${_home_lo:.2f}, up to {_home_mx}% off. Prices checked {_home_when}.",
     f"Buy designer perfume and cologne from ${_home_lo:.2f}, up to {_home_mx}% off. Prices checked {_home_when}.",
-],160)
+]
+_home_desc=fit(_home_desc_cands,160)
 if not (70<=len(_home_desc)<=160) or "Prices checked" not in _home_desc or _home_when not in _home_desc or f"${_home_lo:.2f}" not in _home_desc:
     raise SystemExit(f"homepage meta is {len(_home_desc)} chars or misses the price or the check date ({_home_desc})")
 page("index.html",fit([
@@ -1289,7 +1333,7 @@ page("index.html",fit([
  _home_desc,
  f"<h1>Today's best designer fragrance deals</h1><p class='sub'>Prices checked {e(_home_when)}. {len(deals)} live deals · <a href='{PREFIX}/black-friday/'>Black Friday perfume and cologne deals</a></p>"
  +promo_callout()
- +lead_offer(deals)
+ +lead_offer(deals, prefer=proven_bottle(deals))
  +proven_picks_html()
  +proven_deal_links_html()
  +fs_fold_html(deals, (
@@ -1418,6 +1462,7 @@ for g,label in [("men","Men's Cologne"),("women","Women's Perfume"),("unisex","U
         {"brand":"margiela","name_is":"replica jazz club","size":"3.4"},
         "afternoon delight",
     )}.get(g, ())
+    hub_lead=proven_bottle(ds, g) if g in ("men","women") else None
     gchip="".join(f"<a href='{PREFIX}/gifts/{gu['slug']}/'>{e(gu.get('chip') or gu['title'])}</a>" for gu in GIFT_GUIDES if any(d["gender"]==g for d in gu["picks"]))
     mx=max(d['pct_off'] for d in ds)
     lo=min(ds, key=lambda d:(d["price"], -(d.get("pct_off") or 0), d["id"]))
@@ -1432,10 +1477,28 @@ for g,label in [("men","Men's Cologne"),("women","Women's Perfume"),("unisex","U
             f"Buy {label} Black Friday 2026: From ${lo_p:.2f} ({mx}% Off)",
             f"Buy {label} Black Friday 2026: From ${lo_p:.2f}",
         ]
-        desc_cands=[
+        desc_cands=[]
+        _lead_bit=f" Lead ${hub_lead['price']:.2f}." if hub_lead else ""
+        if cm_hook_on():
+            desc_cands.append(f"Buy {query} for Black Friday 2026 and Cyber Monday from ${lo_p:.2f}.{_lead_bit} Up to {mx}% off. Prices checked {when}.")
+        desc_cands+=[
+            f"Buy {query} for Black Friday 2026 from ${lo_p:.2f}.{_lead_bit} Up to {mx}% off. Prices checked {when}.",
+            f"Buy {query} for Black Friday 2026 from ${lo_p:.2f} ({fullname(lo)}). Up to {mx}% off. Prices checked {when}.",
+            f"Buy men's cologne for Black Friday 2026 from ${lo_p:.2f}. Up to {mx}% off. Prices checked {when}.",
+        ]
+        hook="Black Friday 2026"
+    elif g=="women":
+        title_cands=[
+            f"Buy Women's Perfume Black Friday 2026: From ${lo_p:.2f} ({mx}% Off)",
+            f"Buy Perfume Black Friday 2026: From ${lo_p:.2f} ({mx}% Off)",
+        ]
+        desc_cands=[]
+        _lead_bit=f" Lead ${hub_lead['price']:.2f}." if hub_lead else ""
+        if cm_hook_on():
+            desc_cands.append(f"Buy {query} for Black Friday 2026 and Cyber Monday from ${lo_p:.2f}.{_lead_bit} Up to {mx}% off. Prices checked {when}.")
+        desc_cands+=[
             f"Buy {query} for Black Friday 2026 from ${lo_p:.2f} ({fullname(lo)}). Up to {mx}% off. Prices checked {when}.",
             f"Buy {query} for Black Friday 2026 from ${lo_p:.2f}. Up to {mx}% off. Prices checked {when}.",
-            f"Buy men's cologne for Black Friday 2026 from ${lo_p:.2f}. Up to {mx}% off. Prices checked {when}.",
         ]
         hook="Black Friday 2026"
     else:
@@ -1459,6 +1522,10 @@ for g,label in [("men","Men's Cologne"),("women","Women's Perfume"),("unisex","U
         raise SystemExit(f"/{g}/: title is {len(gtitle)} chars or misses Buy, month, price, or percent ({gtitle})")
     if not (70<=len(gdesc)<=155) or f"${lo_p:.2f}" not in gdesc or f"{mx}%" not in gdesc or "Prices checked" not in gdesc or when not in gdesc:
         raise SystemExit(f"/{g}/: meta is {len(gdesc)} chars or misses price, percent, or the check date ({gdesc})")
+    if g in ("men","women") and "Black Friday 2026" not in gdesc:
+        raise SystemExit(f"/{g}/: meta is missing Black Friday 2026 ({gdesc})")
+    if g in ("men","women") and cm_hook_on() and "Cyber Monday" not in gdesc:
+        raise SystemExit(f"/{g}/: meta is missing Cyber Monday ({gdesc})")
     size_bit=f" ({sz(lo['size'])})" if lo.get("size") else ""
     faqs=[
         (f"What is the lowest {noun} price right now?",
@@ -1474,15 +1541,19 @@ for g,label in [("men","Men's Cologne"),("women","Women's Perfume"),("unisex","U
     focus_html=("<p>"+" ".join(f"<a href='{PREFIX}/gifts/{slug}/'>{e(text)}</a>." for slug, text in focus)+"</p>") if focus else ""
     sub_links=(f" {season_links_text()}." if g=="men" else "")
     fold_html=fs_fold_html(ds, _gender_pins)
+    if hub_lead:
+        button_line=f"The button above is {fullname(hub_lead)} at ${hub_lead['price']:.2f}, a bottle shoppers have bought here."
+    else:
+        button_line="The button above is the lowest price on this page."
     order_line=(" The rest of this page is lowest price first." if g=="men" else "")
     page(f"{g}/index.html",gtitle,
       gdesc,
       f"<h1>{label} deals</h1><p class='sub'>Prices checked {e(when)}.{sub_links}</p>"
-      +lead_offer(ds)
+      +lead_offer(ds, prefer=hub_lead)
       +(proven_picks_html() if g=="men" else "")
       +"<!--proven-also-->"
       +fold_html
-      +f"<p>{e(sale.capitalize())} on sale at authorized retailers. The button above is the lowest price on this page.{order_line}</p>"
+      +f"<p>{e(sale.capitalize()+' on sale at authorized retailers. '+button_line+order_line)}</p>"
       +f"<div class='grid'>{''.join(card(d) for d in ds)}</div>"
       +(BF_BRAND_ROW_MARK if g in ("men","women") else "")
       +GENDER_GIFT_MARK
@@ -2255,6 +2326,24 @@ def seller_family_links(d):
     label={"ck":"Other Calvin Klein bottles","replica":"Other Replica scents","le-male":"Other Le Male colognes","lancome":"Other Lancôme perfumes","carolina":"Other Carolina Herrera bottles","paco":"Other Paco Rabanne bottles","juicy-peace":"Other Juicy Couture bottles","burberry-london":"Other Burberry bottles","azzaro-wanted":"Other Azzaro bottles"}[line]
     bits=[f"<a href='{PREFIX}/fragrance/{frag_slug(x)}/'>{e(fullname(x))} · ${x['price']:.2f}</a>" for x in others]
     return f"<p class='chips'><span class='meta'>{e(label)}</span>{''.join(bits)}</p>"
+def price_tracking_html(d):
+    """One line once a price has been stored. No chart and no lowest badge."""
+    rows=getattr(price_tracking_html, "_rows", None)
+    if rows is None:
+        try:
+            import price_history
+            rows=price_history.load(os.path.join(ROOT, "data", "price-history.json"))
+        except Exception:
+            rows=[]
+        price_tracking_html._rows=rows
+    keys={k for k in (d.get("sku"), d.get("id")) if isinstance(k, str) and k}
+    dates=[r.get("date") for r in rows if r.get("sku") in keys and isinstance(r.get("date"), str)]
+    if not dates: return ""
+    try:
+        first=datetime.date.fromisoformat(min(dates))
+    except ValueError:
+        return ""
+    return f"<p class='meta'>Price tracking since {e(f'{first:%b} {first.day}, {first.year}')}.</p>"
 SELLER_PAGES=[]
 KW=[]
 for d in deals:
@@ -2297,6 +2386,7 @@ for d in deals:
         head=(f"<h1>{e(full)} {e(sz(d['size']))}: cheapest price today</h1><p class='sub'>Lowest verified price: <b class='price'>${d['price']:.2f}</b> <span class='was'>${d['was']:.2f}</span> <span class='badge'>-{d['pct_off']}%</span> at {e(d['retailer'])} · checked {checked_h(d.get('checked'))}</p>"
           +buy(d['url'],d['retailer'], frag_slug(d))+also_line(d)+also_popular(d))
     body=(head
+      +price_tracking_html(d)
       +f"<div class='box price-shot' style='display:flex;gap:16px;flex-wrap:wrap'><img src='{e(hosted_photo(d) or PLACEHOLDER_SRC)}' alt='{e(full)}' width=220 height=220 fetchpriority=high decoding=async style='object-fit:contain'><div style='flex:1;min-width:220px'><h2 style='margin-top:0'>Price comparison</h2><table><thead><tr><th>Retailer</th><th>Size</th><th>Price</th><th>Checked</th></tr></thead><tbody>{comprows(d)}</tbody></table><p class=meta>More retailers are added as we verify them. We never list unverified prices.</p></div></div>"
       +BREVO_FORM
       +f"<p>{e(full)} is one of today's best {gl} deals: {d['pct_off']}% {('below the '+e(d['was_label'])+' price') if d.get('was_label') else 'off the listed price'}, a {d['type'].lower() or 'fragrance'} from {e(d['brand'])} (<a href='{PREFIX}/brands/{bslug(d['brand'])}/'>all {e(canon(d['brand']))} deals</a>{"".join(", <a href='"+PREFIX+"/best/"+ru['slug']+"/'>"+e(ru['title'].lower().replace('best ','more '))+"</a>" for ru in rus)}).</p>"
@@ -3091,16 +3181,26 @@ for path,sid_slug,title,short,intro,picks,list_name in gift_pages:
         titles=fit([f"{title}: From {P} ({upd:%b %Y}) | {NAME}", f"{title}: From {P} | {NAME}", f"{title}: From {P}", title])
         if path=="gifts/index.html":
             titles=fit([
+                f"Buy Fragrance Gifts Black Friday 2026: From {P}",
+                f"Buy Black Friday Fragrance Gifts 2026: From {P}",
                 f"Buy Holiday Fragrance Gifts 2026: From {P}",
-                f"Holiday Fragrance Gifts 2026: From {P}",
-                f"{title}: From {P} | {NAME}",
                 f"{title}: From {P}",
             ])
-            desc=fit([
-                f"Buy holiday fragrance gifts for 2026. {len(picks)} bottles from {P} ({fullname(lo)}), up to {hi}% off. Checked {upd:%b %-d, %Y}.",
-                f"{len(picks)} holiday fragrance gifts from {P} ({fullname(lo)}), up to {hi}% off. Checked {upd:%b %-d, %Y}.",
+            _gift_hub=proven_bottle(deals)
+            _gift_lead=f" Lead ${_gift_hub['price']:.2f}." if _gift_hub else ""
+            _gift_desc=[]
+            if cm_hook_on():
+                _gift_desc.append(f"Buy Black Friday 2026 and Cyber Monday fragrance gifts from {P}.{_gift_lead} {len(picks)} bottles, up to {hi}% off. Prices checked {upd:%b %-d, %Y}.")
+            _gift_desc+=[
+                f"Buy Black Friday 2026 fragrance gifts from {P} ({fullname(lo)}), up to {hi}% off. Prices checked {upd:%b %-d, %Y}.",
+                f"Buy holiday fragrance gifts for Black Friday 2026 from {P}. {len(picks)} bottles, up to {hi}% off. Prices checked {upd:%b %-d, %Y}.",
                 desc,
-            ],160)
+            ]
+            desc=fit(_gift_desc,160)
+            if "Black Friday 2026" not in titles or "Black Friday 2026" not in desc:
+                raise SystemExit(f"gifts hub title or meta missed Black Friday 2026 ({titles} / {desc})")
+            if cm_hook_on() and "Cyber Monday" not in desc:
+                raise SystemExit(f"gifts hub meta missed Cyber Monday ({desc})")
         elif sid_slug=="for-him":
             titles=fit([
                 f"2026 Holiday Cologne Gift Deals for Him: From {P}",
@@ -3172,7 +3272,8 @@ for path,sid_slug,title,short,intro,picks,list_name in gift_pages:
         _her_new=[x for x in _her_new if x]
         if _her_new:
             who_extra+="<p>"+" ".join(_her_new)+".</p>"
-    top, rest_html=fold_offer(lead_offer(picks), intro, listing)
+    gift_lead=proven_bottle(deals) if path=="gifts/index.html" else None
+    top, rest_html=fold_offer(lead_offer(picks, prefer=gift_lead), intro, listing)
     mark=NEW_HOLIDAY_MARK if path=="gifts/index.html" else ""
     form=BREVO_FORM if picks else ""
     page(path, titles,
@@ -4583,7 +4684,10 @@ bf_title=fit([
     f"Buy Black Friday Perfume Deals 2026: From ${bf_lo['price']:.2f}",
     f"Black Friday Perfume Deals 2026: From ${bf_lo['price']:.2f}",
 ])
+_bf_proven=proven_bottle(bf_singles)
+_bf_lead_bit=f" Lead ${_bf_proven['price']:.2f}." if _bf_proven else ""
 bf_desc_cands=[
+    f"Buy Black Friday perfume deals 2026 and Cyber Monday cologne deals from ${bf_lo['price']:.2f}.{_bf_lead_bit} Updated {bf_when}.",
     f"Black Friday perfume deals 2026 and Cyber Monday cologne deals: {len(bf_ids)} {bf_noun} from ${bf_lo['price']:.2f}, up to {bf_mx}% off. Shop now for November 27. Updated {bf_when}.",
     f"Shop now for Nov 27, 2026. Black Friday perfume deals 2026 and Cyber Monday cologne deals from ${bf_lo['price']:.2f}, up to {bf_mx}% off. Updated {bf_when}.",
     f"Black Friday perfume deals 2026 and Cyber Monday cologne deals: {len(bf_ids)} {bf_noun} from ${bf_lo['price']:.2f}, up to {bf_mx}% off. Updated {bf_when}.",
@@ -4615,7 +4719,7 @@ if CM_ROWS:
     cm_back=(f"<p><a href='{PREFIX}{CM_PATH}'>Cyber Monday fragrance deals</a> "
              "lists the checked bottles in one list, largest discount first, for November 30.</p>")
 use_sid("bfcm", "fragrance-deals")
-_bf_lead=(lead_offer(bf_singles)+proven_picks_html()
+_bf_lead=(lead_offer(bf_singles, prefer=proven_bottle(bf_singles))+proven_picks_html()
     +fs_fold_html(bf_singles, ("le male le parfum", {"brand":"lanc","name_is":"la vie est belle perfume","size":"3.4"}, {"brand":"carolina","name_is":"good girl perfume","size":"2.7"}, {"brand":"margiela","name_is":"replica jazz club","size":"3.4"}))
     +fs_bf_section()+promo_upcoming())
 _bf_top, _bf_rest=fold_offer(_bf_lead, bf_intro, "".join(bf_parts))
@@ -6866,9 +6970,13 @@ def audit_luxury_and_home_buy():
         if not rows:
             raise SystemExit(f"{rel}: no deals to buy")
         lo=lowest_deal(rows)
-        price=f"${lo['price']:.2f}"
-        if price not in lead.group(1) or f"at {e(lo['retailer'])}" not in lead.group(1):
-            raise SystemExit(f"{rel}: lead block is not the lowest checked price at its store")
+        expect=lo
+        if rel=="index.html":
+            proven=proven_bottle(rows)
+            if proven: expect=proven
+        price=f"${expect['price']:.2f}"
+        if price not in lead.group(1) or f"at {e(expect['retailer'])}" not in lead.group(1):
+            raise SystemExit(f"{rel}: lead block is not {fullname(expect)} at {expect['retailer']}")
         cards=card_re.findall(text)
         if len(cards)!=len(rows):
             raise SystemExit(f"{rel}: {len(cards)} cards for {len(rows)} bottles")
@@ -6896,7 +7004,7 @@ def audit_luxury_and_home_buy():
                 raise SystemExit(f"{rel}: meta is {len(desc)} chars or misses 2026, gift, or from {low}")
             print(f"{rel}: title {len(title)} chars, meta {len(desc)} chars, {len(cards)} cards, lead {low} at {lo['retailer']}")
         else:
-            print(f"homepage top deals: lead ${lo['price']:.2f} at {lo['retailer']}, {len(cards)} cards with price, store, and one Buy button")
+            print(f"homepage top deals: lead ${expect['price']:.2f} at {expect['retailer']}, {len(cards)} cards with price, store, and one Buy button")
 audit_luxury_and_home_buy()
 def audit_conversion_order():
     """Product cards come before the gift chip nav. The lead Buy stays sticky. Homepage money links sit under that Buy."""
@@ -7803,11 +7911,13 @@ def audit_nov13_pages():
             raise SystemExit(f"{rel}: /gifts/ does not link it ({inbound})")
         print(f"{rel}: {title} ({len(title)}) / meta {len(desc)} / {len(key)} bottles / hubs {', '.join(inbound)}")
     replica=_read_built("gifts/replica-christmas-gifts/index.html")
-    if replica is not None:
+    if replica is not None and "fs-mm-bubble-bath-edt-3-4" in BYID:
         if "/fragrance/maison-margiela-replica-bubble-bath/" not in replica:
             raise SystemExit("replica christmas gifts: missing the Bubble Bath deal link")
         if "Bubble Bath" not in replica.split("have bought", 1)[-1][:400] and "Bubble Bath" not in replica:
             raise SystemExit("replica christmas gifts: Bubble Bath is not named")
+    elif replica is not None:
+        print("replica christmas gifts: Bubble Bath left the price check, so the deal link is not required")
     for rel, d in SELLER_PAGES:
         if seller_line(d) not in ("lancome","carolina","replica","paco"): continue
         text=open(f"{OUT}/{rel}", encoding="utf-8").read()
@@ -7912,7 +8022,7 @@ def audit_bf_ctr_pages():
         ("gifts/veterans-day-cologne-gifts/index.html", False),
     )
     for rel, need_bf_title in pages:
-        if rel.startswith("gifts/") and not os.path.isfile(f"{OUT}/{rel}"):
+        if not os.path.isfile(f"{OUT}/{rel}"):
             print(f"{rel}: not built today, skip the page audit")
             continue
         text=open(f"{OUT}/{rel}", encoding="utf-8").read()
@@ -8031,7 +8141,9 @@ def audit_layout_fixes():
     fold=re.search(r"id='fs-deals'>(.*?)</div></div>", women, re.S)
     if not lead or not fold:
         raise SystemExit("women page is missing the lead or the fold")
-    if html.unescape(lead.group(1)) in html.unescape(fold.group(1)):
+    women_lead=html.unescape(lead.group(1))
+    women_proven=proven_bottle([d for d in deals if d.get("gender")=="women"])
+    if not (women_proven and women_lead==fullname(women_proven)) and women_lead in html.unescape(fold.group(1)):
         raise SystemExit("women fold repeats the hero bottle")
     best=open(f"{OUT}/best-sellers/index.html", encoding="utf-8").read()
     if "Price not listed" in best:
@@ -8653,6 +8765,108 @@ def audit_nov26_pages():
         raise SystemExit("also popular is missing the bottles that have sold")
     print("nov 26: winner pages keep a Buy above the photo, five new buying pages")
 audit_nov26_pages()
+def audit_nov27_pages():
+    """Black Friday hubs lead with the proven bottle. New deal pages skip a missing SKU."""
+    hubs=(
+        ("index.html", "fs-jpg-le-male-le-parfum-4-2"),
+        ("men/index.html", "fs-jpg-le-male-le-parfum-4-2"),
+        ("women/index.html", "fs-lancome-la-vie-est-belle-edp-3-4"),
+        ("black-friday-fragrance-deals/index.html", "fs-jpg-le-male-le-parfum-4-2"),
+        ("gifts/index.html", "fs-jpg-le-male-le-parfum-4-2"),
+        ("best-sellers/index.html", "fs-jpg-le-male-le-parfum-4-2"),
+    )
+    for rel, deal_id in hubs:
+        text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+        title=html.unescape(re.search(r"<title>(.*?)</title>", text, re.S).group(1))
+        desc=html.unescape(re.search(r'<meta name="description" content="([^"]*)"', text).group(1))
+        if "Black Friday" not in title or "2026" not in title or len(title)>60:
+            raise SystemExit(f"{rel}: title missed Black Friday 2026 ({len(title)}) {title}")
+        if ("Black Friday" not in desc or "2026" not in desc) or not (70<=len(desc)<=160):
+            raise SystemExit(f"{rel}: meta missed Black Friday 2026 ({len(desc)}) {desc}")
+        if cm_hook_on() and "Cyber Monday" not in desc:
+            raise SystemExit(f"{rel}: meta missed Cyber Monday ({desc})")
+        lead=re.search(r"<div class='lead-offer'>(.*?)</div>", text, re.S)
+        img_at=_photo_at(text)
+        lead_at=text.find("lead-offer")
+        if not lead or "Buy at " not in lead.group(1) or ("Price checked " not in lead.group(1) and "Black Friday week price, checked " not in lead.group(1)):
+            raise SystemExit(f"{rel}: lead Buy is missing the checked price")
+        if lead_at<0 or (img_at>=0 and img_at<lead_at):
+            raise SystemExit(f"{rel}: the photo is above the Buy button")
+        d=BYID.get(deal_id)
+        if d:
+            if f"${d['price']:.2f}" not in lead.group(1) or fullname(d) not in html.unescape(lead.group(1)):
+                raise SystemExit(f"{rel}: lead is not {fullname(d)} at ${d['price']:.2f}")
+            print(f"{rel}: {title} ({len(title)}) / meta {len(desc)} / lead {fullname(d)} ${d['price']:.2f}")
+        else:
+            print(f"{rel}: {deal_id} left the price check, lead stayed on a bottle still priced")
+    pages=(
+        ("best/stronger-with-you-intensely-deal/index.html","/best/stronger-with-you-intensely-deal/","stronger-with-you-intensely-cologne-for-men",
+         ("stronger-with-you-intensely-cologne-for-men","fs-armani-code-edt-4-2","giorgio-armani-acqua-di-gio-eau-de-toilette-cologne-for-men"),
+         ("men/index.html","brands/giorgio-armani/index.html","fragrance/giorgio-armani-stronger-with-you-intensely-cologne/index.html")),
+        ("best/gucci-bloom-deal/index.html","/best/gucci-bloom-deal/","fs-gucci-bloom-edp-3-3",
+         ("fs-gucci-bloom-edp-3-3","fs-gucci-flora-jasmine-edp-3-4","fs-ysl-black-opium-edp-1-6"),
+         ("women/index.html","brands/gucci/index.html")),
+        ("best/uomo-born-in-roma-deal/index.html","/best/uomo-born-in-roma-deal/","valentino-uomo-born-in-roma-cologne-eau-de-toilette-for-men",
+         ("valentino-uomo-born-in-roma-cologne-eau-de-toilette-for-men","uomo-intense-by-valentino-for-men-eau-de-parfum-spray","giorgio-armani-acqua-di-gio-eau-de-toilette-cologne-for-men"),
+         ("men/index.html","brands/valentino/index.html")),
+        ("best/bad-boy-deal/index.html","/best/bad-boy-deal/","fs-ch-bad-boy-edt-3-4",
+         ("fs-ch-bad-boy-edt-3-4","the-most-wanted-parfum-cologne","fs-jpg-ultra-male-edt-4-2"),
+         ("men/index.html","brands/carolina-herrera/index.html")),
+    )
+    by_slug={r["slug"]: tuple(sorted(d.get("id") for d in r["items"])) for r in ROUNDUPS}
+    sm=open(f"{OUT}/sitemap.xml", encoding="utf-8").read()
+    llms=open(f"{OUT}/llms.txt", encoding="utf-8").read()
+    built=0
+    for rel, href, lead_id, ids, surfaces in pages:
+        missing=[i for i in ids if i not in BYID]
+        if missing:
+            print(f"{rel}: not built today, missing {', '.join(missing)}")
+            if os.path.isfile(f"{OUT}/{rel}"):
+                raise SystemExit(f"{rel}: built even though {', '.join(missing)} left the price check")
+            continue
+        slug=rel.split("/")[1]
+        if slug not in by_slug or by_slug[slug]!=tuple(sorted(ids)):
+            raise SystemExit(f"{slug}: bottles are not the configured set")
+        text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+        title=html.unescape(re.search(r"<title>(.*?)</title>", text, re.S).group(1))
+        desc=html.unescape(re.search(r'<meta name="description" content="([^"]*)"', text).group(1))
+        lead=BYID[lead_id]
+        if len(title)>60 or not title.startswith("Buy ") or "$" not in title:
+            raise SystemExit(f"{rel}: title is {len(title)} chars ({title})")
+        if not (70<=len(desc)<=160) or "$" not in desc:
+            raise SystemExit(f"{rel}: meta is {len(desc)} chars ({desc})")
+        loc=f"{BASE}{PREFIX}{href}"
+        canon=re.search(r'<link rel="canonical" href="([^"]+)"', text)
+        if not canon or canon.group(1)!=loc or not canon.group(1).startswith("https://scentdealsdaily.com/"):
+            raise SystemExit(f"{rel}: canonical is not {loc}")
+        if f"<loc>{loc}</loc>" not in sm or loc not in llms:
+            raise SystemExit(f"{loc} missing from sitemap or llms.txt")
+        lead_html=re.search(r"<div class='lead-offer'>(.*?)</div>", text, re.S)
+        img_at=_photo_at(text)
+        lead_at=text.find("lead-offer")
+        if not lead_html or f"${lead['price']:.2f}" not in lead_html.group(1) or f"Buy at {lead['retailer']}" not in lead_html.group(1):
+            raise SystemExit(f"{rel}: lead Buy is not {fullname(lead)} at ${lead['price']:.2f}")
+        if lead_at<0 or img_at<lead_at or "also popular:" not in text[lead_at:img_at]:
+            raise SystemExit(f"{rel}: also popular is not between the Buy button and the photo")
+        for kind in ("FAQPage","ItemList","BreadcrumbList","Offer"):
+            if kind not in text:
+                raise SystemExit(f"{rel}: missing {kind}")
+        home=open(f"{OUT}/index.html", encoding="utf-8").read()
+        if f"href='{PREFIX}{href}'" not in home and f'href="{PREFIX}{href}"' not in home:
+            raise SystemExit(f"homepage does not link {href}")
+        for surface in surfaces:
+            if not os.path.isfile(f"{OUT}/{surface}"):
+                print(f"{surface}: not built today, skip the link check for {href}")
+                continue
+            blob=open(f"{OUT}/{surface}", encoding="utf-8").read()
+            if f"href='{PREFIX}{href}'" not in blob and f'href="{PREFIX}{href}"' not in blob:
+                raise SystemExit(f"{surface} does not link {href}")
+        built+=1
+        print(f"{rel}: {title} ({len(title)}) / meta {len(desc)} / lead ${lead['price']:.2f} at {lead['retailer']}")
+    if open(f"{OUT}/CNAME", encoding="utf-8").read().strip()!="scentdealsdaily.com":
+        raise SystemExit("CNAME is not scentdealsdaily.com")
+    print(f"nov 27: {built} new deal pages, hub leads use the proven bottle")
+audit_nov27_pages()
 def audit_bottle_thumbs():
     """Price cards keep a small local bottle photo beside the name. A deal with no safe image has no img."""
     css=open(f"{OUT}/style.css", encoding="utf-8").read()

@@ -1,0 +1,704 @@
+[
+ {
+  "sku": "FS1191386",
+  "merchant": "FragranceShop",
+  "price": 104.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "FS16013",
+  "merchant": "FragranceShop",
+  "price": 70.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "FS1609680",
+  "merchant": "FragranceShop",
+  "price": 43.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "FS1609681",
+  "merchant": "FragranceShop",
+  "price": 40.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "FS1609727",
+  "merchant": "FragranceShop",
+  "price": 78.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "FS1609745",
+  "merchant": "FragranceShop",
+  "price": 23.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "FS1609839",
+  "merchant": "FragranceShop",
+  "price": 81.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "FS190134",
+  "merchant": "FragranceShop",
+  "price": 159.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "FS190174",
+  "merchant": "FragranceShop",
+  "price": 80.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "FS190400",
+  "merchant": "FragranceShop",
+  "price": 109.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "FS191120",
+  "merchant": "FragranceShop",
+  "price": 95.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "FS191152",
+  "merchant": "FragranceShop",
+  "price": 94.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "FS191154",
+  "merchant": "FragranceShop",
+  "price": 98.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "FS191156",
+  "merchant": "FragranceShop",
+  "price": 77.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "FS191211",
+  "merchant": "FragranceShop",
+  "price": 106.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "FS191249",
+  "merchant": "FragranceShop",
+  "price": 70.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "FS191812",
+  "merchant": "FragranceShop",
+  "price": 76.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "FS1948",
+  "merchant": "FragranceShop",
+  "price": 128.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "FS36327",
+  "merchant": "FragranceShop",
+  "price": 63.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "FS36521",
+  "merchant": "FragranceShop",
+  "price": 92.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "FS42081",
+  "merchant": "FragranceShop",
+  "price": 84.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "FS533",
+  "merchant": "FragranceShop",
+  "price": 101.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "FS88558",
+  "merchant": "FragranceShop",
+  "price": 91.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "FS88642",
+  "merchant": "FragranceShop",
+  "price": 75.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "FS89675",
+  "merchant": "FragranceShop",
+  "price": 78.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "FS89872",
+  "merchant": "FragranceShop",
+  "price": 68.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "FS89989",
+  "merchant": "FragranceShop",
+  "price": 122.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "FS90750",
+  "merchant": "FragranceShop",
+  "price": 54.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "FS90840",
+  "merchant": "FragranceShop",
+  "price": 81.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "FS91077",
+  "merchant": "FragranceShop",
+  "price": 59.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "azzaro-azzaro-mens-eau-de-toilette-spray",
+  "merchant": "FragranceShop",
+  "price": 17.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "azzaro-azzaro-mens-eau-de-toilette-spray",
+  "merchant": "Perfumania",
+  "price": 38.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "azzaro-chrome-legend-mens-eau-de-toilette-spray",
+  "merchant": "FragranceShop",
+  "price": 22.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "azzaro-chrome-legend-mens-eau-de-toilette-spray",
+  "merchant": "Perfumania",
+  "price": 62.99,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "azzaro-wanted-by-night-cologne-eau-de-parfum-for-men",
+  "merchant": "FragranceShop",
+  "price": 60.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "azzaro-wanted-by-night-cologne-eau-de-parfum-for-men",
+  "merchant": "Perfumania",
+  "price": 86.99,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "billie-eilish-no-2-eau-de-parfum-perfume-for-women",
+  "merchant": "FragranceShop",
+  "price": 34.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "billie-eilish-no-2-eau-de-parfum-perfume-for-women",
+  "merchant": "Perfumania",
+  "price": 68.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "billie-eilish-perfume-eau-de-parfum-for-women",
+  "merchant": "Perfumania",
+  "price": 68.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "boss-bottled-unlimited-by-hugo-boss-for-men-eau-de-toilette-spray",
+  "merchant": "FragranceShop",
+  "price": 31.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "boss-bottled-unlimited-by-hugo-boss-for-men-eau-de-toilette-spray",
+  "merchant": "Perfumania",
+  "price": 55.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "bright-crystal-absolu-by-versace-for-women-eau-de-parfum-spray",
+  "merchant": "FragranceNet",
+  "price": 126.99,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "bright-crystal-absolu-by-versace-for-women-eau-de-parfum-spray",
+  "merchant": "FragranceShop",
+  "price": 70.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "bright-crystal-absolu-by-versace-for-women-eau-de-parfum-spray",
+  "merchant": "Perfumania",
+  "price": 115.99,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "burberry-hero-cologne-eau-de-toilette-for-men",
+  "merchant": "Perfumania",
+  "price": 99.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "burberry-london-perfume-eau-de-parfum-for-women",
+  "merchant": "FragranceShop",
+  "price": 21.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "burberry-london-perfume-eau-de-parfum-for-women",
+  "merchant": "Perfumania",
+  "price": 29.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "burberry-touch-cologne-eau-de-toilette",
+  "merchant": "FragranceNet",
+  "price": 64.99,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "burberry-touch-women-eau-de-parfum-spray",
+  "merchant": "FragranceShop",
+  "price": 27.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "burberry-touch-women-eau-de-parfum-spray",
+  "merchant": "Perfumania",
+  "price": 29.99,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "burberry-weekend-mens-eau-de-toilette-spray",
+  "merchant": "FragranceShop",
+  "price": 29.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "burberry-weekend-mens-eau-de-toilette-spray",
+  "merchant": "Perfumania",
+  "price": 80.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "bvlgari-man-wood-neroli-cologne-eau-de-parfum",
+  "merchant": "FragranceShop",
+  "price": 52.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "bvlgari-man-wood-neroli-cologne-eau-de-parfum",
+  "merchant": "Perfumania",
+  "price": 67.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "cafe-rose-eau-de-parfum-spray-for-women-by-tom-ford",
+  "merchant": "Perfumania",
+  "price": 199.99,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "calvin-klein-beauty-perfume-eau-de-parfum-for-women",
+  "merchant": "FragranceNet",
+  "price": 45.99,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "calvin-klein-beauty-perfume-eau-de-parfum-for-women",
+  "merchant": "FragranceShop",
+  "price": 23.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "calvin-klein-beauty-perfume-eau-de-parfum-for-women",
+  "merchant": "Perfumania",
+  "price": 34.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "calvin-klein-ck-everyone-eau-de-toilette-6-7-oz",
+  "merchant": "FragranceNet",
+  "price": 56.99,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "calvin-klein-ck-one-eau-de-toilette-6-7-oz",
+  "merchant": "FragranceNet",
+  "price": 50.99,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "calvin-klein-ck-one-eau-de-toilette-unisex-fragrance",
+  "merchant": "Perfumania",
+  "price": 24.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "calvin-klein-eternity-cologne-eau-de-toilette",
+  "merchant": "FragranceNet",
+  "price": 51.99,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "calvin-klein-eternity-womens-eau-de-parfum-spray",
+  "merchant": "FragranceNet",
+  "price": 52.99,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "calvin-klein-eternity-womens-eau-de-parfum-spray",
+  "merchant": "FragranceShop",
+  "price": 29.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "calvin-klein-eternity-womens-eau-de-parfum-spray",
+  "merchant": "Perfumania",
+  "price": 90.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "calvin-klein-free-mens-eau-de-toilette-spray",
+  "merchant": "FragranceNet",
+  "price": 30.99,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "calvin-klein-free-mens-eau-de-toilette-spray",
+  "merchant": "FragranceShop",
+  "price": 20.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "calvin-klein-free-mens-eau-de-toilette-spray",
+  "merchant": "Perfumania",
+  "price": 19.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "calvin-klein-obsession-eau-de-parfum",
+  "merchant": "FragranceNet",
+  "price": 40.99,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "casamorati-mefisto-cologne",
+  "merchant": "Perfumania",
+  "price": 229.99,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "ck-everyone-unisex-fragrance",
+  "merchant": "FragranceNet",
+  "price": 41.99,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "ck-everyone-unisex-fragrance",
+  "merchant": "Perfumania",
+  "price": 29.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "clinique-happy-eau-de-parfum-3-4-oz",
+  "merchant": "FragranceNet",
+  "price": 57.99,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "clinique-happy-women-eau-de-parfum-spray",
+  "merchant": "FragranceNet",
+  "price": 31.99,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "clinique-happy-women-eau-de-parfum-spray",
+  "merchant": "Perfumania",
+  "price": 49.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "coach-for-men-eau-de-toilette",
+  "merchant": "Perfumania",
+  "price": 68.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "davidoff-cool-water-eau-de-toilette",
+  "merchant": "FragranceNet",
+  "price": 39.99,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "dolce-gabbana-light-blue-eau-de-toilette",
+  "merchant": "FragranceNet",
+  "price": 91.99,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "dylan-blue-eau-de-parfum-spray-for-women-by-versace",
+  "merchant": "FragranceShop",
+  "price": 64.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "dylan-blue-eau-de-parfum-spray-for-women-by-versace",
+  "merchant": "Perfumania",
+  "price": 115.99,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "elizabeth-arden-green-tea-scent-women-eau-de-parfum-spray",
+  "merchant": "Perfumania",
+  "price": 31.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "eternity-air-eau-de-parfum-spray-for-women-by-calvin-klein",
+  "merchant": "FragranceShop",
+  "price": 21.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "eternity-air-eau-de-parfum-spray-for-women-by-calvin-klein",
+  "merchant": "Perfumania",
+  "price": 29.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "fs-dg-the-one-edp-2-5",
+  "merchant": "FragranceShop",
+  "price": 57.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "fs-lancome-idole-edp-3-4",
+  "merchant": "FragranceShop",
+  "price": 97.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "fs-paco-1-million-lucky-edt-3-4",
+  "merchant": "FragranceShop",
+  "price": 75.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "giorgio-armani-acqua-di-gio-eau-de-toilette-cologne-for-men",
+  "merchant": "FragranceNet",
+  "price": 129.99,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "giorgio-armani-acqua-di-gio-eau-de-toilette-cologne-for-men",
+  "merchant": "FragranceShop",
+  "price": 66.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "giorgio-armani-acqua-di-gio-eau-de-toilette-cologne-for-men",
+  "merchant": "Perfumania",
+  "price": 108.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "hugo-boss-in-motion-mens-eau-de-toilette-spray",
+  "merchant": "Perfumania",
+  "price": 44.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "lancome-la-vie-est-belle-perfume-eau-de-parfum-for-women",
+  "merchant": "FragranceShop",
+  "price": 61.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "lancome-la-vie-est-belle-perfume-eau-de-parfum-for-women",
+  "merchant": "Perfumania",
+  "price": 79.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "lancome-poeme-perfume-for-women-eau-de-parfum-spray",
+  "merchant": "Perfumania",
+  "price": 83.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "le-beau-eau-de-toilette-spray-for-men-by-jean-paul-gaultier",
+  "merchant": "FragranceShop",
+  "price": 78.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "le-beau-eau-de-toilette-spray-for-men-by-jean-paul-gaultier",
+  "merchant": "Perfumania",
+  "price": 114.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "olympea-eau-de-parfum-spray-for-women-by-paco-rabanne",
+  "merchant": "Perfumania",
+  "price": 59.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "peace-love-juicy-couture-by-juicy-couture-for-women-edp-spray",
+  "merchant": "FragranceShop",
+  "price": 20.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "peace-love-juicy-couture-by-juicy-couture-for-women-edp-spray",
+  "merchant": "Perfumania",
+  "price": 28.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "ralph-lauren-romance-perfume-for-women-eau-de-parfum",
+  "merchant": "FragranceShop",
+  "price": 30.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "ralph-lauren-romance-perfume-for-women-eau-de-parfum",
+  "merchant": "Perfumania",
+  "price": 57.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "stronger-with-you-intensely-cologne-for-men",
+  "merchant": "FragranceShop",
+  "price": 74.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "stronger-with-you-intensely-cologne-for-men",
+  "merchant": "Perfumania",
+  "price": 86.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "the-most-wanted-parfum-cologne",
+  "merchant": "FragranceShop",
+  "price": 55.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "the-most-wanted-parfum-cologne",
+  "merchant": "Perfumania",
+  "price": 88.99,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "uomo-intense-by-valentino-for-men-eau-de-parfum-spray",
+  "merchant": "FragranceShop",
+  "price": 117.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "uomo-intense-by-valentino-for-men-eau-de-parfum-spray",
+  "merchant": "Perfumania",
+  "price": 132.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "valentino-donna-born-in-roma-perfume-eau-de-parfum-for-women",
+  "merchant": "FragranceNet",
+  "price": 154.99,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "valentino-donna-born-in-roma-perfume-eau-de-parfum-for-women",
+  "merchant": "FragranceShop",
+  "price": 94.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "valentino-donna-born-in-roma-perfume-eau-de-parfum-for-women",
+  "merchant": "Perfumania",
+  "price": 120.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "valentino-uomo-born-in-roma-cologne-eau-de-toilette-for-men",
+  "merchant": "Perfumania",
+  "price": 91.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "versace-eros-cologne-eau-de-toilette-for-men",
+  "merchant": "FragranceShop",
+  "price": 52.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "versace-eros-cologne-eau-de-toilette-for-men",
+  "merchant": "Perfumania",
+  "price": 76.99,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "versace-eros-flame-eau-de-parfum-for-men",
+  "merchant": "FragranceShop",
+  "price": 45.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "versace-eros-flame-eau-de-parfum-for-men",
+  "merchant": "Perfumania",
+  "price": 87.99,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "versace-pour-homme-cologne-mens-eau-de-toilette",
+  "merchant": "Perfumania",
+  "price": 49.99,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "woman-eau-de-parfum-spray-for-women-by-hugo-boss",
+  "merchant": "FragranceShop",
+  "price": 25.95,
+  "date": "2026-11-27"
+ },
+ {
+  "sku": "woman-eau-de-parfum-spray-for-women-by-hugo-boss",
+  "merchant": "Perfumania",
+  "price": 39.95,
+  "date": "2026-11-27"
+ }
+]

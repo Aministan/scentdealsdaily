@@ -429,17 +429,19 @@ def _write_best(ns, groups, linked):
     priced = [row for row, _href, _new in linked if _money(row.get("price")) is not None]
     lo = min(priced, key=lambda r: r["price"]) if priced else None
     shoppers = ns["shopper_picks"]()
-    lead_row = min(shoppers, key=lambda r: (r["price"], r.get("id") or "")) if shoppers else None
-    lo_bit = f"${lead_row['price']:.2f}" if lead_row else (f"${lo['price']:.2f}" if lo else "")
+    floor = min(shoppers, key=lambda r: (r["price"], r.get("id") or "")) if shoppers else None
+    lo_bit = f"${floor['price']:.2f}" if floor else (f"${lo['price']:.2f}" if lo else "")
     when_short = f"{ns['upd']:%b %-d, %Y}"
     names = ", ".join(ns["_pick_label"](d) for d in shoppers)
+    cm = " 2026 and Cyber Monday" if ns["cm_hook_on"]() else " 2026"
     title = ns["fit"]([
         f"Buy Best Sellers Black Friday 2026: From {lo_bit}" if lo_bit else "Best Sellers",
         f"Buy Best Sellers: From {lo_bit}" if lo_bit else "Best Sellers",
         "Best Sellers",
     ])
     desc = ns["fit"]([
-        f"Buy best sellers for Black Friday 2026 from {lo_bit}. Proven picks: {names}. Prices checked {when_short}.",
+        f"Buy best sellers for Black Friday{cm} from {lo_bit}. Prices checked {when_short}.",
+        f"Buy best sellers for Black Friday{cm} from {lo_bit}. Proven picks: {names}. Prices checked {when_short}.",
         f"Buy best sellers for Black Friday 2026 from {lo_bit}. Prices checked {when_short}.",
         f"Shop the FragranceShop and FragranceNet lists from {lo_bit}. Prices checked {when_short}.",
     ], 160)

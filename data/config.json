@@ -788,6 +788,128 @@
  ],
  "roundups": [
   {
+   "slug": "stronger-with-you-intensely-deal",
+   "title": "Stronger With You Intensely Deal",
+   "title_tag": "Buy the SWY Intensely Deal",
+   "noun": "cologne",
+   "who": "men's",
+   "scope": "around Stronger With You Intensely",
+   "lead_id": "stronger-with-you-intensely-cologne-for-men",
+   "proven_also": true,
+   "rule": "the bottle is Stronger With You Intensely, Code, or Acqua di Gio, and it is still in the price check",
+   "lead": "Stronger With You Intensely is the toffee and cinnamon eau de parfum in the stored brand copy. Code is a different Armani cologne, the sweeter evening one. The stored copy does not publish a separate note pyramid for Code. Acqua di Gio is the fresh citrus cologne. The Acqua di Gio deal lists Profondo instead of Stronger With You Intensely. The Most Wanted deal lists Stronger With You Intensely beside Wanted by Night. This page leads with Stronger With You Intensely.",
+   "meta_lead": "Stronger With You Intensely, Code, and Acqua di Gio.",
+   "items": [
+    {"id": "stronger-with-you-intensely-cologne-for-men", "notes": "Eau de parfum: toffee, cinnamon, lavender, vanilla, and tonka. The stored brand copy calls it the richer, spicy flanker."},
+    {"id": "fs-armani-code-edt-4-2", "notes": "Eau de toilette. A different Armani cologne, sweeter and more for evening than Acqua di Gio. The stored copy does not publish a separate note pyramid for Code."},
+    {"id": "giorgio-armani-acqua-di-gio-eau-de-toilette-cologne-for-men", "notes": "Eau de toilette: citrus, neroli, marine notes, and white musk."}
+   ],
+   "links": [
+    {"href": "/best/acqua-di-gio-deal/", "label": "Acqua di Gio deal"},
+    {"href": "/best/most-wanted-parfum-deal/", "label": "The Most Wanted Parfum deal"},
+    {"href": "/vs/most-wanted-vs-stronger-with-you/", "label": "Most Wanted vs Stronger With You Intensely"},
+    {"href": "/fragrance/giorgio-armani-stronger-with-you-intensely-cologne/", "label": "Stronger With You Intensely price"},
+    {"href": "/brands/giorgio-armani/", "label": "Giorgio Armani deals"},
+    {"href": "/men/", "label": "Men's cologne deals"}
+   ],
+   "faq": [
+    ["Is Stronger With You Intensely the same as Acqua di Gio?", "No. The stored brand copy calls Intensely the sweet, spicy flanker, with toffee and cinnamon. Acqua di Gio is citrus and a marine note. Code is the other evening Armani."],
+    ["How is this different from the Acqua di Gio deal?", "That page leads with Acqua di Gio and lists Profondo and Code. This page leads with Stronger With You Intensely and leaves Profondo off."],
+    ["Is this a separate sale price?", "No. Each price is the one already in the daily price check."]
+   ]
+  },
+  {
+   "slug": "gucci-bloom-deal",
+   "title": "Gucci Bloom Deal",
+   "title_tag": "Buy the Gucci Bloom Deal",
+   "noun": "perfume",
+   "who": "women's",
+   "scope": "around Gucci Bloom",
+   "lead_id": "fs-gucci-bloom-edp-3-3",
+   "proven_also": true,
+   "rule": "the bottle is Gucci Bloom, Flora Gorgeous Jasmine, or Black Opium, and it is still in the price check",
+   "lead": "Gucci Bloom is the gardenia, jasmine, and honeysuckle floral in the stored brand copy. Flora Gorgeous Jasmine is a Flora flanker, not Bloom. Black Opium is the coffee and vanilla Yves Saint Laurent perfume. The Black Opium deal leads with Black Opium and lists Good Girl. This page leads with Bloom.",
+   "meta_lead": "Gucci Bloom, Flora Gorgeous Jasmine, and Black Opium.",
+   "items": [
+    {"id": "fs-gucci-bloom-edp-3-3", "notes": "Eau de parfum. Gardenia, jasmine, and honeysuckle in the stored brand copy. Not Flora and not Guilty."},
+    {"id": "fs-gucci-flora-jasmine-edp-3-4", "notes": "Eau de parfum. A Flora flanker centered on jasmine. Not Bloom."},
+    {"id": "fs-ysl-black-opium-edp-1-6", "notes": "Eau de parfum. Coffee and vanilla in the stored comparison. Not a Gucci floral."}
+   ],
+   "links": [
+    {"href": "/best/black-opium-deal/", "label": "Black Opium deal"},
+    {"href": "/gifts/best-selling-perfume-deals-black-friday/", "label": "Best-selling perfume deals this Black Friday"},
+    {"href": "/brands/gucci/", "label": "Gucci deals"},
+    {"href": "/women/", "label": "Women's perfume deals"},
+    {"href": "/black-friday/gucci/", "label": "Gucci Black Friday deals"}
+   ],
+   "faq": [
+    ["Does Gucci Bloom smell like Flora Gorgeous Jasmine?", "No. The stored brand copy calls Bloom gardenia, jasmine, and honeysuckle. Flora Gorgeous Jasmine is a Flora flanker centered on jasmine."],
+    ["How is this different from the Black Opium deal?", "That page leads with Black Opium and lists Good Girl and La Vie Est Belle. This page leads with Gucci Bloom and lists Flora Gorgeous Jasmine."],
+    ["Is this a separate sale price?", "No. Each price is the one already in the daily price check."]
+   ]
+  },
+  {
+   "slug": "uomo-born-in-roma-deal",
+   "title": "Uomo Born in Roma Deal",
+   "title_tag": "Buy the Uomo Born in Roma Deal",
+   "noun": "cologne",
+   "who": "men's",
+   "scope": "around Uomo Born in Roma",
+   "lead_id": "valentino-uomo-born-in-roma-cologne-eau-de-toilette-for-men",
+   "proven_also": true,
+   "rule": "the bottle is Uomo Born in Roma, Uomo Born in Roma Intense, or Acqua di Gio, and it is still in the price check",
+   "lead": "Uomo Born in Roma eau de toilette is the fresher men's Valentino in the stored brand copy. Intense is the sweeter eau de parfum, with vanilla and lavender. Acqua di Gio is a different fresh cologne. The Donna Born in Roma deal leads with Donna and lists both Uomo bottles. This page leads with the Uomo eau de toilette. Voce Viva is not in this price check.",
+   "meta_lead": "Uomo Born in Roma, Uomo Intense, and Acqua di Gio.",
+   "items": [
+    {"id": "valentino-uomo-born-in-roma-cologne-eau-de-toilette-for-men", "notes": "Eau de toilette: a salt accord, violet leaf, ginger, sage, and vetiver. Not the Intense."},
+    {"id": "uomo-intense-by-valentino-for-men-eau-de-parfum-spray", "notes": "Eau de parfum: vanilla, lavender, and vetiver. Sweeter than the Uomo eau de toilette."},
+    {"id": "giorgio-armani-acqua-di-gio-eau-de-toilette-cologne-for-men", "notes": "Eau de toilette: citrus, neroli, marine notes, and white musk. A different fresh cologne."}
+   ],
+   "links": [
+    {"href": "/best/donna-born-in-roma-deal/", "label": "Donna Born in Roma deal"},
+    {"href": "/vs/valentino-uomo-born-in-roma-vs-intense/", "label": "Uomo Born in Roma vs Intense"},
+    {"href": "/best/acqua-di-gio-deal/", "label": "Acqua di Gio deal"},
+    {"href": "/brands/valentino/", "label": "Valentino deals"},
+    {"href": "/men/", "label": "Men's cologne deals"},
+    {"href": "/black-friday/valentino/", "label": "Valentino Black Friday deals"}
+   ],
+   "faq": [
+    ["Is Uomo Intense the same bottle as Uomo Born in Roma?", "No. The eau de toilette is mineral and fresh. Intense is vanilla and lavender. Both prices are the ones in the daily price check."],
+    ["How is this different from the Donna Born in Roma deal?", "That page leads with Donna and lists both Uomo bottles. This page leads with the Uomo eau de toilette and lists Acqua di Gio instead of Donna."],
+    ["Is this a separate sale price?", "No. Each price is the one already in the daily price check."]
+   ]
+  },
+  {
+   "slug": "bad-boy-deal",
+   "title": "Bad Boy Deal",
+   "title_tag": "Buy the Bad Boy Deal",
+   "noun": "cologne",
+   "who": "men's",
+   "scope": "around Bad Boy",
+   "lead_id": "fs-ch-bad-boy-edt-3-4",
+   "proven_also": true,
+   "rule": "the bottle is Bad Boy, The Most Wanted Parfum, or Ultra Male, and it is still in the price check",
+   "lead": "Bad Boy is the Carolina Herrera cologne in this price check. The stored roundup note calls it pepper, sage, tonka, and a sweet wood. The Most Wanted Parfum is ginger, woods, and bourbon vanilla. Ultra Male is the sweeter Le Male eau de toilette. The Ultra Male deal lists Le Beau and Le Male Le Parfum instead of Bad Boy. This page leads with Bad Boy.",
+   "meta_lead": "Bad Boy, The Most Wanted Parfum, and Ultra Male.",
+   "items": [
+    {"id": "fs-ch-bad-boy-edt-3-4", "notes": "Eau de toilette: pepper, sage, tonka, and a sweet wood."},
+    {"id": "the-most-wanted-parfum-cologne", "notes": "Parfum. Ginger, woods, and bourbon vanilla in the stored comparison."},
+    {"id": "fs-jpg-ultra-male-edt-4-2", "notes": "Eau de toilette. The sweeter Le Male flanker. The stored copy does not publish a separate note pyramid for it."}
+   ],
+   "links": [
+    {"href": "/best/ultra-male-deal/", "label": "Ultra Male deal"},
+    {"href": "/best/most-wanted-parfum-deal/", "label": "The Most Wanted Parfum deal"},
+    {"href": "/brands/carolina-herrera/", "label": "Carolina Herrera deals"},
+    {"href": "/men/", "label": "Men's cologne deals"},
+    {"href": "/black-friday/carolina-herrera/", "label": "Carolina Herrera Black Friday deals"}
+   ],
+   "faq": [
+    ["Is Bad Boy the same as Good Girl?", "No. Bad Boy is the men's cologne. Good Girl is the women's perfume. This page does not price Good Girl."],
+    ["How is this different from the Ultra Male deal?", "That page leads with Ultra Male and lists Le Beau and Le Male Le Parfum. This page leads with Bad Boy and lists The Most Wanted Parfum."],
+    ["Is this a separate sale price?", "No. Each price is the one already in the daily price check."]
+   ]
+  },
+  {
    "slug": "ultra-male-deal",
    "title": "Ultra Male Deal",
    "title_tag": "Buy the Ultra Male Deal",
