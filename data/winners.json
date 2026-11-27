@@ -1,9 +1,9 @@
 {
   "source": "CJ FragranceShop export",
-  "period": "2026-10-15/2026-11-26",
+  "period": "2026-10-15/2026-11-27",
   "merchant": "FragranceShop",
-  "orders": 25,
-  "commission": 111.663,
+  "orders": 28,
+  "commission": 127.489,
   "note": "Per-SKU commission was not in the first export, so those rows leave commission null. Sale is orders times the unit price only when the export stated both for that SKU alone. A shared group does not split orders or sale across its SKUs. slug is set only when data/deals.json has that exact sku. A missing slug is null. Rows added from the Commission Detail API on 2026-11-24 store that action's sale and commission.",
   "winners": [
     {
@@ -233,6 +233,36 @@
       "deal_id": null,
       "slug": null,
       "note": "Posted 2026-11-26. Not in deals.json."
+    },
+    {
+      "sku": "FS254",
+      "orders": 1,
+      "unit_price": null,
+      "sale": 66.95,
+      "commission": 3.347,
+      "deal_id": null,
+      "slug": null,
+      "note": "Posted 2026-11-27. Not in deals.json."
+    },
+    {
+      "sku": "FS90358|FS192138|FS90297|FS90529|FL608|FS2119",
+      "orders": 1,
+      "unit_price": null,
+      "sale": 144.70,
+      "commission": 7.232,
+      "deal_id": null,
+      "slug": null,
+      "note": "Posted 2026-11-27. One order across these SKUs. Sale $144.70 and commission $7.232 belong to the group and are not split. Not in deals.json."
+    },
+    {
+      "sku": "FS1191386",
+      "orders": 1,
+      "unit_price": 104.95,
+      "sale": 104.95,
+      "commission": 5.247,
+      "deal_id": "fs-ch-good-girl-blush-edp-2-7",
+      "slug": "carolina-herrera-good-girl-blush-perfume",
+      "note": "Exact sku match in deals.json: Carolina Herrera Good Girl Blush Perfume, 2.7 oz, Eau de Parfum. Posted 2026-11-27. Sale $104.95 matches the checked price."
     }
   ]
 }
