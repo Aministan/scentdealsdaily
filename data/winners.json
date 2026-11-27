@@ -1,9 +1,9 @@
 {
   "source": "CJ FragranceShop export",
-  "period": "2026-10-15/2026-11-25",
+  "period": "2026-10-15/2026-11-26",
   "merchant": "FragranceShop",
-  "orders": 20,
-  "commission": 82.882,
+  "orders": 25,
+  "commission": 111.663,
   "note": "Per-SKU commission was not in the first export, so those rows leave commission null. Sale is orders times the unit price only when the export stated both for that SKU alone. A shared group does not split orders or sale across its SKUs. slug is set only when data/deals.json has that exact sku. A missing slug is null. Rows added from the Commission Detail API on 2026-11-24 store that action's sale and commission.",
   "winners": [
     {
@@ -39,15 +39,15 @@
     },
     {
       "sku": "FS1609727",
-      "orders": null,
+      "orders": 1,
       "orders_group": "fs1609839-fs1609727",
       "orders_group_count": 2,
       "unit_price": 78.95,
-      "sale": null,
-      "commission": null,
+      "sale": 78.95,
+      "commission": 3.947,
       "deal_id": "fs-mm-afternoon-delight-edt-3-4",
       "slug": "maison-margiela-replica-afternoon-delight",
-      "note": "Same unsplit pair of orders as FS1609839. deals.json maps this SKU to Replica Afternoon Delight, not Jazz Club."
+      "note": "Same unsplit pair of orders as FS1609839. deals.json maps this SKU to Replica Afternoon Delight, not Jazz Club. One more order posted 2026-11-26. Sale $78.95 and commission $3.947 are that order only."
     },
     {
       "sku": "FS89601",
@@ -193,6 +193,46 @@
       "deal_id": null,
       "slug": null,
       "note": "One order with FS1719, posted 2026-11-25. Sale $53.90 and commission $2.694 belong to the pair. Not in deals.json."
+    },
+    {
+      "sku": "FS1191490",
+      "orders": 1,
+      "unit_price": null,
+      "sale": 67.95,
+      "commission": 3.397,
+      "deal_id": null,
+      "slug": null,
+      "note": "Posted 2026-11-26. Not in deals.json."
+    },
+    {
+      "sku": "FS190074",
+      "orders": 1,
+      "unit_price": null,
+      "sale": 133.90,
+      "commission": 6.695,
+      "deal_id": null,
+      "slug": null,
+      "note": "Posted 2026-11-26. Not in deals.json."
+    },
+    {
+      "sku": "FS23395",
+      "orders": 1,
+      "unit_price": null,
+      "sale": 171.90,
+      "commission": 8.595,
+      "deal_id": null,
+      "slug": null,
+      "note": "Posted 2026-11-26. Not in deals.json."
+    },
+    {
+      "sku": "FS190162",
+      "orders": 1,
+      "unit_price": null,
+      "sale": 122.95,
+      "commission": 6.147,
+      "deal_id": null,
+      "slug": null,
+      "note": "Posted 2026-11-26. Not in deals.json."
     }
   ]
 }

@@ -991,10 +991,10 @@ def _winner_orders():
     ranks={}
     for row in data.get("winners") or []:
         if not isinstance(row, dict): continue
-        orders=row.get("orders")
-        if not isinstance(orders, int) or isinstance(orders, bool):
-            orders=row.get("orders_group_count")
-        if not isinstance(orders, int) or isinstance(orders, bool): continue
+        def _count(value):
+            return value if isinstance(value, int) and not isinstance(value, bool) else 0
+        orders=_count(row.get("orders"))+_count(row.get("orders_group_count"))
+        if orders<=0: continue
         for key in (row.get("sku"), row.get("deal_id"), row.get("slug")):
             if isinstance(key, str) and key:
                 ranks[key]=max(ranks.get(key, 0), orders)
