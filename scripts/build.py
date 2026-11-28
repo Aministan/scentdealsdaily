@@ -655,6 +655,26 @@ else:
 BYID={d['id']:d for d in deals}
 # ---- roundups (/best/...) and dupe hubs (/dupes/<hub>/): data-driven so they survive the daily rebuild ----
 U50="the price must be under $50 right now"
+def _config_roundup(raw):
+    """One /best/ page from config. A missing lead, or a require_all page missing any bottle, is skipped."""
+    want=[i.get("id") for i in (raw.get("items") or []) if isinstance(i, dict) and i.get("id")]
+    cap=raw.get("max_price", 1e9)
+    items=[BYID[i] for i in want if i in BYID and BYID[i]["price"]<cap]
+    slug_s=raw.get("slug") or "(missing)"
+    missing=[i for i in want if i not in BYID]
+    if raw.get("require_all") and missing:
+        print(f"SKIP /best/{slug_s}/: missing {', '.join(missing)}")
+        return None
+    lead=raw.get("lead_id")
+    have={d.get("id") for d in items}
+    if lead and lead not in have:
+        print(f"SKIP /best/{slug_s}/: lead {lead} left the price check")
+        return None
+    if len(items)<3:
+        return None
+    notes={i["id"]: i["notes"] for i in (raw.get("items") or []) if isinstance(i, dict) and i.get("id") and i.get("notes")}
+    return dict(raw, items=items, notes=notes)
+_config_roundups=[row for row in (_config_roundup(raw) for raw in CFG.get("roundups", [])) if row]
 ROUNDUPS=[r for r in [
   {"slug":"cologne-deals-under-50","title":"Best Cologne Deals Under $50","noun":"cologne","who":"men's and unisex","scope":"under $50","rule":U50,"items":[d for d in deals if d['gender'] in ('men','unisex') and d['price']<50]},
   {"slug":"perfume-deals-under-50","title":"Best Perfume Deals Under $50","noun":"perfume","who":"women's and unisex","scope":"under $50","rule":U50,"items":[d for d in deals if d['gender'] in ('women','unisex') and d['price']<50]},
@@ -662,7 +682,7 @@ ROUNDUPS=[r for r in [
    "lead":"Full-size designer bottles you can buy for less than $30 today, mixed across men's, women's and unisex picks.","items":[d for d in deals if d['price']<30]},
   {"slug":"luxury-fragrance-deals","title":"Best Luxury Fragrance Deals","noun":"luxury fragrance","who":"prestige","scope":"with a $120+ list price","rule":"the bottle's listed price (or another authorized retailer's price) must be $120 or more",
    "lead":"Prestige perfumes and colognes that normally list for $120 or more, discounted at authorized retailers today. Good for gifts or a bottle you would not usually pay full price for.","items":[d for d in deals if d['was']>=120]},
- ]+[dict(r,items=[BYID[i['id']] for i in r['items'] if i['id'] in BYID and BYID[i['id']]['price']<r.get('max_price',1e9)],notes={i['id']:i['notes'] for i in r['items']}) for r in CFG.get("roundups",[])] if len(r["items"])>=3]
+ ]+_config_roundups if len(r["items"])>=3]
 def roundups_of(d): return [r for r in ROUNDUPS if d in r['items']]
 def _deal_blob(d):
     return " ".join(str(d.get(k) or "") for k in ("name","brand","type","size","retailer","url")).lower()
@@ -1082,6 +1102,8 @@ def _deal_orders(d):
 def proven_bottle(rows, gender=None):
     """Highest winners.json order count still in rows. A dropped SKU returns None.
 
+    The count is the full file, not a short window. Le Male Elixir's November 27–28
+    orders are a fold pin beside Le Male Le Parfum. They do not replace this sort.
     FragranceShop only. That is the merchant on every commission row in winners.json.
     """
     pool=[]
@@ -1118,6 +1140,32 @@ def proven_picks_html():
     bits=[f"<a href='{PREFIX}/fragrance/{frag_slug(d)}/'>{e(_pick_label(d))} ${d['price']:.2f}</a>" for d in rows]
     bf=f"<a href='{PREFIX}/black-friday-fragrance-deals/'>Black Friday fragrance deals</a>"
     return "<p class='proven-picks'><b>Proven picks</b> "+" ".join(bits)+" "+bf+"</p>"
+def reader_favorites_html(genders=None):
+    """Rank by winners.json order count. No order amounts and no times.
+
+    A SKU that left the price check is skipped. An empty list omits the module.
+    """
+    pool=[]
+    seen=set()
+    allowed=set(genders) if genders else None
+    for d in deals:
+        if not isinstance(d, dict) or d.get("in_stock") is False: continue
+        if not d.get("url"): continue
+        if isinstance(d.get("price"), bool) or not isinstance(d.get("price"), (int, float)): continue
+        if allowed and d.get("gender") not in allowed: continue
+        if _deal_orders(d)<=0 or d.get("id") in seen: continue
+        seen.add(d.get("id"))
+        pool.append(d)
+    if not pool: return ""
+    pool.sort(key=lambda d:(-_deal_orders(d), d["price"], d.get("id") or ""))
+    bits=[]
+    for d in pool:
+        size=sz(d.get("size") or "")
+        size_bit=f" · {e(size)}" if size else ""
+        bits.append(f"<li><a href='{PREFIX}/fragrance/{frag_slug(d)}/'>{e(fullname(d))}</a>{size_bit} · ${d['price']:.2f}</li>")
+    return ("<section class='box' id='reader-favorites'><h2 style='margin-top:0'>Reader favorites</h2>"
+            "<p class='meta'>Based on orders through ScentDealsDaily since Oct 2026.</p>"
+            "<ol>"+"".join(bits)+"</ol></section>")
 def proven_deal_links_html():
     """The five bottles that sold, with the deals.json price, linked to the deal page and the /best/ page.
 
@@ -1202,6 +1250,17 @@ def cm_hook_on(now=None):
     """
     now=now or _promo_now()
     start=datetime.datetime(2026, 11, 27, 0, 0, 0, tzinfo=ET)
+    end=datetime.datetime(2026, 12, 1, 23, 59, 59, tzinfo=ET)
+    return start<=now<=end
+def cm_title_on(now=None):
+    """Cyber Monday in titles: Nov 30 through Dec 1, 2026, Eastern Time.
+
+    Nov 30 is Cyber Monday. Dec 1 is included through 11:59:59 PM. Nov 29 does
+    not use the title. The Dec 2 rebuild drops it. The daily refresh reads the
+    clock, so the wording survives that rebuild.
+    """
+    now=now or _promo_now()
+    start=datetime.datetime(2026, 11, 30, 0, 0, 0, tzinfo=ET)
     end=datetime.datetime(2026, 12, 1, 23, 59, 59, tzinfo=ET)
     return start<=now<=end
 def promo_groups(now=None):
@@ -1326,11 +1385,15 @@ _home_desc_cands+=[
 _home_desc=fit(_home_desc_cands,160)
 if not (70<=len(_home_desc)<=160) or "Prices checked" not in _home_desc or _home_when not in _home_desc or f"${_home_lo:.2f}" not in _home_desc:
     raise SystemExit(f"homepage meta is {len(_home_desc)} chars or misses the price or the check date ({_home_desc})")
-page("index.html",fit([
+_home_titles=[]
+if cm_title_on():
+    _home_titles.append(f"Buy Fragrance Deals Cyber Monday 2026: From ${_home_lo:.2f}")
+_home_titles+=[
     f"Buy Fragrance Deals Black Friday 2026: From ${_home_lo:.2f}",
     f"Buy Fragrance Deals Today: From ${_home_lo:.2f} ({_home_mx}% Off)",
     f"Fragrance Deals Today: From ${_home_lo:.2f} ({_home_mx}% Off)",
- ]),
+]
+page("index.html",fit(_home_titles),
  _home_desc,
  f"<h1>Today's best designer fragrance deals</h1><p class='sub'>Prices checked {e(_home_when)}. {len(deals)} live deals · <a href='{PREFIX}/black-friday/'>Black Friday perfume and cologne deals</a></p>"
  +promo_callout()
@@ -1340,7 +1403,8 @@ page("index.html",fit([
  +fs_fold_html(deals, (
     {"brand":"lanc","name_is":"la vie est belle perfume","size":"3.4"},
     {"brand":"carolina","name_is":"good girl perfume","size":"2.7"},
-    "le male le parfum", _LUCKY_PIN, "afternoon delight", "free cologne"))
+    "le male elixir", "le male le parfum", _LUCKY_PIN, "afternoon delight", "free cologne"))
+ +reader_favorites_html()
  +fs_bf_section()
  +MONEY_MARK
  +NEW_HOLIDAY_MARK
@@ -1456,9 +1520,11 @@ for g,label in [("men","Men's Cologne"),("women","Women's Perfume"),("unisex","U
     if g=="men":
         ds.sort(key=lambda d:(d.get("in_stock") is False, d["price"], -(d.get("pct_off") or 0), d["id"]))
     use_sid(g)
-    _gender_pins={"men":("le male le parfum", _LUCKY_PIN), "women":(
+    _gender_pins={"men":("le male elixir", "le male le parfum", _LUCKY_PIN), "women":(
         {"brand":"lanc","name_is":"la vie est belle perfume","size":"3.4"},
         {"brand":"carolina","name_is":"good girl perfume","size":"2.7"},
+        {"brand":"carolina","name_is":"very good girl perfume","size":"1.7"},
+        {"brand":"carolina","name_is":"good girl blush perfume","size":"2.7"},
     ), "unisex":(
         {"brand":"margiela","name_is":"replica jazz club","size":"3.4"},
         "afternoon delight",
@@ -1474,7 +1540,13 @@ for g,label in [("men","Men's Cologne"),("women","Women's Perfume"),("unisex","U
     query={"men":"men's cologne deals","women":"women's perfume deals","unisex":"unisex fragrance deals"}[g]
     sale={"men":"cheap designer cologne","women":"cheap designer perfume","unisex":"cheap designer fragrance"}[g]
     if g=="men":
-        title_cands=[
+        title_cands=[]
+        if cm_title_on():
+            title_cands+=[
+                f"Buy {label} Cyber Monday 2026: From ${lo_p:.2f} ({mx}% Off)",
+                f"Buy {label} Cyber Monday 2026: From ${lo_p:.2f}",
+            ]
+        title_cands+=[
             f"Buy {label} Black Friday 2026: From ${lo_p:.2f} ({mx}% Off)",
             f"Buy {label} Black Friday 2026: From ${lo_p:.2f}",
         ]
@@ -1487,9 +1559,15 @@ for g,label in [("men","Men's Cologne"),("women","Women's Perfume"),("unisex","U
             f"Buy {query} for Black Friday 2026 from ${lo_p:.2f} ({fullname(lo)}). Up to {mx}% off. Prices checked {when}.",
             f"Buy men's cologne for Black Friday 2026 from ${lo_p:.2f}. Up to {mx}% off. Prices checked {when}.",
         ]
-        hook="Black Friday 2026"
+        hook="Cyber Monday 2026" if cm_title_on() else "Black Friday 2026"
     elif g=="women":
-        title_cands=[
+        title_cands=[]
+        if cm_title_on():
+            title_cands+=[
+                f"Buy Women's Perfume Cyber Monday 2026: From ${lo_p:.2f} ({mx}% Off)",
+                f"Buy Perfume Cyber Monday 2026: From ${lo_p:.2f} ({mx}% Off)",
+            ]
+        title_cands+=[
             f"Buy Women's Perfume Black Friday 2026: From ${lo_p:.2f} ({mx}% Off)",
             f"Buy Perfume Black Friday 2026: From ${lo_p:.2f} ({mx}% Off)",
         ]
@@ -1501,7 +1579,7 @@ for g,label in [("men","Men's Cologne"),("women","Women's Perfume"),("unisex","U
             f"Buy {query} for Black Friday 2026 from ${lo_p:.2f} ({fullname(lo)}). Up to {mx}% off. Prices checked {when}.",
             f"Buy {query} for Black Friday 2026 from ${lo_p:.2f}. Up to {mx}% off. Prices checked {when}.",
         ]
-        hook="Black Friday 2026"
+        hook="Cyber Monday 2026" if cm_title_on() else "Black Friday 2026"
     else:
         title_cands=[
             f"Buy {label} Deals {mon}: From ${lo_p:.2f} ({mx}% Off)",
@@ -1554,6 +1632,7 @@ for g,label in [("men","Men's Cologne"),("women","Women's Perfume"),("unisex","U
       +(proven_picks_html() if g=="men" else "")
       +"<!--proven-also-->"
       +fold_html
+      +(reader_favorites_html(("men","unisex")) if g=="men" else "")
       +f"<p>{e(sale.capitalize()+' on sale at authorized retailers. '+button_line+order_line)}</p>"
       +f"<div class='grid'>{''.join(card(d) for d in ds)}</div>"
       +(BF_BRAND_ROW_MARK if g in ("men","women") else "")
@@ -1829,6 +1908,7 @@ def buy(url,ret, product=""): return ext_a(url, f"Buy at {e(ret)} →", cls="btn
 _CONVERTER_SPECS=(
     {"brand": "calvin klein", "name_is": "free cologne"},
     {"brand": "jean paul gaultier", "name": "le male le parfum"},
+    {"brand": "jean paul gaultier", "name_is": "le male elixir cologne"},
     {"brand": "maison margiela", "name": "afternoon delight"},
     {"brand": "lanc", "name_is": "la vie est belle perfume", "size": "3.4"},
     {"brand": "carolina", "name_is": "good girl perfume", "size": "2.7"},
@@ -1941,6 +2021,7 @@ def seller_label(d):
 PROVEN_IDS=frozenset({
     "calvin-klein-free-mens-eau-de-toilette-spray",
     "fs-jpg-le-male-le-parfum-4-2",
+    "fs-jpg-le-male-elixir-parfum-4-2",
     "fs-mm-afternoon-delight-edt-3-4",
     "fs-lancome-la-vie-est-belle-edp-3-4",
     "fs-ch-good-girl-edp-2-7",
@@ -1967,6 +2048,7 @@ PROVEN_COPY={
             ("/best/mens-fragrances-under-100/", "Men's fragrances under $100"),
             ("/best/long-lasting-cologne-deals/", "Long-lasting men's cologne deals"),
             ("/best/le-male-le-parfum-deal/", "Le Male Le Parfum deal"),
+            ("/best/le-male-elixir-deal/", "Le Male Elixir deal"),
             ("/gifts/le-male-le-parfum-or-elixir/", "Le Male Le Parfum or Elixir"),
             ("/best/jazz-club-deal/", "Jazz Club deal"),
             ("/best/cyber-monday-cologne-deal/", "Cyber Monday cologne deal"),
@@ -1980,6 +2062,25 @@ PROVEN_COPY={
             ("/gifts/best-selling-fragrance-deals-this-week/", "Best-selling fragrance deals this week"),
             ("/jean-paul-gaultier-le-male-deals/", "All Le Male deals"),
             ("/black-friday/jean-paul-gaultier/", "Jean Paul Gaultier Black Friday deals"),
+        ),
+    },
+    "fs-jpg-le-male-elixir-parfum-4-2": {
+        "short": "Le Male Elixir",
+        "size_note": "The retailer lists this bottle as a 4.2 oz parfum. Le Male Le Parfum is the eau de parfum intense. Ultra Male is the sweeter eau de toilette. The original Le Male eau de toilette is not in this price check.",
+        "smell": "The stored brand copy calls Le Male mint and vanilla, and it calls Le Male Le Parfum and Le Male Elixir the stronger versions of that line. Ultra Male is the sweeter flanker. That copy does not split a separate note pyramid for Elixir versus Le Parfum.",
+        "occasion": "Buy this when the gift is the Elixir parfum, not Le Beau. Le Beau is coconut and tonka and stays off the Le Male list. A boxed Jean Paul Gaultier set is not this 4.2 oz bottle.",
+        "set_q": "Is there a Le Male Elixir gift set on this page?",
+        "set_a": "No. This page is the 4.2 oz bottle. A boxed Jean Paul Gaultier set stays on the gift-set guides, and it is not automatically Le Male Elixir.",
+        "links": (
+            ("/best/le-male-elixir-deal/", "Le Male Elixir deal"),
+            ("/best/le-male-le-parfum-deal/", "Le Male Le Parfum deal"),
+            ("/vs/le-male-le-parfum-vs-elixir/", "Le Male Le Parfum vs Elixir"),
+            ("/gifts/le-male-le-parfum-or-elixir/", "Le Male Le Parfum or Elixir"),
+            ("/best/ultra-male-deal/", "Ultra Male deal"),
+            ("/best/acqua-di-gio-deal/", "Acqua di Gio deal"),
+            ("/jean-paul-gaultier-le-male-deals/", "All Le Male deals"),
+            ("/black-friday/jean-paul-gaultier/", "Jean Paul Gaultier Black Friday deals"),
+            ("/cyber-monday-fragrance-deals/", "Cyber Monday fragrance deals"),
         ),
     },
     "fs-lancome-la-vie-est-belle-edp-3-4": {
@@ -2016,6 +2117,7 @@ PROVEN_COPY={
         "set_a": "No. A boxed mini set stays on the gift-set guides. This page is the 2.7 oz eau de parfum.",
         "links": (
             ("/best/good-girl-deal/", "Good Girl deal"),
+            ("/best/good-girl-blush-deal/", "Good Girl Blush deal"),
             ("/gifts/good-girl-vs-la-vie-est-belle/", "Good Girl vs La Vie Est Belle"),
             ("/gifts/cyber-monday-womens-perfume-under-100/", "Cyber Monday women's perfume under $100"),
             ("/best/good-girl-alternatives/", "Good Girl alternatives"),
@@ -2132,6 +2234,7 @@ PROVEN_COPY={
         "set_a": "No. This page is the 4.2 oz bottle. A boxed set stays on the gift-set guides.",
         "links": (
             ("/best/ultra-male-deal/", "Ultra Male deal"),
+            ("/best/le-male-elixir-deal/", "Le Male Elixir deal"),
             ("/best/le-male-le-parfum-deal/", "Le Male Le Parfum deal"),
             ("/gifts/le-male-christmas-gifts/", "Le Male Christmas cologne deals"),
             ("/gifts/cyber-monday-famous-fragrance-deals/", "Cyber Monday famous fragrance deals"),
@@ -2720,8 +2823,18 @@ for r in ROUNDUPS:
         lead_others=[d for d in ds if d is not lead_row]
         also_rows=[]
         seen=set()
-        pool=list(_CONVERTERS) if r.get("proven_also") else []
-        for other in pool+lead_others:
+        if r.get("also_ids"):
+            pool=[]
+            for also_id in r["also_ids"]:
+                other=BYID.get(also_id)
+                if other and other.get("id")!=lead_row.get("id"):
+                    pool.append(other)
+            if not pool:
+                pool=lead_others
+        else:
+            pool=list(_CONVERTERS) if r.get("proven_also") else []
+            pool=pool+lead_others
+        for other in pool:
             if other.get("id")==lead_row.get("id") or other.get("id") in seen: continue
             seen.add(other.get("id"))
             also_rows.append(other)
@@ -2990,6 +3103,15 @@ BF_PERFUME_PATH="/black-friday-perfume-deals/"
 BF_MIN_BOTTLES=6
 CM_PATH="/cyber-monday-fragrance-deals/"
 CM_MIN_BOTTLES=6
+# Proven bottles first on the Cyber Monday list. A bottle that leaves the check is skipped.
+_CM_LEAD_PINS=(
+    "le male elixir",
+    "le male le parfum",
+    {"brand":"carolina","name_is":"good girl perfume","size":"2.7"},
+    {"brand":"lanc","name_is":"la vie est belle perfume","size":"3.4"},
+    {"brand":"armani","name_is":"acqua di gio cologne","size":"3.4"},
+    {"brand":"montblanc","name_is":"legend cologne","size":"6.7"},
+)
 BF_U30_PATH="/black-friday-fragrance-deals-under-30/"
 # _PROVEN_GRID is defined with the homepage. Good Girl is the exact name, so Blush and Very Good Girl stay in discount order.
 def pin_proven(rows):
@@ -3009,7 +3131,8 @@ def cm_bottle_rows():
         if isinstance(d.get("price"), bool) or not isinstance(d.get("price"), (int, float)): continue
         rows.append(d)
     rows.sort(key=lambda d:(-(d.get("pct_off") or 0), d["price"], d["id"]))
-    return pin_proven(rows)
+    pinned=_fold_pins(rows, _CM_LEAD_PINS)
+    return pinned+[d for d in rows if d not in pinned]
 CM_ROWS=cm_bottle_rows()
 BF_U30=sorted([d for d in deals if gift_ok(d) and not is_gift_set(d) and isinstance(d.get("price"), (int, float)) and not isinstance(d.get("price"), bool) and d["price"]<30 and retailer_image(d)], key=lambda d:(-(d.get("pct_off") or 0), d["price"], d["id"]))
 if len(BF_U30)<BF_MIN_BOTTLES:
@@ -3181,12 +3304,19 @@ for path,sid_slug,title,short,intro,picks,list_name in gift_pages:
         ld=[itemlist(picks, list_name)]
         titles=fit([f"{title}: From {P} ({upd:%b %Y}) | {NAME}", f"{title}: From {P} | {NAME}", f"{title}: From {P}", title])
         if path=="gifts/index.html":
-            titles=fit([
+            _gift_titles=[]
+            if cm_title_on():
+                _gift_titles+=[
+                    f"Buy Fragrance Gifts Cyber Monday 2026: From {P}",
+                    f"Buy Cyber Monday Fragrance Gifts 2026: From {P}",
+                ]
+            _gift_titles+=[
                 f"Buy Fragrance Gifts Black Friday 2026: From {P}",
                 f"Buy Black Friday Fragrance Gifts 2026: From {P}",
                 f"Buy Holiday Fragrance Gifts 2026: From {P}",
                 f"{title}: From {P}",
-            ])
+            ]
+            titles=fit(_gift_titles)
             _gift_hub=proven_bottle(deals)
             _gift_lead=f" Lead ${_gift_hub['price']:.2f}." if _gift_hub else ""
             _gift_desc=[]
@@ -3198,8 +3328,9 @@ for path,sid_slug,title,short,intro,picks,list_name in gift_pages:
                 desc,
             ]
             desc=fit(_gift_desc,160)
-            if "Black Friday 2026" not in titles or "Black Friday 2026" not in desc:
-                raise SystemExit(f"gifts hub title or meta missed Black Friday 2026 ({titles} / {desc})")
+            _gift_hook="Cyber Monday 2026" if cm_title_on() else "Black Friday 2026"
+            if _gift_hook not in titles or "Black Friday 2026" not in desc:
+                raise SystemExit(f"gifts hub title or meta missed {_gift_hook} ({titles} / {desc})")
             if cm_hook_on() and "Cyber Monday" not in desc:
                 raise SystemExit(f"gifts hub meta missed Cyber Monday ({desc})")
         elif sid_slug=="for-him":
@@ -4721,7 +4852,7 @@ if CM_ROWS:
              "lists the checked bottles in one list, largest discount first, for November 30.</p>")
 use_sid("bfcm", "fragrance-deals")
 _bf_lead=(lead_offer(bf_singles, prefer=proven_bottle(bf_singles))+proven_picks_html()
-    +fs_fold_html(bf_singles, ("le male le parfum", {"brand":"lanc","name_is":"la vie est belle perfume","size":"3.4"}, {"brand":"carolina","name_is":"good girl perfume","size":"2.7"}, {"brand":"margiela","name_is":"replica jazz club","size":"3.4"}))
+    +fs_fold_html(bf_singles, ("le male elixir", "le male le parfum", {"brand":"lanc","name_is":"la vie est belle perfume","size":"3.4"}, {"brand":"carolina","name_is":"good girl perfume","size":"2.7"}, {"brand":"margiela","name_is":"replica jazz club","size":"3.4"}))
     +fs_bf_section()+promo_upcoming())
 _bf_top, _bf_rest=fold_offer(_bf_lead, bf_intro, "".join(bf_parts))
 page("black-friday-fragrance-deals/index.html", bf_title, bf_desc,
@@ -4859,29 +4990,41 @@ def render_cyber_monday():
     if len(rows)<CM_MIN_BOTTLES:
         raise SystemExit(f"{CM_PATH}: {len(rows)} bottles, need {CM_MIN_BOTTLES}")
     lo=lowest_deal(rows)
-    title=fit([
+    cm_titles=[
         f"Buy Cyber Monday Fragrance Deals 2026: From ${lo['price']:.2f}",
         f"Cyber Monday Fragrance Deals 2026: From ${lo['price']:.2f}",
-    ])
+    ]
+    if not cm_title_on():
+        cm_titles.append(f"Buy Fragrance Deals for November 30: From ${lo['price']:.2f}")
+    title=fit(cm_titles)
     if len(title)>60 or "cyber monday fragrance deals 2026" not in title.lower():
         raise SystemExit(f"{CM_PATH}: title is {len(title)} chars or misses the target phrase ({title})")
     if title in TITLES:
         raise SystemExit(f"{CM_PATH}: title collides with another page ({title})")
     off=max((d.get("pct_off") or 0) for d in rows)
     price=f"${lo['price']:.2f}"
+    lead_names=[]
+    cm_prefer=None
+    for spec in _CM_LEAD_PINS:
+        hit=next((d for d in rows if _fold_match(d, spec)), None)
+        if not hit: continue
+        lead_names.append(_pick_label(hit) if hit.get("brand") else fullname(hit))
+        if cm_prefer is None: cm_prefer=hit
+    lead_price=f"${cm_prefer['price']:.2f}" if cm_prefer else price
     cands=[
-        f"Shop Cyber Monday fragrance deals for November 30, 2026. {len(rows)} bottles from {price}, up to {off}% off. Buy now. Updated {bf_when}.",
-        f"Buy Cyber Monday fragrance deals. {len(rows)} bottles from {price}, up to {off}% off. Prices we already checked. Updated {bf_when}.",
-        f"Shop Cyber Monday fragrance deals 2026: {len(rows)} bottles from {price}, up to {off}% off. Updated {bf_when}.",
+        f"Buy Cyber Monday fragrance deals from {price}. Lead {lead_price}. {len(rows)} bottles, up to {off}% off. Updated {bf_when}.",
+        f"Shop Cyber Monday fragrance deals for November 30, 2026 from {price}. Lead {lead_price}. Updated {bf_when}.",
+        f"Buy Cyber Monday deals from {price}. Lead bottle {lead_price}. {len(rows)} bottles. Updated {bf_when}.",
     ]
-    desc=next((c for c in cands if 70<=len(c)<=160), None)
+    desc=next((c for c in cands if 70<=len(c)<=160 and lead_price in c), None)
     if not desc:
         raise SystemExit(f"{CM_PATH}: meta description does not fit ({[len(c) for c in cands]})")
     if desc in {bf_desc} or "black friday perfume deals 2026" in desc.lower():
         raise SystemExit(f"{CM_PATH}: meta description is not unique")
     h1="Cyber Monday fragrance deals 2026"
+    named=", ".join(lead_names) if lead_names else "Bottles shoppers have bought"
     intro=("Cyber Monday 2026 is November 30, and this page lists the best current fragrance deals we already checked. "
-           "Le Male Le Parfum, La Vie Est Belle, Good Girl, Afternoon Delight, and Bubble Bath lead when they are still in the price check. The rest stay largest discount first. "
+           f"{named} lead when they are still in the price check. The rest stay largest discount first. "
            "Men's cologne, women's perfume, and unisex bottles are in one list. "
            "Boxed gift sets stay on the Black Friday fragrance deals page. "
            "Every card is a deal already in the price check, using that product's stored photo and price. "
@@ -4900,7 +5043,7 @@ def render_cyber_monday():
     related="<p class='chips'>"+"".join(f"<a href='{PREFIX}{href}'>{e(label)}</a>" for href,label in cm_related_links())+"</p>"
     blurb="Single bottles from the deals we checked. Bottles shoppers have bought lead. The rest are largest discount first. Men's, women's, and unisex bottles are together. A boxed set is not listed in this section."
     listing=f"<h2 id='best-current-deals'>{e('Best current deals')}</h2><p>{e(blurb)}</p>{gift_table(rows)}"
-    top, rest_html=fold_offer(lead_offer(rows), intro, listing)
+    top, rest_html=fold_offer(lead_offer(rows, prefer=cm_prefer) if cm_prefer else lead_offer(rows), intro, listing)
     page(CM_PATH.strip("/")+"/index.html", title, desc,
      f"<h1>{e(h1)}</h1><p class='sub'>Last updated {e(bf_when)}. Checked {e(upd_h)}.</p>{promo_callout()}{top}{NEW_HOLIDAY_MARK}{related}{gift_nav()}{rest_html}{GIFT_DISC}{faqhtml(faqs)}{BREVO_FORM}<p class='meta'>Prices are current and checked daily. We do not invent a price or a photo, and we do not list testers, decants, or Amazon.</p>",
      [itemlist(rows, h1), faqld(faqs)], image="/media/pins/holiday-fragrance-gifts.png", feed=True)
@@ -4931,6 +5074,26 @@ def render_cyber_monday():
             raise SystemExit(f"{CM_PATH}: missing link {label} {href}")
     print(f"cyber monday page {CM_PATH}: {len(rows)} bottles, from ${lo['price']:.2f}")
 render_cyber_monday()
+def splice_cm_hub_links():
+    """Men and women link the Cyber Monday page when this build published it."""
+    if not CM_ROWS or not os.path.isfile(f"{OUT}/cyber-monday-fragrance-deals/index.html"):
+        print("cyber monday hub links: page was not built")
+        return
+    href=f"{PREFIX}{CM_PATH}"
+    chip=f"<p class='chips'><a href='{href}'>Cyber Monday fragrance deals</a></p>"
+    for rel in ("men/index.html","women/index.html"):
+        fp=f"{OUT}/{rel}"
+        text=open(fp, encoding="utf-8").read()
+        if href in text:
+            print(f"cyber monday link already on {rel}")
+            continue
+        match=re.search(r"<p class='sub'>.*?</p>", text, re.S)
+        if not match:
+            raise SystemExit(f"{rel}: no sub line for the Cyber Monday link")
+        text=text[:match.end()]+chip+text[match.end():]
+        open(fp, "w", encoding="utf-8").write(text)
+        print(f"cyber monday link: {rel}")
+splice_cm_hub_links()
 def _cm_budget_links(path):
     """Black Friday and Cyber Monday pages that this build published, plus the matching gift lists."""
     built={spec["path"] for spec in BF_LANDINGS}
@@ -7303,9 +7466,16 @@ def audit_fs_fold():
     home_pins=(
         {"brand":"lanc","name_is":"la vie est belle perfume","size":"3.4"},
         {"brand":"carolina","name_is":"good girl perfume","size":"2.7"},
-        "le male le parfum", _LUCKY_PIN, "afternoon delight", "free cologne",
+        "le male elixir", "le male le parfum", _LUCKY_PIN, "afternoon delight", "free cologne",
+    )
+    women_pins=(
+        {"brand":"lanc","name_is":"la vie est belle perfume","size":"3.4"},
+        {"brand":"carolina","name_is":"good girl perfume","size":"2.7"},
+        {"brand":"carolina","name_is":"very good girl perfume","size":"1.7"},
+        {"brand":"carolina","name_is":"good girl blush perfume","size":"2.7"},
     )
     home_expect=max(3, len(_fold_pins([d for d in deals if fs_fold_ok(d)], home_pins)))
+    women_expect=max(3, len(_fold_pins([d for d in deals if fs_fold_ok(d) and d.get("gender")=="women"], women_pins)))
     hub_expect=max(3, len(_fold_pins([d for d in deals if fs_fold_ok(d)], _HUB_FOLD_PINS)))
     for rel in ("index.html","women/index.html","unisex/index.html","black-friday/index.html"):
         text=open(f"{OUT}/{rel}", encoding="utf-8").read()
@@ -7314,7 +7484,7 @@ def audit_fs_fold():
         if card_at<0 or not (0<=fold_at<card_at):
             raise SystemExit(f"{rel}: FragranceShop deals are not above the product cards")
         deals_html=re.findall(r"<div class='fold-deal'>(.*?)</div>", text[fold_at:card_at], re.S)
-        expect=home_expect if rel=="index.html" else (hub_expect if rel=="black-friday/index.html" else 3)
+        expect=home_expect if rel=="index.html" else (hub_expect if rel=="black-friday/index.html" else (women_expect if rel=="women/index.html" else 3))
         if len(deals_html)!=expect:
             raise SystemExit(f"{rel}: expected {expect} FragranceShop deals above the fold, found {len(deals_html)}")
         for i, body in enumerate(deals_html, 1):
@@ -7836,9 +8006,20 @@ def audit_proven_grids():
         raise SystemExit(f"black-friday-perfume-deals: expected La Vie Est Belle 3.4 oz then Good Girl, got {perfume_names[:4]}")
     want=tuple(_proven_grid_labels())
     cyber_names=_card_names(cyber)
-    cyber_lead=_first_proven(cyber_names, want)
-    if cyber_lead!=list(want):
-        raise SystemExit(f"cyber-monday-fragrance-deals: proven bottles are not the first cards ({cyber_names[:8]})")
+    cm_pinned=_fold_pins(CM_ROWS, _CM_LEAD_PINS)
+    for i, d in enumerate(cm_pinned):
+        if i>=len(cyber_names):
+            raise SystemExit(f"cyber-monday-fragrance-deals: missing card for {d.get('id')}")
+        plain=cyber_names[i]
+        if d.get("name")=="Good Girl Perfume":
+            ok="Good Girl Perfume" in plain and "Very Good Girl" not in plain and "Blush" not in plain
+        elif d.get("name")=="Legend Cologne":
+            ok="Legend Cologne" in plain and "Legend Blue" not in plain
+        else:
+            ok=(d.get("name") or "") in plain
+        if not ok:
+            raise SystemExit(f"cyber-monday-fragrance-deals: card {i+1} is {plain}, expected {d.get('name')}")
+    print(f"cyber monday lead cards: {', '.join(d.get('name') or '' for d in cm_pinned)}")
     band=hub.split("id='50-100'", 1)[-1]
     band=band.split("<h2", 1)[0]
     band_names=_card_names(band)
@@ -7996,8 +8177,9 @@ def audit_bf_ctr_pages():
         return nums
     men=open(f"{OUT}/men/index.html", encoding="utf-8").read()
     men_title, men_desc=title_desc(men)
-    if "Black Friday 2026" not in men_title or "From $" not in men_title or "% Off" not in men_title or not men_title.startswith("Buy "):
-        raise SystemExit(f"men title missed the Black Friday hook ({men_title})")
+    _men_hook="Cyber Monday 2026" if cm_title_on() else "Black Friday 2026"
+    if _men_hook not in men_title or "From $" not in men_title or "% Off" not in men_title or not men_title.startswith("Buy "):
+        raise SystemExit(f"men title missed the {_men_hook} hook ({men_title})")
     if "Black Friday 2026" not in men_desc or "Prices checked" not in men_desc or when not in men_desc:
         raise SystemExit(f"men meta missed Black Friday or the check date ({men_desc})")
     main=men.split("<main>",1)[-1]
@@ -8014,7 +8196,11 @@ def audit_bf_ctr_pages():
     if not men_fold:
         raise SystemExit("men: missing the FragranceShop fold next to the price list")
     men_names=[html.unescape(n) for n in re.findall(r"lead-name'><b>(.*?)</b>", men_fold.group(1))]
-    if len(men_names)<2 or "Le Male Le Parfum" not in men_names[0] or "1 Million Lucky" not in men_names[1]:
+    elixir_live=any(d.get("id")=="fs-jpg-le-male-elixir-parfum-4-2" for d in deals)
+    if elixir_live:
+        if len(men_names)<3 or "Le Male Elixir" not in men_names[0] or "Le Male Le Parfum" not in men_names[1] or "1 Million Lucky" not in men_names[2]:
+            raise SystemExit(f"men: fold should show Le Male Elixir next to Le Male Le Parfum, then 1 Million Lucky ({men_names})")
+    elif len(men_names)<2 or "Le Male Le Parfum" not in men_names[0] or "1 Million Lucky" not in men_names[1]:
         raise SystemExit(f"men: fold should lead with Le Male Le Parfum then 1 Million Lucky ({men_names})")
     pages=(
         ("gifts/stocking-stuffer-minis/index.html", True),
@@ -8335,6 +8521,11 @@ def audit_nov21_pages():
     cm_before=datetime.datetime(2026, 11, 26, 23, 59, tzinfo=ET)
     if not (cm_hook_on(cm_on) and cm_hook_on(cm_edge) and not cm_hook_on(cm_before) and not cm_hook_on(after)):
         raise SystemExit("Cyber Monday hook is not Nov 27 through Dec 1 ET")
+    cm_title_day=datetime.datetime(2026, 11, 30, 0, 0, tzinfo=ET)
+    cm_title_edge=datetime.datetime(2026, 12, 1, 23, 59, 59, tzinfo=ET)
+    cm_title_before=datetime.datetime(2026, 11, 29, 23, 59, tzinfo=ET)
+    if not (cm_title_on(cm_title_day) and cm_title_on(cm_title_edge) and not cm_title_on(cm_title_before) and not cm_title_on(after)):
+        raise SystemExit("Cyber Monday title window is not Nov 30 through Dec 1 ET")
     on=bf_week_on()
     for rel, d in SELLER_PAGES:
         if d.get("id") not in PROVEN_IDS: continue
@@ -8597,6 +8788,9 @@ def audit_nov23_pages():
     seen=set()
     for slug in _NOV23_GIFTS:
         rel=f"gifts/{slug}/index.html"
+        if not os.path.isfile(f"{OUT}/{rel}"):
+            print(f"{rel}: not built today, a listed bottle left the price check")
+            continue
         text=open(f"{OUT}/{rel}", encoding="utf-8").read()
         title=html.unescape(re.search(r"<title>(.*?)</title>", text, re.S).group(1))
         desc=html.unescape(re.search(r'<meta name="description" content="([^"]*)"', text).group(1))
@@ -8780,8 +8974,9 @@ def audit_nov27_pages():
         text=open(f"{OUT}/{rel}", encoding="utf-8").read()
         title=html.unescape(re.search(r"<title>(.*?)</title>", text, re.S).group(1))
         desc=html.unescape(re.search(r'<meta name="description" content="([^"]*)"', text).group(1))
-        if "Black Friday" not in title or "2026" not in title or len(title)>60:
-            raise SystemExit(f"{rel}: title missed Black Friday 2026 ({len(title)}) {title}")
+        _hub_hook="Cyber Monday" if cm_title_on() else "Black Friday"
+        if _hub_hook not in title or "2026" not in title or len(title)>60:
+            raise SystemExit(f"{rel}: title missed {_hub_hook} 2026 ({len(title)}) {title}")
         if ("Black Friday" not in desc or "2026" not in desc) or not (70<=len(desc)<=160):
             raise SystemExit(f"{rel}: meta missed Black Friday 2026 ({len(desc)}) {desc}")
         if cm_hook_on() and "Cyber Monday" not in desc:
@@ -8966,7 +9161,10 @@ def audit_simpletics():
                     raise SystemExit(f"{rel}: simpletics link is missing rel sponsored nofollow noopener")
                 if 'target="_blank"' not in tag:
                     raise SystemExit(f"{rel}: simpletics link is missing target=_blank")
-    missing=[rel for rel in must if rel not in got]
+    absent=[rel for rel in must if not os.path.isfile(f"{OUT}/{rel}")]
+    if absent:
+        print("simpletics: page not built today, skip "+", ".join(absent))
+    missing=[rel for rel in must if rel not in got and rel not in absent]
     if missing:
         raise SystemExit("simpletics block missing on "+", ".join(missing))
     leaked=[rel for rel in never if rel in got]
@@ -8974,6 +9172,121 @@ def audit_simpletics():
         raise SystemExit("simpletics block leaked onto "+", ".join(leaked))
     print(f"simpletics: {len(got)} men's pages")
 audit_simpletics()
+def _fold_block(text):
+    if "id='fs-deals'" not in text: return ""
+    return text.split("id='fs-deals'",1)[1][:12000]
+def audit_nov28_pages():
+    """Elixir beside Le Parfum, three deal pages, reader favorites, Cyber Monday lead cards."""
+    pages=(
+        ("best/le-male-elixir-deal/index.html","/best/le-male-elixir-deal/","fs-jpg-le-male-elixir-parfum-4-2",
+         ("fs-jpg-le-male-elixir-parfum-4-2","fs-jpg-le-male-le-parfum-4-2","fs-jpg-ultra-male-edt-4-2","giorgio-armani-acqua-di-gio-eau-de-toilette-cologne-for-men","fs-armani-code-edt-4-2"),
+         ("index.html","men/index.html","brands/jean-paul-gaultier/index.html","fragrance/jean-paul-gaultier-le-male-elixir-cologne/index.html"),
+         ("Le Male Le Parfum","Ultra Male","Acqua Di Gio","Code Cologne")),
+        ("best/montblanc-legend-deal/index.html","/best/montblanc-legend-deal/","fs-montblanc-legend-edt-6-7",
+         ("fs-montblanc-legend-edt-6-7","fs-montblanc-legend-blue-edp-1","giorgio-armani-acqua-di-gio-eau-de-toilette-cologne-for-men"),
+         ("index.html","men/index.html","brands/montblanc/index.html","fragrance/montblanc-legend-cologne/index.html"),
+         ("Legend Blue","Acqua Di Gio")),
+        ("best/good-girl-blush-deal/index.html","/best/good-girl-blush-deal/","fs-ch-good-girl-blush-edp-2-7",
+         ("fs-ch-good-girl-blush-edp-2-7","fs-ch-very-good-girl-edp-1-7","fs-ch-good-girl-edp-2-7"),
+         ("index.html","women/index.html","brands/carolina-herrera/index.html","fragrance/carolina-herrera-good-girl-blush-perfume/index.html"),
+         ("Very Good Girl","Good Girl Perfume")),
+    )
+    sm=open(f"{OUT}/sitemap.xml", encoding="utf-8").read()
+    llms=open(f"{OUT}/llms.txt", encoding="utf-8").read()
+    feed=open(f"{OUT}/feed.xml", encoding="utf-8").read()
+    built=0
+    for rel, href, lead_id, ids, surfaces, also_bits in pages:
+        missing=[i for i in ids if i not in BYID]
+        if missing:
+            print(f"{rel}: not built today, missing {', '.join(missing)}")
+            if os.path.isfile(f"{OUT}/{rel}"):
+                raise SystemExit(f"{rel}: built even though {', '.join(missing)} left the price check")
+            continue
+        text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+        title=html.unescape(re.search(r"<title>(.*?)</title>", text, re.S).group(1))
+        desc=html.unescape(re.search(r'<meta name="description" content="([^"]*)"', text).group(1))
+        lead=BYID[lead_id]
+        if len(title)>60 or not title.startswith("Buy ") or "$" not in title:
+            raise SystemExit(f"{rel}: title is {len(title)} chars ({title})")
+        if not (70<=len(desc)<=160) or "$" not in desc:
+            raise SystemExit(f"{rel}: meta is {len(desc)} chars ({desc})")
+        loc=f"{BASE}{PREFIX}{href}"
+        canon=re.search(r'<link rel="canonical" href="([^"]+)"', text)
+        if not canon or canon.group(1)!=loc or not canon.group(1).startswith("https://scentdealsdaily.com/"):
+            raise SystemExit(f"{rel}: canonical is not {loc}")
+        if f"<loc>{loc}</loc>" not in sm or loc not in llms or loc not in feed:
+            raise SystemExit(f"{loc} missing from sitemap, llms.txt, or feed.xml")
+        lead_html=re.search(r"<div class='lead-offer'>(.*?)</div>", text, re.S)
+        img_at=_photo_at(text)
+        lead_at=text.find("lead-offer")
+        if not lead_html or f"${lead['price']:.2f}" not in lead_html.group(1) or f"Buy at {lead['retailer']}" not in lead_html.group(1):
+            raise SystemExit(f"{rel}: lead Buy is not {fullname(lead)} at ${lead['price']:.2f}")
+        if lead_at<0 or img_at<lead_at or "also popular:" not in text[lead_at:img_at]:
+            raise SystemExit(f"{rel}: also popular is not between the Buy button and the photo")
+        also=text[text.find("also popular:"):text.find("also popular:")+2500]
+        for bit in also_bits:
+            if bit not in also:
+                raise SystemExit(f"{rel}: also popular is missing {bit}")
+        for kind in ("FAQPage","ItemList","BreadcrumbList","Offer"):
+            if kind not in text:
+                raise SystemExit(f"{rel}: missing {kind}")
+        for surface in surfaces:
+            if not os.path.isfile(f"{OUT}/{surface}"):
+                print(f"{surface}: not built today, skip the link check for {href}")
+                continue
+            blob=open(f"{OUT}/{surface}", encoding="utf-8").read()
+            if f"href='{PREFIX}{href}'" not in blob and f'href="{PREFIX}{href}"' not in blob:
+                raise SystemExit(f"{surface} does not link {href}")
+        built+=1
+        print(f"{rel}: {title} ({len(title)}) / meta {len(desc)} / lead ${lead['price']:.2f}")
+    for rel in ("index.html","men/index.html"):
+        text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+        fold=_fold_block(text)
+        names=re.findall(r"lead-name'><b>(.*?)</b>", fold)
+        if "fs-jpg-le-male-elixir-parfum-4-2" not in BYID:
+            if not any("Le Male Le Parfum" in n for n in names):
+                raise SystemExit(f"{rel}: fold is missing Le Male Le Parfum after Elixir left the check")
+            continue
+        try:
+            pi=next(i for i, n in enumerate(names) if "Le Male Le Parfum" in n)
+            ei=next(i for i, n in enumerate(names) if "Le Male Elixir" in n)
+        except StopIteration:
+            raise SystemExit(f"{rel}: fold is missing Le Male Le Parfum beside Le Male Elixir")
+        if abs(pi-ei)!=1:
+            raise SystemExit(f"{rel}: Le Male Elixir is not next to Le Male Le Parfum ({names})")
+    women=open(f"{OUT}/women/index.html", encoding="utf-8").read()
+    wfold=_fold_block(women)
+    women_need=(
+        ("fs-ch-good-girl-edp-2-7", "<b>Carolina Herrera Good Girl Perfume</b>"),
+        ("fs-ch-very-good-girl-edp-1-7", "<b>Carolina Herrera Very Good Girl Perfume</b>"),
+        ("fs-ch-good-girl-blush-edp-2-7", "<b>Carolina Herrera Good Girl Blush Perfume</b>"),
+    )
+    for deal_id, needle in women_need:
+        if deal_id not in BYID: continue
+        if needle not in wfold:
+            raise SystemExit(f"women fold is missing {needle}")
+    label="Based on orders through ScentDealsDaily since Oct 2026."
+    for rel in ("index.html","men/index.html","best-sellers/index.html"):
+        text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+        if "id='reader-favorites'" not in text or label not in text:
+            raise SystemExit(f"{rel}: reader favorites module is missing")
+        block=text.split("id='reader-favorites'",1)[1].split("</section>",1)[0]
+        if "commission" in block.lower() or re.search(r"\b\d+ orders\b", block):
+            raise SystemExit(f"{rel}: reader favorites shows an order amount or count")
+        if "Le Male Le Parfum" not in block:
+            raise SystemExit(f"{rel}: reader favorites is missing Le Male Le Parfum")
+        if "fs-jpg-le-male-elixir-parfum-4-2" in BYID and "Le Male Elixir" not in block:
+            raise SystemExit(f"{rel}: reader favorites is missing Le Male Elixir")
+        if "fs-jpg-le-male-elixir-parfum-4-2" not in BYID and "Le Male Elixir" in block:
+            raise SystemExit(f"{rel}: reader favorites still lists Le Male Elixir after it left the price check")
+    for rel in ("index.html","men/index.html","women/index.html","black-friday-fragrance-deals/index.html"):
+        text=open(f"{OUT}/{rel}", encoding="utf-8").read()
+        if "/cyber-monday-fragrance-deals/" not in text:
+            raise SystemExit(f"{rel}: missing the Cyber Monday link")
+    if open(f"{OUT}/CNAME", encoding="utf-8").read().strip()!="scentdealsdaily.com":
+        raise SystemExit("CNAME is not scentdealsdaily.com")
+    print(f"nov 28: {built} deal pages, Elixir fold, reader favorites, Cyber Monday links")
+audit_nov28_pages()
 import subprocess, sys
 _validator=subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "validate_jsonld.py")])
 if _validator.returncode!=0:

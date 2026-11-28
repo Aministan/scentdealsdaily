@@ -1,5 +1,42 @@
 # ScentDealsDaily CEO log
 
+## 2026-11-28 (Sat) — Le Male Elixir fold, three sold-bottle pages, reader favorites
+
+**Refresh status:** origin/main at the start of this pass was 2c5a3d3f "daily refresh", after 477236a0 recorded the later Nov 27 orders. data/deals.json is stamped 2026-11-28T01:29:44Z. The built pages print that check as Nov 28, 2026. This pass did not edit data/deals.json and did not re-fetch prices. The push triggers daily-refresh, which owns the next price check and the IndexNow ping.
+
+**Muse result:** muse_deals.json is unchanged (sha1 26cbc2509317eb00083be99cb218afc8c4359a31). Nothing merged. No prices were invented.
+
+**Merchant order:** scripts/merchants.py was not changed. Higher commission still wins only when the higher price is within $2 of the cheapest. The build logged no buy-button move. On the new pages, no two bottles are within $2 of each other.
+
+**Winners:** data/winners.json is now Oct 15 through Nov 28, 2026: 47 orders, $230.569 commission. The Nov 27 orders already in the file were not added again. Nine orders were new.
+- FS191152 Le Male Elixir gained the three Nov 28 orders at $94.95, commission $4.747 each. The row is now 7 orders, sale $664.65, commission $33.229. Slug stays jean-paul-gaultier-le-male-elixir-cologne.
+- FS254|FS9668|FS90159 is one Nov 27 23:47Z order, sale $227.85, commission $11.391. It is not the earlier solo FS254 order. Not in deals.json. Slug null.
+- FS16013 is Armani Code, sale $70.95, commission $3.547. Exact SKU. Slug giorgio-armani-code-cologne.
+- FS191812 is Very Good Girl, sale $76.95, commission $3.847. Exact SKU. Slug carolina-herrera-very-good-girl-perfume.
+- FS88837, FS1191403, and FS190082 are not in deals.json. Slug null. Sale and commission are stored on the row. No bottle name was assigned.
+
+**Ranking:** the lead Buy is still the proven FragranceShop bottle with the most lifetime orders still in the price check. Le Male Le Parfum is 9. Elixir is 7, and those 7 are the Nov 27–28 window, so Elixir is the recent bottle. The sort does not replace lifetime count with that window. Elixir is pinned beside Le Parfum instead.
+- / fold: La Vie Est Belle, Good Girl, Le Male Elixir, Le Male Le Parfum, 1 Million Lucky, Afternoon Delight, CK Free. The lead Buy stays Le Male Le Parfum 4.2 oz $98.95.
+- /men/ fold: Le Male Elixir, Le Male Le Parfum, 1 Million Lucky. The lead Buy stays Le Male Le Parfum $98.95.
+- /women/ fold: La Vie Est Belle 3.4 oz $92.95, Good Girl $91.95, Very Good Girl $76.95, Good Girl Blush $104.95. The lead Buy stays La Vie Est Belle $92.95.
+
+**Cyber Monday:** /cyber-monday-fragrance-deals/ is the buying page. The card order starts with Le Male Elixir, Le Male Le Parfum, Good Girl, La Vie Est Belle, Acqua di Gio, and Montblanc Legend when each is still in the check. The lead Buy is Elixir $94.95. The from-price in the title is the lowest price on the page, $17.95. Title: "Buy Cyber Monday Fragrance Deals 2026: From $17.95" (50). Meta 107, and it names the lead price. ItemList with Offer, FAQPage, and BreadcrumbList. Linked from /, /men/, /women/, and /black-friday-fragrance-deals/. Titles on /, /men/, /women/, /gifts/, and /best-sellers/ say Cyber Monday on Nov 30 through Dec 1, 2026, 11:59:59 PM ET, and Black Friday before that. Nov 28 keeps Black Friday in those titles. The Dec 2 rebuild drops the Cyber Monday title. The clock is read at build time, so the daily refresh keeps it.
+
+**New pages (3). Prices are the Nov 28 deals.json prices. Each leads with a checked price and a Buy button above the photo, then an also-popular row. ItemList with Offer, FAQPage, and BreadcrumbList. Canonicals are on https://scentdealsdaily.com. A missing lead SKU skips that page.**
+- /best/le-male-elixir-deal/: Elixir 4.2 oz $94.95 leads. Le Male Le Parfum $98.95, Ultra Male $77.95, Acqua di Gio $66.95, and Code $70.95 are the other four. The also-popular row is Le Parfum, Ultra Male, Acqua di Gio, and Code. All FragranceShop. The smell line is the stored brand copy: mint and vanilla, with Elixir called a stronger Le Male. Title: "Buy the Le Male Elixir Deal: 5 Picks From $66.95" (48). Meta 130.
+- /best/montblanc-legend-deal/: Legend 6.7 oz $54.95 leads. Legend Blue 1.0 oz $23.95 and Acqua di Gio $66.95 are the other two. Legend Spirit is in the dropped list, so it is not priced. Notes are the stored brand copy. Title: "Buy the Montblanc Legend Deal: 3 Picks From $23.95" (50). Meta 137.
+- /best/good-girl-blush-deal/: Good Girl Blush 2.7 oz $104.95 leads. Very Good Girl $76.95 and Good Girl $91.95 are the other two. Notes are the stored Good Girl copy. Title: "Buy the Good Girl Blush Deal: 3 Picks From $76.95" (49). Meta 146.
+
+Elixir is also on the also-popular row of the other proven bottle pages. Sauvage Elixir is $159.95, which is at or under $160, and it stays in reader favorites. It did not get a fourth page.
+
+**RM-04:** Reader favorites is on /, /men/, and /best-sellers/. It ranks mapped winners.json bottles that are still in the price check. The order is the rank. The module does not print order counts, sale amounts, or times. The label is "Based on orders through ScentDealsDaily since Oct 2026." /men/ keeps women's bottles off that list. A SKU that leaves the check is skipped. Le Parfum is first (9). Elixir is second (7).
+
+**Checks:** local build on the 2026-11-28T01:29:44Z deals file. Sitemap 374 URLs. JSON-LD parsed. CNAME is scentdealsdaily.com. Both Google site-verification meta tags stay. data/deals.json was not edited. A second build with FS191152 removed from deals.json exited 0. /best/le-male-elixir-deal/ was not generated. Reader favorites omitted Elixir. The file was restored and the full build was run again. Affiliate hrefs were checked as strings only. No request was made to a CJ, Awin, Rakuten, or /go URL. Bubble Bath, CK Defy, and 1 Million Royal are already out of this price check, so the build does not emit the pages that require them. No source template was removed.
+
+**IndexNow:** daily-refresh runs scripts/indexnow.py after the build, against the sitemap. That ping includes the new URLs. This pass did not send a separate ping.
+
+**Deploy:** this push goes straight to main and triggers daily-refresh (refresh + build + IndexNow + Pages). Live 200s are checked after that run.
+
 ## 2026-11-27 (Fri) — price history, Black Friday lead Buy, four bottle deal pages
 
 **Refresh status:** origin/main at the start of this pass was the latest daily refresh. data/deals.json is stamped 2026-11-27T15:24:37Z. The built pages print that check as Nov 27, 2026. This pass did not edit data/deals.json and did not re-fetch prices. The push triggers daily-refresh, which owns the next price check and the IndexNow ping.

@@ -1,12 +1,12 @@
 # ScentDealsDaily
-> Daily-checked discounts on authentic designer fragrances at reputable retailers, plus a cited dupes directory. Last updated 2026-11-24T01:28:49Z.
+> Daily-checked discounts on authentic designer fragrances at reputable retailers, plus a cited dupes directory. Last updated 2026-11-28T01:29:44Z.
 
 ## Today's deals (price USD, size, retailer, % off listed compare-at)
 - Juicy Couture Peace Love & Juicy Couture Perfume 3.4 oz.: $20.95 (was $89.00, -76%) at FragranceShop: https://www.fragranceshop.com/product/peace-love-juicy-couture-perfume-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz
 - Calvin Klein Beauty Perfume 3.4 oz.: $23.95 (was $85.00, -72%) at FragranceShop: https://www.fragranceshop.com/product/beauty-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz
 - Calvin Klein Free Cologne 3.4 oz.: $20.95 (was $70.00, -70%) at FragranceShop: https://www.fragranceshop.com/product/ck-free-for-men/?attribute_pa_size=eau-de-toilette-spray-3-4-oz
+- Calvin Klein Eternity Air Perfume 3.4 oz.: $21.95 (was $73.00, -70%) at FragranceShop: https://www.fragranceshop.com/product/eternity-air-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz
 - Montblanc Legend Blue Cologne 1.0 oz.: $23.95 (was $75.00, -68%) at FragranceShop: https://www.fragranceshop.com/product/montblanc-legend-blue-cologne-for-men/?attribute_pa_size=eau-de-parfum-spray-1-oz
-- Calvin Klein Defy Spray Cologne 3.4 oz.: $39.99 (was $117.00, -66%) at Perfumania: https://www.perfumania.com/products/calvin-klein-defy-eau-de-toilette-for-men?variant=40648924201093
 - Azzaro Chrome Legend Cologne 4.2 oz.: $22.95 (was $66.00, -65%) at FragranceShop: https://www.fragranceshop.com/product/chrome-legend-for-men/?attribute_pa_size=eau-de-toilette-spray-4-2-oz
 - Billie Eilish Your Turn Perfume 3.4 oz.: $40.95 (was $116.00, -65%) at FragranceShop: https://www.fragranceshop.com/product/billie-eilish-your-turn-perfume-for-unisex/?attribute_pa_size=eau-de-parfum-spray-3-4-oz
 - Calvin Klein CK Everyone Unisex Fragrance 3.3  oz.: $29.95 (was $84.00, -64%) at Perfumania: https://www.perfumania.com/products/ck-everyone-unisex-fragrance?variant=34805521416325
@@ -19,26 +19,25 @@
 - Montblanc Legend Cologne 6.7 oz.: $54.95 (was $126.00, -56%) at FragranceShop: https://www.fragranceshop.com/product/mont-blanc-legend-for-men/?attribute_pa_size=eau-de-toilette-spray-6-7-oz
 - Azzaro Azzaro Cologne 1.7 oz.: $17.95 (was $40.00, -55%) at FragranceShop: https://www.fragranceshop.com/product/azzaro-for-men/?attribute_pa_size=eau-de-toilette-spray-1-7-oz
 - Azzaro The Most Wanted Parfum Cologne 1.7 oz.: $55.95 (was $120.00, -53%) at FragranceShop: https://www.fragranceshop.com/product/azzaro-the-most-wanted-cologne-for-men/?attribute_pa_size=parfum-spray-1-7-oz
-- Clinique Happy Perfume 1.0 oz.: $31.99 (was $67.00, -52%) at FragranceNet: https://www.fragrancenet.com/perfume/clinique/happy/eau-de-parfum
 - Gucci Flora Gorgeous Jasmine Perfume 3.4 oz.: $80.95 (was $168.00, -52%) at FragranceShop: https://www.fragranceshop.com/product/gucci-flora-gorgeous-jasmine-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz
 - Maison Margiela Replica Jazz Club 3.4 oz.: $81.95 (was $170.00, -52%) at FragranceShop: https://www.fragranceshop.com/product/maison-margiela-replica-jazz-club-perfume-for-unisex/?attribute_pa_size=eau-de-toilette-spray-3-4-oz
 - Maison Margiela Replica Afternoon Delight 3.4 oz.: $78.95 (was $165.00, -52%) at FragranceShop: https://www.fragranceshop.com/product/maison-margiela-replica-afternoon-delight-perfume-for-unisex/?attribute_pa_size=eau-de-toilette-spray-3-4-oz
 - Hugo Boss Boss Bottled Unlimited Cologne 3.3 oz.: $31.95 (was $65.00, -51%) at FragranceShop: https://www.fragranceshop.com/product/boss-bottled-unlimited-for-men/?attribute_pa_size=eau-de-toilette-spray-3-3-oz
+- Bvlgari Bvlgari Man Wood Neroli Cologne 3.4 oz.: $52.95 (was $107.00, -51%) at FragranceShop: https://www.fragranceshop.com/product/bvlgari-man-wood-neroli-for-men/?attribute_pa_size=eau-de-parfum-spray-3-4-oz
 - Billie Eilish Eilish No.2 Perfume 3.4 oz.: $34.95 (was $72.00, -51%) at FragranceShop: https://www.fragranceshop.com/product/billie-eilish-no-2-perfume-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz
 - Calvin Klein Eternity Cologne 3.3 oz: $51.99 (was $105.00, -50%) at FragranceNet: https://www.fragrancenet.com/cologne/calvin-klein/eternity/edt
-- Maison Margiela Replica Bubble Bath 3.4 oz.: $81.95 (was $165.00, -50%) at FragranceShop: https://www.fragranceshop.com/product/maison-margiela-replica-bubble-bath-perfume-for-unisex/?attribute_pa_size=eau-de-toilette-spray-3-4-oz
 - Burberry Touch Perfume 1.7 oz.: $27.95 (was $55.00, -49%) at FragranceShop: https://www.fragranceshop.com/product/burberry-touch-for-women/?attribute_pa_size=eau-de-parfum-spray-1-7-oz
 - Burberry London Perfume 1.0 oz.: $21.95 (was $42.00, -48%) at FragranceShop: https://www.fragranceshop.com/product/burberry-london-for-women/?attribute_pa_size=eau-de-parfum-spray-1-0-oz
 - Versace Eros Flame Cologne 1.7 oz.: $45.95 (was $87.00, -47%) at FragranceShop: https://www.fragranceshop.com/product/versace-eros-flame-for-men/?attribute_pa_size=eau-de-parfum-spray-1-7-oz
 - Gucci Guilty Pour Femme Perfume 3.0 oz.: $68.95 (was $129.00, -47%) at FragranceShop: https://www.fragranceshop.com/product/gucci-guilty-pour-femme-for-women/?attribute_pa_size=eau-de-toilette-spray-3-0-oz
 - Versace Dylan Blue Pour Femme Perfume 3.4 oz.: $64.95 (was $120.00, -46%) at FragranceShop: https://www.fragranceshop.com/product/dylan-blue-versace-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz
 - Clinique Happy Perfume 3.4 oz: $57.99 (was $108.00, -46%) at FragranceNet: https://www.fragrancenet.com/perfume/clinique/happy/eau-de-parfum
-- Paco Rabanne 1 Million Royal Cologne 3.4 oz.: $90.95 (was $165.00, -45%) at FragranceShop: https://www.fragranceshop.com/product/paco-rabanne-1-million-royal-cologne-for-men/?attribute_pa_size=parfum-spray-3-4-oz
 - Calvin Klein CK One 6.7 oz: $50.99 (was $89.00, -43%) at FragranceNet: https://www.fragrancenet.com/fragrances/calvin-klein/ck-one/edt
+- Carolina Herrera Good Girl Blush Perfume 2.7 oz.: $104.95 (was $184.00, -43%) at FragranceShop: https://www.fragranceshop.com/product/carolina-herrera-good-girl-blush-perfume-for-women/?attribute_pa_size=eau-de-parfum-spray-2-7-oz
 - Ralph Lauren Romance Perfume 1.0 oz.: $30.95 (was $53.00, -42%) at FragranceShop: https://www.fragranceshop.com/product/romance-for-women/?attribute_pa_size=eau-de-parfum-spray-1-0-oz
 - Lancôme Idôle Perfume 3.4 oz.: $97.95 (was $170.00, -42%) at FragranceShop: https://www.fragranceshop.com/product/lancome-idole-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz
 - Gucci Guilty Essence Cologne 3.0 oz.: $70.95 (was $122.00, -42%) at FragranceShop: https://www.fragranceshop.com/product/gucci-guilty-essence-cologne-for-men/?attribute_pa_size=eau-de-toilette-spray-3-0-oz
-- Gucci Bloom Perfume 3.3 oz.: $74.95 (was $130.00, -42%) at FragranceShop: https://www.fragranceshop.com/product/gucci-bloom-for-women/?attribute_pa_size=eau-de-parfum-spray-3-3-oz
+- Gucci Bloom Perfume 3.3 oz.: $75.95 (was $130.00, -42%) at FragranceShop: https://www.fragranceshop.com/product/gucci-bloom-for-women/?attribute_pa_size=eau-de-parfum-spray-3-3-oz
 - Dolce & Gabbana The One Perfume 2.5 oz.: $57.95 (was $100.00, -42%) at FragranceShop: https://www.fragranceshop.com/product/dolce-gabbana-the-one-for-women/?attribute_pa_size=eau-de-parfum-spray-2-5-oz
 - Hugo Boss Boss In Motion Cologne 3.0 oz.: $44.95 (was $76.00, -41%) at Perfumania: https://www.perfumania.com/products/hugo-boss-in-motion-mens-eau-de-toilette-spray?variant=31838659510405
 - Jean Paul Gaultier Le Male Elixir Cologne 4.2 oz.: $94.95 (was $160.00, -41%) at FragranceShop: https://www.fragranceshop.com/product/jean-paul-gaultier-le-male-elixir-cologne-for-men/?attribute_pa_size=parfum-spray-4-2-oz
@@ -55,13 +54,13 @@
 - Valentino Donna Born In Roma Perfume 1.7 oz.: $94.95 (was $145.00, -35%) at FragranceShop: https://www.fragranceshop.com/product/valentino-donna-born-in-roma-perfume-for-women/?attribute_pa_size=eau-de-parfum-spray-1-7-oz
 - Giorgio Armani Si Passione Perfume 1.0 oz.: $59.95 (was $92.00, -35%) at FragranceShop: https://www.fragranceshop.com/product/armani-si-passione-for-women/?attribute_pa_size=eau-de-parfum-spray-1-0-oz
 - Giorgio Armani Acqua Di Gio Profondo Cologne 3.3 oz.: $95.95 (was $145.00, -34%) at FragranceShop: https://www.fragranceshop.com/product/acqua-di-gio-profondo-for-men/?attribute_pa_size=eau-de-parfum-spray-3-3-oz
-- Jean Paul Gaultier Le Male Le Parfum Cologne 4.2 oz.: $93.95 (was $142.00, -34%) at FragranceShop: https://www.fragranceshop.com/product/jean-paul-gaultier-le-male-le-parfum-cologne-for-men/?attribute_pa_size=eau-de-parfum-intense-spray-4-2-oz
 - Lancome Poeme Perfume 3.4 oz.: $83.95 (was $126.00, -33%) at Perfumania: https://www.perfumania.com/products/lancome-poeme-perfume-for-women-eau-de-parfum-spray?variant=31838974476421
+- Hugo Boss Bottled No. 6 Cologne 3.4 oz.: $95.95 (was $143.00, -33%) at Perfumania: https://www.perfumania.com/products/bottled-no-6-cologne-for-men?variant=40886186803333
 - Giorgio Armani Code Cologne 4.2 oz.: $70.95 (was $106.00, -33%) at FragranceShop: https://www.fragranceshop.com/product/armani-code-for-men/?attribute_pa_size=eau-de-toilette-spray-4-2-oz
 - Azzaro Wanted Cologne 3.4 oz.: $60.95 (was $90.00, -32%) at FragranceShop: https://www.fragranceshop.com/product/azzaro-wanted-night-for-men/?attribute_pa_size=eau-de-parfum-spray-3-4-oz
 - Giorgio Armani Acqua Di Gio Cologne 3.4 oz.: $66.95 (was $99.00, -32%) at FragranceShop: https://www.fragranceshop.com/product/acqua-di-gio-for-men/?attribute_pa_size=eau-de-toilette-spray-3-4-oz
-- Yves Saint Laurent Libre Perfume 3.0 oz.: $113.95 (was $166.00, -31%) at FragranceShop: https://www.fragranceshop.com/product/yves-saint-laurent-libre-for-women/?attribute_pa_size=eau-de-parfum-spray-3-0-oz
 - Xerjoff Casamorati Mefisto Cologne 3.4 oz.: $229.99 (was $330.00, -30%) at Perfumania: https://www.perfumania.com/products/casamorati-mefisto-cologne?variant=41547243225221
+- Jean Paul Gaultier Le Male Le Parfum Cologne 4.2 oz.: $98.95 (was $142.00, -30%) at FragranceShop: https://www.fragranceshop.com/product/jean-paul-gaultier-le-male-le-parfum-cologne-for-men/?attribute_pa_size=eau-de-parfum-intense-spray-4-2-oz
 - Burberry Hero Cologne 3.4 oz.: $99.95 (was $140.00, -29%) at Perfumania: https://www.perfumania.com/products/burberry-hero-cologne-eau-de-toilette-for-men?variant=40725795930245
 - Prada Luna Rossa Ocean Cologne 3.3 oz.: $81.95 (was $115.00, -29%) at FragranceShop: https://www.fragranceshop.com/product/prada-luna-rossa-ocean-for-men/?attribute_pa_size=eau-de-toilette-spray-3-3-oz
 - Versace Versace Pour Homme Cologne 1.0 oz.: $49.99 (was $69.00, -28%) at Perfumania: https://www.perfumania.com/products/versace-pour-homme-cologne-mens-eau-de-toilette?variant=31838887182469
@@ -70,26 +69,28 @@
 - Coach Coach Cologne 2.0 oz.: $68.95 (was $94.00, -27%) at Perfumania: https://www.perfumania.com/products/coach-for-men-eau-de-toilette?variant=31839425462405
 - Yves Saint Laurent Y Intense Cologne 3.3 oz.: $109.95 (was $150.00, -27%) at FragranceShop: https://www.fragranceshop.com/product/ysl-y-intense-cologne-for-men/?attribute_pa_size=eau-de-parfum-spray-3-3-oz
 - Valentino Uomo Born In Roma Intense Cologne 3.4 oz.: $117.95 (was $160.00, -26%) at FragranceShop: https://www.fragranceshop.com/product/valentino-uomo-born-in-roma-cologne-for-men/?attribute_pa_size=eau-de-parfum-intense-spray-3-4-oz
-- Giorgio Armani Stronger With You Intensely Cologne 1.7 oz.: $70.95 (was $94.00, -25%) at FragranceShop: https://www.fragranceshop.com/product/stronger-with-you-intensely-for-men/?attribute_pa_size=eau-de-parfum-spray-1-7-oz
+- Yves Saint Laurent Libre Perfume 3.0 oz.: $122.95 (was $166.00, -26%) at FragranceShop: https://www.fragranceshop.com/product/yves-saint-laurent-libre-for-women/?attribute_pa_size=eau-de-parfum-spray-3-0-oz
+- Clinique Happy Perfume 1.0 oz.: $49.95 (was $67.00, -25%) at Perfumania: https://www.perfumania.com/products/clinique-happy-women-eau-de-parfum-spray?variant=31839000658053
 - Lancôme La Vie Est Belle Perfume 1.0 oz.: $61.95 (was $82.00, -24%) at FragranceShop: https://www.fragranceshop.com/product/lancome-la-vie-est-belle-for-women/?attribute_pa_size=eau-de-parfum-spray-1-0-oz
-- Lancôme La Vie Est Belle Perfume 3.4 oz.: $93.95 (was $123.00, -24%) at FragranceShop: https://www.fragranceshop.com/product/lancome-la-vie-est-belle-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz
+- Lancôme La Vie Est Belle Perfume 3.4 oz.: $92.95 (was $123.00, -24%) at FragranceShop: https://www.fragranceshop.com/product/lancome-la-vie-est-belle-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz
 - Paco Rabanne Invictus Cologne 3.4 oz.: $63.95 (was $84.00, -24%) at FragranceShop: https://www.fragranceshop.com/product/invictus-for-men/?attribute_pa_size=eau-de-toilette-spray-3-4-oz
 - Yves Saint Laurent Black Opium Perfume 1.6 oz.: $84.95 (was $112.00, -24%) at FragranceShop: https://www.fragranceshop.com/product/black-opium-for-women/?attribute_pa_size=eau-de-parfum-spray-1-6-oz
 - Carolina Herrera Good Girl Perfume 2.7 oz.: $91.95 (was $120.00, -23%) at FragranceShop: https://www.fragranceshop.com/product/carolina-herrera-good-girl-for-women/?attribute_pa_size=eau-de-parfum-spray-2-7-oz
 - Dior J'adore Perfume 3.4 oz.: $128.95 (was $163.00, -21%) at FragranceShop: https://www.fragranceshop.com/product/jadore-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz
+- Giorgio Armani Stronger With You Intensely Cologne 1.7 oz.: $74.95 (was $94.00, -20%) at FragranceShop: https://www.fragranceshop.com/product/stronger-with-you-intensely-for-men/?attribute_pa_size=eau-de-parfum-spray-1-7-oz
 - Dior Eau Sauvage Cologne 3.4 oz.: $101.95 (was $125.00, -18%) at FragranceShop: https://www.fragranceshop.com/product/eau-sauvage-for-men/?attribute_pa_size=eau-de-toilette-spray-3-4-oz
 - Tom Ford Cafe Rose Perfume 3.4 oz.: $199.99 (was $240.00, -17%) at Perfumania: https://www.perfumania.com/products/cafe-rose-eau-de-parfum-spray-for-women-by-tom-ford?variant=31839362711685
+- Paco Rabanne 1 Million Lucky Cologne 3.4 oz.: $75.95 (was $92.00, -17%) at FragranceShop: https://www.fragranceshop.com/product/1-million-lucky-for-men/?attribute_pa_size=eau-de-toilette-spray-3-4-oz
+- Dior Sauvage Elixir Cologne 2.0 oz.: $159.95 (was $193.00, -17%) at FragranceShop: https://www.fragranceshop.com/product/sauvage-elixir-cologne-for-men/?attribute_pa_size=eau-de-parfum-spray-2-0-oz
 - Billie Eilish Eilish Perfume 3.4 oz.: $68.95 (was $82.00, -16%) at Perfumania: https://www.perfumania.com/products/billie-eilish-perfume-eau-de-parfum-for-women?variant=40211488931973
 - Valentino Uomo Born In Roma Cologne 1.7 oz.: $91.95 (was $110.00, -16%) at Perfumania: https://www.perfumania.com/products/valentino-uomo-born-in-roma-cologne-eau-de-toilette-for-men?variant=40908118196357
-- Dior Sauvage Elixir Cologne 2.0 oz.: $162.95 (was $193.00, -16%) at FragranceShop: https://www.fragranceshop.com/product/sauvage-elixir-cologne-for-men/?attribute_pa_size=eau-de-parfum-spray-2-0-oz
 - Versace Eros Cologne 1.7 oz.: $52.95 (was $62.00, -15%) at FragranceShop: https://www.fragranceshop.com/product/versace-eros-for-men/?attribute_pa_size=eau-de-toilette-spray-1-7-oz
-- Paco Rabanne 1 Million Lucky Cologne 3.4 oz.: $77.95 (was $92.00, -15%) at FragranceShop: https://www.fragranceshop.com/product/1-million-lucky-for-men/?attribute_pa_size=eau-de-toilette-spray-3-4-oz
 
 ## Dupes (designer original -> alternative)
 - Creed Aventus -> Armaf Club de Nuit Intense Man: $39.99 3.4 oz. at Perfumania https://www.perfumania.com/products/club-de-nuit-intense-eau-de-toilette-spray-for-men?variant=40543196479621 (sources: https://dupenote.com/articles/best-fragrance-dupes, https://perfumania.com/blogs/articles/top-6-luxury-fragrance-dupes-in-2026)
-- Kilian Angels' Share -> Lattafa Khamrah: $27.95 3.4 oz. at FragranceShop https://www.fragranceshop.com/product/lattafa-khamrah-for-unisex/?attribute_pa_size=eau-de-parfum-spray-3-4-oz (sources: https://www.thelastspritz.com/best-cologne-dupes)
+- Kilian Angels' Share -> Lattafa Khamrah: $26.95 3.4 oz. at FragranceShop https://www.fragranceshop.com/product/lattafa-khamrah-for-unisex/?attribute_pa_size=eau-de-parfum-spray-3-4-oz (sources: https://www.thelastspritz.com/best-cologne-dupes)
 - Kilian Angels' Share (coffee twist) -> Lattafa Khamrah Qahwa: $26.95 3.4 oz. at FragranceShop https://www.fragranceshop.com/product/lattafa-khamrah-qahwa-perfume-for-unisex/?attribute_pa_size=eau-de-parfum-spray-3-4-oz (sources: https://perfumania.com/blogs/articles/top-6-luxury-fragrance-dupes-in-2026)
-- MFK Baccarat Rouge 540 -> Ariana Grande Cloud: $46.95 3.4 oz. at FragranceShop https://www.fragranceshop.com/product/ariana-grande-cloud-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz (sources: https://perfumania.com/blogs/articles/top-6-luxury-fragrance-dupes-in-2026)
+- MFK Baccarat Rouge 540 -> Ariana Grande Cloud: $47.95 3.4 oz. at FragranceShop https://www.fragranceshop.com/product/ariana-grande-cloud-for-women/?attribute_pa_size=eau-de-parfum-spray-3-4-oz (sources: https://perfumania.com/blogs/articles/top-6-luxury-fragrance-dupes-in-2026)
 - MFK Baccarat Rouge 540 -> Al Haramain Amber Oud Rouge (sources: https://scentfile.com/clone-list.csv, https://www.thelastspritz.com/best-cologne-dupes)
 - MFK Baccarat Rouge 540 Extrait -> Armaf Club de Nuit Untold: $42.95 3.6 oz at Perfumania https://www.perfumania.com/products/club-de-nuit-untold-unisex-fragrance?variant=41264895918213 (sources: https://altscent.app/clone-list/)
 - Dior Sauvage Elixir -> Lattafa Asad: $39.99 3.4 oz. at Perfumania https://www.perfumania.com/products/lattafa-asad-cologne-eau-de-parfum-for-men?variant=41094013976709 (sources: https://perfumania.com/blogs/articles/top-6-luxury-fragrance-dupes-in-2026)
@@ -111,8 +112,8 @@
 https://scentdealsdaily.com/fragrance/juicy-couture-peace-love-juicy-couture-perfume/
 https://scentdealsdaily.com/fragrance/calvin-klein-beauty-perfume/
 https://scentdealsdaily.com/fragrance/calvin-klein-free-cologne/
+https://scentdealsdaily.com/fragrance/calvin-klein-eternity-air-perfume/
 https://scentdealsdaily.com/fragrance/montblanc-legend-blue-cologne/
-https://scentdealsdaily.com/fragrance/calvin-klein-defy-spray-cologne/
 https://scentdealsdaily.com/fragrance/azzaro-chrome-legend-cologne/
 https://scentdealsdaily.com/fragrance/billie-eilish-your-turn-perfume/
 https://scentdealsdaily.com/fragrance/calvin-klein-ck-everyone-unisex-fragrance/
@@ -125,22 +126,21 @@ https://scentdealsdaily.com/fragrance/hugo-boss-woman-perfume/
 https://scentdealsdaily.com/fragrance/montblanc-legend-cologne/
 https://scentdealsdaily.com/fragrance/azzaro-azzaro-cologne/
 https://scentdealsdaily.com/fragrance/azzaro-the-most-wanted-parfum-cologne/
-https://scentdealsdaily.com/fragrance/clinique-happy-perfume/
 https://scentdealsdaily.com/fragrance/gucci-flora-gorgeous-jasmine-perfume/
 https://scentdealsdaily.com/fragrance/maison-margiela-replica-jazz-club/
 https://scentdealsdaily.com/fragrance/maison-margiela-replica-afternoon-delight/
 https://scentdealsdaily.com/fragrance/hugo-boss-boss-bottled-unlimited-cologne/
+https://scentdealsdaily.com/fragrance/bvlgari-bvlgari-man-wood-neroli-cologne/
 https://scentdealsdaily.com/fragrance/billie-eilish-eilish-no-2-perfume/
 https://scentdealsdaily.com/fragrance/calvin-klein-eternity-cologne/
-https://scentdealsdaily.com/fragrance/maison-margiela-replica-bubble-bath/
 https://scentdealsdaily.com/fragrance/burberry-touch-perfume/
 https://scentdealsdaily.com/fragrance/burberry-london-perfume/
 https://scentdealsdaily.com/fragrance/versace-eros-flame-cologne/
 https://scentdealsdaily.com/fragrance/gucci-guilty-pour-femme-perfume/
 https://scentdealsdaily.com/fragrance/versace-dylan-blue-pour-femme-perfume/
 https://scentdealsdaily.com/fragrance/clinique-happy-perfume-3-4-oz/
-https://scentdealsdaily.com/fragrance/paco-rabanne-1-million-royal-cologne/
 https://scentdealsdaily.com/fragrance/calvin-klein-ck-one-6-7-oz/
+https://scentdealsdaily.com/fragrance/carolina-herrera-good-girl-blush-perfume/
 https://scentdealsdaily.com/fragrance/ralph-lauren-romance-perfume/
 https://scentdealsdaily.com/fragrance/lanc-me-id-le-perfume/
 https://scentdealsdaily.com/fragrance/gucci-guilty-essence-cologne/
@@ -161,13 +161,13 @@ https://scentdealsdaily.com/fragrance/calvin-klein-ck-everyone/
 https://scentdealsdaily.com/fragrance/valentino-donna-born-in-roma-perfume/
 https://scentdealsdaily.com/fragrance/giorgio-armani-si-passione-perfume/
 https://scentdealsdaily.com/fragrance/giorgio-armani-acqua-di-gio-profondo-cologne/
-https://scentdealsdaily.com/fragrance/jean-paul-gaultier-le-male-le-parfum-cologne/
 https://scentdealsdaily.com/fragrance/lancome-poeme-perfume/
+https://scentdealsdaily.com/fragrance/hugo-boss-bottled-no-6-cologne/
 https://scentdealsdaily.com/fragrance/giorgio-armani-code-cologne/
 https://scentdealsdaily.com/fragrance/azzaro-wanted-cologne/
 https://scentdealsdaily.com/fragrance/giorgio-armani-acqua-di-gio-cologne/
-https://scentdealsdaily.com/fragrance/yves-saint-laurent-libre-perfume/
 https://scentdealsdaily.com/fragrance/xerjoff-casamorati-mefisto-cologne/
+https://scentdealsdaily.com/fragrance/jean-paul-gaultier-le-male-le-parfum-cologne/
 https://scentdealsdaily.com/fragrance/burberry-hero-cologne/
 https://scentdealsdaily.com/fragrance/prada-luna-rossa-ocean-cologne/
 https://scentdealsdaily.com/fragrance/versace-versace-pour-homme-cologne/
@@ -176,20 +176,22 @@ https://scentdealsdaily.com/fragrance/paco-rabanne-olympea-perfume/
 https://scentdealsdaily.com/fragrance/coach-coach-cologne/
 https://scentdealsdaily.com/fragrance/yves-saint-laurent-y-intense-cologne/
 https://scentdealsdaily.com/fragrance/valentino-uomo-born-in-roma-intense-cologne/
-https://scentdealsdaily.com/fragrance/giorgio-armani-stronger-with-you-intensely-cologne/
+https://scentdealsdaily.com/fragrance/yves-saint-laurent-libre-perfume/
+https://scentdealsdaily.com/fragrance/clinique-happy-perfume/
 https://scentdealsdaily.com/fragrance/lanc-me-la-vie-est-belle-perfume/
 https://scentdealsdaily.com/fragrance/lanc-me-la-vie-est-belle-perfume-3-4-oz/
 https://scentdealsdaily.com/fragrance/paco-rabanne-invictus-cologne/
 https://scentdealsdaily.com/fragrance/yves-saint-laurent-black-opium-perfume/
 https://scentdealsdaily.com/fragrance/carolina-herrera-good-girl-perfume/
 https://scentdealsdaily.com/fragrance/dior-j-adore-perfume/
+https://scentdealsdaily.com/fragrance/giorgio-armani-stronger-with-you-intensely-cologne/
 https://scentdealsdaily.com/fragrance/dior-eau-sauvage-cologne/
 https://scentdealsdaily.com/fragrance/tom-ford-cafe-rose-perfume/
+https://scentdealsdaily.com/fragrance/paco-rabanne-1-million-lucky-cologne/
+https://scentdealsdaily.com/fragrance/dior-sauvage-elixir-cologne/
 https://scentdealsdaily.com/fragrance/billie-eilish-eilish-perfume/
 https://scentdealsdaily.com/fragrance/valentino-uomo-born-in-roma-cologne/
-https://scentdealsdaily.com/fragrance/dior-sauvage-elixir-cologne/
 https://scentdealsdaily.com/fragrance/versace-eros-cologne/
-https://scentdealsdaily.com/fragrance/paco-rabanne-1-million-lucky-cologne/
 https://scentdealsdaily.com/dupe/creed-aventus-dupe-armaf-club-de-nuit-intense-man/
 https://scentdealsdaily.com/dupe/kilian-angels-share-dupe-lattafa-khamrah/
 https://scentdealsdaily.com/dupe/kilian-angels-share-coffee-twist-dupe-lattafa-khamrah-qahwa/
@@ -232,14 +234,20 @@ https://scentdealsdaily.com/best/cologne-deals-under-50/
 https://scentdealsdaily.com/best/perfume-deals-under-50/
 https://scentdealsdaily.com/best/fragrance-deals-under-30/
 https://scentdealsdaily.com/best/luxury-fragrance-deals/
+https://scentdealsdaily.com/best/stronger-with-you-intensely-deal/
+https://scentdealsdaily.com/best/gucci-bloom-deal/
+https://scentdealsdaily.com/best/uomo-born-in-roma-deal/
+https://scentdealsdaily.com/best/le-male-elixir-deal/
+https://scentdealsdaily.com/best/montblanc-legend-deal/
+https://scentdealsdaily.com/best/good-girl-blush-deal/
+https://scentdealsdaily.com/best/bad-boy-deal/
+https://scentdealsdaily.com/best/ultra-male-deal/
+https://scentdealsdaily.com/best/most-wanted-parfum-deal/
+https://scentdealsdaily.com/best/black-opium-deal/
 https://scentdealsdaily.com/best/le-male-le-parfum-deal/
 https://scentdealsdaily.com/best/la-vie-est-belle-deal/
 https://scentdealsdaily.com/best/good-girl-deal/
-https://scentdealsdaily.com/best/1-million-lucky-deal/
-https://scentdealsdaily.com/best/afternoon-delight-deal/
 https://scentdealsdaily.com/best/cyber-monday-cologne-deal/
-https://scentdealsdaily.com/best/ck-free-deal/
-https://scentdealsdaily.com/best/jazz-club-deal/
 https://scentdealsdaily.com/best/acqua-di-gio-deal/
 https://scentdealsdaily.com/best/donna-born-in-roma-deal/
 https://scentdealsdaily.com/best/invictus-deal/
@@ -248,7 +256,6 @@ https://scentdealsdaily.com/best/womens-perfumes-under-100/
 https://scentdealsdaily.com/best/le-male-le-parfum-alternatives/
 https://scentdealsdaily.com/best/la-vie-est-belle-alternatives/
 https://scentdealsdaily.com/best/good-girl-alternatives/
-https://scentdealsdaily.com/best/maison-margiela-replica-scents/
 https://scentdealsdaily.com/best/fresh-citrus-cologne-deals/
 https://scentdealsdaily.com/best/vanilla-sweet-fragrance-deals/
 https://scentdealsdaily.com/best/floral-perfume-deals/
@@ -266,14 +273,15 @@ https://scentdealsdaily.com/dupes/kilian-angels-share-dupes/
 https://scentdealsdaily.com/vs/versace-eros-vs-eros-flame/
 https://scentdealsdaily.com/vs/valentino-uomo-born-in-roma-vs-intense/
 https://scentdealsdaily.com/vs/ck-one-vs-ck-everyone/
+https://scentdealsdaily.com/vs/ck-eternity-vs-eternity-air/
 https://scentdealsdaily.com/vs/acqua-di-gio-vs-versace-pour-homme/
 https://scentdealsdaily.com/vs/stronger-with-you-intensely-vs-born-in-roma-intense/
 https://scentdealsdaily.com/vs/billie-eilish-eilish-vs-eilish-no-2/
 https://scentdealsdaily.com/vs/la-vie-est-belle-vs-donna-born-in-roma/
 https://scentdealsdaily.com/vs/eros-flame-vs-the-most-wanted-parfum/
 https://scentdealsdaily.com/vs/dylan-blue-vs-bright-crystal-absolu/
+https://scentdealsdaily.com/vs/green-tea-vs-eternity-air/
 https://scentdealsdaily.com/vs/boss-unlimited-vs-boss-in-motion/
-https://scentdealsdaily.com/vs/ck-defy-vs-ck-free/
 https://scentdealsdaily.com/vs/le-beau-vs-versace-eros/
 https://scentdealsdaily.com/vs/most-wanted-vs-stronger-with-you/
 https://scentdealsdaily.com/vs/clinique-happy-vs-green-tea/
@@ -282,7 +290,6 @@ https://scentdealsdaily.com/vs/cool-water-vs-acqua-di-gio/
 https://scentdealsdaily.com/vs/light-blue-vs-clinique-happy/
 https://scentdealsdaily.com/vs/eros-vs-acqua-di-gio/
 https://scentdealsdaily.com/vs/le-male-le-parfum-vs-elixir/
-https://scentdealsdaily.com/vs/jazz-club-vs-bubble-bath/
 https://scentdealsdaily.com/gifts/
 https://scentdealsdaily.com/gifts/for-him/
 https://scentdealsdaily.com/gifts/for-her/
@@ -293,25 +300,26 @@ https://scentdealsdaily.com/gifts/stocking-stuffer-minis/
 https://scentdealsdaily.com/gifts/holiday-gift-sets/
 https://scentdealsdaily.com/gifts/christmas-gift-sets-under-50/
 https://scentdealsdaily.com/gifts/gift-sets/
+https://scentdealsdaily.com/gifts/cyber-monday-famous-fragrance-deals/
+https://scentdealsdaily.com/gifts/best-selling-perfume-deals-black-friday/
 https://scentdealsdaily.com/gifts/perfume-gifts-for-wife-under-100/
 https://scentdealsdaily.com/gifts/cologne-gifts-for-husband-under-100/
 https://scentdealsdaily.com/gifts/cologne-gifts-for-boyfriend-under-100/
 https://scentdealsdaily.com/gifts/best-selling-fragrance-deals-this-week/
-https://scentdealsdaily.com/gifts/paco-rabanne-christmas-gifts/
-https://scentdealsdaily.com/gifts/1-million-christmas-cologne-deals/
 https://scentdealsdaily.com/gifts/best-selling-cologne-gifts-black-friday/
 https://scentdealsdaily.com/gifts/black-friday-best-selling-perfume-gifts/
 https://scentdealsdaily.com/gifts/la-vie-est-belle-christmas-gifts/
+https://scentdealsdaily.com/gifts/good-girl-perfume-gift-deals/
 https://scentdealsdaily.com/gifts/best-selling-womens-perfume-gifts-under-100/
 https://scentdealsdaily.com/gifts/famous-fragrance-gifts-under-100/
 https://scentdealsdaily.com/gifts/le-male-christmas-gifts/
-https://scentdealsdaily.com/gifts/replica-christmas-gifts/
 https://scentdealsdaily.com/gifts/calvin-klein-christmas-fragrance-deals/
 https://scentdealsdaily.com/gifts/black-friday-calvin-klein-under-30/
 https://scentdealsdaily.com/gifts/christmas-gift-sets-for-her-under-50/
 https://scentdealsdaily.com/gifts/christmas-gift-sets-for-men-under-100/
 https://scentdealsdaily.com/gifts/christmas-cologne-gifts-under-50/
 https://scentdealsdaily.com/gifts/christmas-perfume-gifts-under-50/
+https://scentdealsdaily.com/gifts/perfume-gifts-for-her-under-25/
 https://scentdealsdaily.com/gifts/christmas-cologne-gifts-under-100/
 https://scentdealsdaily.com/gifts/christmas-perfume-gifts-under-100/
 https://scentdealsdaily.com/gifts/black-friday-unisex-fragrance-deals/
@@ -336,6 +344,7 @@ https://scentdealsdaily.com/gifts/thanksgiving-fragrance-gifts/
 https://scentdealsdaily.com/gifts/cyber-monday-gift-sets/
 https://scentdealsdaily.com/gifts/cyber-monday-perfume-under-30/
 https://scentdealsdaily.com/gifts/christmas-cologne-gifts-for-son/
+https://scentdealsdaily.com/gifts/christmas-perfume-gifts-for-sister/
 https://scentdealsdaily.com/gifts/winter-cologne-gifts/
 https://scentdealsdaily.com/gifts/black-friday-gift-sets/
 https://scentdealsdaily.com/gifts/cologne-gifts-for-him-under-50/
@@ -430,7 +439,6 @@ https://scentdealsdaily.com/black-friday/gucci/
 https://scentdealsdaily.com/black-friday/hugo-boss/
 https://scentdealsdaily.com/black-friday/jean-paul-gaultier/
 https://scentdealsdaily.com/black-friday/lancome/
-https://scentdealsdaily.com/black-friday/maison-margiela/
 https://scentdealsdaily.com/black-friday/paco-rabanne/
 https://scentdealsdaily.com/black-friday/valentino/
 https://scentdealsdaily.com/black-friday/versace/

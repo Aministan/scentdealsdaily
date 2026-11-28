@@ -434,11 +434,14 @@ def _write_best(ns, groups, linked):
     when_short = f"{ns['upd']:%b %-d, %Y}"
     names = ", ".join(ns["_pick_label"](d) for d in shoppers)
     cm = " 2026 and Cyber Monday" if ns["cm_hook_on"]() else " 2026"
-    title = ns["fit"]([
-        f"Buy Best Sellers Black Friday 2026: From {lo_bit}" if lo_bit else "Best Sellers",
-        f"Buy Best Sellers: From {lo_bit}" if lo_bit else "Best Sellers",
-        "Best Sellers",
-    ])
+    title_cands = []
+    if lo_bit and ns["cm_title_on"]():
+        title_cands.append(f"Buy Best Sellers Cyber Monday 2026: From {lo_bit}")
+    if lo_bit:
+        title_cands.append(f"Buy Best Sellers Black Friday 2026: From {lo_bit}")
+        title_cands.append(f"Buy Best Sellers: From {lo_bit}")
+    title_cands.append("Best Sellers")
+    title = ns["fit"](title_cands)
     desc = ns["fit"]([
         f"Buy best sellers for Black Friday{cm} from {lo_bit}. Prices checked {when_short}.",
         f"Buy best sellers for Black Friday{cm} from {lo_bit}. Proven picks: {names}. Prices checked {when_short}.",
@@ -454,8 +457,10 @@ def _write_best(ns, groups, linked):
     ]
     parts.append(ns["fs_fold_html"](ns["deals"], (
         {"brand":"margiela","name_is":"replica jazz club","size":"3.4"},
+        "le male elixir",
         "le male le parfum",
     )))
+    parts.append(ns["reader_favorites_html"]())
     ld_rows = []
     for store, rows in groups:
         cards = []

@@ -880,6 +880,101 @@
    ]
   },
   {
+   "slug": "le-male-elixir-deal",
+   "title": "Le Male Elixir Deal",
+   "title_tag": "Buy the Le Male Elixir Deal",
+   "noun": "cologne",
+   "who": "men's",
+   "scope": "around Le Male Elixir",
+   "lead_id": "fs-jpg-le-male-elixir-parfum-4-2",
+   "require_all": true,
+   "also_ids": ["fs-jpg-le-male-le-parfum-4-2", "fs-jpg-ultra-male-edt-4-2", "giorgio-armani-acqua-di-gio-eau-de-toilette-cologne-for-men", "fs-armani-code-edt-4-2"],
+   "rule": "the bottle is Le Male Elixir, Le Male Le Parfum, Ultra Male, Acqua di Gio, or Code, and it is still in the price check",
+   "lead": "Le Male Elixir is the parfum in the Le Male line and the FragranceShop bottle with the most orders on November 27 and 28, 2026. Le Male Le Parfum has more orders in the full commission file since October 15. Ultra Male is the sweeter eau de toilette. Acqua di Gio and Code are the Armani bottles in this check. The stored brand copy calls Le Male mint and vanilla and calls Elixir a stronger version of that line. It does not publish a separate note pyramid for Elixir. The Le Male Le Parfum deal leads with Le Parfum. This page leads with Elixir.",
+   "meta_lead": "Le Male Elixir leads, with Le Parfum, Ultra Male, Acqua di Gio, and Code.",
+   "items": [
+    {"id": "fs-jpg-le-male-elixir-parfum-4-2", "notes": "Parfum. Grouped with Le Parfum as a stronger Le Male. Mint and vanilla in the stored brand copy."},
+    {"id": "fs-jpg-le-male-le-parfum-4-2", "notes": "Eau de parfum intense. The stronger Le Male. Mint and vanilla in the stored brand copy."},
+    {"id": "fs-jpg-ultra-male-edt-4-2", "notes": "Eau de toilette. The sweeter Le Male flanker. The stored copy does not publish a separate note pyramid for it."},
+    {"id": "giorgio-armani-acqua-di-gio-eau-de-toilette-cologne-for-men", "notes": "Eau de toilette. The stored brand copy calls Acqua di Gio the fresh men's cologne: citrus and a marine note."},
+    {"id": "fs-armani-code-edt-4-2", "notes": "Eau de toilette. The stored brand copy calls Code the sweeter evening men's Armani, separate from Acqua di Gio."}
+   ],
+   "links": [
+    {"href": "/best/le-male-le-parfum-deal/", "label": "Le Male Le Parfum deal"},
+    {"href": "/best/ultra-male-deal/", "label": "Ultra Male deal"},
+    {"href": "/best/acqua-di-gio-deal/", "label": "Acqua di Gio deal"},
+    {"href": "/vs/le-male-le-parfum-vs-elixir/", "label": "Le Male Le Parfum vs Elixir"},
+    {"href": "/gifts/le-male-le-parfum-or-elixir/", "label": "Le Male Le Parfum or Elixir"},
+    {"href": "/cyber-monday-fragrance-deals/", "label": "Cyber Monday fragrance deals"},
+    {"href": "/men/", "label": "Men's cologne deals"}
+   ],
+   "faq": [
+    ["Is Le Male Elixir the same as Le Male Le Parfum?", "No. Elixir is the parfum. Le Male Le Parfum is the eau de parfum intense. Ultra Male is the sweeter eau de toilette. Each price is the one in the daily price check."],
+    ["Why are Acqua di Gio and Code on this page?", "Both are in the price check, and Code is a bottle shoppers bought here. They are not Le Male flankers. The stored Armani copy calls Acqua di Gio citrus and marine, and Code the sweeter evening cologne."],
+    ["Is this a separate sale price?", "No. Each price is the one already in the daily price check."]
+   ]
+  },
+  {
+   "slug": "montblanc-legend-deal",
+   "title": "Montblanc Legend Deal",
+   "title_tag": "Buy the Montblanc Legend Deal",
+   "noun": "cologne",
+   "who": "men's",
+   "scope": "around Montblanc Legend",
+   "lead_id": "fs-montblanc-legend-edt-6-7",
+   "require_all": true,
+   "rule": "the bottle is Montblanc Legend, Legend Blue, or Acqua di Gio, and it is still in the price check",
+   "lead": "Montblanc Legend is in the commission file, posted November 27, 2026. The stored brand copy calls it a polished, fruity-woody everyday cologne, smoother than Legend Spirit. Legend Spirit is not in this price check, so this page does not price it. Legend Blue is the fresher flanker that is still checked. Acqua di Gio is the other fresh men's cologne in this check. The stored Armani copy calls Acqua di Gio citrus and a marine note.",
+   "meta_lead": "Montblanc Legend, Legend Blue, and Acqua di Gio.",
+   "items": [
+    {"id": "fs-montblanc-legend-edt-6-7", "notes": "Eau de toilette. The stored brand copy calls Legend a polished, fruity-woody everyday scent, smoother than Legend Spirit."},
+    {"id": "fs-montblanc-legend-blue-edp-1", "notes": "Eau de parfum. The stored brand copy calls Legend Blue the fresher blue flanker of Legend."},
+    {"id": "giorgio-armani-acqua-di-gio-eau-de-toilette-cologne-for-men", "notes": "Eau de toilette. The stored brand copy calls Acqua di Gio the fresh men's cologne: citrus and a marine note."}
+   ],
+   "links": [
+    {"href": "/best/acqua-di-gio-deal/", "label": "Acqua di Gio deal"},
+    {"href": "/brands/montblanc/", "label": "Montblanc deals"},
+    {"href": "/men/", "label": "Men's cologne deals"},
+    {"href": "/cyber-monday-fragrance-deals/", "label": "Cyber Monday fragrance deals"},
+    {"href": "/black-friday/montblanc/", "label": "Montblanc Black Friday deals"}
+   ],
+   "faq": [
+    ["Is Legend Blue the same bottle as Montblanc Legend?", "No. The stored brand copy calls Legend Blue the fresher flanker. Legend is the original men's cologne. Legend Spirit is not in this price check, so this page does not price it."],
+    ["Why is Acqua di Gio on this page?", "It is the other fresh men's cologne still in the price check. The stored Armani copy calls it citrus and a marine note. It is not a Montblanc flanker."],
+    ["Is this a separate sale price?", "No. Each price is the one already in the daily price check."]
+   ]
+  },
+  {
+   "slug": "good-girl-blush-deal",
+   "title": "Good Girl Blush Deal",
+   "title_tag": "Buy the Good Girl Blush Deal",
+   "noun": "perfume",
+   "who": "women's",
+   "scope": "around Good Girl Blush",
+   "lead_id": "fs-ch-good-girl-blush-edp-2-7",
+   "require_all": true,
+   "rule": "the bottle is Good Girl Blush, Very Good Girl, or Good Girl, and it is still in the price check",
+   "lead": "Good Girl Blush is in the commission file, posted November 27, 2026. The stored Good Girl copy calls Blush the lighter, fruitier flanker, Very Good Girl the red-berry floral flanker, and Good Girl almond, jasmine, tonka, and cocoa. This page leads with Blush. The Good Girl deal leads with Good Girl and leaves Blush off.",
+   "meta_lead": "Good Girl Blush, Very Good Girl, and Good Girl.",
+   "items": [
+    {"id": "fs-ch-good-girl-blush-edp-2-7", "notes": "Eau de parfum. The stored Good Girl copy calls Blush the lighter, fruitier flanker."},
+    {"id": "fs-ch-very-good-girl-edp-1-7", "notes": "Eau de parfum. The stored Good Girl copy calls Very Good Girl the red-berry floral flanker."},
+    {"id": "fs-ch-good-girl-edp-2-7", "notes": "Eau de parfum: almond, jasmine, tonka, and cocoa."}
+   ],
+   "links": [
+    {"href": "/best/good-girl-deal/", "label": "Good Girl deal"},
+    {"href": "/gifts/good-girl-black-friday-deal/", "label": "Good Girl Black Friday deal"},
+    {"href": "/brands/carolina-herrera/", "label": "Carolina Herrera deals"},
+    {"href": "/women/", "label": "Women's perfume deals"},
+    {"href": "/black-friday/carolina-herrera/", "label": "Carolina Herrera Black Friday deals"}
+   ],
+   "faq": [
+    ["Is Good Girl Blush the same bottle as Good Girl?", "No. The stored copy calls Blush the lighter, fruitier flanker. Good Girl is almond, jasmine, tonka, and cocoa. Very Good Girl is the red-berry floral flanker. Each price is the one in the daily price check."],
+    ["How is this different from the Good Girl deal?", "That page leads with Good Girl and lists Very Good Girl and La Vie Est Belle. This page leads with Blush and lists Very Good Girl and Good Girl."],
+    ["Is this a separate sale price?", "No. Each price is the one already in the daily price check."]
+   ]
+  },
+  {
    "slug": "bad-boy-deal",
    "title": "Bad Boy Deal",
    "title_tag": "Buy the Bad Boy Deal",
@@ -979,7 +1074,7 @@
    "lead_id": "fs-ysl-black-opium-edp-1-6",
    "proven_also": true,
    "rule": "the bottle is Black Opium, Good Girl, or La Vie Est Belle 3.4 oz, and it is still in the price check",
-   "lead": "Black Opium is the coffee-and-vanilla Yves Saint Laurent perfume in this price check. Good Girl and La Vie Est Belle 3.4 oz are bottles shoppers have bought from this site. The Good Girl deal leads with Good Girl and lists Very Good Girl instead of Black Opium. This page leads with Black Opium. Good Girl Blush is not in this price check.",
+   "lead": "Black Opium is the coffee-and-vanilla Yves Saint Laurent perfume in this price check. Good Girl and La Vie Est Belle 3.4 oz are bottles shoppers have bought from this site. The Good Girl deal leads with Good Girl and lists Very Good Girl instead of Black Opium. This page leads with Black Opium. Good Girl Blush has its own deal page when that bottle is in the price check.",
    "meta_lead": "Black Opium, Good Girl, and La Vie Est Belle 3.4 oz.",
    "items": [
     {"id": "fs-ysl-black-opium-edp-1-6", "notes": "Eau de parfum. Coffee and vanilla in the stored comparison. Not the same perfume as Good Girl or La Vie Est Belle."},
@@ -1017,6 +1112,7 @@
    ],
    "links": [
     {"href": "/gifts/le-male-le-parfum-or-elixir/", "label": "Le Male Le Parfum or Elixir"},
+    {"href": "/best/le-male-elixir-deal/", "label": "Le Male Elixir deal"},
     {"href": "/vs/le-male-le-parfum-vs-elixir/", "label": "Le Male Le Parfum vs Elixir"},
     {"href": "/gifts/le-male-christmas-gifts/", "label": "Le Male Christmas cologne deals"},
     {"href": "/jean-paul-gaultier-le-male-deals/", "label": "All Le Male deals"}
@@ -1064,7 +1160,7 @@
    "lead_id": "fs-ch-good-girl-edp-2-7",
    "proven_also": true,
    "rule": "the bottle is Good Girl, the Very Good Girl flanker, or the 3.4 oz La Vie Est Belle, and it is still in the price check",
-   "lead": "Good Girl is a FragranceShop bottle in the Oct 15 to Nov 20, 2026 commission file. Very Good Girl is the flanker in the same check. La Vie Est Belle 3.4 oz is the other women's bottle in that file. Good Girl Blush is not in this price check, so this page does not price it.",
+   "lead": "Good Girl is a FragranceShop bottle in the Oct 15 to Nov 20, 2026 commission file. Very Good Girl is the flanker in the same check. La Vie Est Belle 3.4 oz is the other women's bottle in that file. Good Girl Blush has its own deal page when that bottle is in the price check. This page does not price Blush.",
    "meta_lead": "Good Girl, Very Good Girl, and La Vie Est Belle 3.4 oz.",
    "items": [
     {"id": "fs-ch-good-girl-edp-2-7", "notes": "Eau de parfum: almond, jasmine, tonka, and cocoa."},
@@ -1077,11 +1173,12 @@
     {"href": "/gifts/good-girl-black-friday-deal/", "label": "Good Girl Black Friday deal"},
     {"href": "/best/la-vie-est-belle-deal/", "label": "La Vie Est Belle deal"},
     {"href": "/best/good-girl-alternatives/", "label": "Good Girl alternatives"},
+    {"href": "/best/good-girl-blush-deal/", "label": "Good Girl Blush deal"},
     {"href": "/brands/carolina-herrera/", "label": "Carolina Herrera deals"}
    ],
    "faq": [
     ["Is Very Good Girl the same bottle as Good Girl?", "No. Very Good Girl is the flanker. Good Girl is the original. Both prices are the ones in the daily price check."],
-    ["Is Good Girl Blush on this page?", "No. It is not in this price check. This page does not invent a price for it."],
+    ["Is Good Girl Blush on this page?", "No. Blush has its own deal page when that bottle is in the price check. This page leads with Good Girl and does not invent a Blush price."],
     ["Is this a separate sale price?", "No. Each price is the one already in the daily price check."]
    ]
   },
@@ -9176,7 +9273,7 @@
     "fs-ch-very-good-girl-edp-1-7"
   ],
   "filled_label": "the Good Girl deal",
-  "intro": "Good Girl and Very Good Girl, lowest checked price first. Good Girl is a FragranceShop SKU in the Oct 15 to Nov 20, 2026 commission file. Very Good Girl is the flanker in the same check. Good Girl Blush is not in this price check, so this page does not price it. A boxed Good Girl set stays on the gift-set guides.",
+  "intro": "Good Girl and Very Good Girl, lowest checked price first. Good Girl is a FragranceShop SKU in the Oct 15 to Nov 20, 2026 commission file. Very Good Girl is the flanker in the same check. Good Girl Blush has its own deal page when that bottle is in the price check. This page does not price Blush. A boxed Good Girl set stays on the gift-set guides.",
   "empty": "Neither Good Girl nor Very Good Girl is in the price check, so this page has no list.",
   "empty_desc": "Good Girl Black Friday deal: neither bottle is in the price check.",
   "choose": [
@@ -9184,7 +9281,7 @@
     "Use Good Girl perfume gift deals when that page is up. This page is only the two bottles still in the price check."
   ],
   "faq": [
-    ["Is Good Girl Blush on this page?", "No. It is not in this price check. This page does not invent a price for it."],
+    ["Is Good Girl Blush on this page?", "No. Blush has its own deal page when that bottle is in the price check. This page does not price Blush."],
     ["Is Very Good Girl the same as Good Girl?", "No. Very Good Girl is the flanker. Good Girl is the original. Both prices are the ones we checked."],
     ["Is this a separate Black Friday price?", "No. Each card uses the price already in the daily price check. Black Friday 2026 is November 27."]
   ],
@@ -9288,7 +9385,7 @@
     "fs-lancome-la-vie-est-belle-edp-3-4"
   ],
   "filled_label": "Good Girl or La Vie Est Belle",
-  "intro": "Two women's bottles shoppers have bought here, lowest checked price first. Good Girl is almond, jasmine, tonka, and cocoa. La Vie Est Belle 3.4 oz is pear, iris, praline, vanilla, and tonka. They are different perfumes. Very Good Girl and the 1.0 oz La Vie Est Belle stay on their own pages. Good Girl Blush is not in this price check, so this page does not price it. This is a gift choice, not a wear-time test, and it is not a separate sale price.",
+  "intro": "Two women's bottles shoppers have bought here, lowest checked price first. Good Girl is almond, jasmine, tonka, and cocoa. La Vie Est Belle 3.4 oz is pear, iris, praline, vanilla, and tonka. They are different perfumes. Very Good Girl and the 1.0 oz La Vie Est Belle stay on their own pages. Good Girl Blush has its own deal page when that bottle is in the price check. This page does not price Blush. This is a gift choice, not a wear-time test, and it is not a separate sale price.",
   "empty": "Good Girl and La Vie Est Belle 3.4 oz are not both in the price check, so this page has no list.",
   "empty_desc": "Good Girl vs La Vie Est Belle: one of the two bottles is not in the price check.",
   "choose": [
@@ -9297,7 +9394,7 @@
   ],
   "faq": [
     ["Does Good Girl smell like La Vie Est Belle?", "No. Good Girl is almond, jasmine, tonka, and cocoa. La Vie Est Belle is pear, iris, praline, vanilla, and tonka. Both are eaux de parfum, and they are different perfumes."],
-    ["Is Good Girl Blush on this page?", "No. It is not in this price check. This page does not invent a price for it."],
+    ["Is Good Girl Blush on this page?", "No. Blush has its own deal page when that bottle is in the price check. This page does not price Blush."],
     ["Is this a separate gift price?", "No. Each card uses the price already in the daily price check."]
   ],
   "links": [
