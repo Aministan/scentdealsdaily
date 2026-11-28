@@ -1047,6 +1047,7 @@ def more_grid(inner, limit=12):
 _LUCKY_PIN={"brand":"paco","name":"1 million lucky","size":"3.4"}
 _SHOPPER_SPECS=(
     "le male le parfum",
+    "le male elixir",
     {"brand":"margiela","name":"jazz club","size":"3.4"},
     _LUCKY_PIN,
 )
@@ -1095,7 +1096,7 @@ def proven_bottle(rows, gender=None):
     pool.sort(key=lambda d:(-_deal_orders(d), d["price"], d.get("id") or ""))
     return pool[0]
 def shopper_picks():
-    """Le Male Le Parfum, Jazz Club, and 1 Million Lucky, when they are still FragranceShop deals.
+    """Le Male Le Parfum, Le Male Elixir, Jazz Club, and 1 Million Lucky, when they are still FragranceShop deals.
 
     The row follows data/winners.json order count, highest first. A bottle with no mapped SKU stays at the end.
     """
