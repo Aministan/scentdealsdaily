@@ -2,17 +2,17 @@
   "source": "CJ FragranceShop export",
   "period": "2026-10-15/2026-11-27",
   "merchant": "FragranceShop",
-  "orders": 28,
-  "commission": 127.489,
+  "orders": 38,
+  "commission": 182.607,
   "note": "Per-SKU commission was not in the first export, so those rows leave commission null. Sale is orders times the unit price only when the export stated both for that SKU alone. A shared group does not split orders or sale across its SKUs. slug is set only when data/deals.json has that exact sku. A missing slug is null. Rows added from the Commission Detail API on 2026-11-24 store that action's sale and commission.",
   "winners": [
     {
       "sku": "FS191154",
-      "orders": 7,
+      "orders": 9,
       "unit_price": 93.95,
-      "sale": 657.65,
-      "commission": 4.697,
-      "commission_note": "Only the 2026-11-24 action. The first six orders have no per-SKU commission.",
+      "sale": 855.55,
+      "commission": 14.591,
+      "commission_note": "Nov 24 action $4.697 at the stored $93.95 unit price. Two Nov 27 actions at $98.95, commission $4.947 each ($9.894). Combined known commission $14.591. The first six orders have no per-SKU commission. unit_price stays 93.95.",
       "deal_id": "fs-jpg-le-male-le-parfum-4-2",
       "slug": "jean-paul-gaultier-le-male-le-parfum-cologne"
     },
@@ -196,13 +196,13 @@
     },
     {
       "sku": "FS1191490",
-      "orders": 1,
+      "orders": 2,
       "unit_price": null,
-      "sale": 67.95,
-      "commission": 3.397,
+      "sale": 135.90,
+      "commission": 6.794,
       "deal_id": null,
       "slug": null,
-      "note": "Posted 2026-11-26. Not in deals.json."
+      "note": "Posted 2026-11-26 and 2026-11-27. Not in deals.json."
     },
     {
       "sku": "FS190074",
@@ -263,6 +263,46 @@
       "deal_id": "fs-ch-good-girl-blush-edp-2-7",
       "slug": "carolina-herrera-good-girl-blush-perfume",
       "note": "Exact sku match in deals.json: Carolina Herrera Good Girl Blush Perfume, 2.7 oz, Eau de Parfum. Posted 2026-11-27. Sale $104.95 matches the checked price."
+    },
+    {
+      "sku": "FS191152",
+      "orders": 4,
+      "unit_price": 94.95,
+      "sale": 379.80,
+      "commission": 18.988,
+      "deal_id": "fs-jpg-le-male-elixir-parfum-4-2",
+      "slug": "jean-paul-gaultier-le-male-elixir-cologne",
+      "note": "Exact sku match in deals.json: Jean Paul Gaultier Le Male Elixir Cologne, 4.2 oz, Parfum. Four orders posted 2026-11-27 at $94.95, commission $4.747 each."
+    },
+    {
+      "sku": "FS89509",
+      "orders": 1,
+      "unit_price": null,
+      "sale": 241.90,
+      "commission": 12.095,
+      "deal_id": null,
+      "slug": null,
+      "note": "Posted 2026-11-27. Not in deals.json."
+    },
+    {
+      "sku": "FS190134",
+      "orders": 1,
+      "unit_price": 159.95,
+      "sale": 159.95,
+      "commission": 7.997,
+      "deal_id": "fs-dior-sauvage-elixir-edp-2",
+      "slug": "dior-sauvage-elixir-cologne",
+      "note": "Exact sku match in deals.json: Dior Sauvage Elixir Cologne, 2.0 oz, Eau de Parfum. Posted 2026-11-27. Sale $159.95 matches the checked price."
+    },
+    {
+      "sku": "FS90750",
+      "orders": 1,
+      "unit_price": 54.95,
+      "sale": 54.95,
+      "commission": 2.747,
+      "deal_id": "fs-montblanc-legend-edt-6-7",
+      "slug": "montblanc-legend-cologne",
+      "note": "Exact sku match in deals.json: Montblanc Legend Cologne, 6.7 oz, Eau de Toilette. Posted 2026-11-27. Sale $54.95 matches the checked price."
     }
   ]
 }
